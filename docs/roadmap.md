@@ -16,60 +16,39 @@
 - [x] Review ParkNest Facebook/Instagram history for documented sharing of the personal campaigns and record evidence rather than assumptions
 - [x] Decide which additional fundraising actions, if any, belong in the public register
 
-## Phase 1 — Content model and information architecture
+## Phase 1A — Semantic HTML & bilingual content architecture
 
-**Status: In progress**
+**Status: Completed**
 
 - [x] Define the canonical fundraiser data schema (`data/fundraisers.schema.json` and `data/fundraisers.json`)
 - [x] Define the distinction between collective, personal, and other campaigns in code/data
 - [x] Define source records and `verifiedAt` metadata
-- [ ] Draft final Dutch copy for the home page
-- [ ] Draft the "what happened" timeline
-- [ ] Draft campaign-card copy from verified source data only
-- [ ] Add independent-site disclosure and source methodology page
+- [x] Create bilingual site content dictionary (`data/content.json`)
+- [x] Build canonical page structure (`index.html`) with semantic landmarks, heading hierarchy, and accessibility features
+- [x] Build responsive baseline presentation stylesheet (`styles.css`) keeping presentation separate from content
+- [x] Implement dynamic rendering and accessible language switcher (`app.js`) with localStorage persistence and document `lang` updating
+- [x] Build "What is this donation for?" explanation section and fire timeline
+- [x] Build sources, verification methodology, and independent-site disclosure
 
-## Phase 2 — Static website
-
-**Status: Planned**
-
-- [ ] Build responsive static website
-- [ ] Implement campaign overview as the primary interaction
-- [ ] Implement clear distinction between collective ParkNest support and personal recovery campaigns
-- [ ] Add direct source/donation links
-- [ ] Add verification date to dynamic campaign information
-- [ ] Add accessibility baseline: semantic HTML, keyboard navigation, contrast, reduced-motion support, descriptive link text
-- [ ] Add mobile-first layout and fast-loading imagery
-
-## Phase 3 — Quality and delivery workflow
+## Phase 1B — Content refinement & visual design baseline
 
 **Status: Planned**
 
-- [ ] GitHub Actions CI on pull requests and pushes
-- [ ] Build/type/lint/test checks
-- [ ] Validate required source/content files
-- [ ] Check external source links where technically reliable
-- [ ] GitHub Pages deployment from `main`
-- [ ] Protect `main` through PR-based changes once the repository has enough workflow configuration
+- [ ] Refine Dutch-first copy and English translation review
+- [ ] Add visual design polish and brand color harmony
+- [ ] Responsive design refinement across mobile, tablet, and desktop breakpoints
+- [ ] Keyboard navigation and focus ring visibility testing
+- [ ] Contrast ratio and screen-reader accessibility audit
 
-## Phase 4 — Launch review
-
-**Status: Planned**
-
-- [ ] Editorial fact check of every public statement
-- [ ] Verify every fundraiser link immediately before launch
-- [ ] Verify amounts/status immediately before launch
-- [ ] Test mobile, desktop, accessibility, and link navigation
-- [ ] Confirm independent-site disclaimer is visible
-- [ ] Publish
-
-## Phase 5 — Maintenance
+## Phase 2 — Static website deployment & delivery
 
 **Status: Planned**
 
-- [ ] Re-check campaign values on a defined cadence while campaigns remain active
-- [ ] Mark closed/ended campaigns clearly rather than removing historical records without explanation
-- [ ] Record material changes in campaign purpose or beneficiary
-- [ ] Keep source register and website data synchronized
+- [ ] GitHub Actions CI workflow for build and lint validation
+- [ ] Automated HTML / JSON schema validation step
+- [ ] Link integrity check for external campaign sources
+- [ ] GitHub Pages deployment configuration from `main`
+- [ ] Final launch review and pre-launch verification
 
 ## Open questions & evidence limits
 
@@ -93,9 +72,7 @@ These remain explicitly documented to prevent unverified claims:
    - WhyDonate metadata shows `created_at` 24 October 2025 under slug `houd-parknest-open-in-de-winter`. Platform limitations prevent verifying historical campaign title modifications prior to August 2026.
 6. **Additional campaigns:**
    - No other public fundraising campaigns connected to the fire were identified with sufficient source evidence as of 17 September 2026.
-7. **Project hosting of new fundraiser:**
-   - The project remains an independent information site linking visitors directly to verified external campaigns.
 
 ## Next milestone
 
-**Phase 1 — Canonical data model & information architecture**
+**Phase 1B — Content refinement & visual design baseline**
