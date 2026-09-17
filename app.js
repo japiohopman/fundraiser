@@ -502,6 +502,16 @@ function createFundraiserCard(item, labels, shareContent, lang) {
   const donationPurposePrefix = state.contentData?.fundraisersSection?.donationPurposePrefix?.[lang] ||
     (lang === 'en' ? 'The purpose of this campaign is:' : 'Het doel van deze actie is:');
 
+  let avatarHTML = '';
+  if (item.id === 'rooie-jaap-knives') {
+    avatarHTML = `
+      <picture class="card-avatar-wrapper">
+        <source srcset="public/assets/jaaphopman_avatar.webp" type="image/webp">
+        <img src="public/assets/jaaphopman_avatar.png" alt="Jaap Hopman avatar" class="card-avatar-img" width="48" height="48" loading="lazy">
+      </picture>
+    `;
+  }
+
   let beneficiaryHTML = '';
   if (item.beneficiary.name) {
     beneficiaryHTML = `
@@ -546,9 +556,12 @@ function createFundraiserCard(item, labels, shareContent, lang) {
       <span class="card-campaign-badge ${item.category}-card-badge">${cardBadgeLabel}</span>
     </div>
 
-    <div class="fundraiser-card-header">
-      <h4 class="fundraiser-card-title">${titleText}</h4>
-      <p class="fundraiser-purpose">${purposeText}</p>
+    <div class="fundraiser-card-header ${item.id === 'rooie-jaap-knives' ? 'has-avatar' : ''}">
+      ${avatarHTML}
+      <div class="header-title-wrapper">
+        <h4 class="fundraiser-card-title">${titleText}</h4>
+        <p class="fundraiser-purpose">${purposeText}</p>
+      </div>
     </div>
 
     <div class="fundraiser-stats">
