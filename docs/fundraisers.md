@@ -107,17 +107,17 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 
 ---
 
-## Campaign 4: Rooie Jaap — Personal Loss/Recovery Campaign
+## Campaign 4: Jaap Hopman — Personal Loss/Recovery Campaign
 
 - **Category:** Personal loss/recovery campaign
-- **Campaign Title:** Koksmessen voor Rooie Jaap
+- **Campaign Title:** Koksmessen voor Rooie Jaap (official WhyDonate source title)
 - **WhyDonate Slug:** `koksmessen-voor-rooie-jaap`
 - **WhyDonate Campaign ID:** `136844`
 - **Parent Campaign ID:** `101918` (linked under ParkNest main campaign on WhyDonate)
 - **Campaign URL:** https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
-- **Stated Purpose:** Replacing professional chef knives and equipment for "Rooie Jaap", which were lost in the ParkNest fire. Documented replacement reference inventory:
+- **Stated Purpose:** Replacing professional chef knives and equipment for Jaap Hopman (official WhyDonate source title: 'Koksmessen voor Rooie Jaap'), which were lost in the ParkNest fire. Documented replacement reference inventory:
   1. Global G-6667 knife case — €135.00
   2. Misono UX10 Gyutou 712 — €289.00
   3. Sabatier Integra officemes — €25.50
@@ -127,7 +127,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
   7. Chef's coat — €25.00
   - **Documented Reference Inventory Total:** €576.45 (WhyDonate campaign target: €577.00)
 - **First-Person Account & Provenance:**
-  - Includes Jaap's first-person personal testimony ("Mijn verhaal") stating he works as a freelance chef, lost essential kitchen equipment in the ParkNest fire, currently cannot work as a chef in the normal way, and aims to replace his equipment to return to work.
+  - Includes Jaap Hopman's first-person personal testimony ("Mijn verhaal") stating he works as a freelance chef, lost essential kitchen equipment in the ParkNest fire, currently cannot work as a chef in the normal way, and aims to replace his equipment to return to work.
   - Formally distinguished as personal account/testimony, preserving the distinction between independently verified facts and first-person statements.
 - **Financial Accounting Snapshot (as of 17 September 2026):**
   - **Target Amount:** €577
