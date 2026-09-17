@@ -27,6 +27,9 @@
 - [ ] Draft the "what happened" timeline
 - [ ] Draft campaign-card copy from verified source data only
 - [ ] Add independent-site disclosure and source methodology page
+- [ ] Define Dutch as the primary language
+- [ ] Define a complete English translation of all public content
+- [ ] Define language switching behavior, URL strategy, and persistence/accessibility requirements
 
 ## Phase 2 — Static website
 
@@ -37,6 +40,8 @@
 - [ ] Implement clear distinction between collective ParkNest support and personal recovery campaigns
 - [ ] Add direct source/donation links
 - [ ] Add verification date to dynamic campaign information
+- [ ] Implement Dutch/English language switcher
+- [ ] Ensure all public user-facing content is available in both languages
 - [ ] Add accessibility baseline: semantic HTML, keyboard navigation, contrast, reduced-motion support, descriptive link text
 - [ ] Add mobile-first layout and fast-loading imagery
 
@@ -60,6 +65,7 @@
 - [ ] Verify amounts/status immediately before launch
 - [ ] Test mobile, desktop, accessibility, and link navigation
 - [ ] Confirm independent-site disclaimer is visible
+- [ ] Test Dutch and English content parity
 - [ ] Publish
 
 ## Phase 5 — Maintenance
@@ -70,6 +76,7 @@
 - [ ] Mark closed/ended campaigns clearly rather than removing historical records without explanation
 - [ ] Record material changes in campaign purpose or beneficiary
 - [ ] Keep source register and website data synchronized
+- [ ] Keep Dutch and English content synchronized when public content changes
 
 ## Open questions
 
@@ -81,6 +88,7 @@ These should be resolved through source verification, not assumptions:
 4. Which personal campaigns were publicly promoted by ParkNest itself, and through which channels?
 5. Are there further campaigns that should be included?
 6. Should the project eventually host a new fundraiser of its own, or should it remain an information hub linking to existing verified campaigns?
+7. Is Dutch sufficient as the source/content language with English as the secondary presentation language, or are there other languages that should eventually be supported?
 
 ## Next milestone
 
