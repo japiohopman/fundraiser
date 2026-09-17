@@ -120,10 +120,13 @@ function renderApp() {
   // 5. Render Fundraiser Cards from canonical data
   renderFundraisers(fundraisers, content, lang);
 
-  // 6. Render Timeline Events
+  // 6. Render Rooie Jaap Equipment Reference Table
+  renderRooieJaapEquipment(content.rooieJaapEquipment, lang);
+
+  // 7. Render Timeline Events
   renderTimeline(content.timeline.events, lang);
 
-  // 7. Render Sources List
+  // 8. Render Sources List
   renderSources(content.sources.links, lang);
 }
 
@@ -223,6 +226,45 @@ function createFundraiserCard(item, labels, lang) {
   `;
 
   return card;
+}
+
+// Render Rooie Jaap Equipment Reference List & Table
+function renderRooieJaapEquipment(equipmentData, lang) {
+  const container = document.getElementById('rooie-jaap-equipment-container');
+  if (!container || !equipmentData) return;
+
+  const locale = lang === 'en' ? 'en-US' : 'nl-NL';
+  const formatPrice = (val) => new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 }).format(val);
+
+  const totalAmount = equipmentData.items.reduce((sum, item) => sum + item.price, 0);
+
+  const rowsHTML = equipmentData.items.map(item => `
+    <tr>
+      <td>${item.name[lang] || item.name.nl}</td>
+      <td class="price-cell">${formatPrice(item.price)}</td>
+    </tr>
+  `).join('');
+
+  container.innerHTML = `
+    <table class="equipment-table">
+      <thead>
+        <tr>
+          <th scope="col">${equipmentData.tableHeaders.item[lang]}</th>
+          <th scope="col" class="price-cell">${equipmentData.tableHeaders.price[lang]}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rowsHTML}
+      </tbody>
+      <tfoot>
+        <tr class="total-row">
+          <th scope="row">${equipmentData.totalLabel[lang]}</th>
+          <td class="price-cell"><strong>${formatPrice(totalAmount)}</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+    <p class="equipment-note">${equipmentData.note[lang]}</p>
+  `;
 }
 
 // Render Timeline

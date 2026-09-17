@@ -169,6 +169,92 @@
       "en": "Supports replacing professional chef knives for Rooie Jaap lost in the fire."
     }
   },
+  "rooieJaapEquipment": {
+    "title": {
+      "nl": "Documentatie vervangende uitrusting — Rooie Jaap",
+      "en": "Replacement Equipment Documentation — Rooie Jaap"
+    },
+    "intro": {
+      "nl": "Ter onderbouwing van de inzamelingsactie voor Rooie Jaap is onderstaande referentielijst van verloren gegane koksmessen en uitrusting gedocumenteerd. Dit dient als feitelijke referentie; het impliceert niet dat elke euro definitief aan deze specifieke artikelen wordt besteed.",
+      "en": "To support the fundraising campaign for Rooie Jaap, the following reference list of lost chef knives and equipment has been documented. This serves as a factual reference; it does not imply that every euro is definitively spent on these exact items."
+    },
+    "tableHeaders": {
+      "item": {
+        "nl": "Omschrijving / Artikel",
+        "en": "Description / Item"
+      },
+      "price": {
+        "nl": "Referentieprijs",
+        "en": "Reference Price"
+      }
+    },
+    "items": [
+      {
+        "name": {
+          "nl": "Global G-6667 messenkoffer",
+          "en": "Global G-6667 knife case"
+        },
+        "price": 135.00
+      },
+      {
+        "name": {
+          "nl": "Misono UX10 Gyutou 712",
+          "en": "Misono UX10 Gyutou 712"
+        },
+        "price": 289.00
+      },
+      {
+        "name": {
+          "nl": "Sabatier Integra officemes",
+          "en": "Sabatier Integra officemes"
+        },
+        "price": 25.50
+      },
+      {
+        "name": {
+          "nl": "Sabatier Integra broodmes",
+          "en": "Sabatier Integra bread knife"
+        },
+        "price": 40.50
+      },
+      {
+        "name": {
+          "nl": "Sabatier Integra koksmes 23 cm",
+          "en": "Sabatier Integra chef's knife 23 cm"
+        },
+        "price": 50.50
+      },
+      {
+        "name": {
+          "nl": "GEFU keukenpincet",
+          "en": "GEFU kitchen tweezers"
+        },
+        "price": 10.95
+      },
+      {
+        "name": {
+          "nl": "Koksbuis",
+          "en": "Chef's coat"
+        },
+        "price": 25.00
+      },
+      {
+        "name": {
+          "nl": "Verzend- en bestelkosten (referentie)",
+          "en": "Shipping and order costs (reference)"
+        },
+        "price": 5.90
+      }
+    ],
+    "totalLabel": {
+      "nl": "Gedocumenteerd referentietotaal:",
+      "en": "Documented reference total:"
+    },
+    "note": {
+      "nl": "Het streefbedrag op WhyDonate is afgerond op € 577,00.",
+      "en": "The target amount on WhyDonate is rounded to €577.00."
+    }
+  },
   "timeline": {
     "title": {
       "nl": "Tijdlijn van de gebeurtenissen",

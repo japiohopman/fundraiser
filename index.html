@@ -25,6 +25,7 @@
           <li><a href="#story" data-i18n="nav.story">Wat is er gebeurd?</a></li>
           <li><a href="#fundraisers" data-i18n="nav.fundraisers">Inzamelingsacties</a></li>
           <li><a href="#purpose" data-i18n="purposeExplanation.title">Waar is een donatie voor?</a></li>
+          <li><a href="#rooie-jaap" data-i18n="rooieJaapEquipment.title">Uitrusting Rooie Jaap</a></li>
           <li><a href="#timeline" data-i18n="nav.timeline">Tijdlijn</a></li>
           <li><a href="#sources" data-i18n="nav.sources">Bronvermelding</a></li>
         </ul>
@@ -32,8 +33,8 @@
 
       <!-- Language Switcher Controls -->
       <div class="lang-switcher-wrapper">
-        <label for="lang-select" class="visually-hidden" data-i18n="nav.languageSwitcherLabel">Taal selecteren / Select language</label>
-        <div class="lang-buttons" role="group" aria-label="Language selection / Taalselectie">
+        <span id="lang-label-header" class="visually-hidden" data-i18n="nav.languageSwitcherLabel">Taal selecteren / Select language</span>
+        <div class="lang-buttons" role="group" aria-labelledby="lang-label-header">
           <button type="button" class="lang-btn active" data-lang="nl" aria-pressed="true" aria-label="Nederlands">NL</button>
           <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
         </div>
@@ -119,6 +120,16 @@
         </div>
       </section>
 
+      <!-- Rooie Jaap Equipment Reference Section -->
+      <section id="rooie-jaap" class="content-section equipment-section" aria-labelledby="rooie-jaap-title">
+        <h2 id="rooie-jaap-title" class="section-title" data-i18n="rooieJaapEquipment.title">Documentatie vervangende uitrusting — Rooie Jaap</h2>
+        <p class="section-intro" data-i18n="rooieJaapEquipment.intro">Ter onderbouwing van de inzamelingsactie voor Rooie Jaap is onderstaande referentielijst van verloren gegane koksmessen en uitrusting gedocumenteerd. Dit dient als feitelijke referentie; het impliceert niet dat elke euro definitief aan deze specifieke artikelen wordt besteed.</p>
+
+        <div id="rooie-jaap-equipment-container" class="equipment-table-wrapper">
+          <!-- Rendered dynamically by app.js from data/content.json -->
+        </div>
+      </section>
+
       <!-- Timeline Section -->
       <section id="timeline" class="content-section timeline-section" aria-labelledby="timeline-title">
         <h2 id="timeline-title" class="section-title" data-i18n="timeline.title">Tijdlijn van de gebeurtenissen</h2>
@@ -147,6 +158,14 @@
         <h3 class="footer-heading" data-i18n="footer.disclaimerTitle">Onafhankelijkheidsverklaring</h3>
         <p data-i18n="footer.disclaimerText">Dit is een onafhankelijke informatiesite. Deze website is niet de officiële website van ParkNest, Stichting Buurtbelang ParkNest of WhyDonate, en beheert zelf geen donaties.</p>
         <p class="verification-meta" data-i18n="footer.lastVerifiedText">Laatste bronverificatie uitgevoerd op: 17 september 2026.</p>
+      </div>
+
+      <div class="footer-lang-switcher">
+        <span id="lang-label-footer" class="visually-hidden" data-i18n="nav.languageSwitcherLabel">Taal selecteren / Select language</span>
+        <div class="lang-buttons" role="group" aria-labelledby="lang-label-footer">
+          <button type="button" class="lang-btn active" data-lang="nl" aria-pressed="true" aria-label="Nederlands">NL</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
       </div>
 
       <div class="footer-meta">

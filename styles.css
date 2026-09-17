@@ -382,6 +382,57 @@ body {
   background-color: var(--color-accent);
 }
 
+/* Equipment Reference Table */
+.equipment-table-wrapper {
+  overflow-x: auto;
+  margin-top: 1.25rem;
+}
+
+.equipment-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.equipment-table th,
+.equipment-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.equipment-table thead th {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.equipment-table .price-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.equipment-table tfoot .total-row th,
+.equipment-table tfoot .total-row td {
+  border-top: 2px solid var(--color-primary);
+  font-weight: 700;
+  background-color: var(--color-primary-light);
+}
+
+.equipment-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+/* Footer Language Switcher */
+.footer-lang-switcher {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
 /* Purpose Explanation Grid */
 .purpose-grid {
   display: grid;
