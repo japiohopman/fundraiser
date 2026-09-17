@@ -193,7 +193,7 @@ function renderApp() {
   // 6. Render Fundraiser Cards from canonical data
   renderFundraisers(fundraisers, content, lang);
 
-  // 7. Render Rooie Jaap Equipment Reference Table
+  // 7. Render Rooie Jaap Equipment Reference Table from canonical fundraiser data
   renderRooieJaapEquipment(content.rooieJaapEquipment, lang);
 
   // 8. Render Timeline Events
@@ -246,7 +246,7 @@ function createFundraiserCard(item, labels, lang) {
     (item.category === 'collective' ? 'ALGEMENE PARKNEST-INZAMELING' : 'PERSOONLIJKE INZAMELING');
 
   const donationPurposePrefix = state.contentData?.fundraisersSection?.donationPurposePrefix?.[lang] ||
-    (lang === 'en' ? 'Your donation here supports exclusively:' : 'U doneert hier uitsluitend voor:');
+    (lang === 'en' ? 'The purpose of this campaign is:' : 'Het doel van deze actie is:');
 
   let beneficiaryHTML = '';
   if (item.beneficiary.name) {
@@ -320,17 +320,24 @@ function createFundraiserCard(item, labels, lang) {
   return card;
 }
 
-// Render Rooie Jaap Equipment Reference List & Table
-function renderRooieJaapEquipment(equipmentData, lang) {
+// Render Rooie Jaap Equipment Reference List & Table from Canonical Fundraiser Data
+function renderRooieJaapEquipment(contentEquipment, lang) {
   const container = document.getElementById('rooie-jaap-equipment-container');
-  if (!container || !equipmentData) return;
+  if (!container || !contentEquipment) return;
+
+  // Retrieve canonical fundraiser equipment data for rooie-jaap-knives
+  const rooieJaapFundraiser = state.fundraisersData?.fundraisers?.find(f => f.id === 'rooie-jaap-knives');
+  const equipmentRef = rooieJaapFundraiser?.equipmentReferences;
+
+  if (!equipmentRef || !equipmentRef.items) return;
 
   const locale = lang === 'en' ? 'en-US' : 'nl-NL';
   const formatPrice = (val) => new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 }).format(val);
 
-  const totalAmount = equipmentData.items.reduce((sum, item) => sum + item.price, 0);
+  // Calculate reference total directly from canonical equipment item prices
+  const totalAmount = equipmentRef.items.reduce((sum, item) => sum + item.price, 0);
 
-  const rowsHTML = equipmentData.items.map(item => `
+  const rowsHTML = equipmentRef.items.map(item => `
     <tr>
       <td>${item.name[lang] || item.name.nl}</td>
       <td class="price-cell">${formatPrice(item.price)}</td>
@@ -341,8 +348,8 @@ function renderRooieJaapEquipment(equipmentData, lang) {
     <table class="equipment-table">
       <thead>
         <tr>
-          <th scope="col">${equipmentData.tableHeaders.item[lang]}</th>
-          <th scope="col" class="price-cell">${equipmentData.tableHeaders.price[lang]}</th>
+          <th scope="col">${contentEquipment.tableHeaders.item[lang]}</th>
+          <th scope="col" class="price-cell">${contentEquipment.tableHeaders.price[lang]}</th>
         </tr>
       </thead>
       <tbody>
@@ -350,12 +357,12 @@ function renderRooieJaapEquipment(equipmentData, lang) {
       </tbody>
       <tfoot>
         <tr class="total-row">
-          <th scope="row">${equipmentData.totalLabel[lang]}</th>
+          <th scope="row">${contentEquipment.totalLabel[lang]}</th>
           <td class="price-cell"><strong>${formatPrice(totalAmount)}</strong></td>
         </tr>
       </tfoot>
     </table>
-    <p class="equipment-note">${equipmentData.note[lang]}</p>
+    <p class="equipment-note">${contentEquipment.note[lang]}</p>
   `;
 }
 

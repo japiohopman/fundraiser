@@ -239,7 +239,65 @@
         "isDraft": false,
         "isCompleted": false
       },
-      "verificationState": "verified"
+      "verificationState": "verified",
+      "equipmentReferences": {
+        "totalReferenceAmount": 576.45,
+        "sourceNote": {
+          "nl": "Gedocumenteerde referentielijst ter onderbouwing aangeleverd door de organisator/initiatiefnemer ter vervanging van verloren gegaan kookmateriaal.",
+          "en": "Documented first-party replacement reference list supplied by the campaign organiser/organizer to support equipment replacement."
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Global G-6667 messenmap",
+              "en": "Global G-6667 knife case"
+            },
+            "price": 135.00
+          },
+          {
+            "name": {
+              "nl": "Misono UX10 Gyutou 712",
+              "en": "Misono UX10 Gyutou 712"
+            },
+            "price": 289.00
+          },
+          {
+            "name": {
+              "nl": "Sabatier Integra officemes",
+              "en": "Sabatier Integra officemes"
+            },
+            "price": 25.50
+          },
+          {
+            "name": {
+              "nl": "Sabatier Integra broodmes",
+              "en": "Sabatier Integra bread knife"
+            },
+            "price": 40.50
+          },
+          {
+            "name": {
+              "nl": "Sabatier Integra koksmes 23 cm",
+              "en": "Sabatier Integra chef's knife 23 cm"
+            },
+            "price": 50.50
+          },
+          {
+            "name": {
+              "nl": "GEFU keukenpincet",
+              "en": "GEFU kitchen tweezers"
+            },
+            "price": 10.95
+          },
+          {
+            "name": {
+              "nl": "Koksbuis",
+              "en": "Chef's coat"
+            },
+            "price": 25.00
+          }
+        ]
+      }
     }
   ]
 }
