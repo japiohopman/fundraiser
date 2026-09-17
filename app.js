@@ -164,6 +164,13 @@ function createFundraiserCard(item, labels, lang) {
   const offlineRaisedFormatted = formatCurrency(item.financials.offlineDonationAmount, lang);
   const displayedTotalFormatted = formatCurrency(item.financials.displayedTotalRaised, lang);
 
+  // Retrieve campaign type badge label from content dictionary or fallback
+  const campaignTypeLabel = state.contentData?.fundraisersSection?.campaignTypes?.[item.category]?.[lang] ||
+    (item.category === 'collective' ? 'ALGEMENE PARKNEST-INZAMELING' : 'PERSOONLIJKE INZAMELING');
+
+  const donationPurposePrefix = state.contentData?.fundraisersSection?.donationPurposePrefix?.[lang] ||
+    (lang === 'en' ? 'Your donation here supports exclusively:' : 'U doneert hier uitsluitend voor:');
+
   let beneficiaryHTML = '';
   if (item.beneficiary.name) {
     beneficiaryHTML = `
@@ -183,6 +190,10 @@ function createFundraiserCard(item, labels, lang) {
   }
 
   card.innerHTML = `
+    <div class="campaign-type-badge-bar">
+      <span class="card-campaign-badge ${item.category}-card-badge">${campaignTypeLabel}</span>
+    </div>
+
     <div class="fundraiser-card-header">
       <h4 class="fundraiser-card-title">${titleText}</h4>
       <p class="fundraiser-purpose">${purposeText}</p>
@@ -220,9 +231,13 @@ function createFundraiserCard(item, labels, lang) {
       </div>
     </div>
 
-    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="donate-btn">
-      ${labels.donateLink[lang]} <span class="visually-hidden">(${titleText})</span>
-    </a>
+    <div class="point-of-donation-box">
+      <span class="point-of-donation-prefix">${donationPurposePrefix}</span>
+      <p class="point-of-donation-purpose"><strong>${purposeText}</strong></p>
+      <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="donate-btn">
+        ${labels.donateLink[lang]} <span class="visually-hidden">(${titleText})</span>
+      </a>
+    </div>
   `;
 
   return card;

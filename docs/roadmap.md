@@ -27,6 +27,7 @@
 - [x] Build canonical page structure (`index.html`) with semantic landmarks, heading hierarchy, and accessibility features
 - [x] Build responsive baseline presentation stylesheet (`styles.css`) keeping presentation separate from content
 - [x] Implement dynamic rendering and accessible language switcher (`app.js`) with localStorage persistence and document `lang` updating
+- [x] Build prominent fundraiser separation warning banner and explicit campaign-type labels (`ALGEMENE PARKNEST-INZAMELING` / `PERSOONLIJKE INZAMELING`) with point-of-donation purpose statements
 - [x] Build "What is this donation for?" explanation section and fire timeline
 - [x] Build sources, verification methodology, and independent-site disclosure
 

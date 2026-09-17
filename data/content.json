@@ -92,9 +92,45 @@
       "nl": "Persoonlijk herstel",
       "en": "Personal Recovery"
     },
+    "prominentWarning": {
+      "title": {
+        "nl": "Belangrijke waarschuwing: Gescheiden geldstromen en acties",
+        "en": "Important Notice: Separate Funds and Campaigns"
+      },
+      "bullet1": {
+        "nl": "Er zijn meerdere afzonderlijke inzamelingsacties actief rond ParkNest.",
+        "en": "There are multiple separate fundraising campaigns active around ParkNest."
+      },
+      "bullet2": {
+        "nl": "Dit is géén gezamenlijke pot: donaties aan de ene actie stromen niet automatisch door naar een andere actie.",
+        "en": "These are NOT one shared fund: donating to one campaign does not automatically contribute to another."
+      },
+      "bullet3": {
+        "nl": "Een donatie aan de algemene ParkNest-actie ondersteunt NIET de vervanging van de koksmessen van Rooie Jaap of andere persoonlijke verliezen.",
+        "en": "A donation to the general ParkNest campaign does NOT fund the replacement of Rooie Jaap's chef knives or other personal losses."
+      },
+      "bullet4": {
+        "nl": "Controleer altijd het specifieke doel van de gekozen actie voordat u doneert.",
+        "en": "Always check the specific purpose of the selected campaign before donating."
+      }
+    },
     "personalWarning": {
       "nl": "Let op: Deze acties betreffen specifieke vergoedingen of verliezen van individuen. Er is geen bronbewijs dat donaties aan deze acties doorstromen naar de algemene heropbouw van ParkNest of andersom.",
       "en": "Note: These campaigns concern specific personal losses or equipment for individuals. There is no source evidence that donations to these campaigns flow to the general ParkNest rebuild or vice versa."
+    },
+    "campaignTypes": {
+      "collective": {
+        "nl": "ALGEMENE PARKNEST-INZAMELING",
+        "en": "GENERAL PARKNEST FUNDRAISER"
+      },
+      "personal": {
+        "nl": "PERSOONLIJKE INZAMELING",
+        "en": "PERSONAL FUNDRAISER"
+      }
+    },
+    "donationPurposePrefix": {
+      "nl": "U doneert hier uitsluitend voor:",
+      "en": "Your donation here supports exclusively:"
     },
     "labels": {
       "target": {

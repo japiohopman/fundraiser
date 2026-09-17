@@ -283,6 +283,52 @@ body {
   color: var(--color-text-main);
 }
 
+.prominent-warning-box {
+  background-color: #fff7ed;
+  border: 3px solid #ea580c;
+  border-left-width: 8px;
+  color: #7c2d12;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.12);
+}
+
+.warning-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.warning-icon {
+  color: #c2410c;
+  flex-shrink: 0;
+}
+
+.warning-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #9a3412;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.warning-list {
+  padding-left: 1.5rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.warning-list li {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #7c2d12;
+  line-height: 1.5;
+}
+
 .warning-callout {
   background-color: var(--color-warning-bg);
   border: 1px solid var(--color-warning-border);
@@ -308,13 +354,63 @@ body {
 /* Fundraiser Card Structure */
 .fundraiser-card {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-space-between;
+  justify-content: space-between;
   box-shadow: var(--shadow-sm);
+}
+
+.campaign-type-badge-bar {
+  margin-bottom: 0.75rem;
+}
+
+.card-campaign-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+}
+
+.collective-card-badge {
+  background-color: #166534;
+  color: #ffffff;
+}
+
+.personal-card-badge {
+  background-color: #b45309;
+  color: #ffffff;
+}
+
+.point-of-donation-box {
+  margin-top: auto;
+  background-color: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.point-of-donation-prefix {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+}
+
+.point-of-donation-purpose {
+  font-size: 0.92rem;
+  color: #0f172a;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
 }
 
 .fundraiser-card-title {
