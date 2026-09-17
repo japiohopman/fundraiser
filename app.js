@@ -1,12 +1,13 @@
 /**
  * ParkNest Fundraiser Transparency App
- * Handles dynamic content rendering, localization (NL/EN), and accessibility.
+ * Handles dynamic content rendering, localization (NL/EN), mobile navigation, and accessibility.
  */
 
 let state = {
   currentLang: 'nl',
   fundraisersData: null,
-  contentData: null
+  contentData: null,
+  isNavOpen: false
 };
 
 // Utility to safely access nested object properties via dot notation
@@ -47,8 +48,9 @@ async function initApp() {
     state.fundraisersData = await fundraisersRes.json();
     state.contentData = await contentRes.json();
 
-    // Setup language switcher button event listeners
+    // Setup UI event handlers
     setupLanguageSwitcher();
+    setupMobileNav();
 
     // Initial render
     renderApp();
@@ -69,6 +71,66 @@ function setupLanguageSwitcher() {
       }
     });
   });
+}
+
+// Setup Accessible Mobile Navigation Menu
+function setupMobileNav() {
+  const toggleBtn = document.getElementById('menu-toggle-btn');
+  const navMenu = document.getElementById('main-nav-menu');
+
+  if (!toggleBtn || !navMenu) return;
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMobileNav();
+  });
+
+  // Close menu when clicking any nav link
+  const navLinks = navMenu.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (state.isNavOpen) {
+        toggleMobileNav(false);
+      }
+    });
+  });
+
+  // Close menu on Escape key press
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state.isNavOpen) {
+      toggleMobileNav(false);
+      toggleBtn.focus();
+    }
+  });
+
+  // Close menu on click outside header
+  document.addEventListener('click', (e) => {
+    if (state.isNavOpen && !e.target.closest('.site-header')) {
+      toggleMobileNav(false);
+    }
+  });
+}
+
+// Toggle Mobile Navigation Drawer State
+function toggleMobileNav(forceState) {
+  const toggleBtn = document.getElementById('menu-toggle-btn');
+  const navMenu = document.getElementById('main-nav-menu');
+  if (!toggleBtn || !navMenu) return;
+
+  state.isNavOpen = forceState !== undefined ? forceState : !state.isNavOpen;
+
+  toggleBtn.setAttribute('aria-expanded', state.isNavOpen ? 'true' : 'false');
+  navMenu.classList.toggle('open', state.isNavOpen);
+  document.body.classList.toggle('nav-drawer-open', state.isNavOpen);
+
+  // Update toggle button text label
+  const labelSpan = toggleBtn.querySelector('.menu-toggle-label');
+  if (labelSpan && state.contentData?.nav) {
+    const lang = state.currentLang;
+    labelSpan.textContent = state.isNavOpen
+      ? (state.contentData.nav.closeMenu?.[lang] || 'Sluiten')
+      : (state.contentData.nav.openMenu?.[lang] || 'Menu');
+  }
 }
 
 // Set Active Language and Re-render
@@ -117,16 +179,27 @@ function renderApp() {
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
-  // 5. Render Fundraiser Cards from canonical data
+  // 5. Sync Mobile Menu toggle button label state
+  const toggleBtn = document.getElementById('menu-toggle-btn');
+  if (toggleBtn) {
+    const labelSpan = toggleBtn.querySelector('.menu-toggle-label');
+    if (labelSpan && content.nav) {
+      labelSpan.textContent = state.isNavOpen
+        ? (content.nav.closeMenu[lang] || 'Sluiten')
+        : (content.nav.openMenu[lang] || 'Menu');
+    }
+  }
+
+  // 6. Render Fundraiser Cards from canonical data
   renderFundraisers(fundraisers, content, lang);
 
-  // 6. Render Rooie Jaap Equipment Reference Table
+  // 7. Render Rooie Jaap Equipment Reference Table
   renderRooieJaapEquipment(content.rooieJaapEquipment, lang);
 
-  // 7. Render Timeline Events
+  // 8. Render Timeline Events
   renderTimeline(content.timeline.events, lang);
 
-  // 8. Render Sources List
+  // 9. Render Sources List
   renderSources(content.sources.links, lang);
 }
 
@@ -157,6 +230,9 @@ function createFundraiserCard(item, labels, lang) {
   const card = document.createElement('article');
   card.className = `fundraiser-card category-${item.category}`;
 
+  // Assign stable DOM anchor ID for direct navigation routing
+  card.id = `fundraiser-${item.id}`;
+
   const titleText = item.title[lang] || item.title.nl;
   const purposeText = item.purpose[lang] || item.purpose.nl;
   const targetFormatted = formatCurrency(item.financials.targetAmount, lang);
@@ -164,8 +240,9 @@ function createFundraiserCard(item, labels, lang) {
   const offlineRaisedFormatted = formatCurrency(item.financials.offlineDonationAmount, lang);
   const displayedTotalFormatted = formatCurrency(item.financials.displayedTotalRaised, lang);
 
-  // Retrieve campaign type badge label from content dictionary or fallback
-  const campaignTypeLabel = state.contentData?.fundraisersSection?.campaignTypes?.[item.category]?.[lang] ||
+  // Retrieve explicit card badge label from content dictionary or fallback
+  const cardBadgeLabel = state.contentData?.fundraisersSection?.cardBadges?.[item.id]?.[lang] ||
+    state.contentData?.fundraisersSection?.campaignTypes?.[item.category]?.[lang] ||
     (item.category === 'collective' ? 'ALGEMENE PARKNEST-INZAMELING' : 'PERSOONLIJKE INZAMELING');
 
   const donationPurposePrefix = state.contentData?.fundraisersSection?.donationPurposePrefix?.[lang] ||
@@ -191,7 +268,7 @@ function createFundraiserCard(item, labels, lang) {
 
   card.innerHTML = `
     <div class="campaign-type-badge-bar">
-      <span class="card-campaign-badge ${item.category}-card-badge">${campaignTypeLabel}</span>
+      <span class="card-campaign-badge ${item.category}-card-badge">${cardBadgeLabel}</span>
     </div>
 
     <div class="fundraiser-card-header">

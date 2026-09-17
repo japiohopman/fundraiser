@@ -14,6 +14,22 @@
       "nl": "Direct naar de inhoud",
       "en": "Skip to main content"
     },
+    "openMenu": {
+      "nl": "Menu openen",
+      "en": "Open menu"
+    },
+    "closeMenu": {
+      "nl": "Menu sluiten",
+      "en": "Close menu"
+    },
+    "menuLabel": {
+      "nl": "Hoofdnavigatie menu",
+      "en": "Main navigation menu"
+    },
+    "home": {
+      "nl": "Home",
+      "en": "Home"
+    },
     "story": {
       "nl": "Wat is er gebeurd?",
       "en": "What happened?"
@@ -22,13 +38,33 @@
       "nl": "Inzamelingsacties",
       "en": "Fundraisers"
     },
+    "parknestCollective": {
+      "nl": "Algemene ParkNest-inzameling",
+      "en": "General ParkNest Fundraiser"
+    },
+    "rooieJaap": {
+      "nl": "Rooie Jaap — verloren kookmateriaal",
+      "en": "Rooie Jaap — lost chef equipment"
+    },
+    "kathinka": {
+      "nl": "Kathinka — hondenbandjes",
+      "en": "Kathinka — dog collars"
+    },
+    "jimGijbels": {
+      "nl": "Jim Gijbels — tramschilderijen",
+      "en": "Jim Gijbels — tram paintings"
+    },
     "timeline": {
       "nl": "Tijdlijn",
       "en": "Timeline"
     },
     "sources": {
-      "nl": "Bronvermelding",
-      "en": "Sources & Methodology"
+      "nl": "Bronnen & verificatie",
+      "en": "Sources & Verification"
+    },
+    "about": {
+      "nl": "Over deze site",
+      "en": "About this site"
     },
     "languageSwitcherLabel": {
       "nl": "Taal selecteren / Select language",
@@ -103,11 +139,11 @@
       },
       "bullet2": {
         "nl": "Dit is géén gezamenlijke pot: donaties aan de ene actie stromen niet automatisch door naar een andere actie.",
-        "en": "These are NOT one shared fund: donating to one campaign does not automatically contribute to another."
+        "en": "These are NOT one shared pot: donating to one campaign does not automatically contribute to another."
       },
       "bullet3": {
-        "nl": "Een donatie aan de algemene ParkNest-actie ondersteunt NIET de vervanging van de koksmessen van Rooie Jaap of andere persoonlijke verliezen.",
-        "en": "A donation to the general ParkNest campaign does NOT fund the replacement of Rooie Jaap's chef knives or other personal losses."
+        "nl": "Een donatie aan de algemene ParkNest-actie ondersteunt NIET de vervanging van het gedocumenteerde kookmateriaal van Rooie Jaap of andere persoonlijke verliezen.",
+        "en": "A donation to the general ParkNest campaign does NOT fund the replacement of Rooie Jaap's documented chef equipment or other personal losses."
       },
       "bullet4": {
         "nl": "Controleer altijd het specifieke doel van de gekozen actie voordat u doneert.",
@@ -126,6 +162,24 @@
       "personal": {
         "nl": "PERSOONLIJKE INZAMELING",
         "en": "PERSONAL FUNDRAISER"
+      }
+    },
+    "cardBadges": {
+      "parknest-collective": {
+        "nl": "Algemene ParkNest-inzameling",
+        "en": "General ParkNest Fundraiser"
+      },
+      "rooie-jaap-knives": {
+        "nl": "Persoonlijke inzameling — Rooie Jaap (Kookmateriaal)",
+        "en": "Personal Fundraiser — Rooie Jaap (Chef Equipment)"
+      },
+      "kathinka-dog-collars": {
+        "nl": "Persoonlijke inzameling — Kathinka (Hondenbandjes)",
+        "en": "Personal Fundraiser — Kathinka (Dog Collars)"
+      },
+      "jim-gijbels-paintings": {
+        "nl": "Persoonlijke inzameling — Jim Gijbels (Tramschilderijen)",
+        "en": "Personal Fundraiser — Jim Gijbels (Tram Paintings)"
       }
     },
     "donationPurposePrefix": {
@@ -201,8 +255,8 @@
       "en": "Supports rebuilding the painting collection of tram artworks by Jim Gijbels that was displayed at ParkNest."
     },
     "rooieJaap": {
-      "nl": "Ondersteunt de vervanging van professionele koksmessen voor Rooie Jaap die bij de brand verloren gingen.",
-      "en": "Supports replacing professional chef knives for Rooie Jaap lost in the fire."
+      "nl": "Ondersteunt de vervanging van gedocumenteerd verloren kookmateriaal (professionele koksmessen en uitrusting) voor Rooie Jaap.",
+      "en": "Supports replacing documented lost chef equipment (professional chef knives and gear) for Rooie Jaap."
     }
   },
   "rooieJaapEquipment": {
@@ -211,8 +265,8 @@
       "en": "Replacement Equipment Documentation — Rooie Jaap"
     },
     "intro": {
-      "nl": "Ter onderbouwing van de inzamelingsactie voor Rooie Jaap is onderstaande referentielijst van verloren gegane koksmessen en uitrusting gedocumenteerd. Dit dient als feitelijke referentie; het impliceert niet dat elke euro definitief aan deze specifieke artikelen wordt besteed.",
-      "en": "To support the fundraising campaign for Rooie Jaap, the following reference list of lost chef knives and equipment has been documented. This serves as a factual reference; it does not imply that every euro is definitively spent on these exact items."
+      "nl": "Ter onderbouwing van de inzamelingsactie voor Rooie Jaap is onderstaande referentielijst van verloren gegane koksmessen en uitrusting gedocumenteerd. Dit dient als feitelijke referentie; donaties aan de algemene ParkNest-actie dragen hier niet aan bij.",
+      "en": "To support the fundraising campaign for Rooie Jaap, the following reference list of lost chef knives and equipment has been documented. This serves as a factual reference; donations to the general ParkNest campaign do not contribute to this."
     },
     "tableHeaders": {
       "item": {
