@@ -1,0 +1,286 @@
+{
+  "meta": {
+    "title": {
+      "nl": "ParkNest Inzamelingsacties Transparantie",
+      "en": "ParkNest Fundraisers Transparency"
+    },
+    "description": {
+      "nl": "Onafhankelijke informatie over de inzamelingsacties rond de brand bij ParkNest in Amsterdam-Oost.",
+      "en": "Independent information about the fundraising actions connected to the ParkNest fire in Amsterdam-Oost."
+    }
+  },
+  "nav": {
+    "skipToContent": {
+      "nl": "Direct naar de inhoud",
+      "en": "Skip to main content"
+    },
+    "story": {
+      "nl": "Wat is er gebeurd?",
+      "en": "What happened?"
+    },
+    "fundraisers": {
+      "nl": "Inzamelingsacties",
+      "en": "Fundraisers"
+    },
+    "timeline": {
+      "nl": "Tijdlijn",
+      "en": "Timeline"
+    },
+    "sources": {
+      "nl": "Bronvermelding",
+      "en": "Sources & Methodology"
+    },
+    "languageSwitcherLabel": {
+      "nl": "Taal selecteren / Select language",
+      "en": "Select language / Taal selecteren"
+    }
+  },
+  "hero": {
+    "title": {
+      "nl": "Eén brand. Meerdere inzamelingsacties. Een helder overzicht.",
+      "en": "One fire. Multiple fundraising actions. A clear overview."
+    },
+    "subtitle": {
+      "nl": "Onafhankelijke informatie over de verschillende crowdfundingsacties rond de brand bij ParkNest in Amsterdam-Oost.",
+      "en": "Independent information about the various crowdfunding actions following the fire at ParkNest in Amsterdam-Oost."
+    },
+    "leadText": {
+      "nl": "In de nacht van 20 op 21 augustus 2026 werd ParkNest in het Flevopark verwoest door een brand. Na de brand zijn er verschillende inzamelingsacties gestart. Deze site geeft een neutraal, brongebaseerd overzicht zodat bezoekers precies weten wat elke actie ondersteunt voordat zij doneren.",
+      "en": "In the night of 20 to 21 August 2026, ParkNest in Flevopark was destroyed by a fire. Following the fire, several fundraising actions were created. This site provides a neutral, source-backed overview so visitors know exactly what each action supports before donating."
+    }
+  },
+  "story": {
+    "title": {
+      "nl": "Wat is er gebeurd?",
+      "en": "What happened?"
+    },
+    "paragraph1": {
+      "nl": "ParkNest was sinds oktober 2023 een gekraakt buurthuis en ontmoetingsplek in het Amsterdamse Flevopark, gerund door ongeveer dertig vrijwilligers. Het pand bood ruimte aan maaltijden, livemuziek, exposities en buurtactiviteiten.",
+      "en": "Since October 2023, ParkNest operated as a squatted community center and meeting place in Amsterdam's Flevopark, run by around thirty volunteers. The building hosted meals, live music, exhibitions, and neighborhood activities."
+    },
+    "paragraph2": {
+      "nl": "Kort voor middernacht op 20 augustus 2026 brak er brand uit onder het dak. De brandweer liet het gebouw gecontroleerd uitbranden omdat betreden te gevaarlijk was. Het gebouw en diverse spullen die er aanwezig waren gingen verloren.",
+      "en": "Shortly before midnight on 20 August 2026, a fire broke out under the roof. Firefighters allowed the building to burn out in a controlled manner as entry was too dangerous. The building and various items inside were lost."
+    },
+    "paragraph3": {
+      "nl": "Sinds de brand zijn er meerdere crowdfundingsacties opgestart op het platform WhyDonate. Om verwarring te voorkomen, maakt deze website onderscheid tussen het collectieve ParkNest-fonds en persoonlijke herstelacties voor specifieke verloren eigendommen.",
+      "en": "Since the fire, multiple crowdfunding campaigns have been launched on WhyDonate. To avoid confusion, this website distinguishes between the collective ParkNest fund and personal recovery campaigns for specific lost belongings."
+    }
+  },
+  "fundraisersSection": {
+    "title": {
+      "nl": "Overzicht Inzamelingsacties",
+      "en": "Fundraisers Overview"
+    },
+    "intro": {
+      "nl": "Hieronder staan de op WhyDonate geregistreerde acties. De gegevens zijn gebaseerd op een directe momentopname van het platform. Bekijk altijd de originele pagina voor de meest actuele stand.",
+      "en": "Below are the fundraising actions registered on WhyDonate. Figures are based on a direct platform snapshot. Always check the original page for the latest status."
+    },
+    "collectiveHeader": {
+      "nl": "Collectieve ParkNest-inzameling",
+      "en": "Collective ParkNest Fundraiser"
+    },
+    "collectiveBadge": {
+      "nl": "Collectiefonds",
+      "en": "Collective Fund"
+    },
+    "personalHeader": {
+      "nl": "Persoonlijke herstel- en verliesacties",
+      "en": "Personal Loss & Recovery Campaigns"
+    },
+    "personalBadge": {
+      "nl": "Persoonlijk herstel",
+      "en": "Personal Recovery"
+    },
+    "personalWarning": {
+      "nl": "Let op: Deze acties betreffen specifieke vergoedingen of verliezen van individuen. Er is geen bronbewijs dat donaties aan deze acties doorstromen naar de algemene heropbouw van ParkNest of andersom.",
+      "en": "Note: These campaigns concern specific personal losses or equipment for individuals. There is no source evidence that donations to these campaigns flow to the general ParkNest rebuild or vice versa."
+    },
+    "labels": {
+      "target": {
+        "nl": "Doelbedrag:",
+        "en": "Target amount:"
+      },
+      "onlineRaised": {
+        "nl": "Online opgehaald:",
+        "en": "Raised online:"
+      },
+      "offlineRaised": {
+        "nl": "Handmatig / Offline doorgegeven:",
+        "en": "Manual / Offline recorded:"
+      },
+      "totalDisplayed": {
+        "nl": "Totaal getoond op platform:",
+        "en": "Total displayed on platform:"
+      },
+      "donationsCount": {
+        "nl": "Aantal online donaties:",
+        "en": "Number of online donations:"
+      },
+      "verifiedDate": {
+        "nl": "Laatst geverifieerd:",
+        "en": "Last verified:"
+      },
+      "organiser": {
+        "nl": "Organisator:",
+        "en": "Organiser:"
+      },
+      "beneficiary": {
+        "nl": "Aangegeven rechtspersoon / Begunstigde:",
+        "en": "Named legal beneficiary:"
+      },
+      "directBank": {
+        "nl": "Rechtstreeks bankieren (officieel ParkNest-kanaal):",
+        "en": "Direct banking alternative (official ParkNest channel):"
+      },
+      "directBankText": {
+        "nl": "Zie het officiële ParkNest-bericht voor rechtstreekse bijdragen aan Stichting Buurtbelang ParkNest.",
+        "en": "See the official ParkNest announcement for direct bank transfers to Stichting Buurtbelang Parknest."
+      },
+      "donateLink": {
+        "nl": "Bekijk & doneer op WhyDonate",
+        "en": "View & donate on WhyDonate"
+      },
+      "snapshotDisclaimer": {
+        "nl": "Financiële cijfers zijn momentopnames en kunnen op het originele platform dynamisch veranderen.",
+        "en": "Financial figures are snapshots and may change dynamically on the source platform."
+      }
+    }
+  },
+  "purposeExplanation": {
+    "title": {
+      "nl": "Waar is een donatie precies voor?",
+      "en": "What is a donation exactly for?"
+    },
+    "parknest": {
+      "nl": "Ondersteunt het voortbestaan van ParkNest, de aanschaf van tijdelijke voorzieningen in het park en de uitwerking van een nieuwe toekomst voor het buurthuis.",
+      "en": "Supports the continuation of ParkNest activities, procurement of temporary park facilities, and planning for a new future."
+    },
+    "kathinka": {
+      "nl": "Ondersteunt de vervanging van de hondenbandjes-display en de verzameling hondenbandjes en -riemen van Kathinka van Velzen.",
+      "en": "Supports the replacement of the dog collar display and personal collection of dog collars and leashes belonging to Kathinka van Velzen."
+    },
+    "jim": {
+      "nl": "Ondersteunt het heropbouwen van de geschilderde tramcollectie van Jim Gijbels die in ParkNest hing.",
+      "en": "Supports rebuilding the painting collection of tram artworks by Jim Gijbels that was displayed at ParkNest."
+    },
+    "rooieJaap": {
+      "nl": "Ondersteunt de vervanging van professionele koksmessen voor Rooie Jaap die bij de brand verloren gingen.",
+      "en": "Supports replacing professional chef knives for Rooie Jaap lost in the fire."
+    }
+  },
+  "timeline": {
+    "title": {
+      "nl": "Tijdlijn van de gebeurtenissen",
+      "en": "Timeline of Events"
+    },
+    "events": [
+      {
+        "date": "20–21 augustus 2026",
+        "title": {
+          "nl": "Verwoestende brand in ParkNest",
+          "en": "Devastating fire at ParkNest"
+        },
+        "description": {
+          "nl": "In de nacht van 20 op 21 augustus breekt brand uit onder het dak van het pand in het Flevopark. Het gebouw brandt gecontroleerd uit en gaat verloren.",
+          "en": "In the night of 20 to 21 August, fire breaks out under the roof of the Flevopark building. The building burns out in a controlled manner and is destroyed."
+        }
+      },
+      {
+        "date": "22 augustus 2026",
+        "title": {
+          "nl": "ParkNest publiceert officieel statement",
+          "en": "ParkNest publishes official statement"
+        },
+        "description": {
+          "nl": "ParkNest bevestigt de verwoesting, bedankt de buurt, meldt het verlies van de kunst- en hondencollecties en start de hoofd-crowdfunding via WhyDonate.",
+          "en": "ParkNest confirms the destruction, thanks the neighborhood, notes the loss of art and collar collections, and launches the main WhyDonate fundraiser."
+        }
+      },
+      {
+        "date": "Eind augustus 2026",
+        "title": {
+          "nl": "Aanvullende persoonlijke inzamelingsacties opgestart",
+          "en": "Additional personal fundraising campaigns launched"
+        },
+        "description": {
+          "nl": "Op 30 augustus worden drie gekoppelde sub-acties geregistreerd op WhyDonate ter vergoeding van specifieke persoonlijke verliezen (hondenbandjes, schilderijen, koksmessen).",
+          "en": "On 30 August, three linked sub-campaigns are registered on WhyDonate for specific personal losses (dog collars, paintings, chef knives)."
+        }
+      },
+      {
+        "date": "Huidige status",
+        "title": {
+          "nl": "Meerdere acties actief",
+          "en": "Multiple active campaigns"
+        },
+        "description": {
+          "nl": "De hoofdactie en persoonlijke sub-acties blijven open op WhyDonate. Deze website biedt transparant inzicht in het doel en de status van elke actie.",
+          "en": "The main fundraiser and personal sub-campaigns remain open on WhyDonate. This website provides transparent insight into each campaign's purpose and status."
+        }
+      }
+    ]
+  },
+  "sources": {
+    "title": {
+      "nl": "Bronvermelding & Methodologie",
+      "en": "Sources & Verification Methodology"
+    },
+    "description": {
+      "nl": "Alle feiten over de inzamelingsacties op deze site zijn direct afkomstig van de openbare WhyDonate-paginaloads en het officiële bericht van ParkNest. Wij publiceren geen onbevestigde claims over geldstromen of niet-gedocumenteerde afspraken.",
+      "en": "All campaign facts on this site are derived directly from public WhyDonate page payloads and official statements from ParkNest. We do not publish unverified claims about money flows or undocumented agreements."
+    },
+    "primarySourcesTitle": {
+      "nl": "Belangrijkste bronnen:",
+      "en": "Key primary sources:"
+    },
+    "links": [
+      {
+        "label": {
+          "nl": "Officieel ParkNest-bericht (22 augustus 2026)",
+          "en": "Official ParkNest statement (22 August 2026)"
+        },
+        "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/"
+      },
+      {
+        "label": {
+          "nl": "Hoofd-inzamelingsactie ParkNest (WhyDonate)",
+          "en": "Main ParkNest Fundraiser (WhyDonate)"
+        },
+        "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter"
+      },
+      {
+        "label": {
+          "nl": "Oost-Online persbericht",
+          "en": "Oost-Online news report"
+        },
+        "url": "https://oost-online.nl/verslagenheid-en-optimisme-na-brand-in-parknest/"
+      },
+      {
+        "label": {
+          "nl": "AT5 verslaggeving",
+          "en": "AT5 news coverage"
+        },
+        "url": "https://www.at5.nl/artikelen/228185/geliefd-gekraakt-buurthuisje-in-flevopark-afgebrand"
+      }
+    ]
+  },
+  "footer": {
+    "disclaimerTitle": {
+      "nl": "Onafhankelijkheidsverklaring",
+      "en": "Independent Site Disclosure"
+    },
+    "disclaimerText": {
+      "nl": "Dit is een onafhankelijke informatiesite. Deze website is niet de officiële website van ParkNest, Stichting Buurtbelang ParkNest of WhyDonate, en beheert zelf geen donaties.",
+      "en": "This is an independent information website. It is not the official website of ParkNest, Stichting Buurtbelang ParkNest, or WhyDonate, and does not collect or manage donations."
+    },
+    "lastVerifiedText": {
+      "nl": "Laatste bronverificatie uitgevoerd op: 17 september 2026.",
+      "en": "Latest source verification conducted on: 17 September 2026."
+    },
+    "copyright": {
+      "nl": "ParkNest Inzamelingsacties Transparantie Project",
+      "en": "ParkNest Fundraisers Transparency Project"
+    }
+  }
+}

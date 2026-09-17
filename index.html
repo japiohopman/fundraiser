@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="meta.title">ParkNest Inzamelingsacties Transparantie</title>
+  <meta name="description" content="Onafhankelijke informatie over de inzamelingsacties rond de brand bij ParkNest in Amsterdam-Oost." data-i18n-attr="content:meta.description">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link" data-i18n="nav.skipToContent">Direct naar de inhoud</a>
+
+  <!-- Header Section -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <div class="site-branding">
+        <h1 class="site-title" data-i18n="meta.title">ParkNest Inzamelingsacties Transparantie</h1>
+        <p class="site-tagline" data-i18n="hero.subtitle">Onafhankelijke informatie over de verschillende crowdfundingsacties rond de brand bij ParkNest in Amsterdam-Oost.</p>
+      </div>
+
+      <nav class="main-nav" aria-label="Hoofdnavigatie / Main navigation">
+        <ul class="nav-list">
+          <li><a href="#story" data-i18n="nav.story">Wat is er gebeurd?</a></li>
+          <li><a href="#fundraisers" data-i18n="nav.fundraisers">Inzamelingsacties</a></li>
+          <li><a href="#purpose" data-i18n="purposeExplanation.title">Waar is een donatie voor?</a></li>
+          <li><a href="#timeline" data-i18n="nav.timeline">Tijdlijn</a></li>
+          <li><a href="#sources" data-i18n="nav.sources">Bronvermelding</a></li>
+        </ul>
+      </nav>
+
+      <!-- Language Switcher Controls -->
+      <div class="lang-switcher-wrapper">
+        <label for="lang-select" class="visually-hidden" data-i18n="nav.languageSwitcherLabel">Taal selecteren / Select language</label>
+        <div class="lang-buttons" role="group" aria-label="Language selection / Taalselectie">
+          <button type="button" class="lang-btn active" data-lang="nl" aria-pressed="true" aria-label="Nederlands">NL</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content" class="site-main" role="main" tabindex="-1">
+    <div class="container">
+
+      <!-- Hero Section -->
+      <section class="hero-section" aria-labelledby="hero-title">
+        <h2 id="hero-title" class="hero-title" data-i18n="hero.title">Eén brand. Meerdere inzamelingsacties. Een helder overzicht.</h2>
+        <p class="hero-lead" data-i18n="hero.leadText">
+          In de nacht van 20 op 21 augustus 2026 werd ParkNest in het Flevopark verwoest door een brand. Na de brand zijn er verschillende inzamelingsacties gestart. Deze site geeft een neutraal, brongebaseerd overzicht zodat bezoekers precies weten wat elke actie ondersteunt voordat zij doneren.
+        </p>
+      </section>
+
+      <!-- What Happened Section -->
+      <section id="story" class="content-section story-section" aria-labelledby="story-title">
+        <h2 id="story-title" class="section-title" data-i18n="story.title">Wat is er gebeurd?</h2>
+        <div class="prose">
+          <p data-i18n="story.paragraph1">ParkNest was sinds oktober 2023 een gekraakt buurthuis en ontmoetingsplek in het Amsterdamse Flevopark, gerund door ongeveer dertig vrijwilligers. Het pand bood ruimte aan maaltijden, livemuziek, exposities en buurtactiviteiten.</p>
+          <p data-i18n="story.paragraph2">Kort voor middernacht op 20 augustus 2026 brak er brand uit onder het dak. De brandweer liet het gebouw gecontroleerd uitbranden omdat betreden te gevaarlijk was. Het gebouw en diverse spullen die er aanwezig waren gingen verloren.</p>
+          <p data-i18n="story.paragraph3">Sinds de brand zijn er meerdere crowdfundingsacties opgestart op het platform WhyDonate. Om verwarring te voorkomen, maakt deze website onderscheid tussen het collectieve ParkNest-fonds en persoonlijke herstelacties voor specifieke verloren eigendommen.</p>
+        </div>
+      </section>
+
+      <!-- Fundraisers Section (Central interactive area) -->
+      <section id="fundraisers" class="content-section fundraisers-section" aria-labelledby="fundraisers-title">
+        <div class="section-header">
+          <h2 id="fundraisers-title" class="section-title" data-i18n="fundraisersSection.title">Overzicht Inzamelingsacties</h2>
+          <p class="section-intro" data-i18n="fundraisersSection.intro">Hieronder staan de op WhyDonate geregistreerde acties. De gegevens zijn gebaseerd op een directe momentopname van het platform. Bekijk altijd de originele pagina voor de meest actuele stand.</p>
+        </div>
+
+        <!-- Collective Fundraisers Container -->
+        <div class="category-group collective-group" aria-labelledby="collective-heading">
+          <div class="category-header">
+            <span class="category-badge collective-badge" data-i18n="fundraisersSection.collectiveBadge">Collectiefonds</span>
+            <h3 id="collective-heading" class="category-title" data-i18n="fundraisersSection.collectiveHeader">Collectieve ParkNest-inzameling</h3>
+          </div>
+          <div id="collective-fundraisers-list" class="fundraisers-grid">
+            <!-- Rendered dynamically by app.js from data/fundraisers.json -->
+          </div>
+        </div>
+
+        <!-- Personal Recovery Fundraisers Container -->
+        <div class="category-group personal-group" aria-labelledby="personal-heading">
+          <div class="category-header">
+            <span class="category-badge personal-badge" data-i18n="fundraisersSection.personalBadge">Persoonlijk herstel</span>
+            <h3 id="personal-heading" class="category-title" data-i18n="fundraisersSection.personalHeader">Persoonlijke herstel- en verliesacties</h3>
+          </div>
+          <div class="warning-callout" role="note">
+            <p data-i18n="fundraisersSection.personalWarning">Let op: Deze acties betreffen specifieke vergoedingen of verliezen van individuen. Er is geen bronbewijs dat donaties aan deze acties doorstromen naar de algemene heropbouw van ParkNest of andersom.</p>
+          </div>
+          <div id="personal-fundraisers-list" class="fundraisers-grid">
+            <!-- Rendered dynamically by app.js from data/fundraisers.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Purpose Explanation Section ("What is this donation for?") -->
+      <section id="purpose" class="content-section purpose-section" aria-labelledby="purpose-title">
+        <h2 id="purpose-title" class="section-title" data-i18n="purposeExplanation.title">Waar is een donatie precies voor?</h2>
+        <div class="purpose-grid">
+          <article class="purpose-card">
+            <h3>ParkNest (Collectief)</h3>
+            <p data-i18n="purposeExplanation.parknest">Ondersteunt het voortbestaan van ParkNest, de aanschaf van tijdelijke voorzieningen in het park en de uitwerking van een nieuwe toekomst voor het buurthuis.</p>
+          </article>
+          <article class="purpose-card">
+            <h3>Kathinka van Velzen (Hondenbandjes)</h3>
+            <p data-i18n="purposeExplanation.kathinka">Ondersteunt de vervanging van de hondenbandjes-display en de verzameling hondenbandjes en -riemen van Kathinka van Velzen.</p>
+          </article>
+          <article class="purpose-card">
+            <h3>Jim Gijbels (Tramschilderijen)</h3>
+            <p data-i18n="purposeExplanation.jim">Ondersteunt het heropbouwen van de geschilderde tramcollectie van Jim Gijbels die in ParkNest hing.</p>
+          </article>
+          <article class="purpose-card">
+            <h3>Rooie Jaap (Koksmessen)</h3>
+            <p data-i18n="purposeExplanation.rooieJaap">Ondersteunt de vervanging van professionele koksmessen voor Rooie Jaap die bij de brand verloren gingen.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Timeline Section -->
+      <section id="timeline" class="content-section timeline-section" aria-labelledby="timeline-title">
+        <h2 id="timeline-title" class="section-title" data-i18n="timeline.title">Tijdlijn van de gebeurtenissen</h2>
+        <ol id="timeline-list" class="timeline-list">
+          <!-- Rendered dynamically by app.js -->
+        </ol>
+      </section>
+
+      <!-- Sources & Methodology Section -->
+      <section id="sources" class="content-section sources-section" aria-labelledby="sources-title">
+        <h2 id="sources-title" class="section-title" data-i18n="sources.title">Bronvermelding & Methodologie</h2>
+        <p class="prose" data-i18n="sources.description">Alle feiten over de inzamelingsacties op deze site zijn direct afkomstig van de openbare WhyDonate-paginaloads en het officiële bericht van ParkNest. Wij publiceren geen onbevestigde claims over geldstromen of niet-gedocumenteerde afspraken.</p>
+        <h3 data-i18n="sources.primarySourcesTitle">Belangrijkste bronnen:</h3>
+        <ul id="sources-list" class="sources-list">
+          <!-- Rendered dynamically by app.js -->
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-container">
+      <div class="footer-disclosure">
+        <h3 class="footer-heading" data-i18n="footer.disclaimerTitle">Onafhankelijkheidsverklaring</h3>
+        <p data-i18n="footer.disclaimerText">Dit is een onafhankelijke informatiesite. Deze website is niet de officiële website van ParkNest, Stichting Buurtbelang ParkNest of WhyDonate, en beheert zelf geen donaties.</p>
+        <p class="verification-meta" data-i18n="footer.lastVerifiedText">Laatste bronverificatie uitgevoerd op: 17 september 2026.</p>
+      </div>
+
+      <div class="footer-meta">
+        <p>&copy; 2026 <span data-i18n="footer.copyright">ParkNest Inzamelingsacties Transparantie Project</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
