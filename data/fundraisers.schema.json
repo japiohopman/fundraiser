@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://parknest-transparency.nl/schemas/fundraisers.schema.json",
+  "title": "ParkNest Fundraisers Register Schema",
+  "description": "Schema for canonical source data of fundraising campaigns connected to the ParkNest fire",
+  "type": "object",
+  "required": ["$schema", "version", "lastVerifiedAt", "fundraisers"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "lastVerifiedAt": { "type": "string", "format": "date" },
+    "fundraisers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "platform",
+          "platformCampaignId",
+          "parentCampaignId",
+          "slug",
+          "url",
+          "category",
+          "title",
+          "organiser",
+          "beneficiary",
+          "purpose",
+          "financials",
+          "dates",
+          "status",
+          "verificationState"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "platform": { "type": "string" },
+          "platformCampaignId": { "type": "integer" },
+          "parentCampaignId": { "type": ["integer", "null"] },
+          "slug": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "officialEntryPoint": { "type": ["string", "null"], "format": "uri" },
+          "category": { "type": "string", "enum": ["collective", "personal", "other"] },
+          "title": {
+            "type": "object",
+            "required": ["nl", "en"],
+            "properties": {
+              "nl": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "organiser": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" }
+            }
+          },
+          "beneficiary": {
+            "type": "object",
+            "required": ["name", "type"],
+            "properties": {
+              "name": { "type": ["string", "null"] },
+              "type": { "type": "string", "enum": ["foundation", "undisclosed", "individual", "other"] }
+            }
+          },
+          "purpose": {
+            "type": "object",
+            "required": ["nl", "en"],
+            "properties": {
+              "nl": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "financials": {
+            "type": "object",
+            "required": [
+              "currency",
+              "targetAmount",
+              "onlineAmountRaised",
+              "offlineDonationAmount",
+              "displayedTotalRaised",
+              "onlineDonationCount"
+            ],
+            "properties": {
+              "currency": { "type": "string", "enum": ["EUR"] },
+              "targetAmount": { "type": "number" },
+              "onlineAmountRaised": { "type": "number" },
+              "offlineDonationAmount": { "type": "number" },
+              "displayedTotalRaised": { "type": "number" },
+              "onlineDonationCount": { "type": "integer" }
+            }
+          },
+          "dates": {
+            "type": "object",
+            "required": ["createdAt", "endDate", "isOpenEnded", "verifiedAt"],
+            "properties": {
+              "createdAt": { "type": "string" },
+              "endDate": { "type": ["string", "null"] },
+              "isOpenEnded": { "type": "boolean" },
+              "verifiedAt": { "type": "string", "format": "date" },
+              "historicalNotes": { "type": ["string", "null"] }
+            }
+          },
+          "status": {
+            "type": "object",
+            "required": ["isOpened", "isDraft", "isCompleted"],
+            "properties": {
+              "isOpened": { "type": "boolean" },
+              "isDraft": { "type": "boolean" },
+              "isCompleted": { "type": "boolean" }
+            }
+          },
+          "verificationState": { "type": "string", "enum": ["verified", "partially_verified", "needs_verification"] }
+        }
+      }
+    }
+  }
+}

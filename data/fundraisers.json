@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "./fundraisers.schema.json",
   "version": "1.0.0",
   "lastVerifiedAt": "2026-09-17",
   "fundraisers": [
@@ -17,14 +17,11 @@
         "en": "Help ParkNest rise again after the fire"
       },
       "organiser": {
-        "name": "Dirk Zaal",
-        "email": "dirk@digizaal.nl",
-        "phone": "+31651175442"
+        "name": "Dirk Zaal"
       },
       "beneficiary": {
         "name": "Stichting Buurtbelang Parknest",
-        "type": "foundation",
-        "directBankIban": "NL96 INGB 0114 0203 37"
+        "type": "foundation"
       },
       "purpose": {
         "nl": "Voortzetten van ParkNest-activiteiten, aanschaf van tijdelijke voorzieningen en bouwen aan een nieuwe toekomst na de verwoestende brand.",
@@ -33,15 +30,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 150000,
-        "currentAmountRaised": 30061,
-        "donationCount": 767,
+        "onlineAmountRaised": 30061,
         "offlineDonationAmount": 25790,
-        "maskedIban": "**************0337"
+        "displayedTotalRaised": 55851,
+        "onlineDonationCount": 767
       },
       "dates": {
         "createdAt": "2025-10-24T09:24:17.000000Z",
         "endDate": "2027-08-22",
-        "verifiedAt": "2026-09-17"
+        "isOpenEnded": false,
+        "verifiedAt": "2026-09-17",
+        "historicalNotes": "Campaign ID 101918 was created on WhyDonate on 24 October 2025 with slug 'houd-parknest-open-in-de-winter'. Following the August 2026 fire, the campaign title was updated to 'Help ParkNest herrijzen na de brand'."
       },
       "status": {
         "isOpened": true,
@@ -64,14 +63,11 @@
         "en": "Replace the dog collar display with Kathinka's collection of dog collars"
       },
       "organiser": {
-        "name": "Dirk Zaal",
-        "email": "dirk@digizaal.nl",
-        "phone": "+31651175442"
+        "name": "Dirk Zaal"
       },
       "beneficiary": {
         "name": null,
-        "type": "individual",
-        "directBankIban": null
+        "type": "undisclosed"
       },
       "purpose": {
         "nl": "Vervanging van het hondenbandjes-display en de persoonlijke collectie hondenbandjes en hondenriemen van Kathinka van Velzen, verloren bij de brand.",
@@ -80,15 +76,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 2300,
-        "currentAmountRaised": 0,
-        "donationCount": 0,
+        "onlineAmountRaised": 0,
         "offlineDonationAmount": 0,
-        "maskedIban": "**************0337"
+        "displayedTotalRaised": 0,
+        "onlineDonationCount": 0
       },
       "dates": {
         "createdAt": "2026-08-30T20:11:26.757971Z",
         "endDate": "2028-01-01",
-        "verifiedAt": "2026-09-17"
+        "isOpenEnded": false,
+        "verifiedAt": "2026-09-17",
+        "historicalNotes": null
       },
       "status": {
         "isOpened": true,
@@ -111,14 +109,11 @@
         "en": "Help Jim Gijbels rebuild his painting collection"
       },
       "organiser": {
-        "name": "Dirk Zaal",
-        "email": "dirk@digizaal.nl",
-        "phone": "+31651175442"
+        "name": "Dirk Zaal"
       },
       "beneficiary": {
         "name": null,
-        "type": "individual",
-        "directBankIban": null
+        "type": "undisclosed"
       },
       "purpose": {
         "nl": "Heropbouwen van de geschilderde tramcollectie van Jim Gijbels, die in ParkNest geëxposeerd werd en bij de brand verloren ging.",
@@ -127,15 +122,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 300,
-        "currentAmountRaised": 30,
-        "donationCount": 2,
+        "onlineAmountRaised": 30,
         "offlineDonationAmount": 0,
-        "maskedIban": "**************0337"
+        "displayedTotalRaised": 30,
+        "onlineDonationCount": 2
       },
       "dates": {
         "createdAt": "2026-08-30T20:41:39.541756Z",
-        "endDate": "9999-12-31",
-        "verifiedAt": "2026-09-17"
+        "endDate": null,
+        "isOpenEnded": true,
+        "verifiedAt": "2026-09-17",
+        "historicalNotes": null
       },
       "status": {
         "isOpened": true,
@@ -158,14 +155,11 @@
         "en": "Chef's knives for Rooie Jaap"
       },
       "organiser": {
-        "name": "Dirk Zaal",
-        "email": "dirk@digizaal.nl",
-        "phone": "+31651175442"
+        "name": "Dirk Zaal"
       },
       "beneficiary": {
         "name": null,
-        "type": "individual",
-        "directBankIban": null
+        "type": "undisclosed"
       },
       "purpose": {
         "nl": "Vervanging van professionele koksmessen voor Rooie Jaap, verloren bij de brand in ParkNest.",
@@ -174,15 +168,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 577,
-        "currentAmountRaised": 100,
-        "donationCount": 1,
+        "onlineAmountRaised": 100,
         "offlineDonationAmount": 0,
-        "maskedIban": "**************0337"
+        "displayedTotalRaised": 100,
+        "onlineDonationCount": 1
       },
       "dates": {
         "createdAt": "2026-08-30T18:50:21.447740Z",
         "endDate": "2028-01-01",
-        "verifiedAt": "2026-09-17"
+        "isOpenEnded": false,
+        "verifiedAt": "2026-09-17",
+        "historicalNotes": null
       },
       "status": {
         "isOpened": true,
