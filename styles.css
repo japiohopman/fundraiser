@@ -64,12 +64,12 @@
   --color-personal-badge-text: #3730a3;
   --color-personal-badge-border: #c7d2fe;
 
-  /* Warning Context (Restrained, Authoritative) */
-  --color-warning-bg: #fff7ed;
-  --color-warning-border: #fdba74;
-  --color-warning-border-strong: #ea580c;
-  --color-warning-text: #7c2d12;
-  --color-warning-title: #9a3412;
+  /* Warning & Callouts (Restrained Amber Alert) */
+  --color-warning-bg: #fffbe1;
+  --color-warning-border: #fde047;
+  --color-warning-border-strong: #d97706;
+  --color-warning-text: #334155;
+  --color-warning-title: #0f172a;
 
   /* Provenance & Personal Story Context */
   --color-provenance-bg: #f8fafc;
@@ -1109,16 +1109,16 @@ body {
   align-items: center;
   gap: var(--space-2);
   color: var(--color-personal-badge-text);
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
   font-size: var(--font-size-sm);
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color var(--transition-fast);
+  transition: color 0.15s;
 }
 
 .kitchen-cv-link:hover,
 .kitchen-cv-link:focus-visible {
-  color: var(--color-primary-dark);
+  color: var(--color-primary-hover);
 }
 
 /* Card Avatar integration */
