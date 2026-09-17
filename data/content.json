@@ -43,8 +43,8 @@
       "en": "General ParkNest Fundraiser"
     },
     "rooieJaap": {
-      "nl": "Rooie Jaap — verloren kookmateriaal",
-      "en": "Rooie Jaap — lost chef equipment"
+      "nl": "Jaap Hopman — verloren kookmateriaal",
+      "en": "Jaap Hopman — lost chef equipment"
     },
     "kathinka": {
       "nl": "Kathinka — hondenbandjes",
@@ -142,8 +142,8 @@
         "en": "A donation to one campaign is not the same donation as to another campaign."
       },
       "bullet3": {
-        "nl": "Als u specifiek de vervanging van het kookmateriaal van Rooie Jaap wilt ondersteunen, kies dan de actie voor Rooie Jaap.",
-        "en": "If you want to support the replacement of Rooie Jaap's lost chef equipment, select the Rooie Jaap campaign."
+        "nl": "Als u specifiek de vervanging van het kookmateriaal van Jaap Hopman wilt ondersteunen, kies dan de actie voor Jaap Hopman (bron-titel: 'Koksmessen voor Rooie Jaap').",
+        "en": "If you want to support the replacement of Jaap Hopman's lost chef equipment, select the campaign for Jaap Hopman (source title: 'Chef's knives for Rooie Jaap')."
       },
       "bullet4": {
         "nl": "Controleer daarom altijd het specifieke doel van de gekozen actie voordat u doneert.",
@@ -170,8 +170,8 @@
         "en": "General ParkNest Fundraiser"
       },
       "rooie-jaap-knives": {
-        "nl": "Persoonlijke inzameling — Rooie Jaap (Kookmateriaal)",
-        "en": "Personal Fundraiser — Rooie Jaap (Chef Equipment)"
+        "nl": "Persoonlijke inzameling — Jaap Hopman (Kookmateriaal)",
+        "en": "Personal Fundraiser — Jaap Hopman (Chef Equipment)"
       },
       "kathinka-dog-collars": {
         "nl": "Persoonlijke inzameling — Kathinka (Hondenbandjes)",
@@ -255,22 +255,22 @@
       "en": "Supports rebuilding the painting collection of tram artworks by Jim Gijbels that was displayed at ParkNest."
     },
     "rooieJaap": {
-      "nl": "Ondersteunt de vervanging van gedocumenteerd verloren kookmateriaal (professionele koksmessen en uitrusting) voor Rooie Jaap.",
-      "en": "Supports replacing documented lost chef equipment (professional chef knives and gear) for Rooie Jaap."
+      "nl": "Ondersteunt de vervanging van gedocumenteerd verloren kookmateriaal (professionele koksmessen en uitrusting) voor Jaap Hopman.",
+      "en": "Supports replacing documented lost chef equipment (professional chef knives and gear) for Jaap Hopman."
     }
   },
   "rooieJaapStory": {
     "title": {
-      "nl": "Mijn verhaal — Rooie Jaap",
-      "en": "My Story — Rooie Jaap"
+      "nl": "Mijn verhaal — Jaap Hopman",
+      "en": "My Story — Jaap Hopman"
     },
     "provenanceBadge": {
-      "nl": "Persoonlijke getuigenis van Jaap",
-      "en": "Personal account by Jaap"
+      "nl": "Persoonlijke getuigenis van Jaap Hopman",
+      "en": "Personal account by Jaap Hopman"
     },
     "provenanceNote": {
-      "nl": "Onderstaande tekst is de persoonlijke verklaring van Jaap ('Rooie Jaap'). Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
-      "en": "The text below is Jaap's ('Rooie Jaap') personal account. This is a first-person statement and not independent investigative reporting."
+      "nl": "Onderstaande tekst is de persoonlijke verklaring van Jaap Hopman. Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
+      "en": "The text below is Jaap Hopman's personal account. This is a first-person statement and not independent investigative reporting."
     },
     "paragraph1": {
       "nl": "Ik werk als freelance kok. Bij de brand in ParkNest zijn mijn professionele koksmessen en andere essentiële keukenuitrusting verloren gegaan.",
@@ -281,18 +281,22 @@
       "en": "Without these essential cooking tools, I currently cannot carry out my work as a chef in the normal way. My goal is to replace my tools so that I can return to work."
     },
     "paragraph3": {
-      "nl": "De inzamelingsactie 'Koksmessen voor Rooie Jaap' is specifiek opgericht om de aanschaf van dit vervangende materiaal mogelijk te maken. De gedocumenteerde referentielijst hieronder toont de specifieke artikelen en richtprijzen.",
-      "en": "The 'Chef's knives for Rooie Jaap' campaign was created specifically to make replacing this equipment possible. The documented reference list below shows the specific items and reference prices."
+      "nl": "De inzamelingsactie 'Koksmessen voor Rooie Jaap' (officiële WhyDonate bron-titel) is specifiek opgericht om de aanschaf van dit vervangende materiaal mogelijk te maken. De gedocumenteerde referentielijst hieronder toont de specifieke artikelen en richtprijzen.",
+      "en": "The 'Chef's knives for Rooie Jaap' campaign (official WhyDonate source title) was created specifically to make replacing this equipment possible. The documented reference list below shows the specific items and reference prices."
+    },
+    "kitchenCvLabel": {
+      "nl": "Bekijk mijn keuken-CV",
+      "en": "View my kitchen CV"
     }
   },
   "rooieJaapEquipment": {
     "title": {
-      "nl": "Documentatie vervangende uitrusting — Rooie Jaap",
-      "en": "Replacement Equipment Documentation — Rooie Jaap"
+      "nl": "Documentatie vervangende uitrusting — Jaap Hopman",
+      "en": "Replacement Equipment Documentation — Jaap Hopman"
     },
     "intro": {
-      "nl": "Ter onderbouwing van de inzamelingsactie voor Rooie Jaap is onderstaande referentielijst van verloren gegane koksmessen en uitrusting gedocumenteerd. Dit dient als feitelijke referentie; donaties aan de algemene ParkNest-actie dragen hier niet aan bij.",
-      "en": "To support the fundraising campaign for Rooie Jaap, the following reference list of lost chef knives and equipment has been documented. This serves as a factual reference; donations to the general ParkNest campaign do not contribute to this."
+      "nl": "Ter onderbouwing van de inzamelingsactie voor Jaap Hopman (WhyDonate bron-titel: 'Koksmessen voor Rooie Jaap') is onderstaande referentielijst van verloren gegane koksmessen en uitrusting gedocumenteerd. Dit dient als feitelijke referentie; donaties aan de algemene ParkNest-actie dragen hier niet aan bij.",
+      "en": "To support the fundraising campaign for Jaap Hopman (WhyDonate source title: 'Chef\\'s knives for Rooie Jaap'), the following reference list of lost chef knives and equipment has been documented. This serves as a factual reference; donations to the general ParkNest campaign do not contribute to this."
     },
     "tableHeaders": {
       "item": {

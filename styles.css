@@ -1074,6 +1074,77 @@ body {
   }
 }
 
+.story-header-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.person-avatar-wrapper {
+  flex-shrink: 0;
+}
+
+.person-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-personal-badge-border);
+  background-color: var(--color-personal-badge-bg);
+}
+
+.story-header-text {
+  flex-grow: 1;
+}
+
+.story-footer-actions {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.kitchen-cv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-personal-badge-text);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.kitchen-cv-link:hover,
+.kitchen-cv-link:focus-visible {
+  color: var(--color-primary-dark);
+}
+
+/* Card Avatar integration */
+.fundraiser-card-header.has-avatar {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.card-avatar-wrapper {
+  flex-shrink: 0;
+}
+
+.card-avatar-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-personal-badge-border);
+  background-color: var(--color-personal-badge-bg);
+}
+
+.header-title-wrapper {
+  flex: 1;
+}
+
 .story-header {
   display: flex;
   flex-direction: column;
