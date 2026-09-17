@@ -27,6 +27,7 @@
           "purpose",
           "financials",
           "dates",
+          "sources",
           "status",
           "verificationState"
         ],
@@ -78,7 +79,8 @@
               "onlineAmountRaised",
               "offlineDonationAmount",
               "displayedTotalRaised",
-              "onlineDonationCount"
+              "onlineDonationCount",
+              "snapshotNote"
             ],
             "properties": {
               "currency": { "type": "string", "enum": ["EUR"] },
@@ -86,7 +88,8 @@
               "onlineAmountRaised": { "type": "number" },
               "offlineDonationAmount": { "type": "number" },
               "displayedTotalRaised": { "type": "number" },
-              "onlineDonationCount": { "type": "integer" }
+              "onlineDonationCount": { "type": "integer" },
+              "snapshotNote": { "type": "string" }
             }
           },
           "dates": {
@@ -98,6 +101,19 @@
               "isOpenEnded": { "type": "boolean" },
               "verifiedAt": { "type": "string", "format": "date" },
               "historicalNotes": { "type": ["string", "null"] }
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["url", "type", "description", "verifiedAt"],
+              "properties": {
+                "url": { "type": "string", "format": "uri" },
+                "type": { "type": "string", "enum": ["campaign_page", "official_website", "news_report", "social_media", "other"] },
+                "description": { "type": "string" },
+                "verifiedAt": { "type": "string", "format": "date" }
+              }
             }
           },
           "status": {

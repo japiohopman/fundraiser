@@ -18,7 +18,7 @@
 
 ## Phase 1 — Content model and information architecture
 
-**Status: Planned**
+**Status: In progress**
 
 - [x] Define the canonical fundraiser data schema (`data/fundraisers.schema.json` and `data/fundraisers.json`)
 - [x] Define the distinction between collective, personal, and other campaigns in code/data
@@ -75,13 +75,13 @@
 
 These remain explicitly documented to prevent unverified claims:
 
-1. **Exact values & goals (Verified 17 Sept 2026):**
-   - ParkNest collective: €30,061 online + €25,790 offline = €55,851 displayed total raised of €150,000 goal (767 online donations). Created 24 Oct 2025 (originally for winter support; repurposed after August 2026 fire).
+1. **Exact values & goals (Snapshot verified 17 Sept 2026):**
+   - ParkNest collective: €30,061 online + €25,790 offline = €55,851 displayed total raised of €150,000 goal (767 online donations). Created 24 Oct 2025.
    - Kathinka: €0 raised of €2,300 goal (0 donations).
    - Jim Gijbels: €30 raised of €300 goal (2 donations). Open-ended.
    - Rooie Jaap: €100 raised of €577 goal (1 donation).
 2. **Beneficiaries & payout destination:**
-   - ParkNest collective explicitly names **Stichting Buurtbelang Parknest** (and direct bank IBAN `NL96 INGB 0114 0203 37`).
+   - ParkNest collective explicitly names **Stichting Buurtbelang Parknest** as legal beneficiary.
    - Personal campaigns (Kathinka, Jim Gijbels, Rooie Jaap) have undisclosed legal beneficiaries (`type: undisclosed`, `beneficiaryName: null`).
    - All four campaigns show creator profile **Dirk Zaal** on WhyDonate. Whether funds collected in sub-campaigns are paid out to Stichting Buurtbelang Parknest or directly to the named individuals is undisclosed on the platform level.
 3. **Formal platform relationships:**
@@ -89,9 +89,11 @@ These remain explicitly documented to prevent unverified claims:
    - Do not infer money flows between campaigns.
 4. **Social media promotion evidence:**
    - ParkNest's official website (22 August 2026 article) explicitly acknowledges Jim Gijbels' paintings and Kathinka's dog collars as items destroyed in the fire, but links only to the main ParkNest fundraiser. No direct promotional posts for individual sub-campaign URLs were found in the public material checked during the documented date range (20 Aug - 17 Sept 2026).
-5. **Additional campaigns:**
+5. **Historical title/description edits:**
+   - WhyDonate metadata shows `created_at` 24 October 2025 under slug `houd-parknest-open-in-de-winter`. Platform limitations prevent verifying historical campaign title modifications prior to August 2026.
+6. **Additional campaigns:**
    - No other public fundraising campaigns connected to the fire were identified with sufficient source evidence as of 17 September 2026.
-6. **Project hosting of new fundraiser:**
+7. **Project hosting of new fundraiser:**
    - The project remains an independent information site linking visitors directly to verified external campaigns.
 
 ## Next milestone

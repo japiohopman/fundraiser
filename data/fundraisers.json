@@ -33,15 +33,30 @@
         "onlineAmountRaised": 30061,
         "offlineDonationAmount": 25790,
         "displayedTotalRaised": 55851,
-        "onlineDonationCount": 767
+        "onlineDonationCount": 767,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data. WhyDonate's displayed total is dynamic and updates as transactions occur."
       },
       "dates": {
         "createdAt": "2025-10-24T09:24:17.000000Z",
         "endDate": "2027-08-22",
         "isOpenEnded": false,
         "verifiedAt": "2026-09-17",
-        "historicalNotes": "Campaign ID 101918 was created on WhyDonate on 24 October 2025 with slug 'houd-parknest-open-in-de-winter'. Following the August 2026 fire, the campaign title was updated to 'Help ParkNest herrijzen na de brand'."
+        "historicalNotes": "WhyDonate platform metadata records created_at as 24 October 2025 under slug 'houd-parknest-open-in-de-winter'. Whether the campaign title/description was modified after the August 2026 fire or existed with its current title previously is unverified due to platform evidence limits."
       },
+      "sources": [
+        {
+          "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter",
+          "type": "campaign_page",
+          "description": "Primary WhyDonate campaign page payload providing title, ID, amounts, donor count, and beneficiary name.",
+          "verifiedAt": "2026-09-17"
+        },
+        {
+          "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
+          "type": "official_website",
+          "description": "Official ParkNest website article confirming the fire, fundraising goals, direct bank alternative, and official fundraiser redirect.",
+          "verifiedAt": "2026-09-17"
+        }
+      ],
       "status": {
         "isOpened": true,
         "isDraft": false,
@@ -79,7 +94,8 @@
         "onlineAmountRaised": 0,
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 0,
-        "onlineDonationCount": 0
+        "onlineDonationCount": 0,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T20:11:26.757971Z",
@@ -88,6 +104,20 @@
         "verifiedAt": "2026-09-17",
         "historicalNotes": null
       },
+      "sources": [
+        {
+          "url": "https://whydonate.com/nl/fundraising/kathinka",
+          "type": "campaign_page",
+          "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
+          "verifiedAt": "2026-09-17"
+        },
+        {
+          "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
+          "type": "official_website",
+          "description": "Official ParkNest article acknowledging Kathinka van Velzen's dog collar collection as lost in the fire.",
+          "verifiedAt": "2026-09-17"
+        }
+      ],
       "status": {
         "isOpened": true,
         "isDraft": false,
@@ -125,7 +155,8 @@
         "onlineAmountRaised": 30,
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 30,
-        "onlineDonationCount": 2
+        "onlineDonationCount": 2,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T20:41:39.541756Z",
@@ -134,6 +165,20 @@
         "verifiedAt": "2026-09-17",
         "historicalNotes": null
       },
+      "sources": [
+        {
+          "url": "https://whydonate.com/nl/fundraising/jimgijbels",
+          "type": "campaign_page",
+          "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and open-ended status.",
+          "verifiedAt": "2026-09-17"
+        },
+        {
+          "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
+          "type": "official_website",
+          "description": "Official ParkNest article acknowledging Jim Gijbels' tram paintings as destroyed in the fire.",
+          "verifiedAt": "2026-09-17"
+        }
+      ],
       "status": {
         "isOpened": true,
         "isDraft": false,
@@ -171,7 +216,8 @@
         "onlineAmountRaised": 100,
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 100,
-        "onlineDonationCount": 1
+        "onlineDonationCount": 1,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T18:50:21.447740Z",
@@ -180,6 +226,14 @@
         "verifiedAt": "2026-09-17",
         "historicalNotes": null
       },
+      "sources": [
+        {
+          "url": "https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap",
+          "type": "campaign_page",
+          "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
+          "verifiedAt": "2026-09-17"
+        }
+      ],
       "status": {
         "isOpened": true,
         "isDraft": false,
