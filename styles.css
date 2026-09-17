@@ -56,12 +56,13 @@
   --color-collective-text: #166534;
   --color-collective-badge-bg: #dcfce7;
 
-  /* Personal Fundraiser Context */
-  --color-personal-bg: #fafaf9;
-  --color-personal-border: #e7e5e4;
-  --color-personal-text: #44403c;
-  --color-personal-badge-bg: #fef3c7;
-  --color-personal-badge-text: #92400e;
+  /* Personal Fundraiser Context (Restrained Cool Slate/Indigo Accent) */
+  --color-personal-bg: #f8fafc;
+  --color-personal-border: #cbd5e1;
+  --color-personal-text: #334155;
+  --color-personal-badge-bg: #e0e7ff;
+  --color-personal-badge-text: #3730a3;
+  --color-personal-badge-border: #c7d2fe;
 
   /* Warning Context (Restrained, Authoritative) */
   --color-warning-bg: #fff7ed;
@@ -642,7 +643,7 @@ body {
 .personal-badge {
   background-color: var(--color-personal-badge-bg);
   color: var(--color-personal-badge-text);
-  border: 1px solid #fde68a;
+  border: 1px solid var(--color-personal-badge-border);
 }
 
 .category-title {
@@ -722,7 +723,7 @@ body {
 .personal-card-badge {
   background-color: var(--color-personal-badge-bg);
   color: var(--color-personal-badge-text);
-  border: 1px solid #fde68a;
+  border: 1px solid var(--color-personal-badge-border);
 }
 
 .fundraiser-card-title {
