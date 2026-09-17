@@ -259,6 +259,32 @@
       "en": "Supports replacing documented lost chef equipment (professional chef knives and gear) for Rooie Jaap."
     }
   },
+  "rooieJaapStory": {
+    "title": {
+      "nl": "Mijn verhaal — Rooie Jaap",
+      "en": "My Story — Rooie Jaap"
+    },
+    "provenanceBadge": {
+      "nl": "Persoonlijke getuigenis van Jaap",
+      "en": "Personal account by Jaap"
+    },
+    "provenanceNote": {
+      "nl": "Onderstaande tekst is de persoonlijke verklaring van Jaap ('Rooie Jaap'). Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
+      "en": "The text below is Jaap's ('Rooie Jaap') personal account. This is a first-person statement and not independent investigative reporting."
+    },
+    "paragraph1": {
+      "nl": "Ik werk als freelance kok. Bij de brand in ParkNest zijn mijn professionele koksmessen en andere essentiële keukenuitrusting verloren gegaan.",
+      "en": "I work as a freelance chef. In the fire at ParkNest, my professional chef's knives and other essential kitchen equipment were lost."
+    },
+    "paragraph2": {
+      "nl": "Zonder dit essentiële kookgereedschap kan ik mijn werk als kok op dit moment niet op de normale manier uitvoeren. Mijn doel is om mijn gereedschap te vervangen zodat ik weer aan het werk kan.",
+      "en": "Without these essential cooking tools, I currently cannot carry out my work as a chef in the normal way. My goal is to replace my tools so that I can return to work."
+    },
+    "paragraph3": {
+      "nl": "De inzamelingsactie 'Koksmessen voor Rooie Jaap' is specifiek opgericht om de aanschaf van dit vervangende materiaal mogelijk te maken. De gedocumenteerde referentielijst hieronder toont de specifieke artikelen en richtprijzen.",
+      "en": "The 'Chef's knives for Rooie Jaap' campaign was created specifically to make replacing this equipment possible. The documented reference list below shows the specific items and reference prices."
+    }
+  },
   "rooieJaapEquipment": {
     "title": {
       "nl": "Documentatie vervangende uitrusting — Rooie Jaap",

@@ -126,6 +126,9 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
   6. GEFU kitchen tweezers — €10.95
   7. Chef's coat — €25.00
   - **Documented Reference Inventory Total:** €576.45 (WhyDonate campaign target: €577.00)
+- **First-Person Account & Provenance:**
+  - Includes Jaap's first-person personal testimony ("Mijn verhaal") stating he works as a freelance chef, lost essential kitchen equipment in the ParkNest fire, currently cannot work as a chef in the normal way, and aims to replace his equipment to return to work.
+  - Formally distinguished as personal account/testimony, preserving the distinction between independently verified facts and first-person statements.
 - **Financial Accounting Snapshot (as of 17 September 2026):**
   - **Target Amount:** €577
   - **Online Amount Raised:** €100 (1 donation)

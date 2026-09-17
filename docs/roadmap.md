@@ -33,9 +33,10 @@
 
 ## Phase 1B — Content refinement & visual design baseline
 
-**Status: Planned**
+**Status: In Progress**
 
 - [ ] Refine Dutch-first copy and English translation review
+- [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
 - [ ] Add visual design polish and brand color harmony
 - [ ] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [ ] Keyboard navigation and focus ring visibility testing
