@@ -383,6 +383,56 @@
       }
     ]
   },
+  "share": {
+    "shareAction": {
+      "nl": "Delen",
+      "en": "Share"
+    },
+    "shareTitle": {
+      "nl": "Deel deze specifieke actie",
+      "en": "Share this specific campaign"
+    },
+    "whatsApp": {
+      "nl": "WhatsApp",
+      "en": "WhatsApp"
+    },
+    "email": {
+      "nl": "E-mail",
+      "en": "Email"
+    },
+    "copyLink": {
+      "nl": "Kopieer link",
+      "en": "Copy link"
+    },
+    "linkCopied": {
+      "nl": "Link gekopieerd!",
+      "en": "Link copied!"
+    },
+    "webShare": {
+      "nl": "Delen via apparaat",
+      "en": "Share via device"
+    },
+    "qrCode": {
+      "nl": "QR-code",
+      "en": "QR Code"
+    },
+    "qrModalTitle": {
+      "nl": "QR-code voor inzamelingsactie",
+      "en": "QR Code for campaign"
+    },
+    "qrModalDesc": {
+      "nl": "Scan deze QR-code met een telefooncamera om direct naar de gekozen actie op deze transparantiesite te navigeren.",
+      "en": "Scan this QR code with a phone camera to navigate directly to this specific campaign on this transparency site."
+    },
+    "closeModal": {
+      "nl": "Sluiten",
+      "en": "Close"
+    },
+    "shareMessagePrefix": {
+      "nl": "Bekijk deze specifieke inzamelingsactie voor",
+      "en": "Check out this specific fundraising campaign for"
+    }
+  },
   "footer": {
     "disclaimerTitle": {
       "nl": "Onafhankelijkheidsverklaring",
