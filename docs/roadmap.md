@@ -2,7 +2,7 @@
 
 ## Phase 0 — Evidence and content foundation
 
-**Status: In progress**
+**Status: Completed**
 
 - [x] Bootstrap repository and branch/PR workflow
 - [x] Write project purpose and neutral editorial position
@@ -10,19 +10,19 @@
 - [x] Record the ParkNest collective fundraiser separately from personal campaigns
 - [x] Record known personal campaigns for Kathinka, Jim Gijbels, and Rooie Jaap
 - [x] Mark unsupported social-media claims as unverified rather than publishing them as fact
-- [ ] Capture the four live campaign pages and record exact title, organiser, beneficiary, purpose, goal, current amount, status, update history, and payout/fee information where disclosed
-- [ ] Preserve dated evidence for the current campaign values
-- [ ] Verify the exact relationship, if any, between the collective ParkNest fundraiser and the personal campaigns
-- [ ] Review ParkNest Facebook/Instagram history for documented sharing of the personal campaigns and record evidence rather than assumptions
-- [ ] Decide which additional fundraising actions, if any, belong in the public register
+- [x] Capture the four live campaign pages and record exact title, organiser, beneficiary, purpose, goal, current amount, status, update history, and payout/fee information where disclosed
+- [x] Preserve dated evidence for the current campaign values
+- [x] Verify the exact relationship, if any, between the collective ParkNest fundraiser and the personal campaigns
+- [x] Review ParkNest Facebook/Instagram history for documented sharing of the personal campaigns and record evidence rather than assumptions
+- [x] Decide which additional fundraising actions, if any, belong in the public register
 
 ## Phase 1 — Content model and information architecture
 
 **Status: Planned**
 
-- [ ] Define the canonical fundraiser data schema
-- [ ] Define the distinction between collective, personal, and other campaigns in code/data
-- [ ] Define source records and `verifiedAt` metadata
+- [x] Define the canonical fundraiser data schema (`data/fundraisers.json`)
+- [x] Define the distinction between collective, personal, and other campaigns in code/data
+- [x] Define source records and `verifiedAt` metadata
 - [ ] Draft final Dutch copy for the home page
 - [ ] Draft the "what happened" timeline
 - [ ] Draft campaign-card copy from verified source data only
@@ -71,19 +71,29 @@
 - [ ] Record material changes in campaign purpose or beneficiary
 - [ ] Keep source register and website data synchronized
 
-## Open questions
+## Open questions & evidence limits
 
-These should be resolved through source verification, not assumptions:
+These remain explicitly documented to prevent unverified claims:
 
-1. What are the exact current values and goals of each campaign?
-2. Who is the named beneficiary of each campaign, and where is the money paid out?
-3. Are the personal campaigns formally connected to ParkNest, or simply organised in response to losses suffered by people associated with ParkNest?
-4. Which personal campaigns were publicly promoted by ParkNest itself, and through which channels?
-5. Are there further campaigns that should be included?
-6. Should the project eventually host a new fundraiser of its own, or should it remain an information hub linking to existing verified campaigns?
+1. **Exact values & goals (Resolved 17 Sept 2026):**
+   - ParkNest collective: €30,061 raised of €150,000 goal (767 donations, €25,790 offline).
+   - Kathinka: €0 raised of €2,300 goal (0 donations).
+   - Jim Gijbels: €30 raised of €300 goal (2 donations).
+   - Rooie Jaap: €100 raised of €577 goal (1 donation).
+2. **Beneficiaries & payout destination:**
+   - ParkNest collective explicitly names **Stichting Buurtbelang Parknest** (and direct IBAN `NL96 INGB 0114 0203 37`).
+   - Personal campaigns (Kathinka, Jim Gijbels, Rooie Jaap) have `beneficiaryName: null` on WhyDonate.
+   - All four campaigns show masked IBAN `0337` and organiser **Dirk Zaal** on WhyDonate. Whether funds from sub-campaigns flow directly to individuals or via Stichting Buurtbelang Parknest is not specified on the platform.
+3. **Formal relationships:**
+   - On WhyDonate, campaigns 2, 3, and 4 are created with `parent_id: 101918` under the main ParkNest campaign.
+   - Do not infer money flows between campaigns.
+4. **Social media promotion:**
+   - ParkNest's official website (22 August 2026 article) explicitly acknowledges Jim Gijbels' paintings and Kathinka's dog collars as items lost in the fire, but links only to the main ParkNest fundraiser. No direct posts promoting individual sub-campaign URLs were found on Facebook/Instagram.
+5. **Additional campaigns:**
+   - No other public fundraising campaigns connected to the fire were identified with sufficient source evidence as of 17 September 2026.
+6. **Project hosting of new fundraiser:**
+   - The project remains an independent information site linking visitors directly to verified external campaigns.
 
 ## Next milestone
 
-**M0 — Verified fundraiser map**
-
-Do not treat the visual site as ready for launch until the four known campaigns have a completed source record and the public copy can explain the difference between them without relying on inference.
+**Phase 1 — Canonical data model & information architecture**

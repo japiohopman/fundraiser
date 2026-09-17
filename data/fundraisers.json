@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "lastVerifiedAt": "2026-09-17",
+  "fundraisers": [
+    {
+      "id": "parknest-collective",
+      "platform": "WhyDonate",
+      "platformCampaignId": 101918,
+      "parentCampaignId": null,
+      "slug": "houd-parknest-open-in-de-winter",
+      "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter",
+      "officialEntryPoint": "https://fundraiser.parknest.nl/",
+      "category": "collective",
+      "title": {
+        "nl": "Help ParkNest herrijzen na de brand",
+        "en": "Help ParkNest rise again after the fire"
+      },
+      "organiser": {
+        "name": "Dirk Zaal",
+        "email": "dirk@digizaal.nl",
+        "phone": "+31651175442"
+      },
+      "beneficiary": {
+        "name": "Stichting Buurtbelang Parknest",
+        "type": "foundation",
+        "directBankIban": "NL96 INGB 0114 0203 37"
+      },
+      "purpose": {
+        "nl": "Voortzetten van ParkNest-activiteiten, aanschaf van tijdelijke voorzieningen en bouwen aan een nieuwe toekomst na de verwoestende brand.",
+        "en": "Continue ParkNest activities, procure temporary facilities/equipment, and rebuild for the future after the devastating fire."
+      },
+      "financials": {
+        "currency": "EUR",
+        "targetAmount": 150000,
+        "currentAmountRaised": 30061,
+        "donationCount": 767,
+        "offlineDonationAmount": 25790,
+        "maskedIban": "**************0337"
+      },
+      "dates": {
+        "createdAt": "2025-10-24T09:24:17.000000Z",
+        "endDate": "2027-08-22",
+        "verifiedAt": "2026-09-17"
+      },
+      "status": {
+        "isOpened": true,
+        "isDraft": false,
+        "isCompleted": false
+      },
+      "verificationState": "verified"
+    },
+    {
+      "id": "kathinka-dog-collars",
+      "platform": "WhyDonate",
+      "platformCampaignId": 136857,
+      "parentCampaignId": 101918,
+      "slug": "kathinka",
+      "url": "https://whydonate.com/nl/fundraising/kathinka",
+      "officialEntryPoint": null,
+      "category": "personal",
+      "title": {
+        "nl": "Vervang het hondenbandjes-display met collectie hondenbandjes van Kathinka",
+        "en": "Replace the dog collar display with Kathinka's collection of dog collars"
+      },
+      "organiser": {
+        "name": "Dirk Zaal",
+        "email": "dirk@digizaal.nl",
+        "phone": "+31651175442"
+      },
+      "beneficiary": {
+        "name": null,
+        "type": "individual",
+        "directBankIban": null
+      },
+      "purpose": {
+        "nl": "Vervanging van het hondenbandjes-display en de persoonlijke collectie hondenbandjes en hondenriemen van Kathinka van Velzen, verloren bij de brand.",
+        "en": "Replacement of the dog collar display and personal collection of dog collars and dog leashes belonging to Kathinka van Velzen, lost in the fire."
+      },
+      "financials": {
+        "currency": "EUR",
+        "targetAmount": 2300,
+        "currentAmountRaised": 0,
+        "donationCount": 0,
+        "offlineDonationAmount": 0,
+        "maskedIban": "**************0337"
+      },
+      "dates": {
+        "createdAt": "2026-08-30T20:11:26.757971Z",
+        "endDate": "2028-01-01",
+        "verifiedAt": "2026-09-17"
+      },
+      "status": {
+        "isOpened": true,
+        "isDraft": false,
+        "isCompleted": false
+      },
+      "verificationState": "verified"
+    },
+    {
+      "id": "jim-gijbels-paintings",
+      "platform": "WhyDonate",
+      "platformCampaignId": 136863,
+      "parentCampaignId": 101918,
+      "slug": "jimgijbels",
+      "url": "https://whydonate.com/nl/fundraising/jimgijbels",
+      "officialEntryPoint": null,
+      "category": "personal",
+      "title": {
+        "nl": "Help Jim Gijbels zn schilderij collectie weer op te bouwen",
+        "en": "Help Jim Gijbels rebuild his painting collection"
+      },
+      "organiser": {
+        "name": "Dirk Zaal",
+        "email": "dirk@digizaal.nl",
+        "phone": "+31651175442"
+      },
+      "beneficiary": {
+        "name": null,
+        "type": "individual",
+        "directBankIban": null
+      },
+      "purpose": {
+        "nl": "Heropbouwen van de geschilderde tramcollectie van Jim Gijbels, die in ParkNest geëxposeerd werd en bij de brand verloren ging.",
+        "en": "Rebuilding the painting collection of Jim Gijbels (tram paintings), which was on display at ParkNest and destroyed in the fire."
+      },
+      "financials": {
+        "currency": "EUR",
+        "targetAmount": 300,
+        "currentAmountRaised": 30,
+        "donationCount": 2,
+        "offlineDonationAmount": 0,
+        "maskedIban": "**************0337"
+      },
+      "dates": {
+        "createdAt": "2026-08-30T20:41:39.541756Z",
+        "endDate": "9999-12-31",
+        "verifiedAt": "2026-09-17"
+      },
+      "status": {
+        "isOpened": true,
+        "isDraft": false,
+        "isCompleted": false
+      },
+      "verificationState": "verified"
+    },
+    {
+      "id": "rooie-jaap-knives",
+      "platform": "WhyDonate",
+      "platformCampaignId": 136844,
+      "parentCampaignId": 101918,
+      "slug": "koksmessen-voor-rooie-jaap",
+      "url": "https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap",
+      "officialEntryPoint": null,
+      "category": "personal",
+      "title": {
+        "nl": "Koksmessen voor Rooie Jaap",
+        "en": "Chef's knives for Rooie Jaap"
+      },
+      "organiser": {
+        "name": "Dirk Zaal",
+        "email": "dirk@digizaal.nl",
+        "phone": "+31651175442"
+      },
+      "beneficiary": {
+        "name": null,
+        "type": "individual",
+        "directBankIban": null
+      },
+      "purpose": {
+        "nl": "Vervanging van professionele koksmessen voor Rooie Jaap, verloren bij de brand in ParkNest.",
+        "en": "Replacement of professional chef knives for Rooie Jaap, lost in the ParkNest fire."
+      },
+      "financials": {
+        "currency": "EUR",
+        "targetAmount": 577,
+        "currentAmountRaised": 100,
+        "donationCount": 1,
+        "offlineDonationAmount": 0,
+        "maskedIban": "**************0337"
+      },
+      "dates": {
+        "createdAt": "2026-08-30T18:50:21.447740Z",
+        "endDate": "2028-01-01",
+        "verifiedAt": "2026-09-17"
+      },
+      "status": {
+        "isOpened": true,
+        "isDraft": false,
+        "isCompleted": false
+      },
+      "verificationState": "verified"
+    }
+  ]
+}
