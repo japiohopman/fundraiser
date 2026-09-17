@@ -99,7 +99,7 @@
       "en": "Shortly before midnight on 20 August 2026, a fire broke out under the roof. Firefighters allowed the building to burn out in a controlled manner as entry was too dangerous. The building and various items inside were lost."
     },
     "paragraph3": {
-      "nl": "Sinds de brand zijn er meerdere crowdfundingsacties opgestart op het platform WhyDonate. Om verwarring te voorkomen, maakt deze website onderscheid tussen het collectieve ParkNest-fonds en persoonlijke herstelacties voor specifieke verloren eigendommen.",
+      "nl": "Sinds de brand zijn er meerdere crowdfundingsacties opgestart op het platform WhyDonate. Om verwarring te voorkomen, maakt deze website onderscheid tussen het collectieve ParkNest-fonds en persönliche herstelacties voor specifieke verloren eigendommen.",
       "en": "Since the fire, multiple crowdfunding campaigns have been launched on WhyDonate. To avoid confusion, this website distinguishes between the collective ParkNest fund and personal recovery campaigns for specific lost belongings."
     }
   },
@@ -281,7 +281,7 @@
     "items": [
       {
         "name": {
-          "nl": "Global G-6667 messenkoffer",
+          "nl": "Global G-6667 messenmap",
           "en": "Global G-6667 knife case"
         },
         "price": 135.00
@@ -327,13 +327,6 @@
           "en": "Chef's coat"
         },
         "price": 25.00
-      },
-      {
-        "name": {
-          "nl": "Verzend- en bestelkosten (referentie)",
-          "en": "Shipping and order costs (reference)"
-        },
-        "price": 5.90
       }
     ],
     "totalLabel": {
@@ -341,8 +334,8 @@
       "en": "Documented reference total:"
     },
     "note": {
-      "nl": "Het streefbedrag op WhyDonate is afgerond op € 577,00.",
-      "en": "The target amount on WhyDonate is rounded to €577.00."
+      "nl": "Gedocumenteerd referentietotaal voor vervangende uitrusting: € 576,45. Het streefbedrag van de inzamelingsactie op WhyDonate bedraagt € 577,00.",
+      "en": "Documented replacement-reference total: €576.45. The campaign target amount on WhyDonate is €577.00."
     }
   },
   "timeline": {

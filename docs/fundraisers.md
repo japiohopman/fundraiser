@@ -117,7 +117,15 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Campaign URL:** https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
-- **Stated Purpose:** Replacing professional chef knives for "Rooie Jaap", which were lost in the ParkNest fire.
+- **Stated Purpose:** Replacing professional chef knives and equipment for "Rooie Jaap", which were lost in the ParkNest fire. Documented replacement reference inventory:
+  1. Global G-6667 knife case — €135.00
+  2. Misono UX10 Gyutou 712 — €289.00
+  3. Sabatier Integra officemes — €25.50
+  4. Sabatier Integra bread knife — €40.50
+  5. Sabatier Integra chef's knife 23 cm — €50.50
+  6. GEFU kitchen tweezers — €10.95
+  7. Chef's coat — €25.00
+  - **Documented Reference Inventory Total:** €576.45 (WhyDonate campaign target: €577.00)
 - **Financial Accounting Snapshot (as of 17 September 2026):**
   - **Target Amount:** €577
   - **Online Amount Raised:** €100 (1 donation)
