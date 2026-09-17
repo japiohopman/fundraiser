@@ -59,7 +59,7 @@ These remain explicitly documented to prevent unverified claims:
    - ParkNest collective: €30,061 online + €25,790 offline = €55,851 displayed total raised of €150,000 goal (767 online donations). Created 24 Oct 2025.
    - Kathinka: €0 raised of €2,300 goal (0 donations).
    - Jim Gijbels: €30 raised of €300 goal (2 donations). Open-ended.
-   - Rooie Jaap: €100 raised of €577 goal (1 donation).
+   - Rooie Jaap: €100 raised of €577 goal (1 donation). Documented replacement-reference total across 7 items: €576.45.
 2. **Beneficiaries & payout destination:**
    - ParkNest collective explicitly names **Stichting Buurtbelang Parknest** as legal beneficiary.
    - Personal campaigns (Kathinka, Jim Gijbels, Rooie Jaap) have undisclosed legal beneficiaries (`type: undisclosed`, `beneficiaryName: null`).

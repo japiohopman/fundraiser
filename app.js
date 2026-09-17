@@ -1,13 +1,15 @@
 /**
  * ParkNest Fundraiser Transparency App
- * Handles dynamic content rendering, localization (NL/EN), mobile navigation, and accessibility.
+ * Handles dynamic content rendering, localization (NL/EN), mobile navigation, share options, and accessibility.
  */
 
 let state = {
   currentLang: 'nl',
   fundraisersData: null,
   contentData: null,
-  isNavOpen: false
+  isNavOpen: false,
+  isQRModalOpen: false,
+  activeShareCardId: null
 };
 
 // Utility to safely access nested object properties via dot notation
@@ -26,16 +28,236 @@ function formatCurrency(amount, lang) {
   }).format(amount);
 }
 
+/**
+ * Pure JavaScript Standalone QR Code Generator (Version 5-L, 37x37 matrix)
+ * Generates an accessible, clean SVG string for any URL up to ~106 bytes without external dependencies.
+ */
+class QRCodeGen {
+  static createSVG(text) {
+    const bytes = new TextEncoder().encode(text);
+    const dataCWCount = 108;
+    const ecCWCount = 26;
+    const N = 37;
+
+    if (bytes.length > 106) {
+      throw new Error("Text too long for Version 5 QR Code");
+    }
+
+    // 1. Bit Buffer & Data Codewords
+    const data = new Uint8Array(dataCWCount);
+    let bitPos = 0;
+
+    const writeBits = (val, num) => {
+      for (let i = num - 1; i >= 0; i--) {
+        const bit = (val >> i) & 1;
+        const byteIdx = Math.floor(bitPos / 8);
+        const bitIdx = 7 - (bitPos % 8);
+        if (bitIdx >= 0 && byteIdx < dataCWCount) {
+          if (bit) data[byteIdx] |= (1 << bitIdx);
+        }
+        bitPos++;
+      }
+    };
+
+    // Mode: Byte (0100)
+    writeBits(0b0100, 4);
+    // Count: 8 bits
+    writeBits(bytes.length, 8);
+    // Data bytes
+    for (let i = 0; i < bytes.length; i++) {
+      writeBits(bytes[i], 8);
+    }
+    // Terminator: up to 4 zero bits
+    const termLen = Math.min(4, dataCWCount * 8 - bitPos);
+    writeBits(0, termLen);
+
+    // Byte alignment
+    while (bitPos % 8 !== 0) bitPos++;
+
+    // Pad bytes
+    const pad = [0xEC, 0x11];
+    let padIdx = 0;
+    while (bitPos < dataCWCount * 8) {
+      writeBits(pad[padIdx % 2], 8);
+      padIdx++;
+    }
+
+    // 2. Reed-Solomon EC Codewords
+    const exp = new Uint8Array(512);
+    const log = new Uint8Array(256);
+    let x = 1;
+    for (let i = 0; i < 255; i++) {
+      exp[i] = x;
+      exp[i + 255] = x;
+      log[x] = i;
+      x = (x << 1) ^ (x & 128 ? 285 : 0);
+    }
+
+    // Generator polynomial for 26 EC codewords
+    let g = new Uint8Array([1]);
+    for (let i = 0; i < ecCWCount; i++) {
+      const nextG = new Uint8Array(g.length + 1);
+      for (let j = 0; j < g.length; j++) {
+        nextG[j] ^= exp[log[g[j]] + i];
+        nextG[j + 1] ^= g[j];
+      }
+      g = nextG;
+    }
+
+    const msg = new Uint8Array(dataCWCount + ecCWCount);
+    msg.set(data);
+    for (let i = 0; i < dataCWCount; i++) {
+      const coef = msg[i];
+      if (coef !== 0) {
+        const logCoef = log[coef];
+        for (let j = 0; j < g.length; j++) {
+          msg[i + j] ^= exp[logCoef + log[g[j]]];
+        }
+      }
+    }
+    const ec = msg.slice(dataCWCount);
+
+    // Combine Data + EC
+    const allCW = new Uint8Array(dataCWCount + ecCWCount);
+    allCW.set(data);
+    allCW.set(ec, dataCWCount);
+
+    // 3. Matrix Construction (37x37)
+    const matrix = Array.from({ length: N }, () => new Int8Array(N).fill(-1));
+
+    // Finder patterns
+    const addFinder = (r, c) => {
+      for (let dr = -1; dr <= 7; dr++) {
+        for (let dc = -1; dc <= 7; dc++) {
+          const nr = r + dr, nc = c + dc;
+          if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
+            if (dr >= 0 && dr <= 6 && dc >= 0 && dc <= 6) {
+              const isBlack = (dr === 0 || dr === 6 || dc === 0 || dc === 6 || (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4));
+              matrix[nr][nc] = isBlack ? 1 : 0;
+            } else {
+              matrix[nr][nc] = 0;
+            }
+          }
+        }
+      }
+    };
+
+    addFinder(0, 0);
+    addFinder(0, N - 7);
+    addFinder(N - 7, 0);
+
+    // Alignment pattern (for V5: row 30, col 30)
+    for (let dr = -2; dr <= 2; dr++) {
+      for (let dc = -2; dc <= 2; dc++) {
+        const isBlack = (Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0));
+        matrix[30 + dr][30 + dc] = isBlack ? 1 : 0;
+      }
+    }
+
+    // Timing patterns
+    for (let i = 8; i < N - 8; i++) {
+      if (matrix[6][i] === -1) matrix[6][i] = (i % 2 === 0) ? 1 : 0;
+      if (matrix[i][6] === -1) matrix[i][6] = (i % 2 === 0) ? 1 : 0;
+    }
+
+    // Dark module
+    matrix[N - 8][6] = 1;
+
+    // Reserve Format Info areas
+    for (let i = 0; i <= 8; i++) {
+      if (matrix[6][i] === -1) matrix[6][i] = 0;
+      if (matrix[i][6] === -1) matrix[i][6] = 0;
+      if (matrix[8][i] === -1) matrix[8][i] = 0;
+      if (matrix[i][8] === -1) matrix[i][8] = 0;
+    }
+    for (let i = 0; i < 8; i++) {
+      if (matrix[N - 1 - i][8] === -1) matrix[N - 1 - i][8] = 0;
+      if (matrix[8][N - 1 - i] === -1) matrix[8][N - 1 - i] = 0;
+    }
+
+    // Place Data bits
+    let cwIdx = 0, bitIdxInCW = 7;
+    let upward = true;
+
+    for (let col = N - 1; col > 0; col -= 2) {
+      if (col === 6) col = 5;
+
+      const rows = [];
+      if (upward) {
+        for (let r = N - 1; r >= 0; r--) rows.push(r);
+      } else {
+        for (let r = 0; r < N; r++) rows.push(r);
+      }
+
+      for (let r of rows) {
+        for (let c = col; c >= col - 1; c--) {
+          if (matrix[r][c] === -1) {
+            let bit = 0;
+            if (cwIdx < allCW.length) {
+              bit = (allCW[cwIdx] >> bitIdxInCW) & 1;
+              bitIdxInCW--;
+              if (bitIdxInCW < 0) {
+                bitIdxInCW = 7;
+                cwIdx++;
+              }
+            }
+            const maskBit = ((r + c) % 2 === 0) ? 1 : 0;
+            matrix[r][c] = bit ^ maskBit;
+          }
+        }
+      }
+      upward = !upward;
+    }
+
+    // Format Info bits for L level (01) + Mask 0 (000)
+    const formatBits = [1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0];
+
+    const formatCoords1 = [
+      [0, 8], [1, 8], [2, 8], [3, 8], [4, 8], [5, 8], [7, 8], [8, 8],
+      [8, 7], [8, 5], [8, 4], [8, 3], [8, 2], [8, 1], [8, 0]
+    ];
+    for (let i = 0; i < 15; i++) {
+      const [r, c] = formatCoords1[i];
+      matrix[r][c] = formatBits[i];
+    }
+
+    const formatCoords2 = [
+      [8, N - 1], [8, N - 2], [8, N - 3], [8, N - 4], [8, N - 5], [8, N - 6], [8, N - 7],
+      [N - 7, 8], [N - 6, 8], [N - 5, 8], [N - 4, 8], [N - 3, 8], [N - 2, 8], [N - 1, 8]
+    ];
+    for (let i = 0; i < 14; i++) {
+      const [r, c] = formatCoords2[i];
+      matrix[r][c] = formatBits[i < 7 ? i : i + 1];
+    }
+
+    // 4. Build SVG string
+    const border = 2;
+    const viewSize = N + border * 2;
+    let pathD = '';
+
+    for (let r = 0; r < N; r++) {
+      for (let c = 0; c < N; c++) {
+        if (matrix[r][c] === 1) {
+          pathD += `M${c + border},${r + border}h1v1h-1z `;
+        }
+      }
+    }
+
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewSize} ${viewSize}" width="220" height="220" role="img" aria-label="QR Code">
+      <rect width="${viewSize}" height="${viewSize}" fill="#ffffff"/>
+      <path d="${pathD.trim()}" fill="#0f172a"/>
+    </svg>`;
+  }
+}
+
 // Initialize Application
 async function initApp() {
   try {
-    // Determine language from localStorage or default to 'nl'
     const savedLang = localStorage.getItem('parknest_lang');
     if (savedLang && ['nl', 'en'].includes(savedLang)) {
       state.currentLang = savedLang;
     }
 
-    // Fetch canonical fundraiser data and content dictionary concurrently
     const [fundraisersRes, contentRes] = await Promise.all([
       fetch('data/fundraisers.json'),
       fetch('data/content.json')
@@ -48,11 +270,10 @@ async function initApp() {
     state.fundraisersData = await fundraisersRes.json();
     state.contentData = await contentRes.json();
 
-    // Setup UI event handlers
     setupLanguageSwitcher();
     setupMobileNav();
+    setupQRModal();
 
-    // Initial render
     renderApp();
 
   } catch (error) {
@@ -60,7 +281,7 @@ async function initApp() {
   }
 }
 
-// Setup Event Listeners for Language Switcher Buttons
+// Language Switcher Setup
 function setupLanguageSwitcher() {
   const langButtons = document.querySelectorAll('.lang-btn');
   langButtons.forEach(btn => {
@@ -73,7 +294,7 @@ function setupLanguageSwitcher() {
   });
 }
 
-// Setup Accessible Mobile Navigation Menu
+// Mobile Nav Setup
 function setupMobileNav() {
   const toggleBtn = document.getElementById('menu-toggle-btn');
   const navMenu = document.getElementById('main-nav-menu');
@@ -85,7 +306,6 @@ function setupMobileNav() {
     toggleMobileNav();
   });
 
-  // Close menu when clicking any nav link
   const navLinks = navMenu.querySelectorAll('.nav-link');
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -95,7 +315,6 @@ function setupMobileNav() {
     });
   });
 
-  // Close menu on Escape key press
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.isNavOpen) {
       toggleMobileNav(false);
@@ -103,7 +322,6 @@ function setupMobileNav() {
     }
   });
 
-  // Close menu on click outside header
   document.addEventListener('click', (e) => {
     if (state.isNavOpen && !e.target.closest('.site-header')) {
       toggleMobileNav(false);
@@ -111,7 +329,6 @@ function setupMobileNav() {
   });
 }
 
-// Toggle Mobile Navigation Drawer State
 function toggleMobileNav(forceState) {
   const toggleBtn = document.getElementById('menu-toggle-btn');
   const navMenu = document.getElementById('main-nav-menu');
@@ -123,7 +340,6 @@ function toggleMobileNav(forceState) {
   navMenu.classList.toggle('open', state.isNavOpen);
   document.body.classList.toggle('nav-drawer-open', state.isNavOpen);
 
-  // Update toggle button text label
   const labelSpan = toggleBtn.querySelector('.menu-toggle-label');
   if (labelSpan && state.contentData?.nav) {
     const lang = state.currentLang;
@@ -133,23 +349,76 @@ function toggleMobileNav(forceState) {
   }
 }
 
-// Set Active Language and Re-render
+// QR Code Modal Setup
+function setupQRModal() {
+  const modal = document.getElementById('qr-modal');
+  const closeBtn = document.getElementById('qr-modal-close-btn');
+
+  if (!modal || !closeBtn) return;
+
+  closeBtn.addEventListener('click', closeQRModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeQRModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state.isQRModalOpen) {
+      closeQRModal();
+    }
+  });
+}
+
+function openQRModal(titleText, shareUrl) {
+  const modal = document.getElementById('qr-modal');
+  const titleEl = document.getElementById('qr-modal-campaign-name');
+  const svgContainer = document.getElementById('qr-code-svg-container');
+  const urlEl = document.getElementById('qr-modal-url-text');
+  const closeBtn = document.getElementById('qr-modal-close-btn');
+
+  if (!modal || !svgContainer) return;
+
+  if (titleEl) titleEl.textContent = titleText;
+  if (urlEl) urlEl.textContent = shareUrl;
+
+  try {
+    svgContainer.innerHTML = QRCodeGen.createSVG(shareUrl);
+  } catch (err) {
+    console.error('Failed to generate QR Code:', err);
+    svgContainer.textContent = shareUrl;
+  }
+
+  modal.classList.add('open');
+  modal.removeAttribute('hidden');
+  state.isQRModalOpen = true;
+
+  if (closeBtn) closeBtn.focus();
+}
+
+function closeQRModal() {
+  const modal = document.getElementById('qr-modal');
+  if (!modal) return;
+
+  modal.classList.remove('open');
+  modal.setAttribute('hidden', '');
+  state.isQRModalOpen = false;
+}
+
 function setLanguage(lang) {
   state.currentLang = lang;
   localStorage.setItem('parknest_lang', lang);
   renderApp();
 }
 
-// Render All Components according to state.currentLang
 function renderApp() {
   const lang = state.currentLang;
   const content = state.contentData;
   const fundraisers = state.fundraisersData.fundraisers;
 
-  // 1. Update document html lang attribute
   document.documentElement.lang = lang;
 
-  // 2. Update i18n text nodes in static HTML
   const i18nElements = document.querySelectorAll('[data-i18n]');
   i18nElements.forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -159,10 +428,9 @@ function renderApp() {
     }
   });
 
-  // 3. Update i18n attributes
   const i18nAttrElements = document.querySelectorAll('[data-i18n-attr]');
   i18nAttrElements.forEach(el => {
-    const attrMapping = el.getAttribute('data-i18n-attr'); // e.g. "content:meta.description"
+    const attrMapping = el.getAttribute('data-i18n-attr');
     const [attrName, key] = attrMapping.split(':');
     const textObj = getNestedProperty(content, key);
     if (textObj && textObj[lang]) {
@@ -170,7 +438,6 @@ function renderApp() {
     }
   });
 
-  // 4. Update Language Switcher UI buttons
   const langButtons = document.querySelectorAll('.lang-btn');
   langButtons.forEach(btn => {
     const btnLang = btn.getAttribute('data-lang');
@@ -179,7 +446,6 @@ function renderApp() {
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
-  // 5. Sync Mobile Menu toggle button label state
   const toggleBtn = document.getElementById('menu-toggle-btn');
   if (toggleBtn) {
     const labelSpan = toggleBtn.querySelector('.menu-toggle-label');
@@ -190,20 +456,12 @@ function renderApp() {
     }
   }
 
-  // 6. Render Fundraiser Cards from canonical data
   renderFundraisers(fundraisers, content, lang);
-
-  // 7. Render Rooie Jaap Equipment Reference Table
   renderRooieJaapEquipment(content.rooieJaapEquipment, lang);
-
-  // 8. Render Timeline Events
   renderTimeline(content.timeline.events, lang);
-
-  // 9. Render Sources List
   renderSources(content.sources.links, lang);
 }
 
-// Render Fundraisers split into Collective and Personal grids
 function renderFundraisers(fundraisers, content, lang) {
   const collectiveContainer = document.getElementById('collective-fundraisers-list');
   const personalContainer = document.getElementById('personal-fundraisers-list');
@@ -216,7 +474,7 @@ function renderFundraisers(fundraisers, content, lang) {
   const labels = content.fundraisersSection.labels;
 
   fundraisers.forEach(item => {
-    const card = createFundraiserCard(item, labels, lang);
+    const card = createFundraiserCard(item, labels, content.share, lang);
     if (item.category === 'collective') {
       collectiveContainer.appendChild(card);
     } else {
@@ -225,12 +483,9 @@ function renderFundraisers(fundraisers, content, lang) {
   });
 }
 
-// Create individual Fundraiser Card Element
-function createFundraiserCard(item, labels, lang) {
+function createFundraiserCard(item, labels, shareContent, lang) {
   const card = document.createElement('article');
   card.className = `fundraiser-card category-${item.category}`;
-
-  // Assign stable DOM anchor ID for direct navigation routing
   card.id = `fundraiser-${item.id}`;
 
   const titleText = item.title[lang] || item.title.nl;
@@ -240,13 +495,12 @@ function createFundraiserCard(item, labels, lang) {
   const offlineRaisedFormatted = formatCurrency(item.financials.offlineDonationAmount, lang);
   const displayedTotalFormatted = formatCurrency(item.financials.displayedTotalRaised, lang);
 
-  // Retrieve explicit card badge label from content dictionary or fallback
   const cardBadgeLabel = state.contentData?.fundraisersSection?.cardBadges?.[item.id]?.[lang] ||
     state.contentData?.fundraisersSection?.campaignTypes?.[item.category]?.[lang] ||
     (item.category === 'collective' ? 'ALGEMENE PARKNEST-INZAMELING' : 'PERSOONLIJKE INZAMELING');
 
   const donationPurposePrefix = state.contentData?.fundraisersSection?.donationPurposePrefix?.[lang] ||
-    (lang === 'en' ? 'Your donation here supports exclusively:' : 'U doneert hier uitsluitend voor:');
+    (lang === 'en' ? 'The purpose of this campaign is:' : 'Het doel van deze actie is:');
 
   let beneficiaryHTML = '';
   if (item.beneficiary.name) {
@@ -265,6 +519,27 @@ function createFundraiserCard(item, labels, lang) {
       </div>
     `;
   }
+
+  // Construct absolute share URL pointing directly to campaign's anchor
+  const baseUrl = window.location.href.split('#')[0];
+  const shareUrl = `${baseUrl}#fundraiser-${item.id}`;
+
+  // WhatsApp & Email share texts
+  const waText = encodeURIComponent(
+    lang === 'en'
+      ? `Check out this specific fundraiser for ${titleText} (${purposeText}): ${shareUrl}`
+      : `Bekijk deze specifieke inzamelingsactie voor ${titleText} (${purposeText}): ${shareUrl}`
+  );
+  const emailSubject = encodeURIComponent(
+    lang === 'en'
+      ? `Fundraiser: ${titleText}`
+      : `Inzamelingsactie: ${titleText}`
+  );
+  const emailBody = encodeURIComponent(
+    lang === 'en'
+      ? `Check out this specific fundraiser for ${titleText}.\n\nPurpose: ${purposeText}\n\nLink: ${shareUrl}`
+      : `Bekijk deze specifieke inzamelingsactie voor ${titleText}.\n\nDoel: ${purposeText}\n\nLink: ${shareUrl}`
+  );
 
   card.innerHTML = `
     <div class="campaign-type-badge-bar">
@@ -315,22 +590,102 @@ function createFundraiserCard(item, labels, lang) {
         ${labels.donateLink[lang]} <span class="visually-hidden">(${titleText})</span>
       </a>
     </div>
+
+    <div class="card-share-section">
+      <button type="button" class="share-toggle-btn" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="share-icon"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        <span>${shareContent?.shareAction?.[lang] || 'Delen'}</span>
+      </button>
+
+      <div class="card-share-container" hidden>
+        ${navigator.share ? `
+          <button type="button" class="share-btn native-share-btn">
+            ${shareContent?.webShare?.[lang] || 'Delen...'}
+          </button>
+        ` : ''}
+        <a href="https://wa.me/?text=${waText}" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp-btn">
+          ${shareContent?.whatsapp?.[lang] || 'WhatsApp'}
+        </a>
+        <a href="mailto:?subject=${emailSubject}&body=${emailBody}" class="share-btn email-btn">
+          ${shareContent?.email?.[lang] || 'E-mail'}
+        </a>
+        <button type="button" class="share-btn copy-link-btn">
+          ${shareContent?.copyLink?.[lang] || 'Kopieer link'}
+        </button>
+        <button type="button" class="share-btn qr-code-btn">
+          ${shareContent?.qrCode?.[lang] || 'QR Code'}
+        </button>
+      </div>
+    </div>
   `;
+
+  // Attach share section event listeners
+  const shareToggleBtn = card.querySelector('.share-toggle-btn');
+  const shareContainer = card.querySelector('.card-share-container');
+  const nativeShareBtn = card.querySelector('.native-share-btn');
+  const copyLinkBtn = card.querySelector('.copy-link-btn');
+  const qrCodeBtn = card.querySelector('.qr-code-btn');
+
+  if (shareToggleBtn && shareContainer) {
+    shareToggleBtn.addEventListener('click', () => {
+      const isExpanded = shareToggleBtn.getAttribute('aria-expanded') === 'true';
+      shareToggleBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+      shareContainer.hidden = isExpanded;
+    });
+  }
+
+  if (nativeShareBtn) {
+    nativeShareBtn.addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: titleText,
+          text: purposeText,
+          url: shareUrl
+        }).catch(err => console.log('Native share cancelled:', err));
+      }
+    });
+  }
+
+  if (copyLinkBtn) {
+    copyLinkBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const origText = copyLinkBtn.textContent;
+        copyLinkBtn.textContent = shareContent?.copiedFeedback?.[lang] || 'Link gekopieerd!';
+        copyLinkBtn.classList.add('copied');
+        setTimeout(() => {
+          copyLinkBtn.textContent = origText;
+          copyLinkBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy link:', err);
+      });
+    });
+  }
+
+  if (qrCodeBtn) {
+    qrCodeBtn.addEventListener('click', () => {
+      openQRModal(titleText, shareUrl);
+    });
+  }
 
   return card;
 }
 
-// Render Rooie Jaap Equipment Reference List & Table
-function renderRooieJaapEquipment(equipmentData, lang) {
+function renderRooieJaapEquipment(contentEquipment, lang) {
   const container = document.getElementById('rooie-jaap-equipment-container');
-  if (!container || !equipmentData) return;
+  if (!container || !contentEquipment) return;
+
+  const rooieJaapFundraiser = state.fundraisersData?.fundraisers?.find(f => f.id === 'rooie-jaap-knives');
+  const equipmentRef = rooieJaapFundraiser?.equipmentReferences;
+
+  if (!equipmentRef || !equipmentRef.items) return;
 
   const locale = lang === 'en' ? 'en-US' : 'nl-NL';
   const formatPrice = (val) => new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 }).format(val);
 
-  const totalAmount = equipmentData.items.reduce((sum, item) => sum + item.price, 0);
+  const totalAmount = equipmentRef.items.reduce((sum, item) => sum + item.price, 0);
 
-  const rowsHTML = equipmentData.items.map(item => `
+  const rowsHTML = equipmentRef.items.map(item => `
     <tr>
       <td>${item.name[lang] || item.name.nl}</td>
       <td class="price-cell">${formatPrice(item.price)}</td>
@@ -341,8 +696,8 @@ function renderRooieJaapEquipment(equipmentData, lang) {
     <table class="equipment-table">
       <thead>
         <tr>
-          <th scope="col">${equipmentData.tableHeaders.item[lang]}</th>
-          <th scope="col" class="price-cell">${equipmentData.tableHeaders.price[lang]}</th>
+          <th scope="col">${contentEquipment.tableHeaders.item[lang]}</th>
+          <th scope="col" class="price-cell">${contentEquipment.tableHeaders.price[lang]}</th>
         </tr>
       </thead>
       <tbody>
@@ -350,16 +705,15 @@ function renderRooieJaapEquipment(equipmentData, lang) {
       </tbody>
       <tfoot>
         <tr class="total-row">
-          <th scope="row">${equipmentData.totalLabel[lang]}</th>
+          <th scope="row">${contentEquipment.totalLabel[lang]}</th>
           <td class="price-cell"><strong>${formatPrice(totalAmount)}</strong></td>
         </tr>
       </tfoot>
     </table>
-    <p class="equipment-note">${equipmentData.note[lang]}</p>
+    <p class="equipment-note">${contentEquipment.note[lang]}</p>
   `;
 }
 
-// Render Timeline
 function renderTimeline(events, lang) {
   const container = document.getElementById('timeline-list');
   if (!container) return;
@@ -373,7 +727,6 @@ function renderTimeline(events, lang) {
   `).join('');
 }
 
-// Render Sources List
 function renderSources(links, lang) {
   const container = document.getElementById('sources-list');
   if (!container) return;
@@ -387,5 +740,4 @@ function renderSources(links, lang) {
   `).join('');
 }
 
-// Start App when DOM ready
 document.addEventListener('DOMContentLoaded', initApp);

@@ -130,23 +130,23 @@
     },
     "prominentWarning": {
       "title": {
-        "nl": "Belangrijke waarschuwing: Gescheiden geldstromen en acties",
-        "en": "Important Notice: Separate Funds and Campaigns"
+        "nl": "Belangrijke waarschuwing: Gescheiden inzamelingsacties",
+        "en": "Important Notice: Separate Fundraising Campaigns"
       },
       "bullet1": {
-        "nl": "Er zijn meerdere afzonderlijke inzamelingsacties actief rond ParkNest.",
-        "en": "There are multiple separate fundraising campaigns active around ParkNest."
+        "nl": "LET OP: Dit zijn afzonderlijke inzamelingsacties en géén gezamenlijke pot.",
+        "en": "NOTE: These are separate fundraising campaigns and NOT one shared fund."
       },
       "bullet2": {
-        "nl": "Dit is géén gezamenlijke pot: donaties aan de ene actie stromen niet automatisch door naar een andere actie.",
-        "en": "These are NOT one shared pot: donating to one campaign does not automatically contribute to another."
+        "nl": "Een donatie aan de ene actie is niet dezelfde donatie als aan een andere actie.",
+        "en": "A donation to one campaign is not the same donation as to another campaign."
       },
       "bullet3": {
-        "nl": "Een donatie aan de algemene ParkNest-actie ondersteunt NIET de vervanging van het gedocumenteerde kookmateriaal van Rooie Jaap of andere persoonlijke verliezen.",
-        "en": "A donation to the general ParkNest campaign does NOT fund the replacement of Rooie Jaap's documented chef equipment or other personal losses."
+        "nl": "Als u specifiek de vervanging van het kookmateriaal van Rooie Jaap wilt ondersteunen, kies dan de actie voor Rooie Jaap.",
+        "en": "If you want to support the replacement of Rooie Jaap's lost chef equipment, select the Rooie Jaap campaign."
       },
       "bullet4": {
-        "nl": "Controleer altijd het specifieke doel van de gekozen actie voordat u doneert.",
+        "nl": "Controleer daarom altijd het specifieke doel van de gekozen actie voordat u doneert.",
         "en": "Always check the specific purpose of the selected campaign before donating."
       }
     },
@@ -183,8 +183,8 @@
       }
     },
     "donationPurposePrefix": {
-      "nl": "U doneert hier uitsluitend voor:",
-      "en": "Your donation here supports exclusively:"
+      "nl": "Het doel van deze actie is:",
+      "en": "The purpose of this campaign is:"
     },
     "labels": {
       "target": {
@@ -278,71 +278,13 @@
         "en": "Reference Price"
       }
     },
-    "items": [
-      {
-        "name": {
-          "nl": "Global G-6667 messenkoffer",
-          "en": "Global G-6667 knife case"
-        },
-        "price": 135.00
-      },
-      {
-        "name": {
-          "nl": "Misono UX10 Gyutou 712",
-          "en": "Misono UX10 Gyutou 712"
-        },
-        "price": 289.00
-      },
-      {
-        "name": {
-          "nl": "Sabatier Integra officemes",
-          "en": "Sabatier Integra officemes"
-        },
-        "price": 25.50
-      },
-      {
-        "name": {
-          "nl": "Sabatier Integra broodmes",
-          "en": "Sabatier Integra bread knife"
-        },
-        "price": 40.50
-      },
-      {
-        "name": {
-          "nl": "Sabatier Integra koksmes 23 cm",
-          "en": "Sabatier Integra chef's knife 23 cm"
-        },
-        "price": 50.50
-      },
-      {
-        "name": {
-          "nl": "GEFU keukenpincet",
-          "en": "GEFU kitchen tweezers"
-        },
-        "price": 10.95
-      },
-      {
-        "name": {
-          "nl": "Koksbuis",
-          "en": "Chef's coat"
-        },
-        "price": 25.00
-      },
-      {
-        "name": {
-          "nl": "Verzend- en bestelkosten (referentie)",
-          "en": "Shipping and order costs (reference)"
-        },
-        "price": 5.90
-      }
-    ],
     "totalLabel": {
       "nl": "Gedocumenteerd referentietotaal:",
       "en": "Documented reference total:"
     },
     "note": {
-      "nl": "Het streefbedrag op WhyDonate is afgerond op € 577,00.",
-      "en": "The target amount on WhyDonate is rounded to €577.00."
+      "nl": "Gedocumenteerd referentietotaal voor vervangende uitrusting: € 576,45. Het streefbedrag van de inzamelingsactie op WhyDonate bedraagt € 577,00.",
+      "en": "Documented replacement-reference total: €576.45. The campaign target amount on WhyDonate is €577.00."
     }
   },
   "timeline": {
@@ -440,6 +382,56 @@
         "url": "https://www.at5.nl/artikelen/228185/geliefd-gekraakt-buurthuisje-in-flevopark-afgebrand"
       }
     ]
+  },
+  "share": {
+    "shareAction": {
+      "nl": "Delen",
+      "en": "Share"
+    },
+    "shareTitle": {
+      "nl": "Deel deze specifieke actie",
+      "en": "Share this specific campaign"
+    },
+    "whatsApp": {
+      "nl": "WhatsApp",
+      "en": "WhatsApp"
+    },
+    "email": {
+      "nl": "E-mail",
+      "en": "Email"
+    },
+    "copyLink": {
+      "nl": "Kopieer link",
+      "en": "Copy link"
+    },
+    "linkCopied": {
+      "nl": "Link gekopieerd!",
+      "en": "Link copied!"
+    },
+    "webShare": {
+      "nl": "Delen via apparaat",
+      "en": "Share via device"
+    },
+    "qrCode": {
+      "nl": "QR-code",
+      "en": "QR Code"
+    },
+    "qrModalTitle": {
+      "nl": "QR-code voor inzamelingsactie",
+      "en": "QR Code for campaign"
+    },
+    "qrModalDesc": {
+      "nl": "Scan deze QR-code met een telefooncamera om direct naar de gekozen actie op deze transparantiesite te navigeren.",
+      "en": "Scan this QR code with a phone camera to navigate directly to this specific campaign on this transparency site."
+    },
+    "closeModal": {
+      "nl": "Sluiten",
+      "en": "Close"
+    },
+    "shareMessagePrefix": {
+      "nl": "Bekijk deze specifieke inzamelingsactie voor",
+      "en": "Check out this specific fundraising campaign for"
+    }
   },
   "footer": {
     "disclaimerTitle": {

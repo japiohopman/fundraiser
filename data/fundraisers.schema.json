@@ -125,7 +125,40 @@
               "isCompleted": { "type": "boolean" }
             }
           },
-          "verificationState": { "type": "string", "enum": ["verified", "partially_verified", "needs_verification"] }
+          "verificationState": { "type": "string", "enum": ["verified", "partially_verified", "needs_verification"] },
+          "equipmentReferences": {
+            "type": ["object", "null"],
+            "required": ["totalReferenceAmount", "sourceNote", "items"],
+            "properties": {
+              "totalReferenceAmount": { "type": "number" },
+              "sourceNote": {
+                "type": "object",
+                "required": ["nl", "en"],
+                "properties": {
+                  "nl": { "type": "string" },
+                  "en": { "type": "string" }
+                }
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name", "price"],
+                  "properties": {
+                    "name": {
+                      "type": "object",
+                      "required": ["nl", "en"],
+                      "properties": {
+                        "nl": { "type": "string" },
+                        "en": { "type": "string" }
+                      }
+                    },
+                    "price": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
