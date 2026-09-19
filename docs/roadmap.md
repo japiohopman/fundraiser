@@ -5,7 +5,7 @@
 > Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`). Only `### Ready` is auto-dispatched, one task at a time. Move tasks between sections by hand. Ticking `[x]` under `### Active` — after you have reviewed and verified the merged PR — is what advances the queue. The phase sections below are the long-term plan, not the dispatch source. Each task must stay on ONE line.
 
 ### Active
-- [ ] Keyboard navigation and focus visibility: make every interactive element in `index.html`, `styles.css` and `app.js` (menu, language switcher, share buttons, links) reachable by keyboard with a clearly visible focus ring; fix what is found; presentation and behaviour only, no content changes
+- [X] Keyboard navigation and focus visibility: make every interactive element in `index.html`, `styles.css` and `app.js` (menu, language switcher, share buttons, links) reachable by keyboard with a clearly visible focus ring; fix what is found; presentation and behaviour only, no content changes
 
 ### Ready
 
