@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history is required by Content Guard to compare the PR against origin/main.
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Verify project foundation
         shell: bash
@@ -34,3 +38,10 @@ jobs:
           done
 
           echo "Foundation files present."
+
+      - name: Run Content Guard
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          PR_LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+        run: node scripts/content-guard.mjs

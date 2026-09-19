@@ -25,6 +25,10 @@ The initial product is a static information site. Avoid adding a backend, authen
 
 ## Automation (Jules orchestrator)
 
-Routine implementation tasks can be dispatched automatically from the `## Now` queue in `docs/roadmap.md`; see `docs/JULES_ORCHESTRATOR_SETUP.md`. Agents follow `AGENT_RULES.md`. Their changes still arrive as pull requests that are reviewed before merging.
+Implementation tasks are dispatched from the `## Now` → `### Ready` queue in `docs/roadmap.md`; see `docs/JULES_ORCHESTRATOR_SETUP.md`. Jules works on the first unchecked Ready task and delivers a pull request into `main`.
 
-The only commits made to `main` by automation are queue-state updates (`docs/roadmap.md` and `.github/jules-queue-state.json`, message `chore: advance Jules queue`). Content and code changes never go to `main` directly.
+The queue has no separate `### Active` roadmap section. The current Jules session is tracked only in `.github/jules-queue-state.json`; that state is cleared after the corresponding PR is merged and the task is checked in the roadmap.
+
+The `Content Guard` check fails any pull request that touches protected content files or adds a file over 1 MB without the `content-approved` label. That is intentional: when a content change is deliberate and verified, add the label `content-approved`.
+
+Automation may commit only queue-state changes to `main` (message `chore: advance Jules queue`). Jules' implementation and roadmap checkbox changes always arrive through a pull request and are reviewed before merge.

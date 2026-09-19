@@ -2,20 +2,36 @@
 
 ## Now
 
-> Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`). Only `### Ready` is auto-dispatched, one task at a time. Move tasks between sections by hand. Ticking `[x]` under `### Active` — after you have reviewed and verified the merged PR — is what advances the queue. The phase sections below are the long-term plan, not the dispatch source. Each task must stay on ONE line.
-
-### Active
-- [X] Compact the header on mobile (below 600px): the title, subtitle, language switcher and menu button currently take about 225px of the first screen; keep title, language switcher and menu button on one tidy row, shorten or tuck away the subtitle, keep the menu accessible; presentation only, no content changes
+> Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`), worked top to bottom. Only unchecked tasks under `### Ready` are dispatched, one at a time. Jules ticks his own task in place (`[ ]` to `[x]`) in his pull request after verifying it; you review and merge, and the orchestrator then starts the next task. `### Blocked` and `### Human Review` are never dispatched. A task is a top-level checkbox line plus indented detail bullets (Problem, Goal, Scope, Constraints, Acceptance, Verification); keep the first line unchanged once a task is in progress. Finished tasks stay in place as `[x]`. The phase sections below are the long-term plan.
 
 ### Ready
 
-- [ ] Add Open Graph and Twitter card meta tags to `index.html` (og:type, og:locale nl_NL, og:title, og:description, twitter:card) reusing the existing title and description text only; no og:url, og:image or canonical yet (domain undecided); no content changes
-- [ ] Typography and reading layout: use fluid `clamp()` sizes for the hero title and section titles, and narrow the main content column on wide screens (around 880px, card grids excepted) so prose does not leave a large empty area on the right; presentation only, no content changes
-- [ ] Fundraiser card readability in `styles.css`: raise the small meta text (organiser, legal entity, last verified) to at least 14px, make the goal and total amounts visually stronger than their labels, and reduce the nesting of borders and backgrounds (section card, group box, campaign card) by one level while keeping the green/indigo campaign-type distinction, the type labels and the separation warning clearly visible; presentation only, no content changes
-- [ ] Responsive refinement: review `index.html` and `styles.css` at 320, 375, 768 and 1440px, fix overflow, spacing and readability problems, and add a breakpoint for wide screens; presentation only, no content changes
-- [ ] Add automated data validation to `.github/workflows/foundation-check.yml`: validate `data/fundraisers.json` against `data/fundraisers.schema.json` and check that `data/content.json` is valid JSON; no new runtime dependencies for the site itself
-- [ ] Add a print stylesheet section to `styles.css` so the page prints readably (hide navigation, share buttons and modal; keep campaign-type labels and the separation warning visible); no content changes
-- [ ] Repo hygiene: replace the hardcoded `#ffffff` values in `styles.css` with a colour token, remove the duplicate `--color-text-subtle` if it equals `--color-text-muted` (update usages), and delete the unused duplicate `jaaphopman_avatar.webp` in the repo root after confirming nothing references it
+- [x] **Keyboard navigation and focus visibility** (merged in PR #18)
+- [x] **Contrast audit and fixes** (merged in PR #19)
+
+- [ ] **Page shell: header, typography, reading layout and responsive behaviour**
+  - **Problem:** At 375px the header (title, subtitle, language switcher, menu button) takes about 225px of the first screen and the subtitle is squeezed beside the buttons. On desktop the prose is capped near 68ch but sits in cards about 1000px wide, leaving a large empty area on the right. Hero and section titles use fixed sizes. Only two breakpoints exist (768px and 900px) and there is no wide-screen tuning.
+  - **Goal:** One coherent, mobile-first pass over the page shell: a compact header on small screens, fluid typography, a comfortable reading column on wide screens, and responsive behaviour that holds from 320px to 1440px.
+  - **Scope:** `styles.css`. `index.html` and `app.js` only for markup or class hooks the styling needs.
+  - **Constraints:** Presentation only. No visible text changes and no new user-visible strings. Keep the keyboard focus rings and the WCAG AA colour tokens from the earlier accessibility work. Do not change the fundraiser cards beyond what the shell needs (they get their own task).
+  - **Acceptance:** At 320, 375, 768, 1024 and 1440px there is no horizontal scrolling and no clipped or overlapping control. At 375px the header takes no more than about 120px, with title, language switcher and menu button all reachable. Hero and section titles scale fluidly (`clamp()`). On wide screens the prose column is narrowed so it no longer leaves a large empty area beside it. Every interactive element still shows a visible focus ring when tabbing.
+  - **Verification:** Serve the site statically, take before and after screenshots at the widths above, tab through the page once, and describe exactly what you checked in the pull request. Tick the Phase 1B item "Responsive design refinement across mobile, tablet, and desktop breakpoints" only if this task fully completes it.
+
+- [ ] **Fundraiser cards: hierarchy, readability and print**
+  - **Problem:** Each campaign is shown inside three nested boxes (section card, group box, campaign card). The small meta text (organiser, legal entity, last verified) is hard to read, and the goal and total amounts are visually weaker than their labels. There is no print styling, and the page is about 13,600px long on mobile.
+  - **Goal:** Make each campaign card easier to scan and read while keeping the collective versus personal distinction unmistakable, and add a print stylesheet so the page prints as a usable document.
+  - **Scope:** `styles.css`. `index.html` and `app.js` only for markup or class hooks the styling needs (for example to flatten a wrapper).
+  - **Constraints:** Presentation only. No visible text changes, no new strings, no change to any number or wording. The green (collective) and indigo (personal) distinction, the campaign-type labels and the yellow separation warning must stay at least as prominent as they are now. Do not touch `data/`.
+  - **Acceptance:** One level less of nested borders and backgrounds around each campaign. Meta text is at least 14px. Goal and total amounts are clearly stronger than their labels. On print: navigation, share buttons and the QR modal are hidden; campaign-type labels and the separation warning remain visible; a campaign card is not split across pages. Checked at 375px and 1440px, and in a print preview.
+  - **Verification:** Screenshots before and after at 375px and 1440px, plus a print-preview check (for example a headless browser PDF), described in the pull request.
+
+- [ ] **Technical foundation: validation, share metadata and repo hygiene**
+  - **Problem:** CI only checks that a few documents exist. Nothing validates `data/fundraisers.json` against its schema, or that `data/content.json` and `index.html` are well formed. `index.html` has no Open Graph or Twitter tags, so shared links show a bare preview. `styles.css` has hardcoded `#ffffff` values and a duplicate colour token, and an unused, byte-identical `jaaphopman_avatar.webp` sits in the repository root.
+  - **Goal:** Let CI catch data and markup mistakes before merge, make shared links preview properly, and remove the small inconsistencies.
+  - **Scope:** `.github/workflows/foundation-check.yml` (or a new workflow), a validation script under `scripts/`, the `<head>` of `index.html`, colour tokens in `styles.css`, and the root avatar file.
+  - **Constraints:** Do not edit anything under `data/`. No `package.json` or runtime dependency for the site itself; CI tools run via `npx` with pinned versions inside the workflow only. Validation must pass on current `main`; report genuine findings in the pull request instead of editing content to satisfy a tool. Meta tags may reuse the existing Dutch title and description text verbatim and nothing else; no og:url, og:image or canonical (the domain is undecided). If you cannot modify workflow files, put the validation in a script under `scripts/` and describe the one-line workflow change needed.
+  - **Acceptance:** CI validates `data/fundraisers.json` against `data/fundraisers.schema.json`, checks that `data/content.json` parses, and validates the HTML. A deliberately broken JSON file (tested locally, not committed) makes it fail. `index.html` has og:type, og:locale (nl_NL), og:title, og:description and twitter:card. The hardcoded `#ffffff` values use a token, the duplicate token is resolved with an identical visual result, and the root avatar is removed after a search confirms nothing references it.
+  - **Verification:** Run the validation locally, show the failing example, and confirm the site looks identical before and after. Tick the Phase 2 items "GitHub Actions CI workflow for build and lint validation" and "Automated HTML / JSON schema validation step" only if this task fully completes them.
 
 ### Blocked
 
@@ -74,7 +90,7 @@
 - [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
 - [ ] Add visual design polish and brand color harmony
 - [ ] Responsive design refinement across mobile, tablet, and desktop breakpoints
-- [ ] Keyboard navigation and focus ring visibility testing
+- [x] Keyboard navigation and focus ring visibility testing
 - [ ] Contrast ratio and screen-reader accessibility audit
 
 ## Phase 2 — Static website deployment & delivery

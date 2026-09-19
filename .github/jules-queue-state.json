@@ -1,7 +1,3 @@
 {
-  "activeSession": {
-    "name": "sessions/11278174994247567601",
-    "task": "Contrast audit and fixes: check every text/background pair in `styles.css` against WCAG 2.1 AA, adjust colours only where they fail and keep the campaign-type labels and separation banner clearly distinguishable; no content changes",
-    "startedAt": "2026-09-19T02:41:06.696Z"
-  }
+  "activeSession": null
 }
