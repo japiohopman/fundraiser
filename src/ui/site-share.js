@@ -47,8 +47,9 @@ export function setupSiteShare(state) {
     nativeBtn.addEventListener('click', () => {
       const content = state.contentData;
       const lang = state.currentLang;
-      const title = content?.meta?.title?.[lang] || 'ParkNest Inzamelingsacties Transparantie';
-      const text = content?.hero?.subtitle?.[lang] || title;
+      const title = content?.meta?.title?.[lang];
+      const template = content?.share?.siteShareMessage?.[lang] || '{url}';
+      const text = template.replace('{url}', SITE_SHARE_URL);
 
       triggerNativeShare({
         title,
@@ -62,7 +63,7 @@ export function setupSiteShare(state) {
     copyBtn.addEventListener('click', () => {
       const content = state.contentData;
       const lang = state.currentLang;
-      const feedbackText = content?.share?.linkCopied?.[lang] || 'Link gekopieerd!';
+      const feedbackText = content?.share?.linkCopied?.[lang];
       copyToClipboard(SITE_SHARE_URL, copyBtn, feedbackText);
     });
   }
@@ -71,7 +72,7 @@ export function setupSiteShare(state) {
     qrBtn.addEventListener('click', (e) => {
       const content = state.contentData;
       const lang = state.currentLang;
-      const title = content?.meta?.title?.[lang] || 'ParkNest Inzamelingsacties Transparantie';
+      const title = content?.meta?.title?.[lang];
       triggerQRModal(state, title, SITE_SHARE_URL, e.currentTarget);
     });
   }
@@ -106,12 +107,12 @@ export function updateSiteShareUI(state, content) {
   const emailBtn = document.getElementById('site-email-share-btn');
   const nativeBtn = document.getElementById('site-native-share-btn');
 
-  const title = content?.meta?.title?.[lang] || 'ParkNest Inzamelingsacties Transparantie';
-  const subtitle = content?.hero?.subtitle?.[lang] || title;
+  const waTemplate = content?.share?.siteShareMessage?.[lang] || '{url}';
+  const emailSubject = content?.share?.siteShareEmailSubject?.[lang] || '';
+  const emailBodyTemplate = content?.share?.siteShareEmailBody?.[lang] || '{url}';
 
-  const waText = `${title}: ${SITE_SHARE_URL}`;
-  const emailSubject = title;
-  const emailBody = `${subtitle}\n\n${SITE_SHARE_URL}`;
+  const waText = waTemplate.replace('{url}', SITE_SHARE_URL);
+  const emailBody = emailBodyTemplate.replace('{url}', SITE_SHARE_URL);
 
   if (waBtn) {
     waBtn.href = buildWhatsAppUrl(waText);
