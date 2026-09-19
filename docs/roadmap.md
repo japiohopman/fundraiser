@@ -5,11 +5,10 @@
 > Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`). Only `### Ready` is auto-dispatched, one task at a time. Move tasks between sections by hand. Ticking `[x]` under `### Active` — after you have reviewed and verified the merged PR — is what advances the queue. The phase sections below are the long-term plan, not the dispatch source. Each task must stay on ONE line.
 
 ### Active
-- [ ] Contrast audit and fixes: check every text/background pair in `styles.css` against WCAG 2.1 AA, adjust colours only where they fail and keep the campaign-type labels and separation banner clearly distinguishable; no content changes
+- [ ] Compact the header on mobile (below 600px): the title, subtitle, language switcher and menu button currently take about 225px of the first screen; keep title, language switcher and menu button on one tidy row, shorten or tuck away the subtitle, keep the menu accessible; presentation only, no content changes
 
 ### Ready
 
-- [ ] Compact the header on mobile (below 600px): the title, subtitle, language switcher and menu button currently take about 225px of the first screen; keep title, language switcher and menu button on one tidy row, shorten or tuck away the subtitle, keep the menu accessible; presentation only, no content changes
 - [ ] Add Open Graph and Twitter card meta tags to `index.html` (og:type, og:locale nl_NL, og:title, og:description, twitter:card) reusing the existing title and description text only; no og:url, og:image or canonical yet (domain undecided); no content changes
 - [ ] Typography and reading layout: use fluid `clamp()` sizes for the hero title and section titles, and narrow the main content column on wide screens (around 880px, card grids excepted) so prose does not leave a large empty area on the right; presentation only, no content changes
 - [ ] Fundraiser card readability in `styles.css`: raise the small meta text (organiser, legal entity, last verified) to at least 14px, make the goal and total amounts visually stronger than their labels, and reduce the nesting of borders and backgrounds (section card, group box, campaign card) by one level while keeping the green/indigo campaign-type distinction, the type labels and the separation warning clearly visible; presentation only, no content changes
