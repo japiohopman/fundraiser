@@ -54,6 +54,14 @@
       "nl": "Jim Gijbels — tramschilderijen",
       "en": "Jim Gijbels — tram paintings"
     },
+    "suzyCreamcheese": {
+      "nl": "Suzy Creamcheese — keukengerei",
+      "en": "Suzy Creamcheese — kitchenware"
+    },
+    "manon": {
+      "nl": "Manon — Kinkt! T-shirts",
+      "en": "Manon — Kinkt! T-shirts"
+    },
     "timeline": {
       "nl": "Tijdlijn",
       "en": "Timeline"
@@ -180,6 +188,14 @@
       "jim-gijbels-paintings": {
         "nl": "Persoonlijke inzameling — Jim Gijbels (Tramschilderijen)",
         "en": "Personal Fundraiser — Jim Gijbels (Tram Paintings)"
+      },
+      "suzy-creamcheese-kitchenware": {
+        "nl": "Persoonlijke inzameling — Kok Suzy Creamcheese (Keukengerei)",
+        "en": "Personal Fundraiser — Chef Suzy Creamcheese (Kitchenware)"
+      },
+      "manon-kinkt-shirts": {
+        "nl": "Persoonlijke inzameling — Manon (Kinkt! Shirts)",
+        "en": "Personal Fundraiser — Manon (Kinkt! Shirts)"
       }
     },
     "donationPurposePrefix": {
@@ -257,6 +273,14 @@
     "rooieJaap": {
       "nl": "Ondersteunt de vervanging van gedocumenteerd verloren kookmateriaal (professionele koksmessen en uitrusting) voor Jaap Hopman.",
       "en": "Supports replacing documented lost chef equipment (professional chef knives and gear) for Jaap Hopman."
+    },
+    "suzyCreamcheese": {
+      "nl": "Ondersteunt de vervanging van keukengerei en kookmateriaal van Kok Suzy Creamcheese.",
+      "en": "Supports replacing kitchenware and cooking equipment belonging to Chef Suzy Creamcheese."
+    },
+    "manon": {
+      "nl": "Ondersteunt de vervanging van verloren gane Kinkt! T-shirts van Manon.",
+      "en": "Supports replacing lost Kinkt! T-shirts belonging to Manon."
     }
   },
   "rooieJaapStory": {
@@ -352,8 +376,8 @@
           "en": "Additional personal fundraising campaigns launched"
         },
         "description": {
-          "nl": "Op 30 augustus worden drie gekoppelde sub-acties geregistreerd op WhyDonate ter vergoeding van specifieke persoonlijke verliezen (hondenbandjes, schilderijen, koksmessen).",
-          "en": "On 30 August, three linked sub-campaigns are registered on WhyDonate for specific personal losses (dog collars, paintings, chef knives)."
+          "nl": "Op 30 augustus worden gekoppelde sub-acties geregistreerd op WhyDonate ter vergoeding van specifieke persoonlijke verliezen (hondenbandjes, schilderijen, koksmessen, keukengerei, T-shirts).",
+          "en": "On 30 August, linked sub-campaigns are registered on WhyDonate for specific personal losses (dog collars, paintings, chef knives, kitchenware, T-shirts)."
         }
       },
       {
@@ -473,8 +497,8 @@
       "en": "This is an independent information website. It is not the official website of ParkNest, Stichting Buurtbelang ParkNest, or WhyDonate, and does not collect or manage donations."
     },
     "lastVerifiedText": {
-      "nl": "Laatste bronverificatie uitgevoerd op: 17 september 2026.",
-      "en": "Latest source verification conducted on: 17 September 2026."
+      "nl": "Laatste bronverificatie uitgevoerd op: 19 september 2026.",
+      "en": "Latest source verification conducted on: 19 September 2026."
     },
     "copyright": {
       "nl": "ParkNest Inzamelingsacties Transparantie Project",

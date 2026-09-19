@@ -8,12 +8,12 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 
 ## Verification Summary & Key Rules
 
-- **Verification Date:** 17 September 2026 (all dynamic campaign values verified directly from live WhyDonate pages/payloads as a snapshot).
+- **Verification Date:** 19 September 2026 (all dynamic campaign values verified directly from live WhyDonate pages/payloads as a snapshot).
 - **Core Editorial Rule:** Do not infer money flows or payout destinations between campaigns. Dynamic values always carry a `verifiedAt` date.
-- **Platform Relationship Structure:** On WhyDonate, campaigns 2, 3, and 4 are created with `parent_id: 101918` linking them directly under the main ParkNest campaign (ID 101918). All four campaigns display the same creator profile name (**Dirk Zaal**).
+- **Platform Relationship Structure:** On WhyDonate, campaigns 2, 3, 4, 5, and 6 are created with `parent_id: 101918` linking them directly under the main ParkNest campaign (ID 101918). All six campaigns display the same creator profile name (**Dirk Zaal**).
 - **Beneficiary & Payout Distinction:**
   - **Campaign Organiser:** Dirk Zaal (listed on WhyDonate profile).
-  - **Named Legal Beneficiary:** Only Campaign 1 explicitly names a legal beneficiary entity (**Stichting Buurtbelang Parknest**). Campaigns 2, 3, and 4 do not specify a separate legal beneficiary name on WhyDonate (`beneficiaryName: null` / undisclosed).
+  - **Named Legal Beneficiary:** Only Campaign 1 explicitly names a legal beneficiary entity (**Stichting Buurtbelang Parknest**). Campaigns 2, 3, 4, 5, and 6 do not specify a separate legal beneficiary name on WhyDonate (`beneficiaryName: null` / undisclosed).
   - **Payout Destination:** The legal entity or bank account receiving disbursed funds for sub-campaigns is not disclosed on WhyDonate. Do not assume or imply that payout goes to the individual named in the purpose or to Stichting Buurtbelang Parknest.
 
 ---
@@ -31,12 +31,12 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Named Legal Beneficiary:** Stichting Buurtbelang Parknest
 - **Direct Banking Alternative:** Stichting Buurtbelang ParkNest offers a direct bank contribution route referenced on ParkNest's official statement (https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/).
 - **Stated Purpose:** Continue ParkNest activities, procure temporary provisions/equipment, and work towards a new future after the building was destroyed by fire on 20–21 August 2026.
-- **Financial Accounting Snapshot (as of 17 September 2026):**
+- **Financial Accounting Snapshot (as of 19 September 2026):**
   - **Target Amount:** €150,000
-  - **Online Amount Raised:** €30,061 (767 online donations)
+  - **Online Amount Raised:** €31,248 (778 online donations)
   - **Offline Donations Recorded:** €25,790
-  - **Displayed Total Raised on WhyDonate:** €55,851 (€30,061 online + €25,790 offline)
-  - *Snapshot Semantics:* The €55,851 total reflects WhyDonate's displayed value at the recorded verification snapshot (17 September 2026). WhyDonate's public total updates dynamically as new contributions occur.
+  - **Displayed Total Raised on WhyDonate:** €57,038 (€31,248 online + €25,790 offline)
+  - *Snapshot Semantics:* The €57,038 total reflects WhyDonate's displayed value at the recorded verification snapshot (19 September 2026). WhyDonate's public total updates dynamically as new contributions occur.
 - **Creation & Historical Evidence Notes:**
   - **Created At:** 24 October 2025 (`2025-10-24T09:24:17.000000Z`)
   - **End Date:** 22 August 2027 (`2027-08-22`)
@@ -44,7 +44,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
 - **Disclosed Fees:** WhyDonate platform rules apply: 0% platform fee, standard payment processing transaction fees per donation payment method (e.g., iDEAL). Optional donor tips default to enabled.
 - **Verification State:** Verified (Primary source captured)
-- **Verification Date:** 17 September 2026
+- **Verification Date:** 19 September 2026
 - **Source Provenance:**
   - Campaign page payload: https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter
   - Official ParkNest statement: https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/
@@ -62,17 +62,17 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing the dog collar display and personal collection of dog collars and dog leashes belonging to Kathinka van Velzen, which was lost in the ParkNest fire.
-- **Financial Accounting Snapshot (as of 17 September 2026):**
+- **Financial Accounting Snapshot (as of 19 September 2026):**
   - **Target Amount:** €2,300
-  - **Online Amount Raised:** €0 (0 donations)
+  - **Online Amount Raised:** €300 (1 donation)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €0
+  - **Displayed Total Raised:** €300
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T20:11:26.757971Z`)
   - **End Date:** 1 January 2028 (`2028-01-01`)
 - **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
 - **Verification State:** Verified (Primary source captured)
-- **Verification Date:** 17 September 2026
+- **Verification Date:** 19 September 2026
 - **Source Provenance:**
   - Campaign page payload: https://whydonate.com/nl/fundraising/kathinka
   - Official ParkNest statement acknowledging lost dog collar collection: https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/
@@ -90,17 +90,17 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Rebuilding the painting collection of Jim Gijbels (tram paintings), which was on display at ParkNest and destroyed in the fire.
-- **Financial Accounting Snapshot (as of 17 September 2026):**
+- **Financial Accounting Snapshot (as of 19 September 2026):**
   - **Target Amount:** €300
-  - **Online Amount Raised:** €30 (2 donations)
+  - **Online Amount Raised:** €330 (3 donations)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €30
+  - **Displayed Total Raised:** €330
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T20:41:39.541756Z`)
   - **End Date:** Open-ended (`endDate: null`, `isOpenEnded: true`)
 - **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
 - **Verification State:** Verified (Primary source captured)
-- **Verification Date:** 17 September 2026
+- **Verification Date:** 19 September 2026
 - **Source Provenance:**
   - Campaign page payload: https://whydonate.com/nl/fundraising/jimgijbels
   - Official ParkNest statement acknowledging destroyed tram paintings: https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/
@@ -129,19 +129,73 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **First-Person Account & Provenance:**
   - Includes Jaap Hopman's first-person personal testimony ("Mijn verhaal") stating he works as a freelance chef, lost essential kitchen equipment in the ParkNest fire, currently cannot work as a chef in the normal way, and aims to replace his equipment to return to work.
   - Formally distinguished as personal account/testimony, preserving the distinction between independently verified facts and first-person statements.
-- **Financial Accounting Snapshot (as of 17 September 2026):**
+- **Financial Accounting Snapshot (as of 19 September 2026):**
   - **Target Amount:** €577
-  - **Online Amount Raised:** €100 (1 donation)
+  - **Online Amount Raised:** €395 (4 donations)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €100
+  - **Displayed Total Raised:** €395
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T18:50:21.447740Z`)
   - **End Date:** 1 January 2028 (`2028-01-01`)
 - **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
 - **Verification State:** Verified (Primary source captured)
-- **Verification Date:** 17 September 2026
+- **Verification Date:** 19 September 2026
 - **Source Provenance:**
   - Campaign page payload: https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap
+
+---
+
+## Campaign 5: Suzy / Kok Suzy Creamcheese — Personal Loss/Recovery Campaign
+
+- **Category:** Personal loss/recovery campaign
+- **Campaign Title:** Vervang keukengerei van Kok Suzy Creamcheese
+- **WhyDonate Slug:** `vervang-keukegerei-van-kok-suzy-creamcheese`
+- **WhyDonate Campaign ID:** `136858`
+- **Parent Campaign ID:** `101918` (linked under ParkNest main campaign on WhyDonate)
+- **Campaign URL:** https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese
+- **Organiser Name:** Dirk Zaal
+- **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
+- **Stated Purpose:** Replacing kitchenware and cooking equipment belonging to chef Suzy Creamcheese (Kok Suzy Creamcheese), lost in the ParkNest fire.
+- **Financial Accounting Snapshot (as of 19 September 2026):**
+  - **Target Amount:** €2,350
+  - **Online Amount Raised:** €1,000 (1 donation)
+  - **Offline Donations Recorded:** €0
+  - **Displayed Total Raised:** €1,000
+- **Creation & Dates:**
+  - **Created At:** 30 August 2026 (`2026-08-30T20:19:54.546998Z`)
+  - **End Date:** 1 January 2028 (`2028-01-01`)
+- **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
+- **Verification State:** Verified (Primary source captured)
+- **Verification Date:** 19 September 2026
+- **Source Provenance:**
+  - Campaign page payload: https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese
+
+---
+
+## Campaign 6: Manon — Personal Loss/Recovery Campaign
+
+- **Category:** Personal loss/recovery campaign
+- **Campaign Title:** Vervang de Kinkt! Shirts van Manon
+- **WhyDonate Slug:** `vervang-de-kinkt-shirts-van-manon`
+- **WhyDonate Campaign ID:** `136861`
+- **Parent Campaign ID:** `101918` (linked under ParkNest main campaign on WhyDonate)
+- **Campaign URL:** https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon
+- **Organiser Name:** Dirk Zaal
+- **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
+- **Stated Purpose:** Replacing Kinkt! T-shirts belonging to Manon, lost in the ParkNest fire.
+- **Financial Accounting Snapshot (as of 19 September 2026):**
+  - **Target Amount:** €128
+  - **Online Amount Raised:** €111 (2 donations)
+  - **Offline Donations Recorded:** €0
+  - **Displayed Total Raised:** €111
+- **Creation & Dates:**
+  - **Created At:** 30 August 2026 (`2026-08-30T20:32:59.520025Z`)
+  - **End Date:** 1 January 2028 (`2028-01-01`)
+- **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
+- **Verification State:** Verified (Primary source captured)
+- **Verification Date:** 19 September 2026
+- **Source Provenance:**
+  - Campaign page payload: https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon
 
 ---
 
@@ -165,18 +219,20 @@ An investigation was conducted into ParkNest's public social-media channels to v
 
 ---
 
-## Investigation of Additional Fundraising Actions
+## Investigation of Additional Fundraising Actions & Discovery Notes
 
-- **Search Date:** 17 September 2026
+- **Search Date:** 17 September 2026 (initial pass); 19 September 2026 (Phase 1B verification pass)
 - **Method:** Search across crowdfunding platform listings, local media reports (AT5, Oost-online, Het Parool, NH Nieuws, RTL, AD), and ParkNest news releases.
-- **Findings:** No other active public fundraising campaigns connected to the ParkNest fire were identified with sufficient source evidence. If new campaigns appear, they will be evaluated against the project's source hierarchy before inclusion.
+- **Findings:**
+  - **Initial Pass (17 September 2026):** Identified the primary collective ParkNest campaign (101918) and sub-campaigns for Kathinka (136857), Jim Gijbels (136863), and Jaap Hopman / Koksmessen voor Rooie Jaap (136844).
+  - **Discovery Note (19 September 2026):** Two additional personal loss/recovery campaigns ('Vervang keukengerei van Kok Suzy Creamcheese' [136858] and 'Vervang de Kinkt! Shirts van Manon' [136861]) were identified after the initial four-campaign register was completed. Platform metadata confirms both campaigns were created on 30 August 2026 under organiser profile Dirk Zaal with `parent_id: 101918`. They were verified directly from primary platform payloads and incorporated into the register. Their later inclusion in this register reflects ongoing identification of connected campaign pages and is not characterized as misconduct.
 
 ---
 
 ## Unresolved Questions & Evidence Limits
 
 1. **Payout destination of sub-campaigns:**
-   All four campaigns are organised under profile Dirk Zaal. While Campaign 1 names `Stichting Buurtbelang Parknest` as beneficiary, Campaigns 2, 3, and 4 do not specify a legal beneficiary name. Whether funds collected in sub-campaigns are paid out to Stichting Buurtbelang Parknest or directly to the named individuals is undisclosed on the platform.
+   All six campaigns are organised under profile Dirk Zaal. While Campaign 1 names `Stichting Buurtbelang Parknest` as beneficiary, Campaigns 2 through 6 do not specify a legal beneficiary name. Whether funds collected in sub-campaigns are paid out to Stichting Buurtbelang Parknest or directly to the named individuals is undisclosed on the platform.
 2. **Offline donation accounting details:**
    Campaign 1 records €25,790 in offline donations. The specific breakdown or origin of these offline funds is not detailed on WhyDonate.
 3. **Historical title/description edits:**
