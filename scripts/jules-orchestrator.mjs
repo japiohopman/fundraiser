@@ -1,54 +1,84 @@
 #!/usr/bin/env node
 /**
- * Jules Queue Orchestrator (v2)
+ * Jules Queue Orchestrator (v3 — fundraiser)
  *
- * Runs on a schedule (see .github/workflows/jules-orchestrator.yml — the "heartbeat", disabled
- * by default until one full manual cycle has been verified — see JULES_ORCHESTRATOR_SETUP.md).
+ * Runs on a schedule (see .github/workflows/jules-orchestrator.yml) and keeps ONE Jules
+ * session busy at a time, working through the tasks under "### Ready" in the "## Now"
+ * section of docs/roadmap.md, top to bottom.
  *
- * Ties Jules sessions to docs/roadmap.md's "## Now" section, which is structured as:
+ * A task is a top-level checkbox line plus its indented detail bullets:
  *
- *   ## Now
- *   ### Active
- *   - [ ] <task currently being worked by Jules — at most one at a time>
- *   ### Ready
- *   - [ ] <task the orchestrator is allowed to dispatch next>
- *   ### Blocked
- *   - [ ] <task waiting on a human decision — never dispatched>
- *   ### Human Review
- *   - [ ] <task that needs discussion before it's safe to hand to Jules — never dispatched>
+ *   - [ ] **Title**
+ *     - **Problem:** ...
+ *     - **Goal:** ...
+ *     - **Acceptance:** ...
  *
- * Flow each run:
- * 1. Load state (.github/jules-queue-state.json).
- * 2. If a session is already active:
- *      - No PR yet -> stop, nothing to do.
- *      - PR open but not merged -> stop. Human review gate #1.
- *      - PR merged BUT the task's line under "### Active" in docs/roadmap.md is still "- [ ]"
- *        -> stop. Human review gate #2 — a merge alone is not "done"; you (or CI) confirm
- *        it actually works by checking the box yourself.
- *      - PR merged AND the line is now "- [x]" -> the task is confirmed done. Remove the
- *        line from "### Active", clear the active session, fall through to dispatch next.
- * 3. If there's no active session:
- *      - Take the first "- [ ] ..." line under "### Ready".
- *      - None -> log "queue empty (or everything is Blocked/Human Review)" and stop.
- *      - Otherwise: move that line from "### Ready" to "### Active", start a new Jules
- *        session for it, and record it in state.
- * 4. Commit ROADMAP.md (if the task moved) and the state file together.
+ * Tasks stay where they are. Jules ticks his own task IN PLACE (- [ ] -> - [x]) in the same
+ * pull request, after verifying his work (see AGENT_RULES.md). The orchestrator never edits
+ * the roadmap; the only thing it commits is .github/jules-queue-state.json.
+ *
+ * Each run:
+ *   1. If a session is active:
+ *        - no PR yet                    -> wait
+ *        - PR open, not merged          -> wait (this is the human review: you merge)
+ *        - PR merged, task still [ ]    -> wait (Jules could not verify; read the PR, then
+ *                                          tick the box yourself if you are satisfied)
+ *        - PR merged and task is [x]    -> done: clear the session and continue below
+ *   2. If no session is active: take the first unchecked task under "### Ready", start a
+ *      Jules session with the full task text, and record it in the state file.
+ *
+ * "### Blocked" and "### Human Review" are never dispatched.
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
-
-const JULES_API_KEY = process.env.JULES_API_KEY;
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const REPO = process.env.GITHUB_REPOSITORY;
-const JULES_SOURCE = process.env.JULES_SOURCE;
+import { fileURLToPath } from 'node:url';
 
 const STATE_PATH = '.github/jules-queue-state.json';
 const ROADMAP_PATH = process.env.ROADMAP_PATH || 'docs/roadmap.md';
+const STALE_HOURS = 48;
 
-for (const [name, val] of Object.entries({ JULES_API_KEY, GITHUB_TOKEN, REPO, JULES_SOURCE })) {
-  if (!val) throw new Error(`${name} is not set`);
+const HARD_LIMITS =
+  'Hard limits for this repository: do NOT add or change any factual claim about a campaign, ' +
+  'person, amount, beneficiary or money flow; do NOT edit anything under data/ or the evidence ' +
+  'in docs/fundraisers.md, docs/editorial-policy.md or docs/story.md; do NOT add user-visible ' +
+  'text unless the task explicitly allows it. Keep this a static site: no backend, no new ' +
+  'runtime dependencies, no scraping. Never edit the "### Blocked" or "### Human Review" ' +
+  'sections of docs/roadmap.md or any task other than your own.';
+
+/** Parses the "## Now" section of the roadmap into tasks (checkbox line + indented body). */
+export function parseNow(text) {
+  const lines = text.split('\n');
+  const tasks = [];
+  let inNow = false;
+  let section = null;
+  let current = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^##\s+Now\b/i.test(line)) { inNow = true; continue; }
+    if (inNow && /^##\s+[^#]/.test(line)) break; // next top-level section
+    if (!inNow) continue;
+
+    const heading = line.match(/^###\s+(.+?)\s*$/);
+    if (heading) { section = heading[1]; current = null; continue; }
+
+    const task = line.match(/^- \[( |x)\]\s*(.+?)\s*$/i);
+    if (task) {
+      current = { section, line: i, checked: task[1].toLowerCase() === 'x', text: task[2], body: [] };
+      tasks.push(current);
+      continue;
+    }
+    if (current) {
+      if (/^\s+\S/.test(line) || line.trim() === '') current.body.push(line);
+      else current = null; // unindented prose ends the task body
+    }
+  }
+  for (const t of tasks) while (t.body.length && t.body[t.body.length - 1].trim() === '') t.body.pop();
+  return tasks;
 }
+
+export const isReady = t => /^Ready\b/i.test(t.section || '');
 
 function loadState() {
   if (!existsSync(STATE_PATH)) return { activeSession: null };
@@ -61,168 +91,109 @@ function saveState(state) {
 async function julesFetch(path, options = {}) {
   const res = await fetch(`https://jules.googleapis.com/v1alpha/${path}`, {
     ...options,
-    headers: {
-      'X-Goog-Api-Key': JULES_API_KEY,
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
+    headers: { 'X-Goog-Api-Key': process.env.JULES_API_KEY, 'Content-Type': 'application/json', ...(options.headers || {}) },
   });
   if (!res.ok) throw new Error(`Jules API ${path} failed: ${res.status} ${await res.text()}`);
   return res.json();
 }
 async function githubFetch(path) {
-  const res = await fetch(`https://api.github.com/repos/${REPO}/${path}`, {
-    headers: { Authorization: `Bearer ${GITHUB_TOKEN}`, Accept: 'application/vnd.github+json' },
+  const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/${path}`, {
+    headers: { Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, Accept: 'application/vnd.github+json' },
   });
   if (!res.ok) throw new Error(`GitHub API ${path} failed: ${res.status} ${await res.text()}`);
   return res.json();
 }
-function extractPrNumber(prUrl) {
-  const match = prUrl.match(/\/pull\/(\d+)/);
-  return match ? Number(match[1]) : null;
-}
+const prNumberFrom = url => Number((url.match(/\/pull\/(\d+)/) || [])[1]) || null;
 
-/** Parses ROADMAP.md into its "## Now" subsections, keyed by heading name. */
-function parseNowSections(text) {
-  const lines = text.split('\n');
-  const sections = { Active: [], Ready: [], Blocked: [], 'Human Review': [] };
-  let inNow = false;
-  let current = null;
-  const sectionLineRanges = {}; // name -> { start, end } line indices (inclusive), for editing
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (/^##\s+Now\b/i.test(line)) { inNow = true; continue; }
-    if (inNow && /^##\s+[^#]/.test(line)) break; // next top-level section — stop
-    if (!inNow) continue;
-
-    const h3 = line.match(/^###\s+(Active|Ready|Blocked|Human Review)\s*$/i);
-    if (h3) {
-      current = Object.keys(sections).find(k => k.toLowerCase() === h3[1].toLowerCase());
-      if (sectionLineRanges[current]) sectionLineRanges[current].end = i;
-      sectionLineRanges[current] = { headingLine: i, start: i + 1, end: lines.length };
-      continue;
-    }
-    if (current) {
-      const task = line.match(/^- \[( |x)\]\s*(.+)$/i);
-      if (task) sections[current].push({ line: i, checked: task[1].toLowerCase() === 'x', text: task[2].trim() });
-    }
-  }
-  return { lines, sections, sectionLineRanges };
-}
-
-function findActiveLineStatus(roadmapText, taskText) {
-  const { sections } = parseNowSections(roadmapText);
-  return sections.Active.find(t => t.text === taskText) || null;
-}
-
-/** Moves a task line from Ready to the end of Active. Returns the updated file text. */
-function moveTaskToActive(roadmapText, taskText) {
-  const { lines, sections, sectionLineRanges } = parseNowSections(roadmapText);
-  const readyEntry = sections.Ready.find(t => t.text === taskText);
-  if (!readyEntry) throw new Error(`Could not find "${taskText}" under ### Ready`);
-
-  const newLines = lines.slice();
-  newLines.splice(readyEntry.line, 1); // remove from Ready
-  const activeHeadingLine = sectionLineRanges.Active.headingLine;
-  // Insert right after the "### Active" heading (index shifts by -1 if Ready was above Active,
-  // but Active is defined before Ready in the template, so no shift needed here).
-  newLines.splice(activeHeadingLine + 1, 0, `- [ ] ${taskText}`);
-  return newLines.join('\n');
-}
-
-/** Removes a (now-confirmed-done) task line from Active entirely. */
-function removeTaskFromActive(roadmapText, taskText) {
-  const { lines, sections } = parseNowSections(roadmapText);
-  const entry = sections.Active.find(t => t.text === taskText);
-  if (!entry) return roadmapText;
-  const newLines = lines.slice();
-  newLines.splice(entry.line, 1);
-  return newLines.join('\n');
+function buildPrompt(task) {
+  return [
+    'Read AGENT_RULES.md, CONTRIBUTING.md, docs/editorial-policy.md and docs/roadmap.md before starting.',
+    'Your task is the first unchecked task under "### Ready" in docs/roadmap.md. Full specification:',
+    [`- [ ] ${task.text}`, ...task.body].join('\n'),
+    HARD_LIMITS,
+    'Work through the whole task and verify the result as described under "Verification" in AGENT_RULES.md before you open the pull request. ' +
+      'Take the time this needs: one thorough pull request is better than a quick partial one.',
+    `When you are done AND have verified the result, edit docs/roadmap.md yourself in the same pull request: change this task's own checkbox line from "- [ ] ${task.text}" to "- [x] ${task.text}" in place (do not move it or change its bullets), and tick a Phase item lower in that file only if this pull request fully completes it. ` +
+      'If you could not verify everything, leave the checkbox unchecked and say exactly why in the pull request description.',
+    'Open a pull request; never push to main.',
+  ].join('\n\n');
 }
 
 async function main() {
+  for (const name of ['JULES_API_KEY', 'GITHUB_TOKEN', 'GITHUB_REPOSITORY', 'JULES_SOURCE']) {
+    if (!process.env[name]) throw new Error(`${name} is not set`);
+  }
+
   const state = loadState();
-  let roadmapText = readFileSync(ROADMAP_PATH, 'utf8');
-  let roadmapChanged = false;
+  const tasks = parseNow(readFileSync(ROADMAP_PATH, 'utf8'));
   let stateChanged = false;
 
   if (state.activeSession) {
-    console.log(`Checking active session ${state.activeSession.name} ...`);
-    const session = await julesFetch(state.activeSession.name);
-    const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
+    const active = state.activeSession;
+    const entry = tasks.find(t => t.text === active.task);
+    if (!entry) {
+      throw new Error(
+        `Active task "${active.task}" was not found under "## Now" in ${ROADMAP_PATH}. ` +
+        `Restore the task line, or set activeSession to null in ${STATE_PATH} if it was cancelled on purpose.`
+      );
+    }
 
+    console.log(`Active task: ${active.task.slice(0, 100)}`);
+    const session = await julesFetch(active.name);
+    console.log(`Jules session ${active.name} state: ${session.state ?? 'unknown'}`);
+    if (session.state === 'FAILED') {
+      throw new Error(`Jules session ${active.name} FAILED. Look at it in Jules, then set activeSession to null in ${STATE_PATH} to retry the task.`);
+    }
+
+    const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
     if (!prOutput) {
-      console.log('No PR yet. Nothing to do this run.');
+      const hours = (Date.now() - new Date(active.startedAt).getTime()) / 36e5;
+      console.log(hours > STALE_HOURS
+        ? `No PR after ${Math.round(hours)}h — check the session in Jules; it may be waiting for input.`
+        : 'No PR yet. Nothing to do this run.');
       return;
     }
-    const prNumber = extractPrNumber(prOutput.url);
-    if (!prNumber) { console.log(`Could not parse PR number from ${prOutput.url}.`); return; }
 
+    const prNumber = prNumberFrom(prOutput.url);
+    if (!prNumber) throw new Error(`Could not parse PR number from ${prOutput.url}`);
     const pr = await githubFetch(`pulls/${prNumber}`);
     if (!pr.merged) {
-      console.log(`PR #${prNumber} is open but not merged yet — waiting for review (gate 1).`);
+      console.log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
+      return;
+    }
+    if (!entry.checked) {
+      console.log(`PR #${prNumber} is merged, but the task is still unchecked in the roadmap. Jules could not fully verify it — read the PR description, then tick the box yourself if you are satisfied.`);
       return;
     }
 
-    const activeLine = findActiveLineStatus(roadmapText, state.activeSession.task);
-    if (!activeLine || !activeLine.checked) {
-      console.log(
-        `PR #${prNumber} is merged, but "${state.activeSession.task}" is not yet checked ` +
-        `off under ### Active in ROADMAP.md — waiting for manual confirmation (gate 2).`
-      );
-      return;
-    }
-
-    console.log(`"${state.activeSession.task}" is merged AND confirmed done. Advancing the queue.`);
-    roadmapText = removeTaskFromActive(roadmapText, state.activeSession.task);
-    roadmapChanged = true;
+    console.log(`PR #${prNumber} merged and task confirmed done. Advancing the queue.`);
     state.activeSession = null;
     stateChanged = true;
   }
 
   if (!state.activeSession) {
-    const { sections } = parseNowSections(roadmapText);
-    const next = sections.Ready.find(t => !t.checked);
+    const next = tasks.filter(isReady).find(t => !t.checked);
     if (!next) {
-      console.log('Nothing in ### Ready to dispatch (queue empty, or everything is Blocked / Human Review).');
-      if (roadmapChanged || stateChanged) {
-        writeFileSync(ROADMAP_PATH, roadmapText);
-        saveState(state);
-        commitAndPush();
-      }
-      return;
+      console.log('Nothing unchecked under ### Ready. Queue is empty (Blocked and Human Review are never dispatched).');
+    } else {
+      console.log(`Dispatching next task: ${next.text.slice(0, 100)}`);
+      const session = await julesFetch('sessions', {
+        method: 'POST',
+        body: JSON.stringify({
+          prompt: buildPrompt(next),
+          sourceContext: { source: process.env.JULES_SOURCE, githubRepoContext: { startingBranch: 'main' } },
+          automationMode: 'AUTO_CREATE_PR',
+          title: next.text.replace(/[*`]/g, '').slice(0, 80),
+        }),
+      });
+      // Logged first: if saving the state below ever fails, this line tells you which session is orphaned.
+      console.log(`Started Jules session ${session.name}`);
+      state.activeSession = { name: session.name, task: next.text, startedAt: new Date().toISOString() };
+      stateChanged = true;
     }
-
-    console.log(`Dispatching next task: ${next.text}`);
-    roadmapText = moveTaskToActive(roadmapText, next.text);
-    roadmapChanged = true;
-
-    const prompt = [
-      'Read AGENT_RULES.md, CONTRIBUTING.md, docs/editorial-policy.md and docs/roadmap.md before starting.',
-      'Your task from the "### Ready" queue (now moved to "### Active"):',
-      next.text,
-      'Hard limits for this repository: do NOT add or change any factual claim about a campaign, person, amount, beneficiary or money flow, and do NOT edit the values in data/fundraisers.json or docs/fundraisers.md. Do NOT edit the "## Now" section of docs/roadmap.md or tick any checkbox in it. Keep this a static site: no backend, no new runtime dependencies, no scraping.',
-      "Follow AGENT_RULES.md strictly — especially: don't claim something works without verifying it, and stay inside the scope of the task. Open a pull request; never push to main.",
-    ].join('\n\n');
-
-    const session = await julesFetch('sessions', {
-      method: 'POST',
-      body: JSON.stringify({
-        prompt,
-        sourceContext: { source: JULES_SOURCE, githubRepoContext: { startingBranch: 'main' } },
-        automationMode: 'AUTO_CREATE_PR',
-        title: next.text.slice(0, 80),
-      }),
-    });
-
-    console.log(`Started Jules session ${session.name}`);
-    state.activeSession = { name: session.name, task: next.text, startedAt: new Date().toISOString() };
-    stateChanged = true;
   }
 
-  if (roadmapChanged) writeFileSync(ROADMAP_PATH, roadmapText);
-  if (roadmapChanged || stateChanged) {
+  if (stateChanged) {
     saveState(state);
     commitAndPush();
   }
@@ -231,7 +202,7 @@ async function main() {
 function commitAndPush() {
   execSync('git config user.name "jules-orchestrator[bot]"');
   execSync('git config user.email "jules-orchestrator@users.noreply.github.com"');
-  execSync(`git add ${STATE_PATH} ${ROADMAP_PATH}`);
+  execSync(`git add ${STATE_PATH}`);
   if (!execSync('git diff --cached --name-only').toString().trim()) {
     console.log('Nothing to commit.');
     return;
@@ -240,12 +211,14 @@ function commitAndPush() {
   try {
     execSync('git push');
   } catch (e) {
-    // Retry once after rebasing. If this also fails we WANT the job to go red: the queue state
-    // was not saved, and a silent failure here would let the next run start a duplicate session.
+    // Retry once after a rebase. If that also fails the job goes red on purpose: the state was not
+    // saved, and staying silent would let the next run start a duplicate session.
     console.log('Push failed, retrying after rebase:', e.message);
     execSync('git pull --rebase');
     execSync('git push');
   }
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch(err => { console.error(err); process.exit(1); });
+}

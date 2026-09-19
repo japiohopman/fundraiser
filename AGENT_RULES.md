@@ -1,35 +1,53 @@
 # Agent Ground Rules
 
-Read this together with [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/editorial-policy.md](./docs/editorial-policy.md).
-It applies to every automated coding agent (Jules and others) working in this repository.
+This is the single instruction file for every automated coding agent (Jules and others) working in this repository. Read it, [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/editorial-policy.md](./docs/editorial-policy.md) before you start, then work from `docs/roadmap.md`.
 
-## 1. The editorial policy is not negotiable
+## 1. What this project is
 
-This site documents real fundraising actions and real people. Therefore:
+An independent, static information site (`index.html`, `styles.css`, `app.js`, JSON in `data/`) that documents the crowdfunding actions connected to the August 2026 ParkNest fire in Amsterdam-Oost. It describes real people and real money. Clarity and accuracy matter more than polish.
+
+## 2. Editorial integrity (hard limits)
 
 - Never add, change or remove a factual claim about a campaign, a person, an amount, a beneficiary or a money flow.
-- Never edit the values in `data/fundraisers.json` or the evidence in `docs/fundraisers.md`. Those change only through the content workflow in `CONTRIBUTING.md`, by a human, from a verified source.
-- Never soften, sharpen or "improve" wording about who is responsible for what. If copy looks wrong, describe the problem in the PR instead of rewriting it.
-- Do not use accusatory vocabulary (see editorial policy, rule 3).
+- Never edit anything under `data/`, or the evidence in `docs/fundraisers.md`, `docs/editorial-policy.md` or `docs/story.md`. These change only through the content workflow in `CONTRIBUTING.md`, by a human, from a verified source. A CI check (`Content Guard`) fails any pull request that touches them without the `content-approved` label.
+- Do not add user-visible text unless the task explicitly allows it. All site text lives in `data/content.json` in Dutch and English; do not hardcode text in HTML or JavaScript.
+- Never soften, sharpen or "improve" wording about who is responsible for what. If copy looks wrong, describe it in the pull request instead of rewriting it.
+- Do not use accusatory vocabulary (editorial policy, rule 3).
+- If in doubt whether something is content or presentation, leave it alone and say so in the pull request.
 
-## 2. Stay inside the task
+## 3. Before you change anything
 
-Do exactly the task you were given. If you notice something else worth fixing, mention it in the PR description; do not fix it in the same PR.
+- Read the files the task touches, as they are now. Do not rely on what a document says the code does.
+- Search for an existing class, token, function or pattern before adding a new one. Extend what exists.
+- Preserve what already works: the skip link, `:focus-visible` styles, the focus trap in the QR modal, `prefers-reduced-motion`, the AA colour tokens, the collective (green) versus personal (indigo) distinction, the campaign-type labels and the yellow separation warning.
 
-## 3. Keep it a static site
+## 4. Scope
 
-No backend, authentication, database, scraping or new runtime dependencies (see "Scope discipline" in `CONTRIBUTING.md`). Dev-only tooling used inside GitHub Actions is fine if the task asks for it.
+- Do exactly the task you were given, completely. Extra issues you notice go into the pull request description, not into the diff.
+- Keep this a static site: no backend, no new runtime dependencies, no scraping, no `package.json` for the site. CI tooling may run through `npx` with pinned versions inside a workflow.
+- No binary over 1 MB, no vendored third-party code. Keep the QR generator and other existing code unless the task says otherwise.
+- Never edit `### Blocked` or `### Human Review` in `docs/roadmap.md`, or any task other than your own.
 
-## 4. Never touch the queue
+## 5. Verification (required before you open the pull request)
 
-Do not edit the `## Now` section of `docs/roadmap.md`, and never tick a checkbox in it. Completion is confirmed by a human after review. The phase sections lower in that file are the plan; only update their status text when the PR truly completes an item.
+A task is done when you have seen it work, not when the code looks right.
 
-## 5. Do not claim what you have not verified
+1. Serve the site locally (`python3 -m http.server`; the page loads its JSON with `fetch`, so opening the file directly does not work).
+2. For anything visual, take screenshots before and after with a headless browser (for example Playwright installed in a temporary directory; do not commit it) at 320, 375, 768, 1024 and 1440px. Check there is no horizontal scrolling and no clipped or overlapping control.
+3. Tab through the page once and confirm every interactive element shows a visible focus ring. Switch the language (NL and EN) and confirm nothing breaks.
+4. Run every check that exists in the repository or in `.github/workflows`, and do not weaken or bypass a check to make it pass.
+5. In the pull request, report automated checks and visual checks separately, and say plainly what you could not verify.
 
-"It should work" is not a result. State in the PR what you actually ran or looked at (which browser width, which tool, which check). If you could not verify something, say so plainly.
+## 6. Finishing: ticking your own task
 
-## 6. Pull requests
+You are the one who ticks the box, in the same pull request, only after step 5:
 
-- Work on a focused branch and open a PR into `main`. Never push to `main`.
-- One task per PR. Describe what changed, what you verified, and anything you deliberately did not touch.
-- Do not commit binaries over 1 MB or vendored third-party code.
+- In `docs/roadmap.md`, change your task's own line from `- [ ]` to `- [x]`, in place. Do not move it and do not touch its bullets.
+- If your pull request fully completes an item in a Phase section lower in that file, tick that item too. Never tick anything else.
+- If you could not fully verify the task, leave the box unchecked and explain exactly why in the pull request description. An honest unchecked box is worth more than a false checked one: the queue simply waits until a human has looked.
+
+## 7. Pull requests
+
+- Work on a focused branch and open a pull request into `main`. Never push to `main`.
+- One task per pull request. Title: what changed, in plain words.
+- Description: what changed and why, automated checks, visual checks (which widths, what you looked at), what you deliberately did not touch, and follow-ups you noticed.
