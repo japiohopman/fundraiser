@@ -17,7 +17,7 @@
   - **Acceptance:** At 320, 375, 768, 1024 and 1440px there is no horizontal scrolling and no clipped or overlapping control. At 375px the header takes no more than about 120px, with title, language switcher and menu button all reachable. Hero and section titles scale fluidly (`clamp()`). On wide screens the prose column is narrowed so it no longer leaves a large empty area beside it. Every interactive element still shows a visible focus ring when tabbing.
   - **Verification:** Serve the site statically, take before and after screenshots at the widths above, tab through the page once, and describe exactly what you checked in the pull request. Tick the Phase 1B item "Responsive design refinement across mobile, tablet, and desktop breakpoints" only if this task fully completes it.
 
-- [ ] **Fundraiser cards: hierarchy, readability and print**
+- [x] **Fundraiser cards: hierarchy, readability and print**
   - **Problem:** Each campaign is shown inside three nested boxes (section card, group box, campaign card). The small meta text (organiser, legal entity, last verified) is hard to read, and the goal and total amounts are visually weaker than their labels. There is no print styling, and the page is about 13,600px long on mobile.
   - **Goal:** Make each campaign card easier to scan and read while keeping the collective versus personal distinction unmistakable, and add a print stylesheet so the page prints as a usable document.
   - **Scope:** `styles.css`. `index.html` and `app.js` only for markup or class hooks the styling needs (for example to flatten a wrapper).
