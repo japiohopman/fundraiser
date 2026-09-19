@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://japiohopman.github.io/fundraiser/data/donors.schema.json",
+  "title": "ParkNest Thank-You Donors",
+  "description": "Public display names approved for the ParkNest thank-you section.",
+  "type": "object",
+  "required": ["$schema", "version", "lastUpdatedAt", "sourceCampaign", "donors"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "lastUpdatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "sourceCampaign": {
+      "type": "string",
+      "format": "uri"
+    },
+    "notes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nl": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    },
+    "donors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        }
+      }
+    }
+  }
+}
