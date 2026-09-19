@@ -39,6 +39,10 @@ jobs:
 
           echo "Foundation files present."
 
+      - name: Run Validation Checks
+        shell: bash
+        run: ./scripts/validate.sh
+
       - name: Run Content Guard
         if: github.event_name == 'pull_request'
         env:

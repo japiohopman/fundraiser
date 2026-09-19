@@ -25,7 +25,7 @@
   - **Acceptance:** One level less of nested borders and backgrounds around each campaign. Meta text is at least 14px. Goal and total amounts are clearly stronger than their labels. On print: navigation, share buttons and the QR modal are hidden; campaign-type labels and the separation warning remain visible; a campaign card is not split across pages. Checked at 375px and 1440px, and in a print preview.
   - **Verification:** Screenshots before and after at 375px and 1440px, plus a print-preview check (for example a headless browser PDF), described in the pull request.
 
-- [ ] **Technical foundation: validation, share metadata and repo hygiene**
+- [x] **Technical foundation: validation, share metadata and repo hygiene**
   - **Problem:** CI only checks that a few documents exist. Nothing validates `data/fundraisers.json` against its schema, or that `data/content.json` and `index.html` are well formed. `index.html` has no Open Graph or Twitter tags, so shared links show a bare preview. `styles.css` has hardcoded `#ffffff` values and a duplicate colour token, and an unused, byte-identical `jaaphopman_avatar.webp` sits in the repository root.
   - **Goal:** Let CI catch data and markup mistakes before merge, make shared links preview properly, and remove the small inconsistencies.
   - **Scope:** `.github/workflows/foundation-check.yml` (or a new workflow), a validation script under `scripts/`, the `<head>` of `index.html`, colour tokens in `styles.css`, and the root avatar file.
@@ -97,8 +97,8 @@
 
 **Status: Planned**
 
-- [ ] GitHub Actions CI workflow for build and lint validation
-- [ ] Automated HTML / JSON schema validation step
+- [x] GitHub Actions CI workflow for build and lint validation
+- [x] Automated HTML / JSON schema validation step
 - [ ] Link integrity check for external campaign sources
 - [ ] GitHub Pages deployment configuration from `main`
 - [ ] Final launch review and pre-launch verification

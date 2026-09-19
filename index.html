@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-i18n="meta.title">ParkNest Inzamelingsacties Transparantie</title>
   <meta name="description" content="Onafhankelijke informatie over de inzamelingsacties rond de brand bij ParkNest in Amsterdam-Oost." data-i18n-attr="content:meta.description">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:title" content="ParkNest Inzamelingsacties Transparantie">
+  <meta property="og:description" content="Onafhankelijke informatie over de inzamelingsacties rond de brand bij ParkNest in Amsterdam-Oost.">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +18,7 @@
   <a href="#main-content" class="skip-link" data-i18n="nav.skipToContent">Direct naar de inhoud</a>
 
   <!-- Header Section -->
-  <header class="site-header" role="banner">
+  <header class="site-header">
     <div class="container header-container">
       <div class="header-top-row">
         <div class="site-branding">
@@ -61,7 +66,7 @@
             </ul>
           </li>
           <li><a href="#story" class="nav-link" data-i18n="nav.story">Wat is er gebeurd?</a></li>
-          <li><a href="#sources" class="nav-link" data-i18n="nav.sources">Bronnen & verificatie</a></li>
+          <li><a href="#sources" class="nav-link" data-i18n="nav.sources">Bronnen &amp; verificatie</a></li>
           <li><a href="#footer-disclosure" class="nav-link" data-i18n="nav.about">Over deze site</a></li>
         </ul>
       </nav>
@@ -69,7 +74,7 @@
   </header>
 
   <!-- Main Content Area -->
-  <main id="main-content" class="site-main" role="main" tabindex="-1">
+  <main id="main-content" class="site-main" tabindex="-1">
     <div class="container">
 
       <!-- Hero Section -->
@@ -98,7 +103,7 @@
         </div>
 
         <!-- Prominent Separation Warning Banner -->
-        <div class="prominent-warning-box" role="region" aria-labelledby="prominent-warning-title">
+        <section class="prominent-warning-box" aria-labelledby="prominent-warning-title">
           <div class="warning-header">
             <svg class="warning-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
@@ -113,10 +118,10 @@
             <li data-i18n="fundraisersSection.prominentWarning.bullet3">Een donatie aan de algemene ParkNest-actie ondersteunt NIET de vervanging van het gedocumenteerde kookmateriaal van Jaap Hopman of andere persoonlijke verliezen.</li>
             <li data-i18n="fundraisersSection.prominentWarning.bullet4">Controleer altijd het specifieke doel van de gekozen actie voordat u doneert.</li>
           </ul>
-        </div>
+        </section>
 
         <!-- Collective Fundraisers Container -->
-        <div class="category-group collective-group" aria-labelledby="collective-heading">
+        <section class="category-group collective-group" aria-labelledby="collective-heading">
           <div class="category-header">
             <span class="category-badge collective-badge" data-i18n="fundraisersSection.collectiveBadge">Collectiefonds</span>
             <h3 id="collective-heading" class="category-title" data-i18n="fundraisersSection.collectiveHeader">Collectieve ParkNest-inzameling</h3>
@@ -124,10 +129,10 @@
           <div id="collective-fundraisers-list" class="fundraisers-grid">
             <!-- Rendered dynamically by app.js from data/fundraisers.json -->
           </div>
-        </div>
+        </section>
 
         <!-- Personal Recovery Fundraisers Container -->
-        <div class="category-group personal-group" aria-labelledby="personal-heading">
+        <section class="category-group personal-group" aria-labelledby="personal-heading">
           <div class="category-header">
             <span class="category-badge personal-badge" data-i18n="fundraisersSection.personalBadge">Persoonlijk herstel</span>
             <h3 id="personal-heading" class="category-title" data-i18n="fundraisersSection.personalHeader">Persoonlijke herstel- en verliesacties</h3>
@@ -138,7 +143,7 @@
           <div id="personal-fundraisers-list" class="fundraisers-grid">
             <!-- Rendered dynamically by app.js from data/fundraisers.json -->
           </div>
-        </div>
+        </section>
       </section>
 
       <!-- Purpose Explanation Section ("What is this donation for?") -->
@@ -223,7 +228,7 @@
 
       <!-- Sources & Methodology Section -->
       <section id="sources" class="content-section sources-section" aria-labelledby="sources-title">
-        <h2 id="sources-title" class="section-title" data-i18n="sources.title">Bronvermelding & Methodologie</h2>
+        <h2 id="sources-title" class="section-title" data-i18n="sources.title">Bronvermelding &amp; Methodologie</h2>
         <p class="section-intro" data-i18n="sources.description">Alle feiten over de inzamelingsacties op deze site zijn direct afkomstig van de openbare WhyDonate-paginaloads en het officiële bericht van ParkNest. Wij publiceren geen onbevestigde claims over geldstromen of niet-gedocumenteerde afspraken.</p>
         <h3 class="section-subtitle" data-i18n="sources.primarySourcesTitle">Belangrijkste bronnen:</h3>
         <ul id="sources-list" class="sources-list">
@@ -248,14 +253,14 @@
           Onze oprechte dank gaat uit naar iedereen die een bijdrage heeft geleverd, in welke vorm dan ook, om het herstel en de gemeenschap van ParkNest te ondersteunen.
         </p>
       </div>
-      <div id="donor-wall" class="donor-wall" aria-label="Donateur dankbetuigingen" data-i18n-attr="aria-label:thankYou.donorWallLabel">
+      <div id="donor-wall" class="donor-wall">
         <!-- Rendered dynamically by app.js from data/donors.json -->
       </div>
     </div>
   </section>
 
   <!-- Footer Section -->
-  <footer class="site-footer" role="contentinfo">
+  <footer class="site-footer">
     <div class="container footer-container">
       <div id="footer-disclosure" class="footer-disclosure">
         <h3 class="footer-heading" data-i18n="footer.disclaimerTitle">Onafhankelijkheidsverklaring</h3>
