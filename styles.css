@@ -39,7 +39,7 @@
   --color-surface-subtle: #f1f5f9;
   --color-text-main: #0f172a;
   --color-text-muted: #475569;
-  --color-text-subtle: #64748b;
+  --color-text-subtle: #475569;
   --color-border: #cbd5e1;
   --color-border-subtle: #e2e8f0;
 
@@ -48,7 +48,7 @@
   --color-primary-hover: #1d4ed8;
   --color-primary-light: #eff6ff;
   --color-primary-border: #bfdbfe;
-  --color-accent: #0284c7;
+  --color-accent: #0369a1;
 
   /* Collective Fundraiser Context */
   --color-collective-bg: #f0fdf4;
