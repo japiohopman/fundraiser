@@ -1,5 +1,30 @@
 # Roadmap
 
+## Now
+
+> Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`). Only `### Ready` is auto-dispatched, one task at a time. Move tasks between sections by hand. Ticking `[x]` under `### Active` — after you have reviewed and verified the merged PR — is what advances the queue. The phase sections below are the long-term plan, not the dispatch source. Each task must stay on ONE line.
+
+### Active
+
+### Ready
+
+- [ ] Keyboard navigation and focus visibility: make every interactive element in `index.html`, `styles.css` and `app.js` (menu, language switcher, share buttons, links) reachable by keyboard with a clearly visible focus ring; fix what is found; presentation and behaviour only, no content changes
+- [ ] Contrast audit and fixes: check every text/background pair in `styles.css` against WCAG 2.1 AA, adjust colours only where they fail and keep the campaign-type labels and separation banner clearly distinguishable; no content changes
+- [ ] Responsive refinement: review `index.html` and `styles.css` at mobile, tablet and desktop widths, fix overflow, spacing and readability problems; presentation only, no content changes
+- [ ] Add automated data validation to `.github/workflows/foundation-check.yml`: validate `data/fundraisers.json` against `data/fundraisers.schema.json` and check that `data/content.json` is valid JSON; no new runtime dependencies for the site itself
+
+### Blocked
+
+- [ ] GitHub Pages deployment from `main` (needs your decision on repository settings and domain)
+- [ ] Link integrity check for external campaign sources (decide first how to handle rate limits and bot blocking on the crowdfunding platform)
+- [ ] Final launch review and pre-launch verification
+
+### Human Review
+
+- [ ] Refine Dutch-first copy and English translation review (wording about real people and money; a human reads every change first)
+- [ ] Visual design polish and brand colour harmony (subjective; decide the direction before an agent touches it)
+- [ ] Screen-reader accessibility audit (needs manual testing with a real screen reader)
+
 ## Phase 0 — Evidence and content foundation
 
 **Status: Completed**

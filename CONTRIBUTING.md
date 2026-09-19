@@ -22,3 +22,9 @@ Do not publish new campaign amounts, beneficiary claims, money-flow claims, or s
 ## Scope discipline
 
 The initial product is a static information site. Avoid adding a backend, authentication, database, or automatic campaign scraping unless a documented requirement is added to the roadmap first.
+
+## Automation (Jules orchestrator)
+
+Routine implementation tasks can be dispatched automatically from the `## Now` queue in `docs/roadmap.md`; see `docs/JULES_ORCHESTRATOR_SETUP.md`. Agents follow `AGENT_RULES.md`. Their changes still arrive as pull requests that are reviewed before merging.
+
+The only commits made to `main` by automation are queue-state updates (`docs/roadmap.md` and `.github/jules-queue-state.json`, message `chore: advance Jules queue`). Content and code changes never go to `main` directly.
