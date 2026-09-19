@@ -34,6 +34,7 @@
   --space-12: 3rem;    /* 48px */
 
   /* Neutral Surface & Text Palette */
+  --color-white: #ffffff;
   --color-bg: #f8fafc;
   --color-surface: #ffffff;
   --color-surface-subtle: #f1f5f9;
@@ -983,7 +984,7 @@ body {
   min-height: 48px;
   padding: 0.5rem var(--space-4);
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-white);
   border: 1px solid var(--color-primary-border);
   border-radius: 9999px;
   font-size: var(--font-size-sm);

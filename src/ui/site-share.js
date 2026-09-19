@@ -47,8 +47,8 @@ export function setupSiteShare(state) {
     nativeBtn.addEventListener('click', () => {
       const content = state.contentData;
       const lang = state.currentLang;
-      const title = content?.meta?.title?.[lang] || 'ParkNest Inzamelingsacties Transparantie';
-      const text = content?.share?.siteShareMessage?.[lang] || title;
+      const title = content?.meta?.title?.[lang];
+      const text = content?.share?.siteShareMessage?.[lang];
 
       triggerNativeShare({
         title,
@@ -62,7 +62,7 @@ export function setupSiteShare(state) {
     copyBtn.addEventListener('click', () => {
       const content = state.contentData;
       const lang = state.currentLang;
-      const feedbackText = content?.share?.linkCopied?.[lang] || 'Link gekopieerd!';
+      const feedbackText = content?.share?.linkCopied?.[lang];
       copyToClipboard(SITE_SHARE_URL, copyBtn, feedbackText);
     });
   }
@@ -71,7 +71,7 @@ export function setupSiteShare(state) {
     qrBtn.addEventListener('click', (e) => {
       const content = state.contentData;
       const lang = state.currentLang;
-      const title = content?.meta?.title?.[lang] || 'ParkNest Inzamelingsacties Transparantie';
+      const title = content?.meta?.title?.[lang];
       triggerQRModal(state, title, SITE_SHARE_URL, e.currentTarget);
     });
   }
@@ -106,24 +106,15 @@ export function updateSiteShareUI(state, content) {
   const emailBtn = document.getElementById('site-email-share-btn');
   const nativeBtn = document.getElementById('site-native-share-btn');
 
-  const waText = content?.share?.siteShareMessage?.[lang] ||
-    (lang === 'en'
-      ? 'Check out the overview of fundraising actions for ParkNest: https://japiohopman.github.io/fundraiser'
-      : 'Bekijk het overzicht van inzamelingsacties voor ParkNest: https://japiohopman.github.io/fundraiser');
+  const waText = content?.share?.siteShareMessage?.[lang];
+  const emailSubject = content?.share?.siteShareEmailSubject?.[lang];
+  const emailBody = content?.share?.siteShareEmailBody?.[lang];
 
-  const emailSubject = content?.share?.siteShareEmailSubject?.[lang] ||
-    (lang === 'en' ? 'ParkNest Fundraisers Transparency' : 'ParkNest Inzamelingsacties Transparantie');
-
-  const emailBody = content?.share?.siteShareEmailBody?.[lang] ||
-    (lang === 'en'
-      ? `Check out the independent overview of fundraising actions following the ParkNest fire:\n\n${SITE_SHARE_URL}`
-      : `Bekijk het onafhankelijke overzicht van de inzamelingsacties rond de brand bij ParkNest:\n\n${SITE_SHARE_URL}`);
-
-  if (waBtn) {
+  if (waBtn && waText) {
     waBtn.href = buildWhatsAppUrl(waText);
   }
 
-  if (emailBtn) {
+  if (emailBtn && emailSubject && emailBody) {
     emailBtn.href = buildEmailUrl(emailSubject, emailBody);
   }
 

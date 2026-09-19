@@ -446,6 +446,22 @@
       "nl": "Deel deze specifieke actie",
       "en": "Share this specific campaign"
     },
+    "shareOptionsLabel": {
+      "nl": "Deelopties",
+      "en": "Share options"
+    },
+    "siteShareMessage": {
+      "nl": "Bekijk het overzicht van inzamelingsacties voor ParkNest: https://japiohopman.github.io/fundraiser",
+      "en": "Check out the overview of fundraising actions for ParkNest: https://japiohopman.github.io/fundraiser"
+    },
+    "siteShareEmailSubject": {
+      "nl": "ParkNest Inzamelingsacties Transparantie",
+      "en": "ParkNest Fundraisers Transparency"
+    },
+    "siteShareEmailBody": {
+      "nl": "Bekijk het onafhankelijke overzicht van de inzamelingsacties rond de brand bij ParkNest:\n\nhttps://japiohopman.github.io/fundraiser",
+      "en": "Check out the independent overview of fundraising actions following the ParkNest fire:\n\nhttps://japiohopman.github.io/fundraiser"
+    },
     "whatsApp": {
       "nl": "WhatsApp",
       "en": "WhatsApp"
