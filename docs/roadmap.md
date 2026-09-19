@@ -9,7 +9,7 @@
 - [x] **Keyboard navigation and focus visibility** (merged in PR #18)
 - [x] **Contrast audit and fixes** (merged in PR #19)
 
-- [ ] **Page shell: header, typography, reading layout and responsive behaviour**
+- [x] **Page shell: header, typography, reading layout and responsive behaviour**
   - **Problem:** At 375px the header (title, subtitle, language switcher, menu button) takes about 225px of the first screen and the subtitle is squeezed beside the buttons. On desktop the prose is capped near 68ch but sits in cards about 1000px wide, leaving a large empty area on the right. Hero and section titles use fixed sizes. Only two breakpoints exist (768px and 900px) and there is no wide-screen tuning.
   - **Goal:** One coherent, mobile-first pass over the page shell: a compact header on small screens, fluid typography, a comfortable reading column on wide screens, and responsive behaviour that holds from 320px to 1440px.
   - **Scope:** `styles.css`. `index.html` and `app.js` only for markup or class hooks the styling needs.
@@ -89,7 +89,7 @@
 - [ ] Refine Dutch-first copy and English translation review
 - [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
 - [ ] Add visual design polish and brand color harmony
-- [ ] Responsive design refinement across mobile, tablet, and desktop breakpoints
+- [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing
 - [ ] Contrast ratio and screen-reader accessibility audit
 
