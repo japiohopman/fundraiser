@@ -114,8 +114,9 @@ body {
 
 /* Accessibility: Focus & Utilities */
 :focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
+  box-shadow: 0 0 0 2px #ffffff;
 }
 
 .skip-link {
@@ -132,8 +133,12 @@ body {
   z-index: 9999;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   top: var(--space-4);
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-primary);
 }
 
 .visually-hidden {
@@ -197,6 +202,7 @@ body {
   text-decoration: none;
   color: inherit;
   display: inline-block;
+  border-radius: var(--radius-sm);
 }
 
 .site-title-link:hover .site-title {
@@ -1113,6 +1119,7 @@ body {
   font-size: var(--font-size-sm);
   text-decoration: underline;
   text-underline-offset: 3px;
+  border-radius: var(--radius-sm);
   transition: color 0.15s;
 }
 
@@ -1334,6 +1341,7 @@ body {
   color: var(--color-accent);
   text-decoration: underline;
   font-weight: 600;
+  border-radius: var(--radius-sm);
 }
 
 .sources-list a:hover {

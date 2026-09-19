@@ -9,7 +9,8 @@ let state = {
   contentData: null,
   isNavOpen: false,
   isQRModalOpen: false,
-  activeShareCardId: null
+  activeShareCardId: null,
+  lastFocusedElement: null
 };
 
 // Utility to safely access nested object properties via dot notation
@@ -367,11 +368,35 @@ function setupQRModal() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.isQRModalOpen) {
       closeQRModal();
+    } else if (e.key === 'Tab' && state.isQRModalOpen) {
+      trapModalFocus(e, modal);
     }
   });
 }
 
-function openQRModal(titleText, shareUrl) {
+function trapModalFocus(e, modal) {
+  const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  const visibleFocusables = Array.from(focusables).filter(el => el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement);
+
+  if (visibleFocusables.length === 0) return;
+
+  const firstEl = visibleFocusables[0];
+  const lastEl = visibleFocusables[visibleFocusables.length - 1];
+
+  if (e.shiftKey) {
+    if (document.activeElement === firstEl) {
+      e.preventDefault();
+      lastEl.focus();
+    }
+  } else {
+    if (document.activeElement === lastEl) {
+      e.preventDefault();
+      firstEl.focus();
+    }
+  }
+}
+
+function openQRModal(titleText, shareUrl, triggerEl) {
   const modal = document.getElementById('qr-modal');
   const titleEl = document.getElementById('qr-modal-campaign-name');
   const svgContainer = document.getElementById('qr-code-svg-container');
@@ -379,6 +404,8 @@ function openQRModal(titleText, shareUrl) {
   const closeBtn = document.getElementById('qr-modal-close-btn');
 
   if (!modal || !svgContainer) return;
+
+  state.lastFocusedElement = triggerEl || document.activeElement;
 
   if (titleEl) titleEl.textContent = titleText;
   if (urlEl) urlEl.textContent = shareUrl;
@@ -394,7 +421,9 @@ function openQRModal(titleText, shareUrl) {
   modal.removeAttribute('hidden');
   state.isQRModalOpen = true;
 
-  if (closeBtn) closeBtn.focus();
+  if (closeBtn) {
+    setTimeout(() => closeBtn.focus(), 50);
+  }
 }
 
 function closeQRModal() {
@@ -404,6 +433,11 @@ function closeQRModal() {
   modal.classList.remove('open');
   modal.setAttribute('hidden', '');
   state.isQRModalOpen = false;
+
+  if (state.lastFocusedElement && typeof state.lastFocusedElement.focus === 'function') {
+    state.lastFocusedElement.focus();
+    state.lastFocusedElement = null;
+  }
 }
 
 function setLanguage(lang) {
@@ -676,8 +710,8 @@ function createFundraiserCard(item, labels, shareContent, lang) {
   }
 
   if (qrCodeBtn) {
-    qrCodeBtn.addEventListener('click', () => {
-      openQRModal(titleText, shareUrl);
+    qrCodeBtn.addEventListener('click', (e) => {
+      openQRModal(titleText, shareUrl, e.currentTarget);
     });
   }
 
