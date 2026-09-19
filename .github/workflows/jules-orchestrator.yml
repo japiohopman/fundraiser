@@ -1,8 +1,8 @@
 name: Jules Queue Orchestrator
 
 # The "heartbeat" — the schedule below starts OFF on purpose.
-# Run this manually (workflow_dispatch) and verify one full
-# Ready -> Jules -> PR -> your review -> merge -> checkbox -> next-task cycle
+# Run this manually from main and verify one full
+# Ready -> Jules -> PR -> your review -> merge -> next-task cycle
 # before enabling the cron.
 
 on:
@@ -24,6 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Queue state is authoritative on main. Do not let a manual run from another
+          # branch accidentally read or write a branch-local queue.
+          ref: main
           fetch-depth: 1
 
       - uses: actions/setup-node@v4
