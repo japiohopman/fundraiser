@@ -24,8 +24,9 @@ An independent, static information site (`index.html`, `styles.css`, `app.js`, J
 ## 4. Scope
 
 - Do exactly the task you were given, completely. Extra issues you notice go into the pull request description, not into the diff.
-- Keep this a static site: no backend, no new runtime dependencies, no scraping, no `package.json` for the site. CI tooling may run through `npx` with pinned versions inside a workflow.
+- Keep this a static site: no backend, no new runtime dependencies, no scraping, no `package.json` for the site. CI tooling may use temporary tooling inside GitHub Actions when the task explicitly allows it.
 - No binary over 1 MB, no vendored third-party code. Keep the QR generator and other existing code unless the task says otherwise.
+- The Jules queue is defined by the `## Now` → `### Ready` tasks in `docs/roadmap.md`. Do not create or maintain a separate `### Active` queue section.
 - Never edit `### Blocked` or `### Human Review` in `docs/roadmap.md`, or any task other than your own.
 
 ## 5. Verification (required before you open the pull request)
@@ -42,9 +43,10 @@ A task is done when you have seen it work, not when the code looks right.
 
 You are the one who ticks the box, in the same pull request, only after step 5:
 
-- In `docs/roadmap.md`, change your task's own line from `- [ ]` to `- [x]`, in place. Do not move it and do not touch its bullets.
-- If your pull request fully completes an item in a Phase section lower in that file, tick that item too. Never tick anything else.
-- If you could not fully verify the task, leave the box unchecked and explain exactly why in the pull request description. An honest unchecked box is worth more than a false checked one: the queue simply waits until a human has looked.
+- In `docs/roadmap.md`, change your own task line under `### Ready` from `- [ ]` to `- [x]`, in place. Do not move it and do not change its bullets.
+- If your pull request fully completes an item in a Phase section lower in that file, tick that Phase item too. Never tick anything else.
+- Do not add an `### Active` entry. The active Jules session is tracked only in `.github/jules-queue-state.json`.
+- If you could not fully verify the task, leave the box unchecked and explain exactly why in the pull request description. An honest unchecked box is worth more than a false checked box.
 
 ## 7. Pull requests
 
