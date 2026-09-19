@@ -1,4 +1,10 @@
-import { openQRModal } from '../../ui/qr-modal.js';
+import {
+  buildWhatsAppUrl,
+  buildEmailUrl,
+  triggerNativeShare,
+  copyToClipboard,
+  triggerQRModal
+} from '../../ui/share-actions.js';
 
 /**
  * Handles sharing-specific markup and logic:
@@ -15,21 +21,20 @@ import { openQRModal } from '../../ui/qr-modal.js';
  * @returns {string}
  */
 export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText) {
-  const waText = encodeURIComponent(
-    lang === 'en'
-      ? `Check out this specific fundraiser for ${titleText} (${purposeText}): ${shareUrl}`
-      : `Bekijk deze specifieke inzamelingsactie voor ${titleText} (${purposeText}): ${shareUrl}`
-  );
-  const emailSubject = encodeURIComponent(
-    lang === 'en'
-      ? `Fundraiser: ${titleText}`
-      : `Inzamelingsactie: ${titleText}`
-  );
-  const emailBody = encodeURIComponent(
-    lang === 'en'
-      ? `Check out this specific fundraiser for ${titleText}.\n\nPurpose: ${purposeText}\n\nLink: ${shareUrl}`
-      : `Bekijk deze specifieke inzamelingsactie voor ${titleText}.\n\nDoel: ${purposeText}\n\nLink: ${shareUrl}`
-  );
+  const waText = lang === 'en'
+    ? `Check out this specific fundraiser for ${titleText} (${purposeText}): ${shareUrl}`
+    : `Bekijk deze specifieke inzamelingsactie voor ${titleText} (${purposeText}): ${shareUrl}`;
+
+  const emailSubject = lang === 'en'
+    ? `Fundraiser: ${titleText}`
+    : `Inzamelingsactie: ${titleText}`;
+
+  const emailBody = lang === 'en'
+    ? `Check out this specific fundraiser for ${titleText}.\n\nPurpose: ${purposeText}\n\nLink: ${shareUrl}`
+    : `Bekijk deze specifieke inzamelingsactie voor ${titleText}.\n\nDoel: ${purposeText}\n\nLink: ${shareUrl}`;
+
+  const waHref = buildWhatsAppUrl(waText);
+  const emailHref = buildEmailUrl(emailSubject, emailBody);
 
   return `
     <div class="card-share-section">
@@ -44,10 +49,10 @@ export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, 
             ${shareContent?.webShare?.[lang] || 'Delen...'}
           </button>
         ` : ''}
-        <a href="https://wa.me/?text=${waText}" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp-btn">
+        <a href="${waHref}" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp-btn">
           ${shareContent?.whatsapp?.[lang] || 'WhatsApp'}
         </a>
-        <a href="mailto:?subject=${emailSubject}&body=${emailBody}" class="share-btn email-btn">
+        <a href="${emailHref}" class="share-btn email-btn">
           ${shareContent?.email?.[lang] || 'E-mail'}
         </a>
         <button type="button" class="share-btn copy-link-btn">
@@ -88,35 +93,24 @@ export function attachShareListeners(card, state, shareContent, lang, shareUrl, 
 
   if (nativeShareBtn) {
     nativeShareBtn.addEventListener('click', () => {
-      if (navigator.share) {
-        navigator.share({
-          title: titleText,
-          text: purposeText,
-          url: shareUrl
-        }).catch(err => console.log('Native share cancelled:', err));
-      }
+      triggerNativeShare({
+        title: titleText,
+        text: purposeText,
+        url: shareUrl
+      });
     });
   }
 
   if (copyLinkBtn) {
     copyLinkBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        const origText = copyLinkBtn.textContent;
-        copyLinkBtn.textContent = shareContent?.copiedFeedback?.[lang] || 'Link gekopieerd!';
-        copyLinkBtn.classList.add('copied');
-        setTimeout(() => {
-          copyLinkBtn.textContent = origText;
-          copyLinkBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(err => {
-        console.error('Failed to copy link:', err);
-      });
+      const feedbackText = shareContent?.copiedFeedback?.[lang] || 'Link gekopieerd!';
+      copyToClipboard(shareUrl, copyLinkBtn, feedbackText);
     });
   }
 
   if (qrCodeBtn) {
     qrCodeBtn.addEventListener('click', (e) => {
-      openQRModal(state, titleText, shareUrl, e.currentTarget);
+      triggerQRModal(state, titleText, shareUrl, e.currentTarget);
     });
   }
 }

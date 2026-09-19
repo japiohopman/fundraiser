@@ -962,6 +962,118 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   8b. Fixed Site-Wide Share Control
+   -------------------------------------------------------------------------- */
+.site-share-widget {
+  position: fixed;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.site-share-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.5rem var(--space-4);
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: 1px solid var(--color-primary-border);
+  border-radius: 9999px;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+  transition: background-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.site-share-toggle-btn:hover,
+.site-share-toggle-btn:focus-visible {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.24);
+}
+
+.site-share-icon {
+  flex-shrink: 0;
+}
+
+.site-share-panel {
+  position: absolute;
+  bottom: calc(100% + var(--space-3));
+  left: 0;
+  width: 260px;
+  max-width: calc(100vw - 32px);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-4);
+  z-index: 1051;
+}
+
+.site-share-panel[hidden] {
+  display: none;
+}
+
+.site-share-panel-header {
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.site-share-panel-title {
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-subtle);
+}
+
+.site-share-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.site-share-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-subtle);
+  color: var(--color-text-main);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.site-share-action-btn:hover,
+.site-share-action-btn:focus-visible {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary-border);
+}
+
+.site-share-action-btn.copied {
+  background-color: var(--color-collective-badge-bg);
+  color: var(--color-collective-text);
+  border-color: var(--color-collective-border);
+}
+
+/* --------------------------------------------------------------------------
    9. Modal Dialog (QR Code)
    -------------------------------------------------------------------------- */
 .modal-overlay {
@@ -1704,6 +1816,7 @@ body {
   .main-nav,
   .footer-lang-switcher,
   .card-share-section,
+  .site-share-widget,
   .modal-overlay,
   #qr-modal {
     display: none !important;
