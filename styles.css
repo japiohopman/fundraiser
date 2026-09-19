@@ -1379,21 +1379,28 @@ body {
   width: 44px;
   height: 44px;
   display: block;
-  animation: heartEntrance 1.2s ease-out 0.2s 1 normal forwards;
+  opacity: 0;
+  animation: heartEntrancePulse 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s 1 normal forwards;
   transform-origin: center;
 }
 
-@keyframes heartEntrance {
+@keyframes heartEntrancePulse {
   0% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.75);
   }
-  60% {
+  35% {
     opacity: 1;
-    transform: scale(1.12);
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  65% {
+    transform: scale(0.95);
   }
   80% {
-    transform: scale(0.96);
+    transform: scale(1.06);
   }
   100% {
     opacity: 1;
@@ -1415,110 +1422,74 @@ body {
   margin: 0 auto;
 }
 
-/* Donor Wall Container */
+/* Donor Wall Container - Interlaced Stream Composition */
 .donor-wall {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: var(--space-6) 0;
+  padding: var(--space-6) var(--space-2);
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  align-items: center;
+  gap: var(--space-4);
   margin-top: var(--space-4);
 }
 
 .donor-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--space-6);
-  white-space: nowrap;
-  will-change: transform;
+  gap: var(--space-4) var(--space-6);
+  width: 100%;
+  max-width: 860px;
 }
 
 .donor-row-1 {
-  animation: rowWovenDrift1 24s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  transform: translateY(-4px);
-}
-
-.donor-row-2 {
-  animation: rowWovenDrift2 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  transform: translateY(2px);
-}
-
-.donor-row-3 {
-  animation: rowWovenDrift3 26s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
   transform: translateY(-2px);
 }
 
-@keyframes rowWovenDrift1 {
-  0% {
-    transform: translateX(-8%) translateY(-4px);
-  }
-  50% {
-    transform: translateX(2%) translateY(0px);
-  }
-  100% {
-    transform: translateX(8%) translateY(-4px);
-  }
+.donor-row-2 {
+  transform: translateY(4px);
+  padding-left: var(--space-6);
 }
 
-@keyframes rowWovenDrift2 {
-  0% {
-    transform: translateX(8%) translateY(2px);
-  }
-  50% {
-    transform: translateX(-2%) translateY(-3px);
-  }
-  100% {
-    transform: translateX(-8%) translateY(2px);
-  }
-}
-
-@keyframes rowWovenDrift3 {
-  0% {
-    transform: translateX(-6%) translateY(-2px);
-  }
-  50% {
-    transform: translateX(3%) translateY(3px);
-  }
-  100% {
-    transform: translateX(6%) translateY(-2px);
-  }
+.donor-row-3 {
+  transform: translateY(-2px);
+  padding-right: var(--space-6);
 }
 
 .donor-item {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 0.9rem;
   background-color: transparent;
   border: none;
   font-size: var(--font-size-base);
   font-weight: 700;
   color: var(--color-primary);
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-  animation: itemWovenLifecycle 10s ease-in-out infinite;
+  animation: itemWovenLifecycle 11s ease-in-out infinite;
   animation-delay: var(--item-delay, 0s);
   opacity: 0;
-  flex-shrink: 0;
 }
 
 @keyframes itemWovenLifecycle {
   0% {
     opacity: 0;
-    transform: translateY(6px) scale(0.96);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 8px)) scale(0.95);
   }
-  20% {
+  22% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate(var(--x-shift, 0px), var(--y-shift, 0px)) scale(1);
   }
-  80% {
+  78% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate(var(--x-shift, 0px), var(--y-shift, 0px)) scale(1);
   }
   95%, 100% {
     opacity: 0;
-    transform: translateY(-6px) scale(0.96);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 8px)) scale(0.95);
   }
 }
 

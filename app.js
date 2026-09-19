@@ -566,10 +566,15 @@ function renderThankYou(donorsData, content, lang) {
       }
       span.textContent = item.value;
 
-      // Stagger delay based on global position across woven sequence
+      // Organic spatial shifts and staggered timing delays for interwoven stream
       const globalIndex = rowIndex + itemIndex * rowCount;
-      const delay = (globalIndex * (lifecycleDuration / Math.max(totalItemsCount, 1))).toFixed(2);
+      const delay = (globalIndex * 1.8).toFixed(2);
+      const xShift = (itemIndex % 2 === 0 ? 1 : -1) * (4 + (globalIndex % 3) * 3);
+      const yShift = (itemIndex % 3 === 0 ? -1 : 1) * (2 + (globalIndex % 2) * 2);
+
       span.style.setProperty('--item-delay', `${delay}s`);
+      span.style.setProperty('--x-shift', `${xShift}px`);
+      span.style.setProperty('--y-shift', `${yShift}px`);
 
       rowEl.appendChild(span);
     });
