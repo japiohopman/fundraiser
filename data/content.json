@@ -499,6 +499,10 @@
     "fallbackMessage": {
       "nl": "Dank aan alle vrienden, supporters en buurtbewoners die ParkNest een warm hart toe dragen.",
       "en": "Thanks to all friends, supporters, and neighbors who care about ParkNest."
+    },
+    "donorWallLabel": {
+      "nl": "Donateur dankbetuigingen",
+      "en": "Donor acknowledgements"
     }
   },
   "footer": {

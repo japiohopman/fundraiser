@@ -551,16 +551,12 @@ function renderThankYou(donorsData, content, lang) {
   container.innerHTML = '';
 
   rows.forEach((rowItems, rowIndex) => {
+    if (rowItems.length === 0) return;
+
     const rowEl = document.createElement('div');
     rowEl.className = `donor-row donor-row-${rowIndex + 1}`;
 
-    // Ensure enough items per row to feel full by duplicating sequence if row is small
-    let displayItems = [...rowItems];
-    if (displayItems.length > 0 && displayItems.length < 5) {
-      displayItems = [...displayItems, ...displayItems, ...displayItems];
-    }
-
-    displayItems.forEach((item, itemIndex) => {
+    rowItems.forEach((item, itemIndex) => {
       const span = document.createElement('span');
       if (item.type === 'gesture') {
         span.className = 'donor-item donor-gesture';
@@ -570,7 +566,7 @@ function renderThankYou(donorsData, content, lang) {
       }
       span.textContent = item.value;
 
-      // Stagger delay based on position across rows
+      // Stagger delay based on global position across woven sequence
       const globalIndex = rowIndex + itemIndex * rowCount;
       const delay = (globalIndex * (lifecycleDuration / Math.max(totalItemsCount, 1))).toFixed(2);
       span.style.setProperty('--item-delay', `${delay}s`);
