@@ -1,0 +1,7 @@
+{
+  "activeSession": {
+    "name": "sessions/1998281872472196754",
+    "task": "Keyboard navigation and focus visibility: make every interactive element in `index.html`, `styles.css` and `app.js` (menu, language switcher, share buttons, links) reachable by keyboard with a clearly visible focus ring; fix what is found; presentation and behaviour only, no content changes",
+    "startedAt": "2026-09-19T02:18:04.821Z"
+  }
+}
