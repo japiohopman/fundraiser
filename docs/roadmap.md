@@ -5,7 +5,7 @@
 > Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`). Only `### Ready` is auto-dispatched, one task at a time. Move tasks between sections by hand. Ticking `[x]` under `### Active` — after you have reviewed and verified the merged PR — is what advances the queue. The phase sections below are the long-term plan, not the dispatch source. Each task must stay on ONE line.
 
 ### Active
-- [ ] Compact the header on mobile (below 600px): the title, subtitle, language switcher and menu button currently take about 225px of the first screen; keep title, language switcher and menu button on one tidy row, shorten or tuck away the subtitle, keep the menu accessible; presentation only, no content changes
+- [X] Compact the header on mobile (below 600px): the title, subtitle, language switcher and menu button currently take about 225px of the first screen; keep title, language switcher and menu button on one tidy row, shorten or tuck away the subtitle, keep the menu accessible; presentation only, no content changes
 
 ### Ready
 
