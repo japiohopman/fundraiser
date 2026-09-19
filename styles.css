@@ -1349,7 +1349,205 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   14. Footer
+   14. Thank You / Donor Acknowledgement Section
+   -------------------------------------------------------------------------- */
+.thank-you-section {
+  background: linear-gradient(180deg, var(--color-surface) 0%, #fefcf8 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-4);
+  margin-bottom: var(--space-10);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  overflow: hidden;
+}
+
+.thank-you-header {
+  max-width: var(--max-prose-width);
+  margin: 0 auto var(--space-6) auto;
+}
+
+.thank-you-heart-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+  color: #e11d48;
+}
+
+.thank-you-heart {
+  width: 44px;
+  height: 44px;
+  display: block;
+  animation: heartEntrance 1.2s ease-out 0.2s 1 normal forwards;
+  transform-origin: center;
+}
+
+@keyframes heartEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  80% {
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.thank-you-title {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: var(--space-2);
+  color: var(--color-primary);
+}
+
+.thank-you-message {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin: 0 auto;
+}
+
+/* Donor Wall Container */
+.donor-wall {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.donor-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.donor-row-1 {
+  animation: rowDriftRight 22s ease-in-out infinite alternate;
+}
+
+.donor-row-2 {
+  animation: rowDriftLeft 26s ease-in-out infinite alternate;
+}
+
+.donor-row-3 {
+  animation: rowDriftRight 24s ease-in-out infinite alternate;
+}
+
+@keyframes rowDriftRight {
+  0% {
+    transform: translateX(-3%);
+  }
+  100% {
+    transform: translateX(3%);
+  }
+}
+
+@keyframes rowDriftLeft {
+  0% {
+    transform: translateX(3%);
+  }
+  100% {
+    transform: translateX(-3%);
+  }
+}
+
+.donor-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 9999px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-main);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
+  animation: itemFadeLifecycle 9s ease-in-out infinite;
+  animation-delay: var(--item-delay, 0s);
+  opacity: 0;
+  flex-shrink: 0;
+}
+
+@keyframes itemFadeLifecycle {
+  0% {
+    opacity: 0;
+    transform: translateY(3px) scale(0.97);
+  }
+  18% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: translateY(-3px) scale(0.97);
+  }
+}
+
+.donor-item.donor-gesture {
+  background-color: #fef3c7;
+  border-color: #fde68a;
+  font-size: 1.1rem;
+  padding: 0.35rem 0.8rem;
+  box-shadow: 0 2px 5px rgba(217, 119, 6, 0.08);
+}
+
+.donor-fallback-message {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-text-muted);
+  padding: var(--space-4);
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--radius-sm);
+  max-width: var(--max-prose-width);
+  margin: 0 auto;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+  .thank-you-section {
+    padding: var(--space-6) var(--space-3);
+  }
+
+  .donor-wall {
+    gap: var(--space-3);
+  }
+
+  .donor-row {
+    gap: var(--space-2);
+  }
+
+  .donor-item {
+    padding: 0.35rem 0.85rem;
+    font-size: var(--font-size-xs);
+  }
+
+  .donor-item.donor-gesture {
+    font-size: 1rem;
+    padding: 0.25rem 0.6rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. Footer
    -------------------------------------------------------------------------- */
 .site-footer {
   background-color: var(--color-surface);
@@ -1401,11 +1599,30 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   15. Accessibility & Motion Preferences
+   16. Accessibility & Motion Preferences
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition: none !important;
     animation: none !important;
+  }
+
+  .thank-you-heart {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .donor-row {
+    animation: none !important;
+    transform: none !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    white-space: normal !important;
+  }
+
+  .donor-item {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
   }
 }

@@ -8,10 +8,10 @@
     "en": "Only include names that are intentionally approved for public acknowledgement. Do not store donation amounts, email addresses, or other donor data."
   },
   "donors": [
-  { "name": "Marijke" },
-  { "name": "Petra" },
-  { "name": "Koos" },
-  { "name": "Julien" }
-  { "name": "Catelijne" }
+    { "name": "Marijke" },
+    { "name": "Petra" },
+    { "name": "Koos" },
+    { "name": "Julien" },
+    { "name": "Catelijne" }
   ]
 }

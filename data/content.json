@@ -487,6 +487,20 @@
       "en": "Check out this specific fundraising campaign for"
     }
   },
+  "thankYou": {
+    "title": {
+      "nl": "Dankjewel aan iedereen die hielp.",
+      "en": "Thank you to everyone who helped."
+    },
+    "message": {
+      "nl": "Onze oprechte dank gaat uit naar iedereen die een bijdrage heeft geleverd, in welke vorm dan ook, om het herstel en de gemeenschap van ParkNest te ondersteunen.",
+      "en": "Our heartfelt thanks go to everyone who contributed, in any way, to support the recovery and community of ParkNest."
+    },
+    "fallbackMessage": {
+      "nl": "Dank aan alle vrienden, supporters en buurtbewoners die ParkNest een warm hart toe dragen.",
+      "en": "Thanks to all friends, supporters, and neighbors who care about ParkNest."
+    }
+  },
   "footer": {
     "disclaimerTitle": {
       "nl": "Onafhankelijkheidsverklaring",
