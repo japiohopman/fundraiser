@@ -1,3 +1,7 @@
 {
-  "activeSession": null
+  "activeSession": {
+    "name": "sessions/15304708499508843234",
+    "task": "**Page shell: header, typography, reading layout and responsive behaviour**",
+    "startedAt": "2026-09-19T07:48:48.395Z"
+  }
 }
