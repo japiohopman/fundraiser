@@ -1,7 +1,7 @@
 {
   "$schema": "./fundraisers.schema.json",
   "version": "1.0.0",
-  "lastVerifiedAt": "2026-09-17",
+  "lastVerifiedAt": "2026-09-19",
   "fundraisers": [
     {
       "id": "parknest-collective",
@@ -30,17 +30,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 150000,
-        "onlineAmountRaised": 30061,
+        "onlineAmountRaised": 31248,
         "offlineDonationAmount": 25790,
-        "displayedTotalRaised": 55851,
-        "onlineDonationCount": 767,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data. WhyDonate's displayed total is dynamic and updates as transactions occur."
+        "displayedTotalRaised": 57038,
+        "onlineDonationCount": 778,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-19 from WhyDonate live data. WhyDonate's displayed total is dynamic and updates as transactions occur."
       },
       "dates": {
         "createdAt": "2025-10-24T09:24:17.000000Z",
         "endDate": "2027-08-22",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-17",
+        "verifiedAt": "2026-09-19",
         "historicalNotes": "WhyDonate platform metadata records created_at as 24 October 2025 under slug 'houd-parknest-open-in-de-winter'. Whether the campaign title/description was modified after the August 2026 fire or existed with its current title previously is unverified due to platform evidence limits."
       },
       "sources": [
@@ -48,13 +48,13 @@
           "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, ID, amounts, donor count, and beneficiary name.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
           "type": "official_website",
           "description": "Official ParkNest website article confirming the fire, fundraising goals, direct bank alternative, and official fundraiser redirect.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         }
       ],
       "status": {
@@ -91,17 +91,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 2300,
-        "onlineAmountRaised": 0,
+        "onlineAmountRaised": 300,
         "offlineDonationAmount": 0,
-        "displayedTotalRaised": 0,
-        "onlineDonationCount": 0,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data."
+        "displayedTotalRaised": 300,
+        "onlineDonationCount": 1,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-19 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T20:11:26.757971Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-17",
+        "verifiedAt": "2026-09-19",
         "historicalNotes": null
       },
       "sources": [
@@ -109,13 +109,13 @@
           "url": "https://whydonate.com/nl/fundraising/kathinka",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
           "type": "official_website",
           "description": "Official ParkNest article acknowledging Kathinka van Velzen's dog collar collection as lost in the fire.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         }
       ],
       "status": {
@@ -152,17 +152,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 300,
-        "onlineAmountRaised": 30,
+        "onlineAmountRaised": 330,
         "offlineDonationAmount": 0,
-        "displayedTotalRaised": 30,
-        "onlineDonationCount": 2,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data."
+        "displayedTotalRaised": 330,
+        "onlineDonationCount": 3,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-19 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T20:41:39.541756Z",
         "endDate": null,
         "isOpenEnded": true,
-        "verifiedAt": "2026-09-17",
+        "verifiedAt": "2026-09-19",
         "historicalNotes": null
       },
       "sources": [
@@ -170,13 +170,13 @@
           "url": "https://whydonate.com/nl/fundraising/jimgijbels",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and open-ended status.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
           "type": "official_website",
           "description": "Official ParkNest article acknowledging Jim Gijbels' tram paintings as destroyed in the fire.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         }
       ],
       "status": {
@@ -213,17 +213,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 577,
-        "onlineAmountRaised": 100,
+        "onlineAmountRaised": 395,
         "offlineDonationAmount": 0,
-        "displayedTotalRaised": 100,
-        "onlineDonationCount": 1,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-17 from WhyDonate live data."
+        "displayedTotalRaised": 395,
+        "onlineDonationCount": 4,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-19 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T18:50:21.447740Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-17",
+        "verifiedAt": "2026-09-19",
         "historicalNotes": null
       },
       "sources": [
@@ -231,7 +231,7 @@
           "url": "https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-17"
+          "verifiedAt": "2026-09-19"
         }
       ],
       "status": {
@@ -298,6 +298,116 @@
           }
         ]
       }
+    },
+    {
+      "id": "suzy-creamcheese-kitchenware",
+      "platform": "WhyDonate",
+      "platformCampaignId": 136858,
+      "parentCampaignId": 101918,
+      "slug": "vervang-keukegerei-van-kok-suzy-creamcheese",
+      "url": "https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese",
+      "officialEntryPoint": null,
+      "category": "personal",
+      "title": {
+        "nl": "Vervang keukengerei van Kok Suzy Creamcheese",
+        "en": "Replace kitchenware of Chef Suzy Creamcheese"
+      },
+      "organiser": {
+        "name": "Dirk Zaal"
+      },
+      "beneficiary": {
+        "name": null,
+        "type": "undisclosed"
+      },
+      "purpose": {
+        "nl": "Vervanging van keukengerei en kookmateriaal van Kok Suzy Creamcheese, verloren bij de brand in ParkNest.",
+        "en": "Replacement of kitchenware and cooking equipment belonging to Chef Suzy Creamcheese, lost in the ParkNest fire."
+      },
+      "financials": {
+        "currency": "EUR",
+        "targetAmount": 2350,
+        "onlineAmountRaised": 1000,
+        "offlineDonationAmount": 0,
+        "displayedTotalRaised": 1000,
+        "onlineDonationCount": 1,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-19 from WhyDonate live data."
+      },
+      "dates": {
+        "createdAt": "2026-08-30T20:19:54.546998Z",
+        "endDate": "2028-01-01",
+        "isOpenEnded": false,
+        "verifiedAt": "2026-09-19",
+        "historicalNotes": null
+      },
+      "sources": [
+        {
+          "url": "https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese",
+          "type": "campaign_page",
+          "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
+          "verifiedAt": "2026-09-19"
+        }
+      ],
+      "status": {
+        "isOpened": true,
+        "isDraft": false,
+        "isCompleted": false
+      },
+      "verificationState": "verified"
+    },
+    {
+      "id": "manon-kinkt-shirts",
+      "platform": "WhyDonate",
+      "platformCampaignId": 136861,
+      "parentCampaignId": 101918,
+      "slug": "vervang-de-kinkt-shirts-van-manon",
+      "url": "https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon",
+      "officialEntryPoint": null,
+      "category": "personal",
+      "title": {
+        "nl": "Vervang de Kinkt! Shirts van Manon",
+        "en": "Replace the Kinkt! Shirts from Manon"
+      },
+      "organiser": {
+        "name": "Dirk Zaal"
+      },
+      "beneficiary": {
+        "name": null,
+        "type": "undisclosed"
+      },
+      "purpose": {
+        "nl": "Vervanging van Kinkt! T-shirts van Manon, verloren bij de brand in ParkNest.",
+        "en": "Replacement of Kinkt! T-shirts belonging to Manon, lost in the ParkNest fire."
+      },
+      "financials": {
+        "currency": "EUR",
+        "targetAmount": 128,
+        "onlineAmountRaised": 111,
+        "offlineDonationAmount": 0,
+        "displayedTotalRaised": 111,
+        "onlineDonationCount": 2,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-19 from WhyDonate live data."
+      },
+      "dates": {
+        "createdAt": "2026-08-30T20:32:59.520025Z",
+        "endDate": "2028-01-01",
+        "isOpenEnded": false,
+        "verifiedAt": "2026-09-19",
+        "historicalNotes": null
+      },
+      "sources": [
+        {
+          "url": "https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon",
+          "type": "campaign_page",
+          "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
+          "verifiedAt": "2026-09-19"
+        }
+      ],
+      "status": {
+        "isOpened": true,
+        "isDraft": false,
+        "isCompleted": false
+      },
+      "verificationState": "verified"
     }
   ]
 }
