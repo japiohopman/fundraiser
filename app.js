@@ -8,6 +8,7 @@ import { loadAppData } from './src/core/data.js';
 import { updateI18nDOM, updateLangButtons } from './src/core/i18n.js';
 import { setupLanguageSwitcher, setupMobileNav, updateMenuToggleLabel } from './src/ui/navigation.js';
 import { setupQRModal } from './src/ui/qr-modal.js';
+import { setupSiteShare, updateSiteShareUI } from './src/ui/site-share.js';
 import { renderFundraisers } from './src/features/fundraisers/render.js';
 import { renderRooieJaapEquipment } from './src/features/rooie-jaap/equipment.js';
 import { renderTimeline } from './src/features/timeline/render.js';
@@ -29,6 +30,7 @@ async function initApp() {
     setupLanguageSwitcher(setLanguage);
     setupMobileNav(state, state.contentData);
     setupQRModal(state);
+    setupSiteShare(state);
 
     renderApp();
   } catch (error) {
@@ -53,6 +55,7 @@ function renderApp() {
   updateI18nDOM(content, lang);
   updateLangButtons(lang);
   updateMenuToggleLabel(state, content);
+  updateSiteShareUI(state, content);
 
   renderFundraisers(fundraisers, content, lang, state);
   renderRooieJaapEquipment(content.rooieJaapEquipment, lang, state.fundraisersData);
