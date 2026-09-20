@@ -42,7 +42,12 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
     (lang === 'en' ? 'The purpose of this campaign is:' : 'Het doel van deze actie is:');
 
   const avatarMap = {
-    'rooie-jaap-knives': 'jaaphopman_avatar'
+    'parknest-collective': 'parknest-avatar',
+    'kathinka-dog-collars': 'kathinka-avatar',
+    'jim-gijbels-paintings': 'jim-avatar',
+    'rooie-jaap-knives': 'jaaphopman_avatar',
+    'suzy-creamcheese-kitchenware': 'suzy-avatar',
+    'manon-kinkt-shirts': 'manon-avatar'
   };
 
   const avatarName = avatarMap[item.id];
@@ -131,7 +136,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
             ${percentageStatusText}
           </span>
         </div>
-        <div class="progress-bar-track" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" aria-label="${progressLabelText}: ${percentageStatusText}">
+        <div class="progress-bar-track" role="progressbar" aria-valuenow="${cappedPercentage}" aria-valuemin="0" aria-valuemax="100" aria-valuetext="${percentageStatusText}" aria-label="${progressLabelText}">
           <div class="progress-bar-fill ${item.category}-progress-fill ${isTargetReached ? 'target-reached-fill' : ''}" style="width: ${cappedPercentage}%;"></div>
         </div>
       </div>

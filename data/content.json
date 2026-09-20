@@ -318,7 +318,7 @@
           "en": "I work as a freelance chef. During the fire at ParkNest, my professional chef's knives and essential kitchen gear were destroyed. Without my professional tools, I cannot work properly as a chef. My goal is to replace this essential gear so I can get back to work. The campaign 'Chef's knives for Rooie Jaap' (official WhyDonate source title) was set up specifically to fund the replacement of these tools."
         },
         "link": {
-          "url": "https://japiohopman.github.io/keuken_cv/",
+          "url": "https://github.com/japiohopman/keuken_cv",
           "label": {
             "nl": "Bekijk mijn keuken-CV",
             "en": "View my kitchen CV"
@@ -372,36 +372,6 @@
     "manon": {
       "nl": "Ondersteunt de vervanging van verloren gane Kinkt! T-shirts van Manon.",
       "en": "Supports replacing lost Kinkt! T-shirts belonging to Manon."
-    }
-  },
-  "rooieJaapStory": {
-    "title": {
-      "nl": "Mijn verhaal — Jaap Hopman",
-      "en": "My Story — Jaap Hopman"
-    },
-    "provenanceBadge": {
-      "nl": "Persoonlijke getuigenis van Jaap Hopman",
-      "en": "Personal account by Jaap Hopman"
-    },
-    "provenanceNote": {
-      "nl": "Onderstaande tekst is de persoonlijke verklaring van Jaap Hopman. Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
-      "en": "The text below is Jaap Hopman's personal account. This is a first-person statement and not independent investigative reporting."
-    },
-    "paragraph1": {
-      "nl": "Ik werk als freelance kok. Bij de brand in ParkNest zijn mijn professionele koksmessen en overige essentiële keukenuitrusting verloren gegaan.",
-      "en": "I work as a freelance chef. During the fire at ParkNest, my professional chef's knives and essential kitchen gear were destroyed."
-    },
-    "paragraph2": {
-      "nl": "Zonder dit vakgereedschap kan ik mijn werkzaamheden als kok op dit moment niet naar behoren uitvoeren. Mijn doel is om mijn uitrusting te vervangen, zodat ik weer aan de slag kan.",
-      "en": "Without my professional tools, I cannot work properly as a chef. My goal is to replace this essential gear so I can get back to work."
-    },
-    "paragraph3": {
-      "nl": "De inzamelingsactie 'Koksmessen voor Rooie Jaap' (officiële WhyDonate bron-titel) is specifiek opgericht om de aanschaf van dit vervangende kookmateriaal mogelijk te maken. De gedocumenteerde referentielijst hieronder toont de specifieke artikelen en richtprijzen.",
-      "en": "The campaign 'Chef's knives for Rooie Jaap' (official WhyDonate source title) was set up specifically to fund the replacement of these tools. The documented reference list below itemizes the gear and reference prices."
-    },
-    "kitchenCvLabel": {
-      "nl": "Bekijk mijn keuken-CV",
-      "en": "View my kitchen CV"
     }
   },
   "rooieJaapEquipment": {
