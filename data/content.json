@@ -91,10 +91,6 @@
     "leadText": {
       "nl": "In de nacht van 20 op 21 augustus 2026 werd ParkNest in het Flevopark verwoest door een brand. Na de brand zijn er verschillende inzamelingsacties gestart. Deze site geeft een neutraal, brongebaseerd overzicht zodat bezoekers precies weten wat elke actie ondersteunt voordat zij doneren.",
       "en": "In the night of 20 to 21 August 2026, ParkNest in Flevopark was destroyed by a fire. Following the fire, several fundraising actions were created. This site provides a neutral, source-backed overview so visitors know exactly what each action supports before donating."
-    },
-    "imageAlt": {
-      "nl": "Nachtelijke brand bij ParkNest in het Flevopark met uitslaande rode en oranje vlammen en een brandweerman in actie.",
-      "en": "Nighttime fire at ParkNest in Flevopark showing bright red and orange flames with a firefighter in action."
     }
   },
   "fundraisersSection": {
@@ -259,6 +255,37 @@
         "text": {
           "nl": "Manon was een vaste DJ bij ParkNest en verzorgde daar vaak de muziek. Ze verkocht bij ParkNest ook haar Kinkt! T-shirts. De daar opgeslagen T-shirts zijn bij de brand verloren gegaan.",
           "en": "Manon was a regular DJ at ParkNest and often provided the music there. She also sold her Kinkt! T-shirts at ParkNest. The T-shirts stored there were lost in the fire."
+        },
+        "images": {
+          "header": "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_header/552c5adc67734baf/public?updated_at=20:33:35.311530",
+          "headerAlt": {
+            "nl": "Twee glimlachende vrouwen die bedrukte Kinkt! T-shirts tonen",
+            "en": "Two smiling women holding up printed Kinkt! T-shirts"
+          },
+          "gallery": [
+            "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_images/efd4dc76ef00450d/public",
+            "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_images/6bb5d797a1fb46ec/public",
+            "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_images/c0e58474b9ea48a8/public",
+            "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_images/0d6aa07117334743/public"
+          ],
+          "galleryAlts": [
+            {
+              "nl": "Donkerblauw Kinkt! T-shirt met roze Red Hot Cherry Bomb opdruk",
+              "en": "Dark navy Kinkt! T-shirt with pink Red Hot Cherry Bomb print"
+            },
+            {
+              "nl": "Donkerblauw Kinkt! T-shirt met oranje inktvis opdruk",
+              "en": "Dark navy Kinkt! T-shirt with orange octopus print"
+            },
+            {
+              "nl": "Wit Kinkt! T-shirt met rode Red Hot Cherry Bomb opdruk en merklabel",
+              "en": "White Kinkt! T-shirt with red Red Hot Cherry Bomb print and brand tag"
+            },
+            {
+              "nl": "Kramenstand met diverse bedrukte Kinkt! T-shirts aan kledinghangers",
+              "en": "Market display with various printed Kinkt! T-shirts on hangers"
+            }
+          ]
         },
         "link": {
           "url": "https://www.instagram.com/manon_kinkt/",
