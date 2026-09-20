@@ -156,28 +156,28 @@
     },
     "cardBadges": {
       "parknest-collective": {
-        "nl": "Algemene ParkNest-inzameling",
-        "en": "General ParkNest Fundraiser"
+        "nl": "ParkNest",
+        "en": "ParkNest"
       },
       "rooie-jaap-knives": {
-        "nl": "Persoonlijke inzameling — Jaap Hopman (Kookmateriaal)",
-        "en": "Personal Fundraiser — Jaap Hopman (Chef Equipment)"
+        "nl": "Jaap Hopman",
+        "en": "Jaap Hopman"
       },
       "kathinka-dog-collars": {
-        "nl": "Persoonlijke inzameling — Kathinka (Hondenbandjes)",
-        "en": "Personal Fundraiser — Kathinka (Dog Collars)"
+        "nl": "Kathinka van Velzen",
+        "en": "Kathinka van Velzen"
       },
       "jim-gijbels-paintings": {
-        "nl": "Persoonlijke inzameling — Jim Gijbels (Tramschilderijen)",
-        "en": "Personal Fundraiser — Jim Gijbels (Tram Paintings)"
+        "nl": "Jim Gijbels",
+        "en": "Jim Gijbels"
       },
       "suzy-creamcheese-kitchenware": {
-        "nl": "Persoonlijke inzameling — Kok Suzy Creamcheese (Keukengerei)",
-        "en": "Personal Fundraiser — Chef Suzy Creamcheese (Kitchenware)"
+        "nl": "Suzy Creamcheese",
+        "en": "Suzy Creamcheese"
       },
       "manon-kinkt-shirts": {
-        "nl": "Persoonlijke inzameling — Manon (Kinkt! Shirts)",
-        "en": "Personal Fundraiser — Manon (Kinkt! Shirts)"
+        "nl": "Manon",
+        "en": "Manon"
       }
     },
     "donationPurposePrefix": {
