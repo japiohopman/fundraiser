@@ -67,6 +67,17 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
     html += `<p class="provenance-note">${noteText}</p>`;
   }
 
+  if (contextData.images && contextData.images.header) {
+    const headerUrl = contextData.images.header;
+    const headerAltObj = contextData.images.headerAlt;
+    const headerAlt = typeof headerAltObj === 'object' && headerAltObj ? (headerAltObj[lang] || headerAltObj.nl || '') : (typeof headerAltObj === 'string' ? headerAltObj : '');
+    html += `
+      <div class="context-modal-media context-modal-media-header">
+        <img src="${headerUrl}" alt="${headerAlt}" class="context-modal-header-image" loading="lazy" decoding="async" onerror="this.parentElement ? this.parentElement.style.display='none' : this.style.display='none'">
+      </div>
+    `;
+  }
+
   if (contextData.text) {
     const mainText = contextData.text[lang] || contextData.text.nl;
     html += `<p class="context-modal-text">${mainText}</p>`;
@@ -77,6 +88,24 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
       const pText = pObj[lang] || pObj.nl;
       html += `<p class="context-modal-text">${pText}</p>`;
     });
+  }
+
+  if (contextData.images && Array.isArray(contextData.images.gallery) && contextData.images.gallery.length > 0) {
+    const galleryItems = contextData.images.gallery.map((imgUrl, idx) => {
+      const altObj = contextData.images.galleryAlts ? contextData.images.galleryAlts[idx] : null;
+      const altText = typeof altObj === 'object' && altObj ? (altObj[lang] || altObj.nl || '') : (typeof altObj === 'string' ? altObj : '');
+      return `
+        <div class="context-modal-gallery-item">
+          <img src="${imgUrl}" alt="${altText}" class="context-modal-gallery-image" loading="lazy" decoding="async" onerror="this.parentElement ? this.parentElement.style.display='none' : this.style.display='none'">
+        </div>
+      `;
+    }).join('');
+
+    html += `
+      <div class="context-modal-media context-modal-gallery">
+        ${galleryItems}
+      </div>
+    `;
   }
 
   if (contextData.link && contextData.link.url) {
