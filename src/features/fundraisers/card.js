@@ -34,7 +34,17 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
   const progressLabelText = labels.progressLabel ? labels.progressLabel[lang] : (lang === 'en' ? 'Fundraising progress' : 'Voortgang inzameling');
   const percentageStatusText = isTargetReached ? `${percentage}% — ${targetReachedText}` : `${percentage}%`;
 
-  const identityName = contentData?.fundraisersSection?.cardBadges?.[item.id]?.[lang] ||
+  const identityNameMap = {
+    'parknest-collective': 'ParkNest',
+    'kathinka-dog-collars': 'Kathinka van Velzen',
+    'jim-gijbels-paintings': 'Jim Gijbels',
+    'rooie-jaap-knives': 'Jaap Hopman',
+    'suzy-creamcheese-kitchenware': 'Suzy Creamcheese',
+    'manon-kinkt-shirts': 'Manon'
+  };
+
+  const identityName = identityNameMap[item.id] ||
+    contentData?.fundraisersSection?.cardBadges?.[item.id]?.[lang] ||
     contentData?.fundraisersSection?.cardBadges?.[item.id]?.nl ||
     titleText;
 
