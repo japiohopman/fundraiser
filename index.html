@@ -238,18 +238,21 @@
   <section id="thank-you" class="content-section thank-you-section" aria-labelledby="thank-you-title">
     <div class="container">
       <div class="thank-you-header">
-        <div class="thank-you-heart-wrapper">
-          <svg class="thank-you-heart" viewBox="0 0 512 512" width="48" height="48" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M480.25 156.355c0 161.24-224.25 324.43-224.25 324.43S31.75 317.595 31.75 156.355c0-91.41 70.63-125.13 107.77-125.13 77.65 0 116.48 65.72 116.48 65.72s38.83-65.73 116.48-65.73c37.14.01 107.77 33.72 107.77 125.14z"/>
-          </svg>
-        </div>
-        <h2 id="thank-you-title" class="section-title thank-you-title" data-i18n="thankYou.title">Dankjewel aan iedereen die hielp.</h2>
+        <h2 id="thank-you-title" class="section-title thank-you-title" data-i18n="thankYou.title">Dankjewel aan iedereen die helpt.</h2>
         <p class="thank-you-message" data-i18n="thankYou.message">
           Onze oprechte dank gaat uit naar iedereen die een bijdrage heeft geleverd, in welke vorm dan ook, om het herstel en de gemeenschap van ParkNest te ondersteunen.
         </p>
       </div>
-      <div id="donor-wall" class="donor-wall" aria-label="Donateur dankbetuigingen" data-i18n-attr="aria-label:thankYou.donorWallLabel">
-        <!-- Rendered dynamically by app.js from data/donors.json -->
+
+      <div class="thank-you-stage">
+        <div class="thank-you-heart-wrapper">
+          <svg class="thank-you-heart" viewBox="0 0 512 512" width="320" height="320" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M480.25 156.355c0 161.24-224.25 324.43-224.25 324.43S31.75 317.595 31.75 156.355c0-91.41 70.63-125.13 107.77-125.13 77.65 0 116.48 65.72 116.48 65.72s38.83-65.73 116.48-65.73c37.14.01 107.77 33.72 107.77 125.14z"/>
+          </svg>
+        </div>
+        <div id="donor-wall" class="donor-wall" aria-label="Donateur dankbetuigingen" data-i18n-attr="aria-label:thankYou.donorWallLabel">
+          <!-- Rendered dynamically by app.js from data/donors.json -->
+        </div>
       </div>
     </div>
   </section>
