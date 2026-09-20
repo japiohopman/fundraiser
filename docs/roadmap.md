@@ -47,7 +47,7 @@
 - [ ] Test that generated QR codes scan on real phones and decide what happens with URLs too long for Version 5-L (the QR generator in `app.js` is hand-written)
 - [ ] Decide the favicon: personal avatar or a neutral mark (the site presents itself as independent)
 - [ ] The mobile page is about 13,600px long: decide on a back-to-top link and/or collapsible timeline and sources (adds interface text in nl and en)
-- [ ] Decide whether goal versus total should be shown as a progress bar (numbers presentation; must carry the last-verified date and stay neutral)
+- [x] Decide whether goal versus total should be shown as a progress bar (implemented with compact progress indicators on all fundraiser cards)
 - [ ] Decide which lines of the yellow warning box carry bold emphasis (currently every line is bold, which weakens the key line)
 - [ ] Decide whether a dark colour scheme is wanted
 
@@ -88,6 +88,7 @@
 
 - [ ] Refine Dutch-first copy and English translation review
 - [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
+- [x] Restructure fundraiser page flow (Hero -> Purpose -> Fundraisers -> Equipment -> Timeline -> Sources -> Thank You -> Footer) and introduce compact human context overlays
 - [ ] Add visual design polish and brand color harmony
 - [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing

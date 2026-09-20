@@ -250,6 +250,97 @@
       "snapshotDisclaimer": {
         "nl": "Financiële cijfers zijn momentopnames en kunnen op het originele platform dynamisch veranderen.",
         "en": "Financial figures are snapshots and may change dynamically on the source platform."
+      },
+      "contextBtn": {
+        "nl": "Context & achtergrond",
+        "en": "Context & background"
+      },
+      "contextModalTitle": {
+        "nl": "Achtergrond & Context",
+        "en": "Background & Context"
+      }
+    },
+    "campaignContext": {
+      "manon-kinkt-shirts": {
+        "title": {
+          "nl": "Manon — Kinkt! T-shirts",
+          "en": "Manon — Kinkt! T-shirts"
+        },
+        "text": {
+          "nl": "Manon was een vaste DJ bij ParkNest en verzorgde daar vaak de muziek. Ze verkocht bij ParkNest ook haar Kinkt! T-shirts. De daar opgeslagen T-shirts zijn bij de brand verloren gegaan.",
+          "en": "Manon was a regular DJ at ParkNest and often provided the music there. She also sold her Kinkt! T-shirts at ParkNest. The T-shirts stored there were lost in the fire."
+        },
+        "link": {
+          "url": "https://www.instagram.com/manon_kinkt/",
+          "label": {
+            "nl": "Instagram van Manon",
+            "en": "Manon's Instagram"
+          }
+        }
+      },
+      "suzy-creamcheese-kitchenware": {
+        "title": {
+          "nl": "Kok Suzy Creamcheese — Keukengerei",
+          "en": "Chef Suzy Creamcheese — Kitchenware"
+        },
+        "text": {
+          "nl": "Suzy Creamcheese was een vaste kok bij ParkNest en bereidde daar de vrijdagse maaltijden. Haar keukengerei en kookmateriaal hoorden bij wat zij op de locatie gebruikte en gingen bij de brand verloren.",
+          "en": "Suzy Creamcheese was a regular cook at ParkNest and prepared Friday meals there. Her kitchenware and cooking equipment were part of what she used at the venue and were lost in the fire."
+        },
+        "link": null
+      },
+      "jim-gijbels-paintings": {
+        "title": {
+          "nl": "Jim Gijbels — Tramschilderijen",
+          "en": "Jim Gijbels — Tram Paintings"
+        },
+        "text": {
+          "nl": "Jim's tramschilderijen werden geëxposeerd in ParkNest en gingen verloren bij de brand. Zijn persoonlijke inzameling heeft inmiddels het doelbedrag bereikt.",
+          "en": "Jim's tram paintings were exhibited at ParkNest and were lost in the fire. His personal fundraiser has reached its target."
+        },
+        "link": null
+      },
+      "rooie-jaap-knives": {
+        "title": {
+          "nl": "Mijn verhaal — Jaap Hopman",
+          "en": "My Story — Jaap Hopman"
+        },
+        "provenanceBadge": {
+          "nl": "Persoonlijke getuigenis van Jaap Hopman",
+          "en": "Personal account by Jaap Hopman"
+        },
+        "provenanceNote": {
+          "nl": "Onderstaande tekst is de persoonlijke verklaring van Jaap Hopman. Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
+          "en": "The text below is Jaap Hopman's personal account. This is a first-person statement and not independent investigative reporting."
+        },
+        "text": {
+          "nl": "Ik werk als freelance kok. Bij de brand in ParkNest zijn mijn professionele koksmessen en overige essentiële keukenuitrusting verloren gegaan. Zonder dit vakgereedschap kan ik mijn werkzaamheden als kok op dit moment niet naar behoren uitvoeren. Mijn doel is om mijn uitrusting te vervangen, zodat ik weer aan de slag kan. De inzamelingsactie 'Koksmessen voor Rooie Jaap' (officiële WhyDonate bron-titel) is specifiek opgericht om de aanschaf van dit vervangende kookmateriaal mogelijk te maken.",
+          "en": "I work as a freelance chef. During the fire at ParkNest, my professional chef's knives and essential kitchen gear were destroyed. Without my professional tools, I cannot work properly as a chef. My goal is to replace this essential gear so I can get back to work. The campaign 'Chef's knives for Rooie Jaap' (official WhyDonate source title) was set up specifically to fund the replacement of these tools."
+        },
+        "link": {
+          "url": "https://japiohopman.github.io/keuken_cv/",
+          "label": {
+            "nl": "Bekijk mijn keuken-CV",
+            "en": "View my kitchen CV"
+          }
+        }
+      },
+      "kathinka-dog-collars": {
+        "title": {
+          "nl": "Kathinka van Velzen — Hondenbandjes",
+          "en": "Kathinka van Velzen — Dog Collars"
+        },
+        "text": {
+          "nl": "Kathinka's hondenbandjes-collectie en display waren verbonden aan ParkNest en gingen bij de brand verloren.",
+          "en": "Kathinka's dog-collar collection and display were associated with ParkNest and were lost in the fire."
+        },
+        "link": {
+          "url": "https://www.instagram.com/pieceofmind_ibiza/",
+          "label": {
+            "nl": "Instagram van Kathinka",
+            "en": "Kathinka's Instagram"
+          }
+        }
       }
     }
   },
@@ -283,37 +374,11 @@
       "en": "Supports replacing lost Kinkt! T-shirts belonging to Manon."
     }
   },
-  "rooieJaapStory": {
-    "title": {
-      "nl": "Mijn verhaal — Jaap Hopman",
-      "en": "My Story — Jaap Hopman"
-    },
-    "provenanceBadge": {
-      "nl": "Persoonlijke getuigenis van Jaap Hopman",
-      "en": "Personal account by Jaap Hopman"
-    },
-    "provenanceNote": {
-      "nl": "Onderstaande tekst is de persoonlijke verklaring van Jaap Hopman. Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
-      "en": "The text below is Jaap Hopman's personal account. This is a first-person statement and not independent investigative reporting."
-    },
-    "paragraph1": {
-      "nl": "Ik werk als freelance kok. Bij de brand in ParkNest zijn mijn professionele koksmessen en overige essentiële keukenuitrusting verloren gegaan.",
-      "en": "I work as a freelance chef. During the fire at ParkNest, my professional chef's knives and essential kitchen gear were destroyed."
-    },
-    "paragraph2": {
-      "nl": "Zonder dit vakgereedschap kan ik mijn werkzaamheden als kok op dit moment niet naar behoren uitvoeren. Mijn doel is om mijn uitrusting te vervangen, zodat ik weer aan de slag kan.",
-      "en": "Without my professional tools, I cannot work properly as a chef. My goal is to replace this essential gear so I can get back to work."
-    },
-    "paragraph3": {
-      "nl": "De inzamelingsactie 'Koksmessen voor Rooie Jaap' (officiële WhyDonate bron-titel) is specifiek opgericht om de aanschaf van dit vervangende kookmateriaal mogelijk te maken. De gedocumenteerde referentielijst hieronder toont de specifieke artikelen en richtprijzen.",
-      "en": "The campaign 'Chef's knives for Rooie Jaap' (official WhyDonate source title) was set up specifically to fund the replacement of these tools. The documented reference list below itemizes the gear and reference prices."
-    },
-    "kitchenCvLabel": {
-      "nl": "Bekijk mijn keuken-CV",
-      "en": "View my kitchen CV"
-    }
-  },
   "rooieJaapEquipment": {
+    "disclosureSummary": {
+      "nl": "Bekijk gedocumenteerde referentielijst vervangende uitrusting (Referentietotaal: € 576,45 / Streefbedrag: € 577,00)",
+      "en": "View documented reference list for replacement equipment (Reference total: €576.45 / Target amount: €577.00)"
+    },
     "title": {
       "nl": "Documentatie vervangende uitrusting — Jaap Hopman",
       "en": "Replacement Equipment Documentation — Jaap Hopman"

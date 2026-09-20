@@ -821,6 +821,66 @@ body {
   white-space: nowrap;
 }
 
+/* Progress Indicator Styles */
+.fundraiser-progress-wrapper {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border);
+}
+
+.progress-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-sm);
+  flex-wrap: wrap;
+}
+
+.progress-amounts {
+  font-weight: 700;
+  color: var(--color-text-main);
+  font-size: var(--font-size-sm);
+}
+
+.progress-percentage {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.progress-percentage.target-reached {
+  color: var(--color-collective-text);
+  font-weight: 800;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background-color: var(--color-border-subtle);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+  max-width: 100%;
+}
+
+.progress-bar-fill.collective-progress-fill {
+  background-color: var(--color-collective-text);
+}
+
+.progress-bar-fill.personal-progress-fill {
+  background-color: var(--color-personal-badge-text);
+}
+
 .fundraiser-meta {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
@@ -1173,6 +1233,70 @@ body {
   border-radius: var(--radius-sm);
 }
 
+/* Context Modal Styling */
+.context-modal-card {
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.context-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.context-modal-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  line-height: var(--line-height-relaxed);
+}
+
+.context-modal-actions {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.context-modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.context-modal-link:hover, .context-modal-link:focus-visible {
+  color: var(--color-primary-hover);
+}
+
+.context-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  width: 100%;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.context-btn:hover, .context-btn:focus-visible {
+  background-color: #dbeafe;
+  border-color: var(--color-primary);
+}
+
 /* --------------------------------------------------------------------------
    10. Purpose Explanation Grid
    -------------------------------------------------------------------------- */
@@ -1376,10 +1500,56 @@ body {
   margin-bottom: 0;
 }
 
-/* Equipment Documentation Table */
+/* Equipment Disclosure Section */
+.equipment-details {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.equipment-summary {
+  padding: var(--space-4) var(--space-5);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.equipment-summary::-webkit-details-marker {
+  display: none;
+}
+
+.equipment-summary::after {
+  content: "▼";
+  font-size: var(--font-size-xs);
+  transition: transform 0.2s ease;
+}
+
+.equipment-details[open] .equipment-summary::after {
+  transform: rotate(180deg);
+}
+
+.equipment-summary:hover, .equipment-summary:focus-visible {
+  background-color: #dbeafe;
+}
+
+.equipment-disclosure-content {
+  padding: var(--space-5);
+  border-top: 1px solid var(--color-primary-border);
+}
+
 .equipment-documentation-wrapper {
   border-top: 1px solid var(--color-border-subtle);
-  padding-top: var(--space-6);
+  padding-top: var(--space-4);
 }
 
 .equipment-table-wrapper {
@@ -1924,6 +2094,15 @@ body {
     background-color: #f0fdf4 !important;
   }
 
+  .progress-bar-track {
+    border: 1px solid #000000 !important;
+    background-color: #f0f0f0 !important;
+  }
+
+  .progress-bar-fill {
+    background-color: #000000 !important;
+  }
+
   .point-of-donation-box {
     border: 1px solid #cccccc !important;
     padding: 8pt !important;
@@ -1932,10 +2111,21 @@ body {
 
   /* Personal story & Equipment table */
   .personal-story-card,
-  .purpose-card {
+  .purpose-card,
+  .equipment-details {
     border: 1px solid #666666 !important;
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  .equipment-summary {
+    background: #f0f0f0 !important;
+    color: #000000 !important;
+    border-bottom: 1px solid #000000 !important;
+  }
+
+  .equipment-disclosure-content {
+    display: block !important;
   }
 
   /* Links display destination in print */
