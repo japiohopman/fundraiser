@@ -929,6 +929,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-2);
   min-height: 40px;
   width: 100%;
   text-align: center;
@@ -940,6 +941,10 @@ body {
   font-weight: 700;
   font-size: var(--font-size-sm);
   transition: background-color 0.15s;
+}
+
+.donate-btn-icon {
+  flex-shrink: 0;
 }
 
 .donate-btn:hover, .donate-btn:focus-visible {
@@ -1341,83 +1346,32 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   11. Rooie Jaap Personal Story & Equipment Section
+   11. Provenance Badges & Equipment Documentation Table
    -------------------------------------------------------------------------- */
-.equipment-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-
-/* Personal Story Card (First-Person Account) */
-.personal-story-card {
-  background-color: var(--color-provenance-bg);
-  border: 1px solid var(--color-border);
-  border-left: 5px solid var(--color-provenance-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-}
-
-@media (min-width: 768px) {
-  .personal-story-card {
-    padding: var(--space-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .personal-story-card {
-    max-width: 860px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.story-header-container {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  margin-bottom: var(--space-3);
-}
-
-.person-avatar-wrapper {
-  flex-shrink: 0;
-}
-
-.person-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--color-personal-badge-border);
-  background-color: var(--color-personal-badge-bg);
-}
-
-.story-header-text {
-  flex-grow: 1;
-}
-
-.story-footer-actions {
-  margin-top: var(--space-5);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
-}
-
-.kitchen-cv-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-personal-badge-text);
-  font-weight: 600;
-  font-size: var(--font-size-sm);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.provenance-badge {
+  display: inline-block;
+  background-color: var(--color-provenance-badge-bg);
+  color: var(--color-provenance-badge-text);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
-  transition: color 0.15s;
+  border: 1px solid var(--color-primary-border);
+  margin-bottom: var(--space-2);
 }
 
-.kitchen-cv-link:hover,
-.kitchen-cv-link:focus-visible {
-  color: var(--color-primary-hover);
+.provenance-note {
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  color: var(--color-text-muted);
+  background-color: var(--color-provenance-note-bg);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+  border: 1px dashed var(--color-border);
+  line-height: var(--line-height-normal);
 }
 
 /* Card Avatar integration */
@@ -1444,117 +1398,29 @@ body {
   flex: 1;
 }
 
-.story-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-2);
-  margin-bottom: var(--space-3);
-}
-
-.provenance-badge {
-  display: inline-block;
-  background-color: var(--color-provenance-badge-bg);
-  color: var(--color-provenance-badge-text);
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-primary-border);
-}
-
-.story-title {
-  margin-bottom: 0;
-  font-size: var(--font-size-xl);
-  color: var(--color-text-main);
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.provenance-note {
-  font-size: var(--font-size-xs);
-  font-style: italic;
-  color: var(--color-text-muted);
-  background-color: var(--color-provenance-note-bg);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--space-4);
-  border: 1px dashed var(--color-border);
-  max-width: var(--max-prose-width);
-  line-height: var(--line-height-normal);
-}
-
-.story-body {
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-main);
-  max-width: var(--max-prose-width);
-}
-
-.story-body p {
-  margin-bottom: var(--space-3);
-}
-
-.story-body p:last-child {
-  margin-bottom: 0;
-}
-
-/* Equipment Disclosure Section */
-.equipment-details {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.equipment-summary {
-  padding: var(--space-4) var(--space-5);
-  font-weight: 700;
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-  background-color: var(--color-primary-light);
-  cursor: pointer;
-  user-select: none;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.equipment-summary::-webkit-details-marker {
-  display: none;
-}
-
-.equipment-summary::after {
-  content: "▼";
-  font-size: var(--font-size-xs);
-  transition: transform 0.2s ease;
-}
-
-.equipment-details[open] .equipment-summary::after {
-  transform: rotate(180deg);
-}
-
-.equipment-summary:hover, .equipment-summary:focus-visible {
-  background-color: #dbeafe;
-}
-
-.equipment-disclosure-content {
-  padding: var(--space-5);
-  border-top: 1px solid var(--color-primary-border);
-}
-
 .equipment-documentation-wrapper {
   border-top: 1px solid var(--color-border-subtle);
   padding-top: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.equipment-section-title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.equipment-section-intro {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-3);
 }
 
 .equipment-table-wrapper {
   overflow-x: auto;
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
 }
 
 .equipment-table {
@@ -2109,23 +1975,12 @@ body {
     background: #f9f9f9 !important;
   }
 
-  /* Personal story & Equipment table */
-  .personal-story-card,
+  /* Equipment table */
   .purpose-card,
-  .equipment-details {
+  .equipment-documentation-wrapper {
     border: 1px solid #666666 !important;
     break-inside: avoid;
     page-break-inside: avoid;
-  }
-
-  .equipment-summary {
-    background: #f0f0f0 !important;
-    color: #000000 !important;
-    border-bottom: 1px solid #000000 !important;
-  }
-
-  .equipment-disclosure-content {
-    display: block !important;
   }
 
   /* Links display destination in print */
