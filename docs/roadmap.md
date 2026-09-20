@@ -88,6 +88,7 @@
 
 - [ ] Refine Dutch-first copy and English translation review
 - [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
+- [x] Restructure fundraiser page flow (Hero -> Purpose -> Fundraisers -> Equipment -> Timeline -> Sources -> Thank You -> Footer) and introduce compact human context overlays
 - [ ] Add visual design polish and brand color harmony
 - [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing

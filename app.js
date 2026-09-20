@@ -8,6 +8,7 @@ import { loadAppData } from './src/core/data.js';
 import { updateI18nDOM, updateLangButtons } from './src/core/i18n.js';
 import { setupLanguageSwitcher, setupMobileNav, updateMenuToggleLabel } from './src/ui/navigation.js';
 import { setupQRModal } from './src/ui/qr-modal.js';
+import { setupContextModal } from './src/ui/context-modal.js';
 import { setupSiteShare, updateSiteShareUI } from './src/ui/site-share.js';
 import { renderFundraisers } from './src/features/fundraisers/render.js';
 import { renderRooieJaapEquipment } from './src/features/rooie-jaap/equipment.js';
@@ -30,6 +31,7 @@ async function initApp() {
     setupLanguageSwitcher(setLanguage);
     setupMobileNav(state, state.contentData);
     setupQRModal(state);
+    setupContextModal(state);
     setupSiteShare(state);
 
     renderApp();
