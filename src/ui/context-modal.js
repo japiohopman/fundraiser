@@ -1,4 +1,5 @@
 import { trapModalFocus } from './qr-modal.js';
+import { createRooieJaapEquipmentHTML } from '../features/rooie-jaap/equipment.js';
 
 /**
  * Handles context overlay modal setup, opening, closing, focus restoration, focus trapping, and Escape key.
@@ -32,13 +33,14 @@ export function setupContextModal(state) {
 }
 
 /**
- * Opens the Context Modal with context information for a specific campaign.
+ * Opens the Context Modal overlay with details information for a specific campaign.
  * @param {Object} state
- * @param {Object} contextData - Data object from contentData.fundraisersSection.campaignContext[item.id]
+ * @param {Object} contextData - Data object with title, text, paragraphs, provenance info, link
  * @param {string} lang - 'nl' or 'en'
  * @param {HTMLElement} [triggerEl]
+ * @param {Object} [item] - Fundraiser object from data/fundraisers.json
  */
-export function openContextModal(state, contextData, lang, triggerEl) {
+export function openContextModal(state, contextData, lang, triggerEl, item) {
   const modal = document.getElementById('context-modal');
   const titleEl = document.getElementById('context-modal-title');
   const bodyEl = document.getElementById('context-modal-body');
@@ -87,6 +89,14 @@ export function openContextModal(state, contextData, lang, triggerEl) {
         </a>
       </div>
     `;
+  }
+
+  // If item is Jaap Hopman (rooie-jaap-knives) or equipmentReferences are present, append equipment documentation
+  const equipmentRef = item?.equipmentReferences ||
+    state.fundraisersData?.fundraisers?.find(f => f.id === 'rooie-jaap-knives')?.equipmentReferences;
+
+  if ((item?.id === 'rooie-jaap-knives' || item?.id === undefined && equipmentRef) && equipmentRef && state.contentData?.rooieJaapEquipment) {
+    html += createRooieJaapEquipmentHTML(state.contentData.rooieJaapEquipment, lang, equipmentRef);
   }
 
   bodyEl.innerHTML = html;

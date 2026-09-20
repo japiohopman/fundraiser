@@ -11,7 +11,6 @@ import { setupQRModal } from './src/ui/qr-modal.js';
 import { setupContextModal } from './src/ui/context-modal.js';
 import { setupSiteShare, updateSiteShareUI } from './src/ui/site-share.js';
 import { renderFundraisers } from './src/features/fundraisers/render.js';
-import { renderRooieJaapEquipment } from './src/features/rooie-jaap/equipment.js';
 import { renderTimeline } from './src/features/timeline/render.js';
 import { renderSources } from './src/features/sources/render.js';
 import { renderThankYou } from './src/features/thank-you/donor-wall.js';
@@ -60,7 +59,6 @@ function renderApp() {
   updateSiteShareUI(state, content);
 
   renderFundraisers(fundraisers, content, lang, state);
-  renderRooieJaapEquipment(content.rooieJaapEquipment, lang, state.fundraisersData);
   renderTimeline(content.timeline.events, lang);
   renderSources(content.sources.links, lang);
   renderThankYou(state.donorsData, content, lang);

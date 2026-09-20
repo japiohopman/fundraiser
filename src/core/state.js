@@ -8,6 +8,7 @@ export const state = {
   donorsData: null,
   isNavOpen: false,
   isQRModalOpen: false,
+  isContextModalOpen: false,
   isSiteShareOpen: false,
   activeShareCardId: null,
   lastFocusedElement: null

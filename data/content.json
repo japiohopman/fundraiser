@@ -30,9 +30,9 @@
       "nl": "Home",
       "en": "Home"
     },
-    "story": {
-      "nl": "Wat is er gebeurd?",
-      "en": "What happened?"
+    "purpose": {
+      "nl": "Waar is een donatie precies voor?",
+      "en": "What is a donation exactly for?"
     },
     "fundraisers": {
       "nl": "Inzamelingsacties",
@@ -91,24 +91,6 @@
     "leadText": {
       "nl": "In de nacht van 20 op 21 augustus 2026 werd ParkNest in het Flevopark verwoest door een brand. Na de brand zijn er verschillende inzamelingsacties gestart. Deze site geeft een neutraal, brongebaseerd overzicht zodat bezoekers precies weten wat elke actie ondersteunt voordat zij doneren.",
       "en": "In the night of 20 to 21 August 2026, ParkNest in Flevopark was destroyed by a fire. Following the fire, several fundraising actions were created. This site provides a neutral, source-backed overview so visitors know exactly what each action supports before donating."
-    }
-  },
-  "story": {
-    "title": {
-      "nl": "Wat is er gebeurd?",
-      "en": "What happened?"
-    },
-    "paragraph1": {
-      "nl": "ParkNest was sinds oktober 2023 een gekraakt buurthuis en ontmoetingsplek in het Amsterdamse Flevopark, gerund door ongeveer dertig vrijwilligers. Het pand bood ruimte aan maaltijden, livemuziek, exposities en buurtactiviteiten.",
-      "en": "Since October 2023, ParkNest operated as a squatted community center and meeting place in Amsterdam's Flevopark, run by around thirty volunteers. The building hosted meals, live music, exhibitions, and neighborhood activities."
-    },
-    "paragraph2": {
-      "nl": "Kort voor middernacht op 20 augustus 2026 brak er brand uit onder het dak. De brandweer liet het gebouw gecontroleerd uitbranden omdat betreden te gevaarlijk was. Het gebouw en diverse spullen die er aanwezig waren gingen verloren.",
-      "en": "Shortly before midnight on 20 August 2026, a fire broke out under the roof. Firefighters allowed the building to burn out in a controlled manner as entry was too dangerous. The building and various items inside were lost."
-    },
-    "paragraph3": {
-      "nl": "Sinds de brand zijn er meerdere crowdfundingsacties opgestart op het platform WhyDonate. Om verwarring te voorkomen, maakt deze website onderscheid tussen het collectieve ParkNest-fonds en persoonlijke herstelacties voor specifieke verloren eigendommen.",
-      "en": "Since the fire, multiple crowdfunding campaigns have been launched on WhyDonate. To avoid confusion, this website distinguishes between the collective ParkNest fund and personal recovery campaigns for specific lost belongings."
     }
   },
   "fundraisersSection": {
@@ -255,6 +237,10 @@
         "nl": "Context & achtergrond",
         "en": "Context & background"
       },
+      "detailsBtn": {
+        "nl": "Bekijk details",
+        "en": "Show details"
+      },
       "contextModalTitle": {
         "nl": "Achtergrond & Context",
         "en": "Background & Context"
@@ -318,7 +304,7 @@
           "en": "I work as a freelance chef. During the fire at ParkNest, my professional chef's knives and essential kitchen gear were destroyed. Without my professional tools, I cannot work properly as a chef. My goal is to replace this essential gear so I can get back to work. The campaign 'Chef's knives for Rooie Jaap' (official WhyDonate source title) was set up specifically to fund the replacement of these tools."
         },
         "link": {
-          "url": "https://japiohopman.github.io/keuken_cv/",
+          "url": "https://github.com/japiohopman.io/keuken_cv",
           "label": {
             "nl": "Bekijk mijn keuken-CV",
             "en": "View my kitchen CV"
