@@ -491,6 +491,25 @@ body {
   letter-spacing: -0.01em;
 }
 
+.hero-media {
+  margin: var(--space-4) 0 var(--space-5) 0;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1360 / 512;
+  object-fit: cover;
+  object-position: center;
+}
+
 .hero-lead {
   font-size: var(--font-size-base);
   color: var(--color-text-muted);
@@ -505,7 +524,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .hero-section,
   .story-section,
   .timeline-section,
   .sources-section {
