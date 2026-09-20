@@ -743,44 +743,58 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-.campaign-type-badge-bar {
+.fundraiser-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   margin-bottom: var(--space-3);
 }
 
-.card-campaign-badge {
-  display: inline-block;
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--radius-sm);
-  line-height: 1.2;
+.card-avatar-wrapper {
+  flex-shrink: 0;
 }
 
-.collective-card-badge {
-  background-color: var(--color-collective-badge-bg);
-  color: var(--color-collective-text);
-  border: 1px solid var(--color-collective-border);
-}
-
-.personal-card-badge {
+.card-avatar-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-personal-badge-border);
   background-color: var(--color-personal-badge-bg);
-  color: var(--color-personal-badge-text);
-  border: 1px solid var(--color-personal-badge-border);
+  display: block;
+}
+
+.fundraiser-card.category-collective .card-avatar-img {
+  border-color: var(--color-collective-border);
+  background-color: var(--color-collective-badge-bg);
+}
+
+.header-title-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.fundraiser-identity-name {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: clamp(1.1rem, 1rem + 0.3vw, 1.25rem);
+  font-weight: 700;
+  color: var(--color-text-main);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-1);
+  word-break: break-word;
 }
 
 .fundraiser-card-title {
-  font-size: var(--font-size-lg);
-  font-weight: 800;
-  color: var(--color-primary);
-  margin-bottom: var(--space-2);
-  line-height: var(--line-height-tight);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  word-break: break-word;
 }
 
 .fundraiser-purpose {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   margin-bottom: var(--space-4);
   line-height: var(--line-height-normal);
 }
@@ -900,47 +914,71 @@ body {
   color: var(--color-text-main);
 }
 
-.point-of-donation-box {
+.card-actions {
   margin-top: auto;
-  background-color: var(--color-surface-subtle);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-4);
   display: flex;
   flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border);
+}
+
+.primary-actions {
+  display: flex;
+  align-items: center;
   gap: var(--space-2);
+  width: 100%;
 }
 
-.point-of-donation-prefix {
-  font-size: var(--font-size-xs);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-text-subtle);
-}
-
-.point-of-donation-purpose {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-main);
-  line-height: var(--line-height-normal);
-}
-
+.context-btn,
 .donate-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 40px;
-  width: 100%;
-  text-align: center;
-  background-color: var(--color-primary);
-  color: #ffffff;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: var(--radius-sm);
-  text-decoration: none;
+  font-size: var(--font-size-xs);
   font-weight: 700;
-  font-size: var(--font-size-sm);
-  transition: background-color 0.15s;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .primary-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .context-btn,
+  .donate-btn {
+    width: 100%;
+  }
+}
+
+.context-btn {
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  width: auto;
+}
+
+.context-btn:hover, .context-btn:focus-visible {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-border);
+}
+
+.donate-btn {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: #ffffff;
+  width: auto;
 }
 
 .donate-btn-icon {
@@ -949,13 +987,12 @@ body {
 
 .donate-btn:hover, .donate-btn:focus-visible {
   background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 /* Card Share Section */
 .card-share-section {
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px dashed var(--color-border);
+  width: 100%;
 }
 
 .share-toggle-btn {
@@ -1279,28 +1316,6 @@ body {
   color: var(--color-primary-hover);
 }
 
-.context-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  min-height: 36px;
-  width: 100%;
-  padding: 0.35rem 0.75rem;
-  background-color: var(--color-primary-light);
-  border: 1px solid var(--color-primary-border);
-  border-radius: var(--radius-sm);
-  color: var(--color-primary);
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s;
-}
-
-.context-btn:hover, .context-btn:focus-visible {
-  background-color: #dbeafe;
-  border-color: var(--color-primary);
-}
 
 /* --------------------------------------------------------------------------
    10. Purpose Explanation Grid
@@ -1374,29 +1389,6 @@ body {
   line-height: var(--line-height-normal);
 }
 
-/* Card Avatar integration */
-.fundraiser-card-header.has-avatar {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.card-avatar-wrapper {
-  flex-shrink: 0;
-}
-
-.card-avatar-img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--color-personal-badge-border);
-  background-color: var(--color-personal-badge-bg);
-}
-
-.header-title-wrapper {
-  flex: 1;
-}
 
 .equipment-documentation-wrapper {
   border-top: 1px solid var(--color-border-subtle);
@@ -1920,8 +1912,7 @@ body {
     page-break-inside: avoid;
   }
 
-  .category-badge,
-  .card-campaign-badge {
+  .category-badge {
     border: 1px solid #000000 !important;
     color: #000000 !important;
     font-weight: 800 !important;
@@ -1969,10 +1960,9 @@ body {
     background-color: #000000 !important;
   }
 
-  .point-of-donation-box {
-    border: 1px solid #cccccc !important;
-    padding: 8pt !important;
-    background: #f9f9f9 !important;
+  .card-actions {
+    border-top: 1px solid #cccccc !important;
+    padding-top: 8pt !important;
   }
 
   /* Equipment table */
