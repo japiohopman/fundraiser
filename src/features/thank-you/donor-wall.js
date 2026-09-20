@@ -34,6 +34,12 @@ export function renderThankYou(donorsData, content, lang) {
     }
   });
 
+  // Calculate total sequence timing for continuous cinematic film-credit loop
+  const totalItems = itemsSequence.length;
+  const staggerStep = 2.2;
+  const totalDuration = Math.max(totalItems * staggerStep, 6.0);
+  container.style.setProperty('--total-duration', `${totalDuration.toFixed(2)}s`);
+
   // Distribute items across 3 woven rows
   const rowCount = 3;
   const rows = [[], [], []];
@@ -60,9 +66,9 @@ export function renderThankYou(donorsData, content, lang) {
       }
       span.textContent = item.value;
 
-      // Organic spatial shifts and staggered timing delays for interwoven stream
+      // Global sequence order determines staggered timing delay and organic micro-shifts
       const globalIndex = rowIndex + itemIndex * rowCount;
-      const delay = (globalIndex * 1.8).toFixed(2);
+      const delay = (globalIndex * staggerStep).toFixed(2);
       const xShift = (itemIndex % 2 === 0 ? 1 : -1) * (4 + (globalIndex % 3) * 3);
       const yShift = (itemIndex % 3 === 0 ? -1 : 1) * (2 + (globalIndex % 2) * 2);
 

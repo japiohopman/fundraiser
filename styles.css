@@ -1535,47 +1535,6 @@ body {
   margin: 0 auto var(--space-6) auto;
 }
 
-.thank-you-heart-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-3);
-  color: #e11d48;
-}
-
-.thank-you-heart {
-  width: 44px;
-  height: 44px;
-  display: block;
-  opacity: 0;
-  animation: heartEntrancePulse 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s 1 normal forwards;
-  transform-origin: center;
-}
-
-@keyframes heartEntrancePulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.75);
-  }
-  35% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.18);
-  }
-  65% {
-    transform: scale(0.95);
-  }
-  80% {
-    transform: scale(1.06);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .thank-you-title {
   border-bottom: none;
   padding-bottom: 0;
@@ -1590,17 +1549,79 @@ body {
   margin: 0 auto;
 }
 
-/* Donor Wall Container - Interlaced Stream Composition */
-.donor-wall {
+/* Thank You Stage: Large Heart Baseline + Overlaid Cinematic Donor Credits */
+.thank-you-stage {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  padding: var(--space-6) var(--space-2);
+  min-height: clamp(320px, 50vh, 440px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-4);
+  padding: var(--space-4) 0;
+}
+
+.thank-you-heart-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e11d48;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.thank-you-heart {
+  width: clamp(260px, 45vw, 380px);
+  height: clamp(260px, 45vw, 380px);
+  display: block;
+  opacity: 0.9;
+  transform-origin: center;
+  animation: continuousHeartbeat 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  filter: drop-shadow(0 8px 24px rgba(225, 29, 72, 0.25));
+}
+
+@keyframes continuousHeartbeat {
+  0% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+  12% {
+    transform: scale(1.14);
+    opacity: 0.98;
+  }
+  22% {
+    transform: scale(0.98);
+    opacity: 0.90;
+  }
+  34% {
+    transform: scale(1.22);
+    opacity: 1;
+  }
+  46% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+}
+
+/* Donor Wall Container - Centered overlay on heart */
+.donor-wall {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 860px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-4);
-  margin-top: var(--space-4);
 }
 
 .donor-row {
@@ -1610,54 +1631,56 @@ body {
   justify-content: center;
   gap: var(--space-4) var(--space-6);
   width: 100%;
-  max-width: 860px;
 }
 
 .donor-row-1 {
-  transform: translateY(-2px);
+  transform: translateY(-10px);
 }
 
 .donor-row-2 {
-  transform: translateY(4px);
-  padding-left: var(--space-6);
+  transform: translateY(0px);
 }
 
 .donor-row-3 {
-  transform: translateY(-2px);
-  padding-right: var(--space-6);
+  transform: translateY(10px);
 }
 
 .donor-item {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 0.9rem;
-  background-color: transparent;
-  border: none;
-  font-size: var(--font-size-base);
+  padding: 0.6rem 1.25rem;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid var(--color-primary-border);
+  border-radius: 9999px;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: clamp(1.2rem, 1.1rem + 0.6vw, 1.6rem);
   font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--color-primary);
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-  animation: itemWovenLifecycle 11s ease-in-out infinite;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  animation: donorCreditSequence var(--total-duration, 13.2s) ease-in-out infinite;
   animation-delay: var(--item-delay, 0s);
   opacity: 0;
+  will-change: opacity, transform;
 }
 
-@keyframes itemWovenLifecycle {
+@keyframes donorCreditSequence {
   0% {
     opacity: 0;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 8px)) scale(0.95);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 6px)) scale(0.97);
   }
-  22% {
+  8% {
     opacity: 1;
-    transform: translate(var(--x-shift, 0px), var(--y-shift, 0px)) scale(1);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 2px)) scale(1);
   }
-  78% {
+  26% {
     opacity: 1;
-    transform: translate(var(--x-shift, 0px), var(--y-shift, 0px)) scale(1);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 2px)) scale(1);
   }
-  95%, 100% {
+  34%, 100% {
     opacity: 0;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 8px)) scale(0.95);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 6px)) scale(0.97);
   }
 }
 
