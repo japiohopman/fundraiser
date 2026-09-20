@@ -1648,18 +1648,18 @@ body {
 .donor-item {
   display: inline-flex;
   align-items: center;
-  padding: 0.6rem 1.25rem;
+  padding: 0.5rem 1.1rem;
   background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
   border: 1.5px solid var(--color-primary-border);
   border-radius: 9999px;
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  font-size: clamp(1.2rem, 1.1rem + 0.6vw, 1.6rem);
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.45rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-primary);
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
-  animation: donorCreditSequence var(--total-duration, 13.2s) ease-in-out infinite;
+  animation: donorCreditSequence var(--total-duration, 60s) linear infinite;
   animation-delay: var(--item-delay, 0s);
   opacity: 0;
   will-change: opacity, transform;
@@ -1668,19 +1668,19 @@ body {
 @keyframes donorCreditSequence {
   0% {
     opacity: 0;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 6px)) scale(0.97);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 8px)) scale(0.96);
   }
-  8% {
+  2% {
     opacity: 1;
     transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 2px)) scale(1);
   }
-  26% {
+  8% {
     opacity: 1;
     transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 2px)) scale(1);
   }
-  34%, 100% {
+  10%, 100% {
     opacity: 0;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 6px)) scale(0.97);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 8px)) scale(0.96);
   }
 }
 
@@ -1789,6 +1789,11 @@ body {
   .thank-you-heart {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .donor-wall {
+    position: relative !important;
+    max-width: 100% !important;
   }
 
   .donor-row {
