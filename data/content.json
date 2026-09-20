@@ -250,6 +250,14 @@
       "snapshotDisclaimer": {
         "nl": "Financiële cijfers zijn momentopnames en kunnen op het originele platform dynamisch veranderen.",
         "en": "Financial figures are snapshots and may change dynamically on the source platform."
+      },
+      "targetReached": {
+        "nl": "Doel bereikt",
+        "en": "Target reached"
+      },
+      "progressLabel": {
+        "nl": "Voortgang inzameling",
+        "en": "Fundraising progress"
       }
     }
   },

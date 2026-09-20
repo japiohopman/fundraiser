@@ -23,6 +23,16 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
   const offlineRaisedFormatted = formatCurrency(item.financials.offlineDonationAmount, lang);
   const displayedTotalFormatted = formatCurrency(item.financials.displayedTotalRaised, lang);
 
+  const targetAmount = item.financials.targetAmount || 0;
+  const totalRaised = item.financials.displayedTotalRaised || 0;
+  const percentage = targetAmount > 0 ? Math.round((totalRaised / targetAmount) * 100) : 0;
+  const cappedPercentage = Math.min(percentage, 100);
+  const isTargetReached = targetAmount > 0 && totalRaised >= targetAmount;
+
+  const targetReachedText = labels.targetReached ? labels.targetReached[lang] : (lang === 'en' ? 'Target reached' : 'Doel bereikt');
+  const progressLabelText = labels.progressLabel ? labels.progressLabel[lang] : (lang === 'en' ? 'Fundraising progress' : 'Voortgang inzameling');
+  const percentageStatusText = isTargetReached ? `${percentage}% — ${targetReachedText}` : `${percentage}%`;
+
   const cardBadgeLabel = contentData?.fundraisersSection?.cardBadges?.[item.id]?.[lang] ||
     contentData?.fundraisersSection?.campaignTypes?.[item.category]?.[lang] ||
     (item.category === 'collective' ? 'ALGEMENE PARKNEST-INZAMELING' : 'PERSOONLIJKE INZAMELING');
@@ -95,6 +105,17 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
       <div class="stat-row">
         <span class="stat-label">${labels.totalDisplayed[lang]}</span>
         <span class="stat-value">${displayedTotalFormatted}</span>
+      </div>
+      <div class="fundraiser-progress-wrapper">
+        <div class="progress-bar-header">
+          <span class="progress-amounts">${displayedTotalFormatted} / ${targetFormatted}</span>
+          <span class="progress-percentage ${isTargetReached ? 'target-reached' : ''}">
+            ${percentageStatusText}
+          </span>
+        </div>
+        <div class="progress-bar-track" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" aria-label="${progressLabelText}: ${percentageStatusText}">
+          <div class="progress-bar-fill ${item.category}-progress-fill ${isTargetReached ? 'target-reached-fill' : ''}" style="width: ${cappedPercentage}%;"></div>
+        </div>
       </div>
     </div>
 
