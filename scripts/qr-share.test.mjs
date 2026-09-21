@@ -7,6 +7,7 @@ import { decodeQR } from '../src/vendor/qr-decode.js';
 import { buildWhatsAppUrl, buildEmailUrl } from '../src/ui/share-actions.js';
 import { createShareSectionHTML } from '../src/features/fundraisers/share.js';
 import { SITE_SHARE_URL } from '../src/ui/site-share.js';
+import { createFundraiserCard } from '../src/features/fundraisers/card.js';
 
 const contentData = JSON.parse(readFileSync(new URL('../data/content.json', import.meta.url), 'utf8'));
 const fundraisersData = JSON.parse(readFileSync(new URL('../data/fundraisers.json', import.meta.url), 'utf8'));
@@ -159,6 +160,57 @@ test('Clipboard Share URL and Feedback Strings (NL and EN)', () => {
   for (const item of fundraisersData.fundraisers) {
     const cardUrl = `${SITE_SHARE_URL}#fundraiser-${item.id}`;
     assert.ok(cardUrl.endsWith(`#fundraiser-${item.id}`), `Card share URL must preserve anchor for ${item.id}`);
+  }
+});
+
+test('Compact Donate CTA rendering and accessibility in fundraiser cards (NL and EN)', () => {
+  if (typeof globalThis.window === 'undefined') {
+    globalThis.window = { location: { href: SITE_SHARE_URL } };
+  }
+  if (typeof globalThis.document === 'undefined') {
+    globalThis.document = {
+      createElement: () => ({
+        className: '',
+        id: '',
+        innerHTML: '',
+        querySelector: () => null,
+        querySelectorAll: () => []
+      })
+    };
+  }
+
+  for (const item of fundraisersData.fundraisers) {
+    for (const lang of ['nl', 'en']) {
+      const card = createFundraiserCard(item, contentData.fundraisersSection.labels, contentData.share, lang, contentData, {});
+      const innerHTML = card.innerHTML;
+
+      // Match donate-btn anchor link
+      const donateMatch = innerHTML.match(/<a\s+[^>]*class=\"[^\"]*donate-btn[^\"]*\"[^>]*>([\s\S]*?)<\/a>/i) ||
+                          innerHTML.match(/<a\s+href=\"[^\"]*\"[^>]*class=\"[^\"]*donate-btn[^\"]*\"[^>]*>([\s\S]*?)<\/a>/i);
+
+      assert.ok(donateMatch, `Donate button anchor missing for ${item.id} (${lang})`);
+
+      const fullAnchorTag = donateMatch[0];
+
+      assert.ok(fullAnchorTag.includes(`href="${item.url}"`), `Donate URL must equal item.url for ${item.id}`);
+
+      // Extract visible text inside <span>
+      const spanMatch = fullAnchorTag.match(/<span>([^<]+)<\/span>/i);
+      assert.ok(spanMatch, `Visible text span missing in donate button for ${item.id}`);
+      const visibleText = spanMatch[1].trim();
+
+      assert.ok(visibleText.length > 0, `Visible Donate text must not be empty for ${item.id}`);
+
+      // Extract aria-label attribute
+      const ariaMatch = fullAnchorTag.match(/aria-label=\"([^\"]+)\"/i);
+      assert.ok(ariaMatch, `aria-label missing on donate button for ${item.id} (${lang})`);
+      const ariaLabel = ariaMatch[1];
+
+      assert.ok(ariaLabel.includes(visibleText), `aria-label '${ariaLabel}' must contain identity name '${visibleText}' for ${item.id}`);
+
+      const expectedPrefix = lang === 'en' ? 'Donate to' : 'Doneer aan';
+      assert.ok(ariaLabel.startsWith(expectedPrefix), `aria-label '${ariaLabel}' must start with '${expectedPrefix}' for ${item.id} (${lang})`);
+    }
   }
 });
 
