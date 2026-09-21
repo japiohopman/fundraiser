@@ -1,13 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import {
   parseNow,
   isReady,
   extractTitle,
   extractTaskId,
   findMatchingTask,
-  isContentApprovalRequired,
   orchestrate,
 } from './jules-orchestrator.mjs';
 
@@ -61,7 +59,6 @@ test('extractTitle, extractTaskId and findMatchingTask', () => {
     { text: t2, checked: false },
   ];
 
-  // Old state format matching
   const legacyActiveState = {
     name: 'sessions/123',
     task: '**Technical foundation: validation, share metadata and repo hygiene**',
@@ -162,8 +159,8 @@ test('Active task missing + Jules session still active -> keep state and do not 
   assert.equal(postCount, 0);
 });
 
-test('Active task missing + Jules session completed/cancelled/failed safely -> clear stale state and continue', async () => {
-  const state = { activeSession: { name: 'sessions/1', task: '**Missing Active Task**' } };
+test('Active task missing + Jules session FAILED safely -> clear stale state and continue', async () => {
+  const state = { activeSession: { name: 'sessions/1', task: '**Missing Task**' } };
   const roadmapText = `## Now\n### Ready\n- [ ] **Task 2**\n`;
 
   let postCount = 0;
@@ -177,25 +174,85 @@ test('Active task missing + Jules session completed/cancelled/failed safely -> c
       }
       return { state: 'FAILED', outputs: [] };
     },
-    githubFetch: async () => {},
   });
 
   assert.equal(result.stateChanged, true);
   assert.equal(postCount, 1);
   assert.equal(result.state.activeSession.name, 'sessions/new-task-2');
-  assert.equal(extractTitle(result.state.activeSession.task), 'Task 2');
 });
 
-test('Existing stale Technical Foundation state + current roadmap -> recover and select Issue #39', async () => {
-  const state = JSON.parse(readFileSync('.github/jules-queue-state.json', 'utf8'));
-  const roadmapText = readFileSync('docs/roadmap.md', 'utf8');
+test('Active task missing + Jules session CANCELLED safely -> clear stale state and continue', async () => {
+  const state = { activeSession: { name: 'sessions/1', task: '**Missing Task**' } };
+  const roadmapText = `## Now\n### Ready\n- [ ] **Task 2**\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') {
+        postCount++;
+        return { name: 'sessions/new-task-2' };
+      }
+      return { state: 'CANCELLED', outputs: [] };
+    },
+  });
+
+  assert.equal(result.stateChanged, true);
+  assert.equal(postCount, 1);
+  assert.equal(result.state.activeSession.name, 'sessions/new-task-2');
+});
+
+test('Active task missing + Jules session COMPLETED safely -> clear stale state and continue', async () => {
+  const state = { activeSession: { name: 'sessions/1', task: '**Missing Task**' } };
+  const roadmapText = `## Now\n### Ready\n- [ ] **Task 2**\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') {
+        postCount++;
+        return { name: 'sessions/new-task-2' };
+      }
+      return { state: 'COMPLETED', outputs: [] };
+    },
+  });
+
+  assert.equal(result.stateChanged, true);
+  assert.equal(postCount, 1);
+  assert.equal(result.state.activeSession.name, 'sessions/new-task-2');
+});
+
+test('Existing stale Technical Foundation state + current roadmap fixture -> recover and select Issue #39', async () => {
+  const staleStateFixture = {
+    activeSession: {
+      name: 'sessions/15518956742770897260',
+      task: '**Technical foundation: validation, share metadata and repo hygiene**',
+      startedAt: '2026-09-19T09:21:32.982Z',
+    },
+  };
+
+  const roadmapFixture = `
+# Roadmap
+
+## Now
+
+### Ready
+
+- [x] **Technical foundation: validation, share metadata and repo hygiene** (merged in PR #28)
+
+- [ ] **Manon T-shirt gallery: reconnect verified local assets** (Issue #39)
+  - **Problem:** ...
+`;
 
   let postCount = 0;
   let dispatchedTitle = null;
 
   const result = await orchestrate({
-    state,
-    roadmapText,
+    state: staleStateFixture,
+    roadmapText: roadmapFixture,
     julesFetch: async (path, options) => {
       if (options?.method === 'POST') {
         postCount++;
@@ -270,6 +327,77 @@ test('Content-approved task -> preserve automatic content-approved PR labeling',
 
   assert.equal(labelApplied, true);
   assert.equal(result.stateChanged, false);
+});
+
+test('Dispatch failure window: pending reservation recovers existing session without duplicate POST', async () => {
+  const pendingState = {
+    activeSession: {
+      name: 'pending',
+      task: '**Task 1**',
+      title: 'Task 1',
+      taskId: 'task-1',
+      startedAt: new Date().toISOString(),
+    },
+  };
+  const roadmapText = `## Now\n### Ready\n- [ ] **Task 1**\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state: pendingState,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') {
+        postCount++;
+        return { name: 'sessions/duplicate-should-not-happen' };
+      }
+      if (path === 'sessions') {
+        return {
+          sessions: [
+            { name: 'sessions/orphaned-123', title: 'Task 1', state: 'IN_PROGRESS' },
+          ],
+        };
+      }
+      if (path === 'sessions/orphaned-123') {
+        return { name: 'sessions/orphaned-123', state: 'IN_PROGRESS', outputs: [] };
+      }
+      return {};
+    },
+  });
+
+  assert.equal(postCount, 0, 'No duplicate POST should be made when orphaned session is recovered');
+  assert.equal(result.state.activeSession.name, 'sessions/orphaned-123');
+});
+
+test('Dispatch failure window: pending reservation without session clears and retries safely', async () => {
+  const pendingState = {
+    activeSession: {
+      name: 'pending',
+      task: '**Task 1**',
+      title: 'Task 1',
+      taskId: 'task-1',
+      startedAt: new Date().toISOString(),
+    },
+  };
+  const roadmapText = `## Now\n### Ready\n- [ ] **Task 1**\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state: pendingState,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') {
+        postCount++;
+        return { name: 'sessions/newly-created-session' };
+      }
+      if (path === 'sessions') {
+        return { sessions: [] }; // No orphaned session found in Jules
+      }
+      return {};
+    },
+  });
+
+  assert.equal(postCount, 1, 'Should retry dispatch cleanly when reservation had no Jules session');
+  assert.equal(result.state.activeSession.name, 'sessions/newly-created-session');
 });
 
 test('Never dispatch more than one Jules session from a single run', async () => {

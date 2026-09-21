@@ -194,6 +194,7 @@ export async function orchestrate({
   julesFetch = defaultJulesFetch,
   githubFetch = defaultGithubFetch,
   githubRequest = defaultGithubRequest,
+  saveStateAndPush = null,
   log = console.log,
 }) {
   const tasks = parseNow(roadmapText);
@@ -201,85 +202,115 @@ export async function orchestrate({
 
   if (state.activeSession) {
     const active = state.activeSession;
-    const entry = findMatchingTask(active, tasks);
 
-    if (entry) {
-      log(`Active task matched: ${entry.text.slice(0, 100)}`);
-    } else {
-      log(`Active task "${active.task.slice(0, 100)}" was not found under "## Now" in roadmap.`);
-    }
+    // Handle pending reservation claim from a previous run where dispatch was initiated
+    if (active.name === 'pending') {
+      log(`Found pending dispatch reservation for task: ${active.task.slice(0, 100)}`);
+      let listRes = null;
+      try {
+        listRes = await julesFetch('sessions');
+      } catch (err) {
+        log(`Could not query sessions list to resolve pending reservation: ${err.message}`);
+      }
+      const sessions = Array.isArray(listRes) ? listRes : (listRes?.sessions || []);
+      const matched = sessions.find(s => {
+        if (!s.title && !s.prompt) return false;
+        const titleMatches = s.title && (s.title.includes(active.title) || active.title.includes(s.title));
+        return titleMatches;
+      });
 
-    let session = null;
-    let sessionNotFound = false;
-    try {
-      session = await julesFetch(active.name);
-    } catch (err) {
-      if (err.message && err.message.includes('404')) {
-        log(`Jules session ${active.name} was not found (404). Clearing stale active session.`);
-        sessionNotFound = true;
+      if (matched) {
+        log(`Recovered orphaned session ${matched.name} for pending reservation.`);
+        active.name = matched.name;
+        stateChanged = true;
       } else {
-        throw new Error(`Failed to query Jules session ${active.name}: ${err.message}`);
+        log(`No existing Jules session found for pending reservation of "${active.task.slice(0, 100)}". Clearing reservation to retry.`);
+        state.activeSession = null;
+        stateChanged = true;
       }
     }
 
-    if (sessionNotFound) {
-      state.activeSession = null;
-      stateChanged = true;
-    } else {
-      const sessionState = session.state ?? 'UNKNOWN';
-      log(`Jules session ${active.name} state: ${sessionState}`);
+    if (state.activeSession) {
+      const entry = findMatchingTask(active, tasks);
 
-      const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
+      if (entry) {
+        log(`Active task matched: ${entry.text.slice(0, 100)}`);
+      } else {
+        log(`Active task "${active.task.slice(0, 100)}" was not found under "## Now" in roadmap.`);
+      }
 
-      if (prOutput) {
-        const prNumber = prNumberFrom(prOutput.url);
-        if (!prNumber) throw new Error(`Could not parse PR number from ${prOutput.url}`);
-        const pr = await githubFetch(`pulls/${prNumber}`);
-
-        if (entry && isContentApprovalRequired(entry)) {
-          if (githubRequest) {
-            await githubRequest(`issues/${prNumber}/labels`, {
-              method: 'POST',
-              body: JSON.stringify({ labels: ['content-approved'] }),
-            });
-            log(`Applied content-approved label to PR #${prNumber}.`);
-          }
+      let session = null;
+      let sessionNotFound = false;
+      try {
+        session = await julesFetch(active.name);
+      } catch (err) {
+        if (err.message && err.message.includes('404')) {
+          log(`Jules session ${active.name} was not found (404). Clearing stale active session.`);
+          sessionNotFound = true;
+        } else {
+          throw new Error(`Failed to query Jules session ${active.name}: ${err.message}`);
         }
+      }
 
-        if (pr.merged) {
-          if (entry && !entry.checked) {
-            log(`PR #${prNumber} is merged, but the task is still unchecked in the roadmap. Jules could not fully verify it — read the PR description, then tick the box yourself if you are satisfied.`);
+      if (sessionNotFound) {
+        state.activeSession = null;
+        stateChanged = true;
+      } else {
+        const sessionState = session.state ?? 'UNKNOWN';
+        log(`Jules session ${active.name} state: ${sessionState}`);
+
+        const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
+
+        if (prOutput) {
+          const prNumber = prNumberFrom(prOutput.url);
+          if (!prNumber) throw new Error(`Could not parse PR number from ${prOutput.url}`);
+          const pr = await githubFetch(`pulls/${prNumber}`);
+
+          if (entry && isContentApprovalRequired(entry)) {
+            if (githubRequest) {
+              await githubRequest(`issues/${prNumber}/labels`, {
+                method: 'POST',
+                body: JSON.stringify({ labels: ['content-approved'] }),
+              });
+              log(`Applied content-approved label to PR #${prNumber}.`);
+            }
+          }
+
+          if (pr.merged) {
+            if (entry && !entry.checked) {
+              log(`PR #${prNumber} is merged, but the task is still unchecked in the roadmap. Jules could not fully verify it — read the PR description, then tick the box yourself if you are satisfied.`);
+              return { stateChanged: false, state };
+            }
+            if (entry && entry.checked) {
+              log(`PR #${prNumber} merged and task confirmed done. Advancing the queue.`);
+            } else {
+              log(`PR #${prNumber} is merged and associated active task is no longer in Ready queue. Clearing stale active session.`);
+            }
+            state.activeSession = null;
+            stateChanged = true;
+          } else if (pr.state === 'closed') {
+            log(`PR #${prNumber} was closed without being merged. Clearing stale active session.`);
+            state.activeSession = null;
+            stateChanged = true;
+          } else {
+            // PR is open, not merged yet
+            log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
             return { stateChanged: false, state };
           }
-          if (entry && entry.checked) {
-            log(`PR #${prNumber} merged and task confirmed done. Advancing the queue.`);
+        } else {
+          // No PR created yet
+          const isSessionFinished = ['FAILED', 'CANCELLED', 'COMPLETED'].includes(sessionState);
+          if (isSessionFinished) {
+            log(`Jules session ${active.name} is ${sessionState} without a PR. Clearing stale active session.`);
+            state.activeSession = null;
+            stateChanged = true;
           } else {
-            log(`PR #${prNumber} is merged and associated active task is no longer in Ready queue. Clearing stale active session.`);
+            const hours = active.startedAt ? (Date.now() - new Date(active.startedAt).getTime()) / 36e5 : 0;
+            log(hours > STALE_HOURS
+              ? `No PR after ${Math.round(hours)}h — check the session in Jules; it may be waiting for input.`
+              : 'No PR yet. Nothing to do this run.');
+            return { stateChanged: false, state };
           }
-          state.activeSession = null;
-          stateChanged = true;
-        } else if (pr.state === 'closed') {
-          log(`PR #${prNumber} was closed without being merged. Clearing stale active session.`);
-          state.activeSession = null;
-          stateChanged = true;
-        } else {
-          // PR is open, not merged yet
-          log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
-          return { stateChanged: false, state };
-        }
-      } else {
-        // No PR created yet
-        const isSessionFinished = ['FAILED', 'CANCELLED', 'COMPLETED'].includes(sessionState);
-        if (isSessionFinished) {
-          log(`Jules session ${active.name} is ${sessionState} without a PR. Clearing stale active session.`);
-          state.activeSession = null;
-          stateChanged = true;
-        } else {
-          const hours = active.startedAt ? (Date.now() - new Date(active.startedAt).getTime()) / 36e5 : 0;
-          log(hours > STALE_HOURS
-            ? `No PR after ${Math.round(hours)}h — check the session in Jules; it may be waiting for input.`
-            : 'No PR yet. Nothing to do this run.');
-          return { stateChanged: false, state };
         }
       }
     }
@@ -291,6 +322,22 @@ export async function orchestrate({
       log('Nothing unchecked under ### Ready. Queue is empty (Blocked and Human Review are never dispatched).');
     } else {
       log(`Dispatching next task: ${next.text.slice(0, 100)}`);
+
+      // 1. Durably record pending dispatch reservation FIRST
+      state.activeSession = {
+        name: 'pending',
+        task: next.text,
+        taskId: extractTaskId(next.text),
+        title: extractTitle(next.text),
+        startedAt: new Date().toISOString(),
+      };
+      stateChanged = true;
+
+      if (saveStateAndPush) {
+        saveStateAndPush(state);
+      }
+
+      // 2. Dispatch Jules session
       const session = await julesFetch('sessions', {
         method: 'POST',
         body: JSON.stringify({
@@ -301,14 +348,9 @@ export async function orchestrate({
         }),
       });
       log(`Started Jules session ${session.name}`);
-      state.activeSession = {
-        name: session.name,
-        task: next.text,
-        taskId: extractTaskId(next.text),
-        title: extractTitle(next.text),
-        startedAt: new Date().toISOString(),
-      };
-      stateChanged = true;
+
+      // 3. Update state with returned session name
+      state.activeSession.name = session.name;
     }
   }
 
@@ -326,6 +368,10 @@ async function main() {
   const { stateChanged } = await orchestrate({
     state,
     roadmapText,
+    saveStateAndPush: (s) => {
+      saveState(s);
+      commitAndPush();
+    },
   });
 
   if (stateChanged) {
