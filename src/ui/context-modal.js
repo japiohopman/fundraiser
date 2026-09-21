@@ -71,10 +71,26 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
     const headerUrl = contextData.images.header;
     const headerAltObj = contextData.images.headerAlt;
     const headerAlt = typeof headerAltObj === 'object' && headerAltObj ? (headerAltObj[lang] || headerAltObj.nl || '') : (typeof headerAltObj === 'string' ? headerAltObj : '');
+    const headerCaptionObj = contextData.images.headerCaption;
+    const headerCaption = typeof headerCaptionObj === 'object' && headerCaptionObj ? (headerCaptionObj[lang] || headerCaptionObj.nl || '') : (typeof headerCaptionObj === 'string' ? headerCaptionObj : '');
+    const headerLink = contextData.images.headerLink;
+
+    let imgEl = `<img src="${headerUrl}" alt="${headerAlt}" class="context-modal-header-image" loading="lazy" decoding="async" onerror="this.parentElement ? this.parentElement.style.display='none' : this.style.display='none'">`;
+    if (headerLink) {
+      imgEl = `<a href="${headerLink}" target="_blank" rel="noopener noreferrer" class="context-modal-image-link" title="${headerAlt}">${imgEl}</a>`;
+    }
+
+    const captionHtml = headerCaption ? `
+      <figcaption class="context-modal-image-caption">
+        ${headerLink ? `<a href="${headerLink}" target="_blank" rel="noopener noreferrer">${headerCaption}</a>` : headerCaption}
+      </figcaption>
+    ` : '';
+
     html += `
-      <div class="context-modal-media context-modal-media-header">
-        <img src="${headerUrl}" alt="${headerAlt}" class="context-modal-header-image" loading="lazy" decoding="async" onerror="this.parentElement ? this.parentElement.style.display='none' : this.style.display='none'">
-      </div>
+      <figure class="context-modal-media context-modal-media-header">
+        ${imgEl}
+        ${captionHtml}
+      </figure>
     `;
   }
 
@@ -94,10 +110,26 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
     const galleryItems = contextData.images.gallery.map((imgUrl, idx) => {
       const altObj = contextData.images.galleryAlts ? contextData.images.galleryAlts[idx] : null;
       const altText = typeof altObj === 'object' && altObj ? (altObj[lang] || altObj.nl || '') : (typeof altObj === 'string' ? altObj : '');
+      const captionObj = contextData.images.galleryCaptions ? contextData.images.galleryCaptions[idx] : null;
+      const captionText = typeof captionObj === 'object' && captionObj ? (captionObj[lang] || captionObj.nl || '') : (typeof captionObj === 'string' ? captionObj : '');
+      const linkUrl = contextData.images.galleryLinks ? contextData.images.galleryLinks[idx] : null;
+
+      let imgEl = `<img src="${imgUrl}" alt="${altText}" class="context-modal-gallery-image" loading="lazy" decoding="async" onerror="this.parentElement ? this.parentElement.style.display='none' : this.style.display='none'">`;
+      if (linkUrl) {
+        imgEl = `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer" class="context-modal-gallery-link" title="${altText}">${imgEl}</a>`;
+      }
+
+      const captionHtml = captionText ? `
+        <figcaption class="context-modal-gallery-caption">
+          ${linkUrl ? `<a href="${linkUrl}" target="_blank" rel="noopener noreferrer">${captionText}</a>` : captionText}
+        </figcaption>
+      ` : '';
+
       return `
-        <div class="context-modal-gallery-item">
-          <img src="${imgUrl}" alt="${altText}" class="context-modal-gallery-image" loading="lazy" decoding="async" onerror="this.parentElement ? this.parentElement.style.display='none' : this.style.display='none'">
-        </div>
+        <figure class="context-modal-gallery-item">
+          <div class="context-modal-gallery-thumb">${imgEl}</div>
+          ${captionHtml}
+        </figure>
       `;
     }).join('');
 
