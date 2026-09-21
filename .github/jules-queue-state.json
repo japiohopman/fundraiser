@@ -1,7 +1,10 @@
 {
   "activeSession": {
-    "name": "sessions/15518956742770897260",
-    "task": "**Technical foundation: validation, share metadata and repo hygiene**",
-    "startedAt": "2026-09-19T09:21:32.982Z"
+    "name": "pending",
+    "claimId": "claim_1789968377610_5zsaoa",
+    "task": "**Manon T-shirt gallery: reconnect verified local assets** (Issue #39)",
+    "taskId": "Issue#39",
+    "title": "Manon T-shirt gallery: reconnect verified local assets",
+    "startedAt": "2026-09-21T05:26:17.610Z"
   }
 }
