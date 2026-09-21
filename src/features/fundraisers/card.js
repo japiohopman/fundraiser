@@ -63,7 +63,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
     avatarHTML = `
       <picture class="card-avatar-wrapper">
         <source srcset="public/assets/${avatarName}.webp" type="image/webp">
-        <img src="public/assets/${avatarName}.webp" alt="${identityName}" class="card-avatar-img" width="56" height="56" loading="lazy">
+        <img src="public/assets/${avatarName}.webp" alt="${identityName}" class="card-avatar-img" width="56" height="56" loading="lazy" decoding="async">
       </picture>
     `;
   }

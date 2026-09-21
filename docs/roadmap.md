@@ -30,7 +30,7 @@
   - **Acceptance:** Visitors can understand that ParkNest's general fundraiser and personal fundraisers have different purposes, and that donating to a personal fundraiser is not automatically donating to ParkNest.
   - **Verification:** Check NL/EN at mobile and desktop widths and confirm the warning does not rely on color alone.
 
-- [ ] **Frontend Refinement Implementation** (Issue #52)
+- [x] **Frontend Refinement Implementation** (Issue #52)
   - **Problem:** The audit findings need to be translated into focused frontend improvements rather than an uncontrolled redesign.
   - **Goal:** Implement the prioritized visual/interaction refinements from Issue #49 while preserving architecture and editorial identity.
   - **Scope:** Only the components and styles identified by the audit, plus the finalized warning presentation from Issue #51.
@@ -99,7 +99,7 @@
 - [x] Add dedicated ParkNest community story card and campaign context (sections for ParkNest vóór de brand, Wat verloren ging, Wat doorgaat, Waar de crowdfunding voor bedoeld is)
 - [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
 - [x] Restructure fundraiser page flow (Hero -> Purpose -> Fundraisers -> Equipment -> Timeline -> Sources -> Thank You -> Footer) and introduce compact human context overlays
-- [ ] Complete visual design polish and brand color harmony (Issues #49, #50, #51 and #52)
+- [x] Complete visual design polish and brand color harmony (Issues #49, #50, #51 and #52)
 - [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing
 - [ ] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
