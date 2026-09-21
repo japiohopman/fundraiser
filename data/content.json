@@ -251,6 +251,79 @@
       }
     },
     "campaignContext": {
+      "parknest-collective": {
+        "title": {
+          "nl": "ParkNest — Buurtplek & Herstelverhaal",
+          "en": "ParkNest — Community Space & Recovery Story"
+        },
+        "summary": {
+          "nl": "ParkNest is een laagdrempelige ontmoetingsplek in het Flevopark, gerund door buurtbewoners en circa 30 vrijwilligers. Na de verwoestende brand van 20–21 augustus 2026 gaat het buurtwerk door. De crowdfunding ondersteunt parkactiviteiten, materiaalvervanging, een tijdelijke plek en een duurzame toekomst.",
+          "en": "ParkNest is an accessible community space in Flevopark, run by local residents and around 30 volunteers. Following the devastating fire on 20–21 August 2026, community activities continue. The crowdfunding supports park activities, equipment replacement, a temporary location, and a sustainable future."
+        },
+        "sections": [
+          {
+            "heading": {
+              "nl": "ParkNest vóór de brand",
+              "en": "ParkNest before the fire"
+            },
+            "text": {
+              "nl": "ParkNest is een laagdrempelige ontmoetingsplek in het Flevopark, opgebouwd en gerund door buurtbewoners. Sinds 2023 groeide het initiatief van vier initiatiefnemers naar een hechte groep van ongeveer dertig vrijwilligers, van 19 tot 80 jaar. Iedereen was welkom voor koffie, livemuziek, exposities, knutselmiddagen en ontmoeting — ongeacht hoeveel iemand kon betalen.",
+              "en": "ParkNest is an accessible community meeting space in Flevopark, built and run by local residents. Since 2023, the initiative grew from four founders to a close-knit group of approximately thirty volunteers aged 19 to 80. Everyone was welcome for coffee, live music, exhibitions, craft afternoons, and social connection — regardless of how much someone could pay."
+            }
+          },
+          {
+            "heading": {
+              "nl": "Wat verloren ging",
+              "en": "What was lost"
+            },
+            "text": {
+              "nl": "In de nacht van donderdag 20 op vrijdag 21 augustus 2026 is ons gebouw volledig door brand verwoest. Het dak stortte in en vrijwel alles ging verloren: onze keuken en bar, meubels, apparatuur, materialen en bijzondere kunstcollecties. Alleen enkele picknicktafels van het terras zijn overgebleven.",
+              "en": "In the night of Thursday 20 to Friday 21 August 2026, our building was completely destroyed by fire. The roof collapsed and virtually everything was lost: our kitchen and bar, furniture, equipment, materials, and special art collections. Only a few picnic tables from the terrace remained."
+            }
+          },
+          {
+            "heading": {
+              "nl": "Wat doorgaat",
+              "en": "What continues"
+            },
+            "text": {
+              "nl": "Maar het belangrijkste is er nog: onze vrijwilligers, de buurt en de wil om door te gaan. We blijven activiteiten in het park organiseren en zoeken ondertussen naar een tijdelijke plek, bijvoorbeeld met een foodtruck of containers. Tegelijkertijd werken we aan een duurzame toekomst voor ParkNest.",
+              "en": "But the most important parts remain: our volunteers, the neighborhood, and the determination to keep going. We continue to organize activities in the park while searching for a temporary location, such as with a food truck or containers. At the same time, we are working toward a sustainable future for ParkNest."
+            }
+          },
+          {
+            "heading": {
+              "nl": "Waar de crowdfunding voor bedoeld is",
+              "en": "What the crowdfunding supports"
+            },
+            "bullets": [
+              {
+                "nl": "activiteiten in het park blijven organiseren;",
+                "en": "continue organizing activities in the park;"
+              },
+              {
+                "nl": "noodzakelijke materialen en apparatuur vervangen;",
+                "en": "replace necessary materials and equipment;"
+              },
+              {
+                "nl": "een tijdelijke ontmoetingsplek realiseren;",
+                "en": "establish a temporary meeting space;"
+              },
+              {
+                "nl": "werken aan een nieuwe, permanente toekomst voor ParkNest.",
+                "en": "work toward a new, permanent future for ParkNest."
+              }
+            ]
+          }
+        ],
+        "link": {
+          "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
+          "label": {
+            "nl": "Lees het officiële ParkNest-bericht",
+            "en": "Read the official ParkNest announcement"
+          }
+        }
+      },
       "manon-kinkt-shirts": {
         "title": {
           "nl": "Manon — Kinkt! T-shirts",

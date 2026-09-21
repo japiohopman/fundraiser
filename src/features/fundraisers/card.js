@@ -76,6 +76,10 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
   };
   const contextData = campaignContextData || fallbackContext;
 
+  const summaryText = campaignContextData?.summary?.[lang] ||
+    campaignContextData?.summary?.nl ||
+    purposeText;
+
   const detailsBtnLabel = labels.detailsBtn ? labels.detailsBtn[lang] : (lang === 'en' ? 'Show details' : 'Bekijk details');
   const contextBtnHTML = `
     <button type="button" class="context-btn" aria-label="${detailsBtnLabel} (${titleText})">
@@ -117,7 +121,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
       </div>
     </div>
 
-    <p class="fundraiser-purpose">${purposeText}</p>
+    <p class="fundraiser-purpose">${summaryText}</p>
 
     <div class="fundraiser-stats">
       <div class="stat-row">

@@ -106,6 +106,33 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
     });
   }
 
+  if (contextData.sections && Array.isArray(contextData.sections)) {
+    contextData.sections.forEach(sec => {
+      if (sec.heading) {
+        const headingText = sec.heading[lang] || sec.heading.nl;
+        html += `<h4 class="context-modal-section-title">${headingText}</h4>`;
+      }
+      if (sec.text) {
+        const secText = sec.text[lang] || sec.text.nl;
+        html += `<p class="context-modal-text">${secText}</p>`;
+      }
+      if (sec.paragraphs && Array.isArray(sec.paragraphs)) {
+        sec.paragraphs.forEach(pObj => {
+          const pText = pObj[lang] || pObj.nl;
+          html += `<p class="context-modal-text">${pText}</p>`;
+        });
+      }
+      if (sec.bullets && Array.isArray(sec.bullets)) {
+        html += `<ul class="context-modal-list">`;
+        sec.bullets.forEach(bObj => {
+          const bText = typeof bObj === 'object' && bObj ? (bObj[lang] || bObj.nl) : bObj;
+          html += `<li>${bText}</li>`;
+        });
+        html += `</ul>`;
+      }
+    });
+  }
+
   if (contextData.images && Array.isArray(contextData.images.gallery) && contextData.images.gallery.length > 0) {
     const galleryItems = contextData.images.gallery.map((imgUrl, idx) => {
       const altObj = contextData.images.galleryAlts ? contextData.images.galleryAlts[idx] : null;
