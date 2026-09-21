@@ -22,7 +22,7 @@
   - **Acceptance:** NL/EN rendered HTML has valid metadata and all referenced assets resolve. The favicon represents the independent site rather than a person.
   - **Verification:** Inspect rendered HTML in both languages and verify asset paths and share metadata.
 
-- [ ] **Warning Block: Content & Visual Hierarchy** (Issue #51)
+- [x] **Warning Block: Content & Visual Hierarchy** (Issue #51)
   - **Problem:** The warning must make the distinction between the general ParkNest fundraiser and separate personal fundraisers immediately understandable.
   - **Goal:** Create clear, factual NL/EN warning copy and a strong but restrained visual hierarchy.
   - **Scope:** Existing prominent warning content and its presentation.

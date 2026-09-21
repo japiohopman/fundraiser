@@ -124,24 +124,24 @@
     },
     "prominentWarning": {
       "title": {
-        "nl": "Belangrijke waarschuwing: Gescheiden inzamelingsacties",
-        "en": "Important Notice: Separate Fundraising Campaigns"
+        "nl": "Let op: Gescheiden inzamelingsacties",
+        "en": "Warning: Separate Fundraising Campaigns"
       },
       "bullet1": {
-        "nl": "LET OP: Dit zijn afzonderlijke inzamelingsacties en géén gezamenlijke pot.",
-        "en": "NOTE: These are separate fundraising campaigns and NOT one shared fund."
+        "nl": "De algemene ParkNest-inzameling en de persoonlijke acties zijn gescheiden initiatieven en géén gezamenlijke pot.",
+        "en": "The general ParkNest fundraiser and personal campaigns are separate initiatives and NOT a single shared pool."
       },
       "bullet2": {
-        "nl": "Een donatie aan de ene actie is niet dezelfde donatie als aan een andere actie.",
-        "en": "A donation to one campaign is not the same donation as to another campaign."
+        "nl": "Doneren aan een persoonlijke actie is niet automatisch doneren aan ParkNest (en andersom).",
+        "en": "Donating to a personal campaign is not automatically donating to ParkNest (and vice versa)."
       },
       "bullet3": {
-        "nl": "Als u specifiek de vervanging van het kookmateriaal van Jaap Hopman wilt ondersteunen, kies dan de actie voor Jaap Hopman (bron-titel: 'Koksmessen voor Rooie Jaap').",
-        "en": "If you want to support the replacement of Jaap Hopman's lost chef equipment, select the campaign for Jaap Hopman (source title: 'Chef's knives for Rooie Jaap')."
+        "nl": "Een bijdrage aan bijvoorbeeld de hondenbandjes-actie van Kathinka van Velzen ondersteunt haar persoonlijke herstel en is geen rechtstreekse donatie aan de algemene heropbouw van ParkNest.",
+        "en": "A contribution to, for example, Kathinka van Velzen's dog collar campaign supports her personal recovery and is not a direct donation to the general ParkNest rebuild."
       },
       "bullet4": {
-        "nl": "Controleer daarom altijd het specifieke doel van de gekozen actie voordat u doneert.",
-        "en": "Always check the specific purpose of the selected campaign before donating."
+        "nl": "Controleer altijd het specifieke doel van de gekozen actie voordat u doneert.",
+        "en": "Always verify the specific purpose of your chosen campaign before donating."
       }
     },
     "personalWarning": {
