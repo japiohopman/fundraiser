@@ -260,6 +260,37 @@
           "nl": "Manon was een vaste DJ bij ParkNest en verzorgde daar vaak de muziek. Ze verkocht bij ParkNest ook haar Kinkt! T-shirts. De daar opgeslagen T-shirts zijn bij de brand verloren gegaan.",
           "en": "Manon was a regular DJ at ParkNest and often provided the music there. She also sold her Kinkt! T-shirts at ParkNest. The T-shirts stored there were lost in the fire."
         },
+        "images": {
+          "header": "public/assets/manon-gallery/header.png",
+          "headerAlt": {
+            "nl": "Kinkt! T-shirts hoofd-afbeelding",
+            "en": "Kinkt! T-shirts header image"
+          },
+          "gallery": [
+            "public/assets/manon-gallery/shirt-1.png",
+            "public/assets/manon-gallery/shirt-2.png",
+            "public/assets/manon-gallery/shirt-3.png",
+            "public/assets/manon-gallery/shirt-4.png"
+          ],
+          "galleryAlts": [
+            {
+              "nl": "Kinkt! T-shirt ontwerp 1",
+              "en": "Kinkt! T-shirt design 1"
+            },
+            {
+              "nl": "Kinkt! T-shirt ontwerp 2",
+              "en": "Kinkt! T-shirt design 2"
+            },
+            {
+              "nl": "Kinkt! T-shirt ontwerp 3",
+              "en": "Kinkt! T-shirt design 3"
+            },
+            {
+              "nl": "Kinkt! T-shirt ontwerp 4",
+              "en": "Kinkt! T-shirt design 4"
+            }
+          ]
+        },
         "link": {
           "url": "https://www.instagram.com/manon_kinkt/",
           "label": {
