@@ -465,6 +465,46 @@ test('Two Jules sessions with same title but different claim IDs -> recover only
   assert.equal(result.state.activeSession.name, 'sessions/correct-claim-123');
 });
 
+test('Dispatch failure window: pending recovery durably persists recovered session name before waiting', async () => {
+  const pendingState = {
+    activeSession: {
+      name: 'pending',
+      claimId: 'claim_target_123',
+      task: '**Task 1**',
+      title: 'Task 1',
+      taskId: 'task-1',
+      startedAt: new Date().toISOString(),
+    },
+  };
+  const roadmapText = `## Now\n### Ready\n- [ ] **Task 1**\n`;
+
+  let persistedState = null;
+  const result = await orchestrate({
+    state: pendingState,
+    roadmapText,
+    saveStateAndPush: (s) => {
+      persistedState = JSON.parse(JSON.stringify(s));
+    },
+    julesFetch: async (path) => {
+      if (path === 'sessions') {
+        return {
+          sessions: [
+            { name: 'sessions/correct-claim-123', title: 'Task 1 [claim:claim_target_123]', prompt: '[claim:claim_target_123]', state: 'IN_PROGRESS' },
+          ],
+        };
+      }
+      if (path === 'sessions/correct-claim-123') {
+        return { name: 'sessions/correct-claim-123', state: 'IN_PROGRESS', outputs: [] };
+      }
+      return {};
+    },
+  });
+
+  assert.equal(persistedState?.activeSession?.name, 'sessions/correct-claim-123', 'Should call saveStateAndPush immediately with resolved session name');
+  assert.equal(result.stateChanged, true, 'stateChanged must be true so main() persists updated session name');
+  assert.equal(result.state.activeSession.name, 'sessions/correct-claim-123');
+});
+
 test('Pending reservation with no matching claim -> remain safely pending / do not blindly create duplicate until timeout', async () => {
   const pendingState = {
     activeSession: {

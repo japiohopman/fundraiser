@@ -228,15 +228,21 @@ export async function orchestrate({
         log(`Recovered orphaned session ${matched.name} for claim ${active.claimId || 'legacy'}.`);
         active.name = matched.name;
         stateChanged = true;
+        if (saveStateAndPush) {
+          saveStateAndPush(state);
+        }
       } else {
         const ageMinutes = active.startedAt ? (Date.now() - new Date(active.startedAt).getTime()) / 60000 : 0;
         if (ageMinutes < PENDING_TIMEOUT_MINUTES) {
           log(`Pending reservation claim ${active.claimId || 'legacy'} has no matching session in Jules yet (${Math.round(ageMinutes)}m old). Keeping pending reservation and waiting conservatively.`);
-          return { stateChanged: false, state };
+          return { stateChanged, state };
         }
         log(`Pending reservation claim ${active.claimId || 'legacy'} timed out after ${Math.round(ageMinutes)}m without appearing in Jules sessions list. Clearing reservation to retry.`);
         state.activeSession = null;
         stateChanged = true;
+        if (saveStateAndPush) {
+          saveStateAndPush(state);
+        }
       }
     }
 
@@ -280,21 +286,21 @@ export async function orchestrate({
           if (matchingPr.merged) {
             if (entry && !entry.checked) {
               log(`Jules session ${active.name} returned 404, but merged PR #${matchingPr.number} exists and task is unchecked in roadmap. Waiting for human verification / tick.`);
-              return { stateChanged: false, state };
+              return { stateChanged, state };
             }
             log(`Jules session ${active.name} returned 404, but associated PR #${matchingPr.number} is merged and complete. Clearing stale active session.`);
             state.activeSession = null;
             stateChanged = true;
           } else if (matchingPr.state === 'open') {
             log(`Jules session ${active.name} returned 404, but open PR #${matchingPr.number} exists. Keeping activeSession to prevent duplicate dispatch.`);
-            return { stateChanged: false, state };
+            return { stateChanged, state };
           } else {
             log(`Jules session ${active.name} returned 404 and associated PR #${matchingPr.number} is closed unmerged. Treating session state as uncertain — keeping activeSession.`);
-            return { stateChanged: false, state };
+            return { stateChanged, state };
           }
         } else {
           log(`Jules session ${active.name} returned 404 and no associated GitHub PR was found. Treating session state as uncertain — keeping activeSession to prevent duplicate dispatch.`);
-          return { stateChanged: false, state };
+          return { stateChanged, state };
         }
       } else {
         const sessionState = session.state ?? 'UNKNOWN';
@@ -321,7 +327,7 @@ export async function orchestrate({
           if (pr.merged) {
             if (entry && !entry.checked) {
               log(`PR #${prNumber} is merged, but the task is still unchecked in the roadmap. Jules could not fully verify it — read the PR description, then tick the box yourself if you are satisfied.`);
-              return { stateChanged: false, state };
+              return { stateChanged, state };
             }
             if (entry && entry.checked) {
               log(`PR #${prNumber} merged and task confirmed done. Advancing the queue.`);
@@ -337,12 +343,12 @@ export async function orchestrate({
               stateChanged = true;
             } else {
               log(`PR #${prNumber} is closed, but Jules session state is non-terminal (${sessionState}). Keeping activeSession until session reaches a terminal state.`);
-              return { stateChanged: false, state };
+              return { stateChanged, state };
             }
           } else {
             // PR is open, not merged yet
             log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
-            return { stateChanged: false, state };
+            return { stateChanged, state };
           }
         } else {
           // No PR created yet
@@ -355,7 +361,7 @@ export async function orchestrate({
             log(hours > STALE_HOURS
               ? `No PR after ${Math.round(hours)}h — check the session in Jules; it may be waiting for input.`
               : 'No PR yet. Nothing to do this run.');
-            return { stateChanged: false, state };
+            return { stateChanged, state };
           }
         }
       }
