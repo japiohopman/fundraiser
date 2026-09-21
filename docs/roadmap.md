@@ -36,7 +36,7 @@
   - **Verification:** Use Playwright to open Manon Details, verify every gallery image has `naturalWidth > 0`, verify local `/fundraiser/` paths, test NL/EN and mobile/desktop, confirm no image 404s, and run Foundation Check.
   - **Content approval:** Required — apply `content-approved` to the implementation PR.
 
-- [ ] **Jim Gijbels context: source-based details and target-reached status** (Issue #40)
+- [x] **Jim Gijbels context: source-based details and target-reached status** (Issue #40)
   - **Problem:** Jim's Details content needs a factual public-source explanation and a clear target-reached status without inventing a personal story or treating gallery asking prices as replacement valuation.
   - **Goal:** Add the documented Jim context and Online Gallery link while preserving the verified financial snapshot and explicit editorial boundaries.
   - **Scope:** Only the Jim campaign context block in `data/content.json`, plus minimal roadmap/metadata changes required by the content workflow.

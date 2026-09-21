@@ -316,10 +316,16 @@
           "en": "Jim Gijbels — Tram Paintings"
         },
         "text": {
-          "nl": "Jim's tramschilderijen werden geëxposeerd in ParkNest en gingen verloren bij de brand. Zijn persoonlijke inzameling heeft inmiddels het doelbedrag bereikt.",
-          "en": "Jim's tram paintings were exhibited at ParkNest and were lost in the fire. His personal fundraiser has reached its target."
+          "nl": "Jim Gijbels schildert trams en zijn schilderijen werden geëxposeerd in ParkNest, waar ze bij de brand verloren gingen. Zijn persoonlijke inzameling op WhyDonate heeft het streefbedrag van € 300 bereikt (opgehaald: € 330 volgens de bron-momentopname van 19 september 2026). De actie blijft open-ended op het platform.",
+          "en": "Jim Gijbels paints trams, and his paintings were exhibited at ParkNest and lost in the fire. His personal fundraiser on WhyDonate has reached its €300 target (raised: €330 according to the 19 September 2026 source snapshot). The campaign remains open-ended on the platform."
         },
-        "link": null
+        "link": {
+          "url": "https://onlinegallery.art/en/artist/jim-gijbels/",
+          "label": {
+            "nl": "Online Gallery van Jim Gijbels",
+            "en": "Jim Gijbels' Online Gallery"
+          }
+        }
       },
       "rooie-jaap-knives": {
         "title": {
