@@ -1,10 +1,3 @@
 {
-  "activeSession": {
-    "name": "sessions/4366224267456654980",
-    "claimId": "claim_1790003605929_yb95iq",
-    "task": "**Accessibility Refinement** (Issue #53)",
-    "taskId": "Issue#53",
-    "title": "Accessibility Refinement",
-    "startedAt": "2026-09-21T15:13:25.929Z"
-  }
+  "activeSession": null
 }
