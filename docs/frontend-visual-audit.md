@@ -45,12 +45,22 @@ All recommendations adhere strictly to project limits:
   * *None identified.* Headings (`h1`-`h3`) maintain semantic order and proper DOM hierarchy.
 
 * **Subjective Recommendations**:
-  * **Finding 1.1 (Card Identity Typography Parity):** Fundraiser identity names use Georgia serif (`font-family: Georgia, serif`), but modal titles and sub-headings use standard system sans-serif (`var(--font-sans)`).
+  * **Finding 1.1 (Header & Navigation Character):** The site header has a fairly compact, dashboard-like treatment (sticky container, bordered language toggle, hamburger button). For an independent editorial resource, the branding title and navigation could benefit from a lighter visual hierarchy that emphasizes editorial independence over application navigation controls.
+    * **Affected Files:** `styles.css`, `index.html`
+    * **Priority:** Medium
+    * **Proposed Change:** Re-evaluate header density and border usage. Consider reducing the heavy top-row border and framing the language selector as an integrated, subtle document utility rather than a prominent application toolbar.
+    * **Acceptance Criteria:** Header retains accessibility and sticky functionality while presenting a clean, publication-style visual header.
+  * **Finding 1.2 (Hero Visual Dominance):** The visual hero features a prominent nocturnal fire photograph (`page-hero.webp`, aspect-ratio 1360×512 px). While visually striking and contextually accurate to the event, the bold visual dominance risks overshadowing the primary editorial purpose of the site: factual clarity and neutral fundraising transparency.
+    * **Affected Files:** `styles.css`, `index.html`
+    * **Priority:** Medium
+    * **Proposed Change:** Assess framing options in Issue #52, such as constraining hero height on desktop, providing stronger editorial lead-text prominence above or alongside the image, or applying a subtle neutral border/caption overlay.
+    * **Acceptance Criteria:** The hero image supports the narrative without competing with the lead explanation text or site header.
+  * **Finding 1.3 (Card Identity Typography Parity):** Fundraiser identity names use Georgia serif (`font-family: Georgia, serif`), but modal titles and sub-headings use standard system sans-serif (`var(--font-sans)`).
     * **Affected Files:** `styles.css`
     * **Priority:** Low
     * **Proposed Change:** Standardize card headers and modal campaign identity titles to use Georgia serif when rendering personal/organization identity titles for visual consistency across card and modal surfaces.
     * **Acceptance Criteria:** Identity names in cards and detail modals share consistent serif typography without affecting UI control buttons.
-  * **Finding 1.2 (Section Subtitle Hierarchy):** On large screens (1440px+), section titles (`.section-title`) and subsection headings (`.section-subtitle`) have narrow visual separation in font size (28.8px vs 18px).
+  * **Finding 1.4 (Section Subtitle Hierarchy):** On large screens (1440px+), section titles (`.section-title`) and subsection headings (`.section-subtitle`) have narrow visual separation in font size (28.8px vs 18px).
     * **Affected Files:** `styles.css`
     * **Priority:** Low
     * **Proposed Change:** Utilize existing `--font-size-2xl` token for `.section-title` on desktop viewports to increase contrast with subsection titles.
@@ -58,32 +68,41 @@ All recommendations adhere strictly to project limits:
 
 ---
 
-### 2. Layout Density & Spacing Rhythm
+### 2. Layout Density & Spacing Rhythm ("Card Soup" & Surface Containment)
 
 * **Objective Defects**:
   * *None identified.* Main container padding scales smoothly (`16px` on mobile, `24px` on tablet/desktop).
 
 * **Subjective Recommendations**:
-  * **Finding 2.1 (Compact Viewport Card Action Stacking):** At 320px–375px widths, primary card actions (`Details` and `Donate` buttons) wrap vertically due to text length in EN ("Details & Story" / "Donate on WhyDonate").
+  * **Finding 2.1 ("Card Soup" / Visual Surface Over-Containment):** The page makes extensive use of nested bordered boxes (`.content-section`, `.hero-section`, `.purpose-card`, `.fundraiser-card`, `.prominent-warning-box`, `.sources-section`). This creates visual "card soup" where every content block lives inside its own rounded border card, competing for attention.
+    * **Affected Files:** `styles.css`
+    * **Priority:** Medium
+    * **Proposed Change:** In Issue #52, evaluate replacing full rectangular borders on secondary sections (e.g. Purpose grid, Sources, Timeline) with clean editorial whitespace, subtle rule dividers (`border-top`), or light background rhythm rather than heavy outer container borders.
+    * **Acceptance Criteria:** Content remains clearly grouped while reducing visual boxiness and visual clutter across long pages.
+  * **Finding 2.2 (Compact Viewport Card Action Stacking):** At 320px–375px widths, primary card actions (`Details` and `Donate` buttons) wrap vertically due to text length in EN ("Details & Story" / "Donate on WhyDonate").
     * **Affected Files:** `styles.css`, `src/features/fundraisers/card.js`
     * **Priority:** Medium
     * **Proposed Change:** Ensure primary action container uses flex layout with `flex: 1 1 0` and max-content padding at `<480px` viewports so action buttons remain side-by-side or stack with consistent 8px vertical gap without text clipping.
     * **Acceptance Criteria:** Buttons in fundraiser cards remain legible with no text overflow or tight button collision at 320px width in both NL and EN.
-  * **Finding 2.2 (Donor Wall Height Buffer):** The donor wall heart animation stage (`.thank-you-stage`) has a fixed minimum height (`min-height: clamp(320px, 50vh, 440px)`), which causes slightly elevated whitespace on tablet landscape mode.
+  * **Finding 2.3 (Thank-You Section / Donor Wall Character & Height Buffer):** The thank-you section features a prominent animated SVG heartbeat and cinematic scrolling donor credits. While expressive, the large heartbeat graphic and animation feel more like a crowdfunding platform widget than an independent editorial transparency resource. Additionally, `.thank-you-stage` has a fixed minimum height (`min-height: clamp(320px, 50vh, 440px)`), creating excessive whitespace on tablet landscape mode.
     * **Affected Files:** `styles.css`
-    * **Priority:** Low
-    * **Proposed Change:** Adjust `.thank-you-stage` min-height to `clamp(280px, 40vh, 400px)` for compact screens.
-    * **Acceptance Criteria:** Reduced empty vertical space around donor credits on low-height viewports.
+    * **Priority:** Medium
+    * **Proposed Change:** Re-assess the tone of the donor wall in Issue #52. Consider a calmer, publication-style donor acknowledgment grid or static credit wall, and adjust `.thank-you-stage` min-height to `clamp(280px, 40vh, 400px)` for compact viewports.
+    * **Acceptance Criteria:** Donor acknowledgment is respectful and readable while maintaining an independent editorial aesthetic.
 
 ---
 
-### 3. Warning Banner Prominence & Distinction
+### 3. Warning Banner Prominence & Content Synchronization
 
 * **Objective Defects**:
-  * *None identified.* Warning banner uses amber background (`#fffbe1`), strong amber border (`#d97706`), warning icon, and explicit text explanation meeting WCAG contrast.
+  * **Finding 3.1 (Warning Content Mismatch Between Static HTML and Content Dictionary):** The static copy rendered in `index.html` for `#prominent-warning-title` and its list items is hardcoded in Dutch ("Belangrijke waarschuwing: Gescheiden geldstromen en acties"), whereas `data/content.json` defines localized warning copy under `fundraisersSection.prominentWarning`. On page load before script execution or if JavaScript fails, the warning text relies on static HTML rather than the canonical dictionary.
+    * **Affected Files:** `index.html`, `data/content.json`
+    * **Priority:** Medium
+    * **Proposed Change:** Ensure `index.html` static text exactly matches the Dutch dictionary string in `data/content.json`, or explicitly document source-of-truth synchronization as part of Issue #51 (Warning Block task).
+    * **Acceptance Criteria:** Initial static HTML warning content is 100% aligned with the canonical `data/content.json` NL strings.
 
 * **Subjective Recommendations**:
-  * **Finding 3.1 (Warning List Visual Structure):** On mobile viewports (320px–375px), the warning bullet list (`.warning-list`) relies on standard disc list-style with `20px` left padding, which reduces text scanning area.
+  * **Finding 3.2 (Warning List Visual Structure):** On mobile viewports (320px–375px), the warning bullet list (`.warning-list`) relies on standard disc list-style with `20px` left padding, which reduces text scanning area.
     * **Affected Files:** `styles.css`
     * **Priority:** Low
     * **Proposed Change:** Use custom check/warning bullet markers or inline subtle border-left accents for warning list items to maximize text width on small screens.
@@ -102,7 +121,7 @@ All recommendations adhere strictly to project limits:
   * **Finding 4.2 (Share Panel Focus Trap / Escape Key Handling):** When opening the fixed share panel (`#site-share-panel`), focus moves to the panel, but pressing `Escape` does not close the share panel (unlike modals).
     * **Affected Files:** `src/ui/site-share.js`
     * **Priority:** Medium
-    * **Proposed Change:** Add an `KeyDown` listener for the `Escape` key to close the site share panel and restore focus to `#site-share-btn`.
+    * **Proposed Change:** Add a `KeyDown` listener for the `Escape` key to close the site share panel and restore focus to `#site-share-btn`.
     * **Acceptance Criteria:** Pressing `Escape` anywhere while the site share panel is open closes it and restores focus to the share toggle button.
 
 ---
@@ -110,18 +129,18 @@ All recommendations adhere strictly to project limits:
 ### 5. Image Galleries & Media Edge States
 
 * **Objective Defects**:
-  * **Finding 5.1 (Gallery Thumbnail Alt Text Fallback & Aspect Ratio):** In campaign detail modals with multi-image galleries (e.g. Manon T-shirts), gallery thumbnails utilize `aspect-ratio: 4 / 3` with `object-fit: cover`. If an image fails to load or experiences network latency, no visible text placeholder indicates image loading state.
+  * **Finding 5.1 (Gallery Thumbnail Fallback Semantics & Visual Indicators):** In campaign detail modals with multi-image galleries (e.g. Manon T-shirts), gallery thumbnails utilize `aspect-ratio: 4 / 3` with `object-fit: cover`. While `<img alt>` provides an accessible alternative name for screen readers, native browser broken-image behavior varies widely and does not guarantee a consistent visible visual broken-image placeholder UI.
     * **Affected Files:** `styles.css`, `src/ui/context-modal.js`
     * **Priority:** Medium
-    * **Proposed Change:** Add CSS fallback background pattern/icon and alt attribute propagation for broken images in `.context-modal-gallery-thumb`.
-    * **Acceptance Criteria:** Missing or slow-loading gallery images show a graceful neutral background container with visible alt text.
+    * **Proposed Change:** Separate accessible name semantics from visual UI fallbacks. Add a container wrapper style (`.context-modal-gallery-thumb`) with a graceful SVG placeholder icon / background indicator and visible text state so that missing or slow-loading images present a consistent UI across all browsers.
+    * **Acceptance Criteria:** Missing gallery images render a consistent visual fallback container with visible text/icon without relying solely on browser-native broken image icon rendering.
 
 * **Subjective Recommendations**:
-  * **Finding 5.2 (Hero Image Load Priority):** The hero image (`public/assets/page-hero.webp`) includes `loading="eager"` and `fetchpriority="high"`, which is optimal. However, explicit CSS aspect ratio (`1360 / 512`) should be strictly enforced on `.hero-image` to prevent any layout shift during dynamic font rendering.
+  * **Finding 5.2 (Hero Image CLS Risk & Dimensions):** The hero image (`public/assets/page-hero.webp`) includes `width="1360"` and `height="512"` along with `loading="eager"` and `fetchpriority="high"`. While explicit HTML dimensions reserve layout space in modern engines, custom CSS font loading or container reflows can still introduce minor layout shifts before image render completes.
     * **Affected Files:** `styles.css`
     * **Priority:** Low
-    * **Proposed Change:** Ensure `.hero-image` CSS includes `aspect-ratio: 1360 / 512; width: 100%; height: auto;`.
-    * **Acceptance Criteria:** Zero Cumulative Layout Shift (CLS) during hero image loading.
+    * **Proposed Change:** Explicitly enforce CSS `aspect-ratio: 1360 / 512; width: 100%; height: auto;` on `.hero-image` to ensure container aspect ratio is strictly preserved across all layout states.
+    * **Acceptance Criteria:** Eliminates layout recalculations during dynamic image or webfont loading.
 
 ---
 
@@ -159,22 +178,22 @@ All recommendations adhere strictly to project limits:
   * *None identified.* All assets are served locally from `public/assets/`. Total repository JS/CSS payload is under 150 KB gzip, zero external network dependencies.
 
 * **Subjective Recommendations**:
-  * **Finding 8.1 (Avatar Asset Decoding):** Fundraiser avatars (`.card-avatar-img`) load synchronously.
+  * **Finding 8.1 (Avatar Asset Image Decoding Hint):** Fundraiser avatars (`.card-avatar-img`) load synchronously.
     * **Affected Files:** `src/features/fundraisers/card.js`
     * **Priority:** Low
-    * **Proposed Change:** Add `decoding="async"` to `.card-avatar-img` elements in card templates.
-    * **Acceptance Criteria:** Image decoding offloaded from main thread without visible pop-in.
+    * **Proposed Change:** Add `decoding="async"` as a browser scheduling hint to `.card-avatar-img` elements in card templates to inform the browser engine that off-screen avatar image decoding can be scheduled asynchronously.
+    * **Acceptance Criteria:** Provides standard image decoding hint to browser engine without blocking layout.
 
 ---
 
 ### 9. Edge States, Print Styles & Error Resilience
 
 * **Objective Defects**:
-  * **Finding 9.1 (Print Stylesheet Link Formatting):** In `@media print`, all links render `href` text in parentheses (`a[href^="http"]::after { content: " (" attr(href) ")"; }`). For long WhyDonate URLs, this causes text overflow on standard printed pages.
+  * **Finding 9.1 (Print Stylesheet Link Overflow Wrapping):** In `@media print`, all links render `href` text in parentheses (`a[href^="http"]::after { content: " (" attr(href) ")"; }`). For long WhyDonate URLs, using `word-break: break-all` can be an overly aggressive print treatment that splits domain names awkwardly.
     * **Affected Files:** `styles.css`
     * **Priority:** Medium
-    * **Proposed Change:** Add `word-break: break-all;` to `a[href^="http"]::after` in `@media print` rules.
-    * **Acceptance Criteria:** Print layout does not clip or overflow long URLs across page margins when printed or saved to PDF.
+    * **Proposed Change:** Use `overflow-wrap: anywhere;` or `word-break: break-word;` in `@media print` rules for URL link annotations to ensure URLs wrap gracefully at natural break points while preventing page margin overflow.
+    * **Acceptance Criteria:** Printed pages wrap long URLs at safe boundaries without clipping past printable page margins.
 
 ---
 
@@ -183,15 +202,20 @@ All recommendations adhere strictly to project limits:
 | Finding ID | Category | Affected File(s) | Priority | Recommended Change |
 | :--- | :--- | :--- | :--- | :--- |
 | **4.1** | Share UI / Layout | `styles.css`, `index.html` | **High** | Adjust footer padding / share widget position to prevent overlapping footer disclaimers on mobile. |
+| **3.1** | Content / Warning | `index.html`, `data/content.json` | **Medium** | Synchronize static HTML warning copy with canonical `data/content.json` Dutch dictionary or defer to Issue #51. |
 | **4.2** | Share UI / A11y | `src/ui/site-share.js` | **Medium** | Implement `Escape` key handler to close site share panel and restore button focus. |
-| **2.1** | Layout Density | `styles.css` | **Medium** | Ensure primary card action buttons stack or wrap cleanly without text clipping at 320px. |
-| **5.1** | Media Edge States | `styles.css`, `src/ui/context-modal.js` | **Medium** | Add graceful broken image fallbacks and alt visibility in gallery thumbnails. |
-| **9.1** | Print Stylesheet | `styles.css` | **Medium** | Add `word-break: break-all` for printed link URLs to prevent print page margin overflow. |
+| **2.1** | Editorial Layout | `styles.css` | **Medium** | Evaluate replacing full outer container borders on secondary sections with clean whitespace / subtle rules to reduce "card soup". |
+| **1.1** | Visual Character | `styles.css`, `index.html` | **Medium** | Lighten header border density and refine language/navigation utility layout for a clearer editorial character. |
+| **1.2** | Visual Character | `styles.css` | **Medium** | Frame hero photo height/lead text hierarchy to prevent visual image dominance over primary editorial text. |
+| **2.3** | Visual Character | `styles.css` | **Medium** | Re-assess donor wall visual tone (heart graphic/animation) to align with independent editorial aesthetic; adjust height buffer. |
+| **2.2** | Layout Density | `styles.css` | **Medium** | Ensure primary card action buttons stack or wrap cleanly without text clipping at 320px. |
+| **5.1** | Media Edge States | `styles.css`, `src/ui/context-modal.js` | **Medium** | Add visual container fallbacks (placeholder icon/background) for missing gallery thumbnails alongside accessible `alt` attributes. |
+| **9.1** | Print Stylesheet | `styles.css` | **Medium** | Apply `overflow-wrap: anywhere` for printed link URLs to prevent print page margin overflow without aggressive arbitrary character splits. |
 | **6.1** | Navigation | `index.html`, `styles.css` | **Medium** | Add accessible "Back to top" navigation link in footer section. |
-| **1.1** | Typography | `styles.css` | **Low** | Align card and modal identity titles with Georgia serif typography token. |
-| **1.2** | Typography | `styles.css` | **Low** | Adjust desktop section title sizing (`--font-size-2xl`) for clearer visual hierarchy. |
+| **1.3** | Typography | `styles.css` | **Low** | Align card and modal identity titles with Georgia serif typography token. |
+| **1.4** | Typography | `styles.css` | **Low** | Adjust desktop section title sizing (`--font-size-2xl`) for clearer visual hierarchy. |
 | **7.1** | Motion | `styles.css` | **Low** | Add subtle accordion transition for mobile nav menu when reduced motion is off. |
-| **8.1** | Performance | `src/features/fundraisers/card.js` | **Low** | Add `decoding="async"` to avatar images. |
+| **8.1** | Performance | `src/features/fundraisers/card.js` | **Low** | Add `decoding="async"` scheduling hint to avatar images. |
 
 ---
 
