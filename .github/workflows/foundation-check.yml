@@ -47,6 +47,9 @@ jobs:
       - name: Run Orchestrator Tests
         run: node --test scripts/jules-orchestrator.test.mjs
 
+      - name: Run QR and Share Tests
+        run: node --test scripts/qr-share.test.mjs
+
       - name: Run Content Guard
         if: github.event_name == 'pull_request'
         env:

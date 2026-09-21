@@ -44,7 +44,7 @@ export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, 
       </button>
 
       <div class="card-share-container" hidden>
-        ${navigator.share ? `
+        ${typeof navigator !== 'undefined' && navigator.share ? `
           <button type="button" class="share-btn native-share-btn">
             ${shareContent?.webShare?.[lang] || 'Delen...'}
           </button>
