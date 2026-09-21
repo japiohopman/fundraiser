@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Shield/Rounded Card -->
+  <rect x="32" y="32" width="448" height="448" rx="96" ry="96" fill="url(#bg-grad)" />
+
+  <!-- Outer Architectural Roof / Canopy lines (representing ParkNest community space) -->
+  <path d="M 128 236 L 256 132 L 384 236" fill="none" stroke="#60a5fa" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Shield / Scale Balance Emblem (representing independent oversight and transparency) -->
+  <path d="M 256 200 L 256 360" stroke="url(#accent-grad)" stroke-width="24" stroke-linecap="round" />
+  <path d="M 176 270 L 336 270" stroke="url(#accent-grad)" stroke-width="24" stroke-linecap="round" />
+
+  <!-- Left and Right Balance / Pillar Dots -->
+  <circle cx="176" cy="320" r="28" fill="#ffffff" />
+  <circle cx="336" cy="320" r="28" fill="#ffffff" />
+
+  <!-- Central Emblem Beacon -->
+  <circle cx="256" cy="180" r="20" fill="#fde047" />
+</svg>
