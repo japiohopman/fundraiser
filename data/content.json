@@ -454,18 +454,36 @@
       },
       "kathinka-dog-collars": {
         "title": {
-          "nl": "Kathinka van Velzen — Hondenbandjes",
-          "en": "Kathinka van Velzen — Dog Collars"
+          "nl": "Mijn verhaal — Kathinka van Velzen (PieceofMind)",
+          "en": "My Story — Kathinka van Velzen (PieceofMind)"
+        },
+        "provenanceBadge": {
+          "nl": "Persoonlijke getuigenis van Kathinka van Velzen / PieceofMind",
+          "en": "Personal account by Kathinka van Velzen / PieceofMind"
+        },
+        "provenanceNote": {
+          "nl": "Onderstaande tekst is de persoonlijke verklaring van Kathinka van Velzen (PieceofMind). Dit is een eigen eerste-persoonsweergave en géén onafhankelijke onderzoeksjournalistiek.",
+          "en": "The text below is Kathinka van Velzen's (PieceofMind) personal statement. This is a first-person account and not independent investigative reporting."
         },
         "text": {
-          "nl": "Kathinka's hondenbandjes-collectie en display waren verbonden aan ParkNest en gingen bij de brand verloren.",
-          "en": "Kathinka's dog-collar collection and display were associated with ParkNest and were lost in the fire."
+          "nl": "Deze persoonlijke inzameling dient ter vervanging van het hondenbandjes-display en de PieceofMind-collectie (halsbanden, riemen en houten display) van Kathinka van Velzen, die bij de brand in ParkNest verloren gingen. Dit is een afzonderlijke persoonlijke inzameling en geen rechtstreekse donatie aan ParkNest; wel doneert Kathinka volgens haar verklaring 20% van de opbrengst aan ParkNest.",
+          "en": "This personal fundraiser is to replace the dog collar display and PieceofMind collection (collars, leashes, and wooden display) belonging to Kathinka van Velzen, which were lost in the ParkNest fire. This is a separate personal fundraiser and not a direct donation to ParkNest; however, Kathinka states she donates 20% of the proceeds to ParkNest."
         },
+        "paragraphs": [
+          {
+            "nl": "De brand in ParkNest in de nacht van 20 op 21 augustus 2026 heeft niet alleen het gebouw verwoest. Ook de hondencollectie van PieceofMind, zo'n 60 grote halsbanden, 30 kleinere, een tiental looplijnen en mensenriemen, plus de handgemaakte houten display, zijn totaal in de vlammen opgegaan.",
+            "en": "The fire at ParkNest in the night of 20 to 21 August 2026 did not only destroy the building. The PieceofMind dog collar collection—around 60 large collars, 30 smaller ones, about ten leashes and human belts, plus the handmade wooden display—was also completely destroyed in the flames."
+          },
+          {
+            "nl": "Mijn hondencollectie is niet zomaar een collectie, hier zit een verhaal met passie achter. Ik koop mijn materialen, die antiek zijn van de Inheemse bevolking in Peru en betaal daar een goede prijs voor, fairtrade in z'n puurste vorm. De materialen zijn erg kleurrijk en van handgeweven alpacawol. Aangezien deze materialen moeilijk te vinden zijn, want antiek, doe ik er wel maanden over om 'n flinke voorraad bij elkaar te krijgen. Vervolgens neem ik dit mee naar Marokko, waar ik hoogwaardig leer inkoop en worden ze met de hand vervaardigd in mijn kleine atelier aldaar. Aangezien ParkNest zeer hondvriendelijk is vind ik het geweldig dat ik daar mijn collectie kan verkopen. Het is daarom met liefde dat ik 20 procent vd opbrengst aan ParkNest doneer ♥️.",
+            "en": "My dog collection is not just any collection; there is a passionate story behind it. I buy my materials, which are antique, from the Indigenous population in Peru and pay a good price for them—fair trade in its purest form. The materials are very colorful and made of handwoven alpaca wool. Since these materials are hard to find because they are antique, it takes me months to gather a sizable stock. Then I take this to Morocco, where I purchase high-quality leather, and they are crafted by hand in my small workshop there. Since ParkNest is very dog-friendly, I think it is wonderful to sell my collection there. It is therefore with love that I donate 20 percent of the proceeds to ParkNest ♥️."
+          }
+        ],
         "link": {
           "url": "https://www.instagram.com/pieceofmind_ibiza/",
           "label": {
-            "nl": "Instagram van Kathinka",
-            "en": "Kathinka's Instagram"
+            "nl": "Instagram van Kathinka (PieceofMind)",
+            "en": "Kathinka's Instagram (PieceofMind)"
           }
         }
       }
@@ -481,8 +499,8 @@
       "en": "Supports the continuation of ParkNest activities, procurement of temporary park facilities, and planning for a new future."
     },
     "kathinka": {
-      "nl": "Ondersteunt de vervanging van de hondenbandjes-display en de verzameling hondenbandjes en -riemen van Kathinka van Velzen.",
-      "en": "Supports the replacement of the dog collar display and personal collection of dog collars and leashes belonging to Kathinka van Velzen."
+      "nl": "Ondersteunt de vervanging van het hondenbandjes-display en de verzameling hondenbandjes en -riemen van Kathinka van Velzen (PieceofMind), waarvan volgens de verklaring 20% van de opbrengst wordt gedoneerd aan ParkNest.",
+      "en": "Supports replacing the dog collar display and personal collection of dog collars and leashes belonging to Kathinka van Velzen (PieceofMind), with 20% of proceeds donated to ParkNest according to her statement."
     },
     "jim": {
       "nl": "Ondersteunt het heropbouwen van de geschilderde tramcollectie van Jim Gijbels die in ParkNest hing.",
@@ -727,8 +745,8 @@
       "en": "This is an independent information website. It is not the official website of ParkNest, Stichting Buurtbelang ParkNest, or WhyDonate, and does not collect or manage donations."
     },
     "lastVerifiedText": {
-      "nl": "Laatste bronverificatie uitgevoerd op: 19 september 2026.",
-      "en": "Latest source verification conducted on: 19 September 2026."
+      "nl": "Laatste bronverificatie uitgevoerd op: 20 september 2026.",
+      "en": "Latest source verification conducted on: 20 September 2026."
     },
     "copyright": {
       "nl": "ParkNest Inzamelingsacties Transparantie Project",
