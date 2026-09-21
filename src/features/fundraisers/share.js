@@ -20,7 +20,7 @@ import {
  * @param {string} purposeText
  * @returns {string}
  */
-export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText) {
+export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText, itemId = '') {
   const waText = lang === 'en'
     ? `Check out this specific fundraiser for ${titleText} (${purposeText}): ${shareUrl}`
     : `Bekijk deze specifieke inzamelingsactie voor ${titleText} (${purposeText}): ${shareUrl}`;
@@ -36,14 +36,17 @@ export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, 
   const waHref = buildWhatsAppUrl(waText);
   const emailHref = buildEmailUrl(emailSubject, emailBody);
 
+  const containerId = itemId ? `share-container-${itemId}` : '';
+  const controlsAttr = containerId ? `aria-controls="${containerId}"` : '';
+
   return `
     <div class="card-share-section">
-      <button type="button" class="share-toggle-btn" aria-expanded="false">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="share-icon"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+      <button type="button" class="share-toggle-btn" aria-expanded="false" ${controlsAttr} aria-label="${shareContent?.shareAction?.[lang] || 'Delen'} (${titleText})">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="share-icon" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
         <span>${shareContent?.shareAction?.[lang] || 'Delen'}</span>
       </button>
 
-      <div class="card-share-container" hidden>
+      <div class="card-share-container" ${containerId ? `id="${containerId}"` : ''} hidden>
         ${typeof navigator !== 'undefined' && navigator.share ? `
           <button type="button" class="share-btn native-share-btn">
             ${shareContent?.webShare?.[lang] || 'Delen...'}

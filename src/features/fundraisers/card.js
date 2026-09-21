@@ -110,7 +110,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
   const baseUrl = window.location.href.split('#')[0];
   const shareUrl = `${baseUrl}#fundraiser-${item.id}`;
 
-  const shareHTML = createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText);
+  const shareHTML = createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText, item.id);
 
   card.innerHTML = `
     <div class="fundraiser-card-header ${avatarName ? 'has-avatar' : ''}">

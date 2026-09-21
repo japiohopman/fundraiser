@@ -1280,7 +1280,11 @@ body {
   line-height: 1;
   color: var(--color-text-muted);
   cursor: pointer;
-  padding: 0.1rem 0.4rem;
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-sm);
 }
 
@@ -1977,6 +1981,10 @@ body {
   *, *::before, *::after {
     transition: none !important;
     animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
   }
 
   .thank-you-heart {
