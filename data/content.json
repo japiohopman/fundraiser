@@ -404,8 +404,38 @@
           "nl": "Ik werk als freelance kok. Bij de brand in ParkNest zijn mijn professionele koksmessen en overige essentiële keukenuitrusting verloren gegaan. Zonder dit vakgereedschap kan ik mijn werkzaamheden als kok op dit moment niet naar behoren uitvoeren. Mijn doel is om mijn uitrusting te vervangen, zodat ik weer aan de slag kan. De inzamelingsactie 'Koksmessen voor Rooie Jaap' (officiële WhyDonate bron-titel) is specifiek opgericht om de aanschaf van dit vervangende kookmateriaal mogelijk te maken.",
           "en": "I work as a freelance chef. During the fire at ParkNest, my professional chef's knives and essential kitchen gear were destroyed. Without my professional tools, I cannot work properly as a chef. My goal is to replace this essential gear so I can get back to work. The campaign 'Chef's knives for Rooie Jaap' (official WhyDonate source title) was set up specifically to fund the replacement of these tools."
         },
+        "images": {
+          "gallery": [
+            "public/assets/jaap-gallery/jaap-cooking.jpg",
+            "public/assets/jaap-gallery/jaap-damaged-knives.jpg"
+          ],
+          "galleryAlts": [
+            {
+              "nl": "Jaap Hopman aan het koken in de keuken met een grote kookpot",
+              "en": "Jaap Hopman cooking in the kitchen with a large stockpot"
+            },
+            {
+              "nl": "Door de brand aangetaste en verroeste koksmessen liggend op een krant",
+              "en": "Fire-damaged and rusted chef knives lying on a newspaper"
+            }
+          ],
+          "galleryCaptions": [
+            {
+              "nl": "Campagnefoto afkomstig van WhyDonate",
+              "en": "Campaign photograph sourced from WhyDonate"
+            },
+            {
+              "nl": "Campagnefoto afkomstig van WhyDonate",
+              "en": "Campaign photograph sourced from WhyDonate"
+            }
+          ],
+          "galleryLinks": [
+            "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_images/88493a0471494794/public",
+            "https://whydonate.com/cdn-cgi/imagedelivery/_0vgnXOEIHPwLg2E52a7gg/production/fundraiser_images/ac2b3a7085bd4b13/public"
+          ]
+        },
         "link": {
-          "url": "https://github.com/japiohopman.io/keuken_cv",
+          "url": "https://japiohopman.github.io/keuken_cv/",
           "label": {
             "nl": "Bekijk mijn keuken-CV",
             "en": "View my kitchen CV"
