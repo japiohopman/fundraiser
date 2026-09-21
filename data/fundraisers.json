@@ -326,17 +326,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 2350,
-        "onlineAmountRaised": 1050,
+        "onlineAmountRaised": 2050,
         "offlineDonationAmount": 0,
-        "displayedTotalRaised": 1050,
-        "onlineDonationCount": 2,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data."
+        "displayedTotalRaised": 2050,
+        "onlineDonationCount": 3,
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-21 from WhyDonate live data."
       },
       "dates": {
         "createdAt": "2026-08-30T20:19:54.546998Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-20",
+        "verifiedAt": "2026-09-21",
         "historicalNotes": null
       },
       "sources": [

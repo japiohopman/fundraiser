@@ -159,17 +159,17 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Contextual Information & Provenance:**
   - Additional context supplied by Jaap Hopman indicates Suzy Creamcheese was the regular Friday cook at ParkNest preparing weekly meals for over 50 people, and lost both her cooking equipment and her regular Friday cooking work due to the destruction of the venue.
   - This contextual statement is attributed to Jaap Hopman with clear provenance metadata in the modal details, distinguishing contextual input from platform source payloads without claiming calculated income loss.
-- **Financial Accounting Snapshot (as of 20 September 2026):**
+- **Financial Accounting Snapshot (as of 21 September 2026):**
   - **Target Amount:** €2,350
-  - **Online Amount Raised:** €1,050 (2 donations)
+  - **Online Amount Raised:** €2,050 (3 donations)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €1,050
+  - **Displayed Total Raised:** €2,050
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T20:19:54.546998Z`)
   - **End Date:** 1 January 2028 (`2028-01-01`)
 - **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
 - **Verification State:** Verified (Primary source captured)
-- **Verification Date:** 20 September 2026
+- **Verification Date:** 21 September 2026
 - **Source Provenance:**
   - Campaign page payload: https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese
 
