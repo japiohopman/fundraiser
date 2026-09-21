@@ -8,7 +8,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 
 ## Verification Summary & Key Rules
 
-- **Verification Date:** 19 September 2026 (all dynamic campaign values verified directly from live WhyDonate pages/payloads as a snapshot).
+- **Verification Date:** 20 September 2026 (all dynamic campaign values verified directly from live WhyDonate pages/payloads as a snapshot).
 - **Core Editorial Rule:** Do not infer money flows or payout destinations between campaigns. Dynamic values always carry a `verifiedAt` date.
 - **Platform Relationship Structure:** On WhyDonate, campaigns 2, 3, 4, 5, and 6 are created with `parent_id: 101918` linking them directly under the main ParkNest campaign (ID 101918). All six campaigns display the same creator profile name (**Dirk Zaal**).
 - **Beneficiary & Payout Distinction:**
@@ -31,12 +31,12 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Named Legal Beneficiary:** Stichting Buurtbelang Parknest
 - **Direct Banking Alternative:** Stichting Buurtbelang ParkNest offers a direct bank contribution route referenced on ParkNest's official statement (https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/).
 - **Stated Purpose:** Continue ParkNest activities, procure temporary provisions/equipment, and work towards a new future after the building was destroyed by fire on 20–21 August 2026.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 20 September 2026):**
   - **Target Amount:** €150,000
-  - **Online Amount Raised:** €31,248 (778 online donations)
+  - **Online Amount Raised:** €33,074 (808 online donations)
   - **Offline Donations Recorded:** €25,790
-  - **Displayed Total Raised on WhyDonate:** €57,038 (€31,248 online + €25,790 offline)
-  - *Snapshot Semantics:* The €57,038 total reflects WhyDonate's displayed value at the recorded verification snapshot (19 September 2026). WhyDonate's public total updates dynamically as new contributions occur.
+  - **Displayed Total Raised on WhyDonate:** €58,864 (€33,074 online + €25,790 offline)
+  - *Snapshot Semantics:* The €58,864 total reflects WhyDonate's displayed value at the recorded verification snapshot (20 September 2026). WhyDonate's public total updates dynamically as new contributions occur.
 - **Creation & Historical Evidence Notes:**
   - **Created At:** 24 October 2025 (`2025-10-24T09:24:17.000000Z`)
   - **End Date:** 22 August 2027 (`2027-08-22`)
@@ -44,7 +44,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Campaign Status:** Active / Opened (`is_opened: true`, `is_draft: false`, `completed: false`)
 - **Disclosed Fees:** WhyDonate platform rules apply: 0% platform fee, standard payment processing transaction fees per donation payment method (e.g., iDEAL). Optional donor tips default to enabled.
 - **Verification State:** Verified (Primary source captured)
-- **Verification Date:** 19 September 2026
+- **Verification Date:** 20 September 2026
 - **Source Provenance:**
   - Campaign page payload: https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter
   - Official ParkNest statement: https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/
@@ -156,11 +156,11 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing kitchenware and cooking equipment belonging to chef Suzy Creamcheese (Kok Suzy Creamcheese), lost in the ParkNest fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 20 September 2026):**
   - **Target Amount:** €2,350
-  - **Online Amount Raised:** €1,000 (1 donation)
+  - **Online Amount Raised:** €1,050 (2 donations)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €1,000
+  - **Displayed Total Raised:** €1,050
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T20:19:54.546998Z`)
   - **End Date:** 1 January 2028 (`2028-01-01`)
