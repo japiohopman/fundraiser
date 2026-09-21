@@ -102,7 +102,7 @@
 - [x] Complete visual design polish and brand color harmony (Issues #49, #50, #51 and #52)
 - [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing
-- [x] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
+- [ ] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
 
 ## Phase 2 — Static website deployment & delivery
 
