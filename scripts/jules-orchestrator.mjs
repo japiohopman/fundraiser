@@ -24,6 +24,8 @@
  *        - PR merged, task still [ ]    -> wait (Jules could not verify; read the PR, then
  *                                          tick the box yourself if you are satisfied)
  *        - PR merged and task is [x]    -> done: clear the session and continue below
+ *        - session stale/missing task   -> inspect session and PR state safely; if finished,
+ *                                          clear state and advance.
  *   2. If no session is active: take the first unchecked task under "### Ready", start a
  *      Jules session with the full task text, and record it in the state file.
  *
@@ -47,6 +49,62 @@ const HARD_LIMITS =
   'text unless the task explicitly allows it. Keep this a static site: no backend, no new ' +
   'runtime dependencies, no scraping. Never edit the "### Blocked" or "### Human Review" ' +
   'sections of docs/roadmap.md or any task other than your own.';
+
+/** Extracts the core bold title from a task line. */
+export function extractTitle(text) {
+  if (!text) return '';
+  const match = text.match(/\*\*(.+?)\*\*/);
+  if (match) return match[1].trim();
+  return text.split('(')[0].trim();
+}
+
+/** Extracts an issue reference or slug identifier from task text. */
+export function extractTaskId(text) {
+  if (!text) return null;
+  const match = text.match(/\((Issue\s*#\d+|PR\s*#\d+)\)/i) || text.match(/(Issue\s*#\d+|PR\s*#\d+)/i);
+  if (match) return match[1].replace(/\s+/g, '');
+  const title = extractTitle(text);
+  return title ? title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : null;
+}
+
+/** Matches activeSession state against parsed roadmap tasks. */
+export function findMatchingTask(active, tasks) {
+  if (!active || !active.task) return null;
+
+  // 1. Exact text match
+  let match = tasks.find(t => t.text === active.task);
+  if (match) return match;
+
+  // 2. Match by active.taskId / active.title if present
+  if (active.taskId) {
+    match = tasks.find(t => extractTaskId(t.text) === active.taskId);
+    if (match) return match;
+  }
+  if (active.title) {
+    match = tasks.find(t => extractTitle(t.text) === active.title);
+    if (match) return match;
+  }
+
+  // 3. Extracted title match from active.task
+  const activeTitle = extractTitle(active.task);
+  if (activeTitle) {
+    match = tasks.find(t => extractTitle(t.text) === activeTitle);
+    if (match) return match;
+  }
+
+  // 4. Prefix match
+  match = tasks.find(t => t.text.startsWith(active.task) || active.task.startsWith(t.text));
+  if (match) return match;
+
+  return null;
+}
+
+/** Checks whether a task explicitly requires content approval. */
+export function isContentApprovalRequired(task) {
+  if (!task) return false;
+  const fullText = [task.text, ...(task.body || [])].join('\n');
+  return /Content approval:\s*Required/i.test(fullText);
+}
 
 /** Parses the "## Now" section of the roadmap into tasks (checkbox line + indented body). */
 export function parseNow(text) {
@@ -90,7 +148,7 @@ function saveState(state) {
   writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n');
 }
 
-async function julesFetch(path, options = {}) {
+async function defaultJulesFetch(path, options = {}) {
   const res = await fetch(`https://jules.googleapis.com/v1alpha/${path}`, {
     ...options,
     headers: { 'X-Goog-Api-Key': process.env.JULES_API_KEY, 'Content-Type': 'application/json', ...(options.headers || {}) },
@@ -98,7 +156,8 @@ async function julesFetch(path, options = {}) {
   if (!res.ok) throw new Error(`Jules API ${path} failed: ${res.status} ${await res.text()}`);
   return res.json();
 }
-async function githubRequest(path, options = {}) {
+
+async function defaultGithubRequest(path, options = {}) {
   const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/${path}`, {
     ...options,
     headers: {
@@ -111,10 +170,10 @@ async function githubRequest(path, options = {}) {
   if (!res.ok) throw new Error(`GitHub API ${path} failed: ${res.status} ${await res.text()}`);
   return res.status === 204 ? null : res.json();
 }
-async function githubFetch(path) { return githubRequest(path); }
-const prNumberFrom = url => Number((url.match(/\/pull\/(\d+)/) || [])[1]) || null;
+async function defaultGithubFetch(path) { return defaultGithubRequest(path); }
+export const prNumberFrom = url => Number((url?.match(/\/pull\/(\d+)/) || [])[1]) || null;
 
-function buildPrompt(task) {
+export function buildPrompt(task) {
   return [
     'Read AGENT_RULES.md, CONTRIBUTING.md, docs/editorial-policy.md and docs/roadmap.md before starting.',
     'Your task is the first unchecked task under "### Ready" in docs/roadmap.md. Full specification:',
@@ -128,86 +187,236 @@ function buildPrompt(task) {
   ].join('\n\n');
 }
 
+/** Core orchestrator execution logic. */
+export async function orchestrate({
+  state,
+  roadmapText,
+  julesFetch = defaultJulesFetch,
+  githubFetch = defaultGithubFetch,
+  githubRequest = defaultGithubRequest,
+  saveStateAndPush = null,
+  log = console.log,
+}) {
+  const tasks = parseNow(roadmapText);
+  let stateChanged = false;
+
+  if (state.activeSession) {
+    const active = state.activeSession;
+
+    // Handle pending reservation claim from a previous run where dispatch was initiated
+    if (active.name === 'pending') {
+      log(`Found pending dispatch reservation (claim: ${active.claimId || 'none'}) for task: ${active.task.slice(0, 100)}`);
+      let listRes = null;
+      try {
+        listRes = await julesFetch('sessions');
+      } catch (err) {
+        log(`Could not query sessions list to resolve pending reservation: ${err.message}`);
+      }
+      const sessions = Array.isArray(listRes) ? listRes : (listRes?.sessions || []);
+      const matched = sessions.find(s => {
+        if (!active.claimId) return false;
+        const inTitle = s.title && s.title.includes(`[claim:${active.claimId}]`);
+        const inPrompt = s.prompt && s.prompt.includes(`[claim:${active.claimId}]`);
+        return Boolean(inTitle || inPrompt);
+      });
+
+      if (matched) {
+        log(`Recovered orphaned session ${matched.name} for claim ${active.claimId}.`);
+        active.name = matched.name;
+        stateChanged = true;
+        if (saveStateAndPush) {
+          saveStateAndPush(state);
+        }
+      } else {
+        log(`Pending reservation claim ${active.claimId || 'none'} has no exact matching session in Jules yet. Keeping pending reservation and waiting conservatively.`);
+        return { stateChanged, state };
+      }
+    }
+
+    if (state.activeSession) {
+      const entry = findMatchingTask(active, tasks);
+
+      if (entry) {
+        log(`Active task matched: ${entry.text.slice(0, 100)}`);
+      } else {
+        log(`Active task "${active.task.slice(0, 100)}" was not found under "## Now" in roadmap.`);
+      }
+
+      let session = null;
+      let sessionNotFound = false;
+      try {
+        session = await julesFetch(active.name);
+      } catch (err) {
+        if (err.message && err.message.includes('404')) {
+          log(`Jules session ${active.name} returned 404.`);
+          sessionNotFound = true;
+        } else {
+          throw new Error(`Failed to query Jules session ${active.name}: ${err.message}`);
+        }
+      }
+
+      if (sessionNotFound) {
+        let matchingPr = null;
+        try {
+          const pulls = await githubFetch('pulls?state=all');
+          if (Array.isArray(pulls)) {
+            matchingPr = pulls.find(p => {
+              const bodyOrTitle = [p.title, p.body || ''].join('\n');
+              return bodyOrTitle.includes(active.task) || (entry && bodyOrTitle.includes(entry.text));
+            });
+          }
+        } catch (e) {
+          log(`Failed to verify GitHub PRs for 404 session: ${e.message}`);
+        }
+
+        if (matchingPr) {
+          if (matchingPr.merged) {
+            if (entry && !entry.checked) {
+              log(`Jules session ${active.name} returned 404, but merged PR #${matchingPr.number} exists and task is unchecked in roadmap. Waiting for human verification / tick.`);
+              return { stateChanged, state };
+            }
+            log(`Jules session ${active.name} returned 404, but associated PR #${matchingPr.number} is merged and complete. Clearing stale active session.`);
+            state.activeSession = null;
+            stateChanged = true;
+          } else if (matchingPr.state === 'open') {
+            log(`Jules session ${active.name} returned 404, but open PR #${matchingPr.number} exists. Keeping activeSession to prevent duplicate dispatch.`);
+            return { stateChanged, state };
+          } else {
+            log(`Jules session ${active.name} returned 404 and associated PR #${matchingPr.number} is closed unmerged. Treating session state as uncertain — keeping activeSession.`);
+            return { stateChanged, state };
+          }
+        } else {
+          log(`Jules session ${active.name} returned 404 and no associated GitHub PR was found. Treating session state as uncertain — keeping activeSession to prevent duplicate dispatch.`);
+          return { stateChanged, state };
+        }
+      } else {
+        const sessionState = session.state ?? 'UNKNOWN';
+        const isSessionFinished = ['FAILED', 'CANCELLED', 'COMPLETED'].includes(sessionState);
+        log(`Jules session ${active.name} state: ${sessionState}`);
+
+        const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
+
+        if (prOutput) {
+          const prNumber = prNumberFrom(prOutput.url);
+          if (!prNumber) throw new Error(`Could not parse PR number from ${prOutput.url}`);
+          const pr = await githubFetch(`pulls/${prNumber}`);
+
+          if (entry && isContentApprovalRequired(entry)) {
+            if (githubRequest) {
+              await githubRequest(`issues/${prNumber}/labels`, {
+                method: 'POST',
+                body: JSON.stringify({ labels: ['content-approved'] }),
+              });
+              log(`Applied content-approved label to PR #${prNumber}.`);
+            }
+          }
+
+          if (pr.merged) {
+            if (entry && !entry.checked) {
+              log(`PR #${prNumber} is merged, but the task is still unchecked in the roadmap. Jules could not fully verify it — read the PR description, then tick the box yourself if you are satisfied.`);
+              return { stateChanged, state };
+            }
+            if (entry && entry.checked) {
+              log(`PR #${prNumber} merged and task confirmed done. Advancing the queue.`);
+            } else {
+              log(`PR #${prNumber} is merged and associated active task is no longer in Ready queue. Clearing stale active session.`);
+            }
+            state.activeSession = null;
+            stateChanged = true;
+          } else if (pr.state === 'closed') {
+            if (isSessionFinished) {
+              log(`PR #${prNumber} was closed without being merged and Jules session state is terminal (${sessionState}). Clearing stale active session.`);
+              state.activeSession = null;
+              stateChanged = true;
+            } else {
+              log(`PR #${prNumber} is closed, but Jules session state is non-terminal (${sessionState}). Keeping activeSession until session reaches a terminal state.`);
+              return { stateChanged, state };
+            }
+          } else {
+            // PR is open, not merged yet
+            log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
+            return { stateChanged, state };
+          }
+        } else {
+          // No PR created yet
+          if (isSessionFinished) {
+            log(`Jules session ${active.name} is ${sessionState} without a PR. Clearing stale active session.`);
+            state.activeSession = null;
+            stateChanged = true;
+          } else {
+            const hours = active.startedAt ? (Date.now() - new Date(active.startedAt).getTime()) / 36e5 : 0;
+            log(hours > STALE_HOURS
+              ? `No PR after ${Math.round(hours)}h — check the session in Jules; it may be waiting for input.`
+              : 'No PR yet. Nothing to do this run.');
+            return { stateChanged, state };
+          }
+        }
+      }
+    }
+  }
+
+  if (!state.activeSession) {
+    const next = tasks.filter(isReady).find(t => !t.checked);
+    if (!next) {
+      log('Nothing unchecked under ### Ready. Queue is empty (Blocked and Human Review are never dispatched).');
+    } else {
+      log(`Dispatching next task: ${next.text.slice(0, 100)}`);
+
+      const claimId = `claim_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+
+      // 1. Durably record pending dispatch reservation with claimId FIRST
+      state.activeSession = {
+        name: 'pending',
+        claimId,
+        task: next.text,
+        taskId: extractTaskId(next.text),
+        title: extractTitle(next.text),
+        startedAt: new Date().toISOString(),
+      };
+      stateChanged = true;
+
+      if (saveStateAndPush) {
+        saveStateAndPush(state);
+      }
+
+      const taskTitleWithClaim = `${next.text.replace(/[*`]/g, '').slice(0, 60)} [claim:${claimId}]`;
+
+      // 2. Dispatch Jules session
+      const session = await julesFetch('sessions', {
+        method: 'POST',
+        body: JSON.stringify({
+          prompt: buildPrompt(next) + `\n\n[claim:${claimId}]`,
+          sourceContext: { source: process.env.JULES_SOURCE || 'sources/github/japiohopman/fundraiser', githubRepoContext: { startingBranch: 'main' } },
+          automationMode: 'AUTO_CREATE_PR',
+          title: taskTitleWithClaim,
+        }),
+      });
+      log(`Started Jules session ${session.name}`);
+
+      // 3. Update state with returned session name
+      state.activeSession.name = session.name;
+    }
+  }
+
+  return { stateChanged, state };
+}
+
 async function main() {
   for (const name of ['JULES_API_KEY', 'GITHUB_TOKEN', 'GITHUB_REPOSITORY', 'JULES_SOURCE']) {
     if (!process.env[name]) throw new Error(`${name} is not set`);
   }
 
   const state = loadState();
-  const tasks = parseNow(readFileSync(ROADMAP_PATH, 'utf8'));
-  let stateChanged = false;
+  const roadmapText = readFileSync(ROADMAP_PATH, 'utf8');
 
-  if (state.activeSession) {
-    const active = state.activeSession;
-    const entry = tasks.find(t => t.text === active.task);
-    if (!entry) {
-      throw new Error(
-        `Active task "${active.task}" was not found under "## Now" in ${ROADMAP_PATH}. ` +
-        `Restore the task line, or set activeSession to null in ${STATE_PATH} if it was cancelled on purpose.`
-      );
-    }
-
-    console.log(`Active task: ${active.task.slice(0, 100)}`);
-    const session = await julesFetch(active.name);
-    console.log(`Jules session ${active.name} state: ${session.state ?? 'unknown'}`);
-    if (session.state === 'FAILED') {
-      throw new Error(`Jules session ${active.name} FAILED. Look at it in Jules, then set activeSession to null in ${STATE_PATH} to retry the task.`);
-    }
-
-    const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
-    if (!prOutput) {
-      const hours = (Date.now() - new Date(active.startedAt).getTime()) / 36e5;
-      console.log(hours > STALE_HOURS
-        ? `No PR after ${Math.round(hours)}h — check the session in Jules; it may be waiting for input.`
-        : 'No PR yet. Nothing to do this run.');
-      return;
-    }
-
-    const prNumber = prNumberFrom(prOutput.url);
-    if (!prNumber) throw new Error(`Could not parse PR number from ${prOutput.url}`);
-    const pr = await githubFetch(`pulls/${prNumber}`);
-    if (/^\s*- \[[ x]\].*Content approval:\s*Required/i.test(task.body.join('\n')) || /Content approval:\s*Required/i.test(task.body.join('\n'))) {
-      await githubRequest(`issues/${prNumber}/labels`, {
-        method: 'POST',
-        body: JSON.stringify({ labels: ['content-approved'] }),
-      });
-      console.log(`Applied content-approved label to PR #${prNumber}.`);
-    }
-    if (!pr.merged) {
-      console.log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
-      return;
-    }
-    if (!entry.checked) {
-      console.log(`PR #${prNumber} is merged, but the task is still unchecked in the roadmap. Jules could not fully verify it — read the PR description, then tick the box yourself if you are satisfied.`);
-      return;
-    }
-
-    console.log(`PR #${prNumber} merged and task confirmed done. Advancing the queue.`);
-    state.activeSession = null;
-    stateChanged = true;
-  }
-
-  if (!state.activeSession) {
-    const next = tasks.filter(isReady).find(t => !t.checked);
-    if (!next) {
-      console.log('Nothing unchecked under ### Ready. Queue is empty (Blocked and Human Review are never dispatched).');
-    } else {
-      console.log(`Dispatching next task: ${next.text.slice(0, 100)}`);
-      const session = await julesFetch('sessions', {
-        method: 'POST',
-        body: JSON.stringify({
-          prompt: buildPrompt(next),
-          sourceContext: { source: process.env.JULES_SOURCE, githubRepoContext: { startingBranch: 'main' } },
-          automationMode: 'AUTO_CREATE_PR',
-          title: next.text.replace(/[*`]/g, '').slice(0, 80),
-        }),
-      });
-      // Logged first: if saving the state below ever fails, this line tells you which session is orphaned.
-      console.log(`Started Jules session ${session.name}`);
-      state.activeSession = { name: session.name, task: next.text, startedAt: new Date().toISOString() };
-      stateChanged = true;
-    }
-  }
+  const { stateChanged } = await orchestrate({
+    state,
+    roadmapText,
+    saveStateAndPush: (s) => {
+      saveState(s);
+      commitAndPush();
+    },
+  });
 
   if (stateChanged) {
     saveState(state);
@@ -227,8 +436,6 @@ function commitAndPush() {
   try {
     execSync('git push');
   } catch (e) {
-    // Retry once after a rebase. If that also fails the job goes red on purpose: the state was not
-    // saved, and staying silent would let the next run start a duplicate session.
     console.log('Push failed, retrying after rebase:', e.message);
     execSync('git pull --rebase');
     execSync('git push');
