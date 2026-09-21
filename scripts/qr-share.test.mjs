@@ -18,13 +18,18 @@ const fundraisersData = JSON.parse(readFileSync(new URL('../data/fundraisers.jso
  * @param {number} targetSize
  * @returns {{ data: Uint8Array, width: number, height: number }}
  */
-function rasterizeSvgToRgba(svgStr, targetSize = 220) {
+function rasterizeSvgToRgba(svgStr, targetWidth, targetHeight) {
+  const widthAttr = svgStr.match(/width=\"(\d+)\"/);
+  const heightAttr = svgStr.match(/height=\"(\d+)\"/);
+  const renderWidth = targetWidth || (widthAttr ? parseInt(widthAttr[1]) : 220);
+  const renderHeight = targetHeight || (heightAttr ? parseInt(heightAttr[1]) : 220);
+
   const viewBoxMatch = svgStr.match(/viewBox=\"0 0 (\d+) (\d+)\"/);
   if (!viewBoxMatch) throw new Error('viewBox attribute missing from SVG string');
   const viewSize = parseInt(viewBoxMatch[1]);
-  const scale = targetSize / viewSize;
+  const scale = renderWidth / viewSize;
 
-  const data = new Uint8Array(targetSize * targetSize * 4);
+  const data = new Uint8Array(renderWidth * renderHeight * 4);
   data.fill(255); // White background
 
   const dMatch = svgStr.match(/d=\"([^\"]+)\"/);
@@ -71,8 +76,8 @@ function rasterizeSvgToRgba(svgStr, targetSize = 220) {
 
         for (let py = startY; py < endY; py++) {
           for (let px = startX; px < endX; px++) {
-            if (px >= 0 && px < targetSize && py >= 0 && py < targetSize) {
-              const idx = (py * targetSize + px) * 4;
+            if (px >= 0 && px < renderWidth && py >= 0 && py < renderHeight) {
+              const idx = (py * renderWidth + px) * 4;
               data[idx] = 0;
               data[idx + 1] = 0;
               data[idx + 2] = 0;
@@ -84,7 +89,48 @@ function rasterizeSvgToRgba(svgStr, targetSize = 220) {
     }
   }
 
-  return { data, width: targetSize, height: targetSize };
+  return { data, width: renderWidth, height: renderHeight };
+}
+
+function parseSvgPathToMatrix(svgStr) {
+  const viewBoxMatch = svgStr.match(/viewBox=\"0 0 (\d+) (\d+)\"/);
+  if (!viewBoxMatch) throw new Error('viewBox missing');
+  const viewSize = parseInt(viewBoxMatch[1]);
+  const matrix = Array.from({ length: viewSize }, () => new Array(viewSize).fill(false));
+
+  const dMatch = svgStr.match(/d=\"([^\"]+)\"/);
+  if (!dMatch) throw new Error('d missing');
+  const d = dMatch[1];
+
+  let subpathStart = { x: 0, y: 0 };
+  const regex = /([MmLlHhVvZz])|(-?\d+(?:\.\d+)?)/g;
+  let match;
+  const tokens = [];
+  while ((match = regex.exec(d)) !== null) {
+    tokens.push(match[0]);
+  }
+
+  let i = 0;
+  while (i < tokens.length) {
+    const cmd = tokens[i++];
+    if (cmd === 'M') {
+      const x = parseFloat(tokens[i++]);
+      const y = parseFloat(tokens[i++]);
+      subpathStart = { x, y };
+      matrix[Math.floor(y)][Math.floor(x)] = true;
+    } else if (cmd === 'm') {
+      const dx = parseFloat(tokens[i++]);
+      const dy = parseFloat(tokens[i++]);
+      const x = subpathStart.x + dx;
+      const y = subpathStart.y + dy;
+      subpathStart = { x, y };
+      matrix[Math.floor(y)][Math.floor(x)] = true;
+    } else if (cmd === 'h' || cmd === 'v' || cmd === 'H' || cmd === 'V') {
+      i++;
+    }
+  }
+
+  return { matrix, viewSize };
 }
 
 test('QR Code Generation and Real Decode Verification at rendered size 220x220', () => {
@@ -97,12 +143,54 @@ test('QR Code Generation and Real Decode Verification at rendered size 220x220',
   for (const url of testUrls) {
     const svg = QRCodeGen.createSVG(url);
     assert.ok(svg.includes('<svg'), `SVG output missing <svg tag for ${url}`);
+    assert.ok(svg.includes('width="220"'), `SVG output must explicitly declare width="220" for production contract`);
+    assert.ok(svg.includes('height="220"'), `SVG output must explicitly declare height="220" for production contract`);
     assert.ok(svg.includes('path'), `SVG output missing path element for ${url}`);
 
-    const rasterizedImage = rasterizeSvgToRgba(svg, 220);
+    // Parse production dimensions from SVG tag itself
+    const widthMatch = svg.match(/width=\"(\d+)\"/);
+    const heightMatch = svg.match(/height=\"(\d+)\"/);
+    const prodWidth = parseInt(widthMatch[1]);
+    const prodHeight = parseInt(heightMatch[1]);
+
+    assert.equal(prodWidth, 220, 'Production width contract must equal 220');
+    assert.equal(prodHeight, 220, 'Production height contract must equal 220');
+
+    const rasterizedImage = rasterizeSvgToRgba(svg, prodWidth, prodHeight);
     const decodedUrl = decodeQR(rasterizedImage);
 
     assert.equal(decodedUrl, url, `Decoded QR text '${decodedUrl}' does not match original URL '${url}'`);
+  }
+});
+
+test('Independent QR Finder Pattern Structural Correctness Check', () => {
+  const testUrls = [
+    'https://japiohopman.github.io/fundraiser',
+    'https://japiohopman.github.io/fundraiser#fundraiser-manon-kinkt-shirts'
+  ];
+
+  for (const url of testUrls) {
+    const svg = QRCodeGen.createSVG(url);
+    const { matrix, viewSize } = parseSvgPathToMatrix(svg);
+
+    // Verify 7x7 outer finder pattern structure independently of decoder
+    const assertFinder = (startR, startC) => {
+      for (let r = 0; r < 7; r++) {
+        for (let c = 0; c < 7; c++) {
+          const isOuter = (r === 0 || r === 6 || c === 0 || c === 6);
+          const isInner = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+          const expected = isOuter || isInner;
+          const actual = matrix[startR + r][startC + c];
+          assert.equal(actual, expected, `Finder module at (${startR + r}, ${startC + c}) must be ${expected}`);
+        }
+      }
+    };
+
+    // Finder patterns are at quietZone offset (2 modules in paulmillr/qr)
+    const quietZone = 2;
+    assertFinder(quietZone, quietZone); // Top-Left
+    assertFinder(quietZone, viewSize - quietZone - 7); // Top-Right
+    assertFinder(viewSize - quietZone - 7, quietZone); // Bottom-Left
   }
 });
 

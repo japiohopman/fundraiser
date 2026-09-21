@@ -1,3 +1,7 @@
+/*!
+ * Copyright (c) 2023 Paul Miller (paulmillr.com)
+ * SPDX-License-Identifier: MIT OR Apache-2.0
+ */
 import { _ALPHANUMERIC as ALPHANUMERIC, _BYTES as BYTES, _ECC_BLOCKS as ECC_BLOCKS, _ECC_LEVELS as ECC_LEVELS, _GF256 as GF256, _WORDS_PER_BLOCK as WORDS_PER_BLOCK, _formatBits as formatBits, _maskBits as maskBits, _popcnt as popcnt, _versionBits as versionBits, } from './qr.js';
 const cap = (value, min, max) => {
     let result = value;

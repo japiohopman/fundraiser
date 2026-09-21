@@ -5,11 +5,12 @@ import { encodeQR } from '../vendor/qr.js';
  */
 export class QRCodeGen {
   /**
-   * Generates a standards-compliant SVG string for any URL.
+   * Generates a standards-compliant SVG string for any URL with explicit 220x220 production dimensions.
    * @param {string} text
    * @returns {string}
    */
   static createSVG(text) {
-    return encodeQR(text, 'svg');
+    const svg = encodeQR(text, 'svg');
+    return svg.replace('<svg ', '<svg width="220" height="220" role="img" aria-label="QR Code" ');
   }
 }
