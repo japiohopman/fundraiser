@@ -40,8 +40,10 @@ const STALE_HOURS = 48;
 
 const HARD_LIMITS =
   'Hard limits for this repository: do NOT add or change any factual claim about a campaign, ' +
-  'person, amount, beneficiary or money flow; do NOT edit anything under data/ or the evidence ' +
-  'in docs/fundraisers.md, docs/editorial-policy.md or docs/story.md; do NOT add user-visible ' +
+  'person, amount, beneficiary or money flow unless the Ready task explicitly requires a verified ' +
+  'content update and the PR receives the content-approved label; do NOT edit protected evidence ' +
+  'in docs/fundraisers.md, docs/editorial-policy.md or docs/story.md; do not edit anything under ' +
+  'data/ unless the Ready task explicitly allows that exact content-data scope. Do NOT add user-visible ' +
   'text unless the task explicitly allows it. Keep this a static site: no backend, no new ' +
   'runtime dependencies, no scraping. Never edit the "### Blocked" or "### Human Review" ' +
   'sections of docs/roadmap.md or any task other than your own.';
@@ -96,13 +98,20 @@ async function julesFetch(path, options = {}) {
   if (!res.ok) throw new Error(`Jules API ${path} failed: ${res.status} ${await res.text()}`);
   return res.json();
 }
-async function githubFetch(path) {
+async function githubRequest(path, options = {}) {
   const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/${path}`, {
-    headers: { Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, Accept: 'application/vnd.github+json' },
+    ...options,
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
   });
   if (!res.ok) throw new Error(`GitHub API ${path} failed: ${res.status} ${await res.text()}`);
-  return res.json();
+  return res.status === 204 ? null : res.json();
 }
+async function githubFetch(path) { return githubRequest(path); }
 const prNumberFrom = url => Number((url.match(/\/pull\/(\d+)/) || [])[1]) || null;
 
 function buildPrompt(task) {
@@ -157,6 +166,13 @@ async function main() {
     const prNumber = prNumberFrom(prOutput.url);
     if (!prNumber) throw new Error(`Could not parse PR number from ${prOutput.url}`);
     const pr = await githubFetch(`pulls/${prNumber}`);
+    if (/^\s*- \[[ x]\].*Content approval:\s*Required/i.test(task.body.join('\n')) || /Content approval:\s*Required/i.test(task.body.join('\n'))) {
+      await githubRequest(`issues/${prNumber}/labels`, {
+        method: 'POST',
+        body: JSON.stringify({ labels: ['content-approved'] }),
+      });
+      console.log(`Applied content-approved label to PR #${prNumber}.`);
+    }
     if (!pr.merged) {
       console.log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
       return;
