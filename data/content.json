@@ -316,10 +316,76 @@
           "en": "Jim Gijbels — Tram Paintings"
         },
         "text": {
-          "nl": "Jim's tramschilderijen werden geëxposeerd in ParkNest en gingen verloren bij de brand. Zijn persoonlijke inzameling heeft inmiddels het doelbedrag bereikt.",
-          "en": "Jim's tram paintings were exhibited at ParkNest and were lost in the fire. His personal fundraiser has reached its target."
+          "nl": "Jim Gijbels schildert trams en zijn schilderijen werden geëxposeerd in ParkNest, waar ze bij de brand verloren gingen (bevestigd in het officiële ParkNest-bericht). Onderstaande afbeeldingen zijn afkomstig van Beeldend Gesproken en dienen als visuele voorbeelden van zijn werk, met de door Beeldend Gesproken vermelde verkoopprijzen (géén bewijs van de exact verloren gegane doeken of vervangingswaarde). Zijn Online Gallery biedt aanvullende kunstenaarscontext. Zijn persoonlijke inzameling op WhyDonate heeft het streefbedrag van € 300 bereikt (opgehaald: € 330 volgens de bron-momentopname van 19 september 2026) en blijft open-ended op het platform.",
+          "en": "Jim Gijbels paints trams and his paintings were exhibited at ParkNest, where they were lost in the fire (confirmed in the official ParkNest statement). The images below originate from Beeldend Gesproken and serve as visual examples of his work, displaying listed sale prices from Beeldend Gesproken (not proof of the exact lost canvases or replacement valuation). His Online Gallery provides additional artist profile context. His personal fundraiser on WhyDonate reached its €300 target (€330 raised as of the 19 September 2026 source snapshot) and remains open-ended on the platform."
         },
-        "link": null
+        "images": {
+          "header": "public/assets/jim-gallery/header.jpg",
+          "headerAlt": {
+            "nl": "Schilderij 'Overtoom' van Jim Gijbels",
+            "en": "Painting 'Overtoom' by Jim Gijbels"
+          },
+          "headerCaption": {
+            "nl": "Overtoom — € 485,- (koop incl. btw, Beeldend Gesproken)",
+            "en": "Overtoom — €485 (sale price incl. VAT, Beeldend Gesproken)"
+          },
+          "headerLink": "https://www.beeldendgesproken.nl/product/overtoom",
+          "gallery": [
+            "public/assets/jim-gallery/postjesweg.jpg",
+            "public/assets/jim-gallery/stadionplein.jpg",
+            "public/assets/jim-gallery/volle-maan-cs.jpg",
+            "public/assets/jim-gallery/avondsfeer-2.jpg"
+          ],
+          "galleryAlts": [
+            {
+              "nl": "Schilderij 'Postjesweg' van Jim Gijbels",
+              "en": "Painting 'Postjesweg' by Jim Gijbels"
+            },
+            {
+              "nl": "Schilderij 'Stadionplein' van Jim Gijbels",
+              "en": "Painting 'Stadionplein' by Jim Gijbels"
+            },
+            {
+              "nl": "Schilderij 'Volle maan CS' van Jim Gijbels",
+              "en": "Painting 'Volle maan CS' by Jim Gijbels"
+            },
+            {
+              "nl": "Schilderij 'Avondsfeer' van Jim Gijbels",
+              "en": "Painting 'Avondsfeer' by Jim Gijbels"
+            }
+          ],
+          "galleryCaptions": [
+            {
+              "nl": "Postjesweg — € 375,- (koop incl. btw)",
+              "en": "Postjesweg — €375 (sale price incl. VAT)"
+            },
+            {
+              "nl": "Stadionplein — € 375,- (koop incl. btw)",
+              "en": "Stadionplein — €375 (sale price incl. VAT)"
+            },
+            {
+              "nl": "Volle maan CS — € 375,- (koop incl. btw)",
+              "en": "Volle maan CS — €375 (sale price incl. VAT)"
+            },
+            {
+              "nl": "Avondsfeer — € 150,- (koop incl. btw)",
+              "en": "Avondsfeer — €150 (sale price incl. VAT)"
+            }
+          ],
+          "galleryLinks": [
+            "https://www.beeldendgesproken.nl/product/postjesweg",
+            "https://www.beeldendgesproken.nl/product/stadionplein",
+            "https://www.beeldendgesproken.nl/product/volle-maan-cs",
+            "https://www.beeldendgesproken.nl/product/avondsfeer-2"
+          ]
+        },
+        "link": {
+          "url": "https://onlinegallery.art/en/artist/jim-gijbels/",
+          "label": {
+            "nl": "Online Gallery van Jim Gijbels",
+            "en": "Online Gallery of Jim Gijbels"
+          }
+        }
       },
       "rooie-jaap-knives": {
         "title": {
