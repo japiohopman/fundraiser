@@ -155,7 +155,10 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Campaign URL:** https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
-- **Stated Purpose:** Replacing kitchenware and cooking equipment belonging to chef Suzy Creamcheese (Kok Suzy Creamcheese), lost in the ParkNest fire.
+- **Stated Purpose:** Replacing kitchenware and cooking equipment belonging to chef Suzy Creamcheese (Kok Suzy Creamcheese), lost in the ParkNest fire, as well as addressing the loss of her regular Friday cooking work at ParkNest (preparing meals for 50+ people weekly).
+- **Contextual Information & Provenance:**
+  - Additional context supplied by Jaap Hopman indicates Suzy Creamcheese was the regular Friday cook at ParkNest preparing weekly meals for over 50 people, and lost both her cooking equipment and her regular Friday cooking work due to the destruction of the venue.
+  - This contextual statement is attributed to Jaap Hopman with clear provenance metadata in the modal details, distinguishing contextual input from platform source payloads without claiming calculated income loss.
 - **Financial Accounting Snapshot (as of 20 September 2026):**
   - **Target Amount:** €2,350
   - **Online Amount Raised:** €1,050 (2 donations)

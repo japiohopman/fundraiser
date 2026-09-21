@@ -304,9 +304,17 @@
           "nl": "Kok Suzy Creamcheese — Keukengerei",
           "en": "Chef Suzy Creamcheese — Kitchenware"
         },
+        "provenanceBadge": {
+          "nl": "Contextuele informatie verstrekt door Jaap Hopman",
+          "en": "Contextual information provided by Jaap Hopman"
+        },
+        "provenanceNote": {
+          "nl": "Onderstaande informatie over de werkzaamheden van Suzy Creamcheese is verstrekt door Jaap Hopman als aanvullende context bij deze persoonlijke inzameling.",
+          "en": "The information below regarding Suzy Creamcheese's work was provided by Jaap Hopman as additional context for this personal fundraiser."
+        },
         "text": {
-          "nl": "Suzy Creamcheese was een vaste kok bij ParkNest en bereidde daar de vrijdagse maaltijden. Haar keukengerei en kookmateriaal hoorden bij wat zij op de locatie gebruikte en gingen bij de brand verloren.",
-          "en": "Suzy Creamcheese was a regular cook at ParkNest and prepared Friday meals there. Her kitchenware and cooking equipment were part of what she used at the venue and were lost in the fire."
+          "nl": "Suzy Creamcheese was de vaste kok op vrijdag bij ParkNest en verzorgde daar wekelijks maaltijden voor meer dan 50 mensen. Bij de brand gingen haar pannen, keukengerei en ander kookmateriaal verloren. Daarnaast viel haar vaste vrijdagwerk bij ParkNest weg door de verwoesting van de locatie. Haar persoonlijke inzameling is daarom niet alleen gericht op het vervangen van verloren kookmateriaal, maar hangt ook samen met het wegvallen van haar vaste werk op deze locatie. Dit is een afzonderlijke persoonlijke inzameling en geen donatie aan de algemene ParkNest-heropbouw.",
+          "en": "Suzy Creamcheese was the regular Friday cook at ParkNest, preparing weekly meals for over 50 people. In the fire, her pans, kitchenware, and other cooking equipment were lost. In addition, her regular Friday work at ParkNest was lost due to the destruction of the location. Her personal fundraiser is therefore not only aimed at replacing lost cooking equipment, but also relates to the loss of her regular work at this location. This is a separate personal fundraiser and not a donation to the general ParkNest rebuild."
         },
         "link": null
       },
@@ -511,8 +519,8 @@
       "en": "Supports replacing documented lost chef equipment (professional chef knives and gear) for Jaap Hopman."
     },
     "suzyCreamcheese": {
-      "nl": "Ondersteunt de vervanging van keukengerei en kookmateriaal van Kok Suzy Creamcheese.",
-      "en": "Supports replacing kitchenware and cooking equipment belonging to Chef Suzy Creamcheese."
+      "nl": "Ondersteunt het vervangen van verloren keukengerei en kookmateriaal van Kok Suzy Creamcheese en hangt samen met het wegvallen van haar vaste vrijdagwerk bij ParkNest.",
+      "en": "Supports replacing lost kitchenware and cooking equipment belonging to Chef Suzy Creamcheese and relates to the loss of her regular Friday work at ParkNest."
     },
     "manon": {
       "nl": "Ondersteunt de vervanging van verloren gane Kinkt! T-shirts van Manon.",
