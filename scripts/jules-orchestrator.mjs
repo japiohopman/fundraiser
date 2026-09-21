@@ -39,6 +39,7 @@ import { fileURLToPath } from 'node:url';
 const STATE_PATH = '.github/jules-queue-state.json';
 const ROADMAP_PATH = process.env.ROADMAP_PATH || 'docs/roadmap.md';
 const STALE_HOURS = 48;
+const PENDING_TIMEOUT_MINUTES = 10;
 
 const HARD_LIMITS =
   'Hard limits for this repository: do NOT add or change any factual claim about a campaign, ' +
@@ -205,7 +206,7 @@ export async function orchestrate({
 
     // Handle pending reservation claim from a previous run where dispatch was initiated
     if (active.name === 'pending') {
-      log(`Found pending dispatch reservation for task: ${active.task.slice(0, 100)}`);
+      log(`Found pending dispatch reservation (claim: ${active.claimId || 'legacy'}) for task: ${active.task.slice(0, 100)}`);
       let listRes = null;
       try {
         listRes = await julesFetch('sessions');
@@ -214,17 +215,26 @@ export async function orchestrate({
       }
       const sessions = Array.isArray(listRes) ? listRes : (listRes?.sessions || []);
       const matched = sessions.find(s => {
-        if (!s.title && !s.prompt) return false;
-        const titleMatches = s.title && (s.title.includes(active.title) || active.title.includes(s.title));
-        return titleMatches;
+        if (active.claimId) {
+          const inTitle = s.title && s.title.includes(`[claim:${active.claimId}]`);
+          const inPrompt = s.prompt && s.prompt.includes(`[claim:${active.claimId}]`);
+          return Boolean(inTitle || inPrompt);
+        }
+        // Legacy fallback without claimId: exact match on title prefix
+        return s.title && s.title === active.title;
       });
 
       if (matched) {
-        log(`Recovered orphaned session ${matched.name} for pending reservation.`);
+        log(`Recovered orphaned session ${matched.name} for claim ${active.claimId || 'legacy'}.`);
         active.name = matched.name;
         stateChanged = true;
       } else {
-        log(`No existing Jules session found for pending reservation of "${active.task.slice(0, 100)}". Clearing reservation to retry.`);
+        const ageMinutes = active.startedAt ? (Date.now() - new Date(active.startedAt).getTime()) / 60000 : 0;
+        if (ageMinutes < PENDING_TIMEOUT_MINUTES) {
+          log(`Pending reservation claim ${active.claimId || 'legacy'} has no matching session in Jules yet (${Math.round(ageMinutes)}m old). Keeping pending reservation and waiting conservatively.`);
+          return { stateChanged: false, state };
+        }
+        log(`Pending reservation claim ${active.claimId || 'legacy'} timed out after ${Math.round(ageMinutes)}m without appearing in Jules sessions list. Clearing reservation to retry.`);
         state.activeSession = null;
         stateChanged = true;
       }
@@ -245,7 +255,7 @@ export async function orchestrate({
         session = await julesFetch(active.name);
       } catch (err) {
         if (err.message && err.message.includes('404')) {
-          log(`Jules session ${active.name} was not found (404). Clearing stale active session.`);
+          log(`Jules session ${active.name} returned 404.`);
           sessionNotFound = true;
         } else {
           throw new Error(`Failed to query Jules session ${active.name}: ${err.message}`);
@@ -253,10 +263,42 @@ export async function orchestrate({
       }
 
       if (sessionNotFound) {
-        state.activeSession = null;
-        stateChanged = true;
+        let matchingPr = null;
+        try {
+          const pulls = await githubFetch('pulls?state=all');
+          if (Array.isArray(pulls)) {
+            matchingPr = pulls.find(p => {
+              const bodyOrTitle = [p.title, p.body || ''].join('\n');
+              return bodyOrTitle.includes(active.task) || (entry && bodyOrTitle.includes(entry.text));
+            });
+          }
+        } catch (e) {
+          log(`Failed to verify GitHub PRs for 404 session: ${e.message}`);
+        }
+
+        if (matchingPr) {
+          if (matchingPr.merged) {
+            if (entry && !entry.checked) {
+              log(`Jules session ${active.name} returned 404, but merged PR #${matchingPr.number} exists and task is unchecked in roadmap. Waiting for human verification / tick.`);
+              return { stateChanged: false, state };
+            }
+            log(`Jules session ${active.name} returned 404, but associated PR #${matchingPr.number} is merged and complete. Clearing stale active session.`);
+            state.activeSession = null;
+            stateChanged = true;
+          } else if (matchingPr.state === 'open') {
+            log(`Jules session ${active.name} returned 404, but open PR #${matchingPr.number} exists. Keeping activeSession to prevent duplicate dispatch.`);
+            return { stateChanged: false, state };
+          } else {
+            log(`Jules session ${active.name} returned 404 and associated PR #${matchingPr.number} is closed unmerged. Treating session state as uncertain — keeping activeSession.`);
+            return { stateChanged: false, state };
+          }
+        } else {
+          log(`Jules session ${active.name} returned 404 and no associated GitHub PR was found. Treating session state as uncertain — keeping activeSession to prevent duplicate dispatch.`);
+          return { stateChanged: false, state };
+        }
       } else {
         const sessionState = session.state ?? 'UNKNOWN';
+        const isSessionFinished = ['FAILED', 'CANCELLED', 'COMPLETED'].includes(sessionState);
         log(`Jules session ${active.name} state: ${sessionState}`);
 
         const prOutput = (session.outputs || []).find(o => o.pullRequest)?.pullRequest;
@@ -289,9 +331,14 @@ export async function orchestrate({
             state.activeSession = null;
             stateChanged = true;
           } else if (pr.state === 'closed') {
-            log(`PR #${prNumber} was closed without being merged. Clearing stale active session.`);
-            state.activeSession = null;
-            stateChanged = true;
+            if (isSessionFinished) {
+              log(`PR #${prNumber} was closed without being merged and Jules session state is terminal (${sessionState}). Clearing stale active session.`);
+              state.activeSession = null;
+              stateChanged = true;
+            } else {
+              log(`PR #${prNumber} is closed, but Jules session state is non-terminal (${sessionState}). Keeping activeSession until session reaches a terminal state.`);
+              return { stateChanged: false, state };
+            }
           } else {
             // PR is open, not merged yet
             log(`PR #${prNumber} is open, not merged yet — waiting for your review.`);
@@ -299,7 +346,6 @@ export async function orchestrate({
           }
         } else {
           // No PR created yet
-          const isSessionFinished = ['FAILED', 'CANCELLED', 'COMPLETED'].includes(sessionState);
           if (isSessionFinished) {
             log(`Jules session ${active.name} is ${sessionState} without a PR. Clearing stale active session.`);
             state.activeSession = null;
@@ -323,9 +369,12 @@ export async function orchestrate({
     } else {
       log(`Dispatching next task: ${next.text.slice(0, 100)}`);
 
-      // 1. Durably record pending dispatch reservation FIRST
+      const claimId = `claim_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+
+      // 1. Durably record pending dispatch reservation with claimId FIRST
       state.activeSession = {
         name: 'pending',
+        claimId,
         task: next.text,
         taskId: extractTaskId(next.text),
         title: extractTitle(next.text),
@@ -337,14 +386,16 @@ export async function orchestrate({
         saveStateAndPush(state);
       }
 
+      const taskTitleWithClaim = `${next.text.replace(/[*`]/g, '').slice(0, 60)} [claim:${claimId}]`;
+
       // 2. Dispatch Jules session
       const session = await julesFetch('sessions', {
         method: 'POST',
         body: JSON.stringify({
-          prompt: buildPrompt(next),
+          prompt: buildPrompt(next) + `\n\n[claim:${claimId}]`,
           sourceContext: { source: process.env.JULES_SOURCE || 'sources/github/japiohopman/fundraiser', githubRepoContext: { startingBranch: 'main' } },
           automationMode: 'AUTO_CREATE_PR',
-          title: next.text.replace(/[*`]/g, '').slice(0, 80),
+          title: taskTitleWithClaim,
         }),
       });
       log(`Started Jules session ${session.name}`);
