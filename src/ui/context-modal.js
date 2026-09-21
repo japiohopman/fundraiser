@@ -5,6 +5,8 @@ import { createRooieJaapEquipmentHTML } from '../features/rooie-jaap/equipment.j
  * Handles context overlay modal setup, opening, closing, focus restoration, focus trapping, and Escape key.
  */
 
+let contextModalFocusTimeout = null;
+
 /**
  * Initializes Context Modal listeners.
  * @param {Object} state
@@ -193,8 +195,18 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
   modal.removeAttribute('hidden');
   state.isContextModalOpen = true;
 
+  if (contextModalFocusTimeout) {
+    clearTimeout(contextModalFocusTimeout);
+    contextModalFocusTimeout = null;
+  }
+
   if (closeBtn) {
-    setTimeout(() => closeBtn.focus(), 50);
+    contextModalFocusTimeout = setTimeout(() => {
+      contextModalFocusTimeout = null;
+      if (state.isContextModalOpen && !modal.hidden && (document.body?.contains ? document.body.contains(closeBtn) : true)) {
+        closeBtn.focus();
+      }
+    }, 50);
   }
 }
 
@@ -205,6 +217,11 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
 export function closeContextModal(state) {
   const modal = document.getElementById('context-modal');
   if (!modal) return;
+
+  if (contextModalFocusTimeout) {
+    clearTimeout(contextModalFocusTimeout);
+    contextModalFocusTimeout = null;
+  }
 
   modal.classList.remove('open');
   modal.setAttribute('hidden', '');

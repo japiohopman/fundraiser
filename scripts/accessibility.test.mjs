@@ -77,3 +77,73 @@ test('Accessibility: styles.css contains focus-visible, touch target and reduced
   assert.ok(cssContent.includes('scroll-behavior: auto !important'), 'styles.css must disable smooth scroll under prefers-reduced-motion');
   assert.ok(cssContent.includes('.modal-close-btn'), 'styles.css must style .modal-close-btn');
 });
+
+test('Accessibility regression: QR modal focus lifecycle on rapid open/close', async () => {
+  const { openQRModal, closeQRModal } = await import('../src/ui/qr-modal.js');
+
+  let focusedElement = null;
+  const triggerBtn = {
+    focus: () => { focusedElement = triggerBtn; }
+  };
+
+  const closeBtn = {
+    id: 'qr-modal-close-btn',
+    focus: () => { focusedElement = closeBtn; }
+  };
+
+  const modal = {
+    id: 'qr-modal',
+    hidden: true,
+    classList: {
+      add: (cls) => { if (cls === 'open') modal.isOpenClass = true; },
+      remove: (cls) => { if (cls === 'open') modal.isOpenClass = false; }
+    },
+    hasAttribute: (attr) => attr === 'hidden' ? modal.hidden : false,
+    setAttribute: (attr, val) => { if (attr === 'hidden') modal.hidden = true; },
+    removeAttribute: (attr) => { if (attr === 'hidden') modal.hidden = false; }
+  };
+
+  const titleEl = { textContent: '' };
+  const svgContainer = { innerHTML: '' };
+  const urlEl = { textContent: '' };
+
+  const originalDoc = globalThis.document;
+  globalThis.document = {
+    getElementById: (id) => {
+      if (id === 'qr-modal') return modal;
+      if (id === 'qr-modal-campaign-name') return titleEl;
+      if (id === 'qr-code-svg-container') return svgContainer;
+      if (id === 'qr-modal-url-text') return urlEl;
+      if (id === 'qr-modal-close-btn') return closeBtn;
+      return null;
+    },
+    body: {
+      contains: (el) => el === closeBtn
+    },
+    activeElement: triggerBtn
+  };
+
+  try {
+    const state = { isQRModalOpen: false };
+
+    // 1. Rapidly open QR modal
+    openQRModal(state, 'Test Title', 'https://example.com', triggerBtn);
+    assert.equal(state.isQRModalOpen, true);
+    assert.equal(modal.hidden, false);
+
+    // 2. Immediately close QR modal before 50ms focus timeout elapses
+    closeQRModal(state);
+    assert.equal(state.isQRModalOpen, false);
+    assert.equal(modal.hidden, true);
+    assert.equal(focusedElement, triggerBtn, 'Focus must be restored immediately to triggerBtn on close');
+
+    // 3. Wait longer than 50ms timeout window
+    await new Promise((resolve) => setTimeout(resolve, 80));
+
+    // 4. Confirm focus did NOT leak to the now-hidden close button
+    assert.notEqual(focusedElement, closeBtn, 'Delayed callback must NOT focus close button when modal was immediately closed');
+    assert.equal(focusedElement, triggerBtn, 'Focus must remain on restored trigger button');
+  } finally {
+    globalThis.document = originalDoc;
+  }
+});

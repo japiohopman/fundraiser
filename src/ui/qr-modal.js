@@ -4,6 +4,8 @@ import { QRCodeGen } from './qr-code.js';
  * Handles QR modal setup, opening, closing, focus restoration, focus trapping, and Escape key handling.
  */
 
+let qrModalFocusTimeout = null;
+
 /**
  * Initializes QR modal event listeners (close button, overlay click, escape, focus trapping).
  * @param {Object} state
@@ -96,8 +98,18 @@ export function openQRModal(state, titleText, shareUrl, triggerEl) {
   modal.removeAttribute('hidden');
   state.isQRModalOpen = true;
 
+  if (qrModalFocusTimeout) {
+    clearTimeout(qrModalFocusTimeout);
+    qrModalFocusTimeout = null;
+  }
+
   if (closeBtn) {
-    setTimeout(() => closeBtn.focus(), 50);
+    qrModalFocusTimeout = setTimeout(() => {
+      qrModalFocusTimeout = null;
+      if (state.isQRModalOpen && !modal.hidden && (document.body?.contains ? document.body.contains(closeBtn) : true)) {
+        closeBtn.focus();
+      }
+    }, 50);
   }
 }
 
@@ -108,6 +120,11 @@ export function openQRModal(state, titleText, shareUrl, triggerEl) {
 export function closeQRModal(state) {
   const modal = document.getElementById('qr-modal');
   if (!modal) return;
+
+  if (qrModalFocusTimeout) {
+    clearTimeout(qrModalFocusTimeout);
+    qrModalFocusTimeout = null;
+  }
 
   modal.classList.remove('open');
   modal.setAttribute('hidden', '');
