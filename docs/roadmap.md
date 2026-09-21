@@ -27,7 +27,7 @@
 
 - [x] **Technical foundation: validation, share metadata and repo hygiene** (merged in PR #28)
 
-- [ ] **Manon T-shirt gallery: reconnect verified local assets** (Issue #39)
+- [x] **Manon T-shirt gallery: reconnect verified local assets** (Issue #39)
   - **Problem:** The Manon fundraiser Details overlay has existing local T-shirt assets in the repository, but the active content data no longer references them, so the gallery does not render the verified local images.
   - **Goal:** Reconnect the existing local Manon images to the generic Details/gallery renderer without restoring any WhyDonate CDN dependency.
   - **Scope:** Only the Manon campaign context image data in `data/content.json`, plus minimal verification/documentation changes required by the task.
