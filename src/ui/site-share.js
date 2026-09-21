@@ -93,6 +93,13 @@ export function toggleSiteSharePanel(state, forceState) {
   toggleBtn.setAttribute('aria-expanded', state.isSiteShareOpen ? 'true' : 'false');
   panel.hidden = !state.isSiteShareOpen;
   panel.classList.toggle('open', state.isSiteShareOpen);
+
+  if (state.isSiteShareOpen) {
+    const firstAction = panel.querySelector('.site-share-action-btn');
+    if (firstAction) {
+      setTimeout(() => firstAction.focus(), 50);
+    }
+  }
 }
 
 /**
