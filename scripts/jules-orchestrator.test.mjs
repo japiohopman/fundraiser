@@ -505,15 +505,16 @@ test('Dispatch failure window: pending recovery durably persists recovered sessi
   assert.equal(result.state.activeSession.name, 'sessions/correct-claim-123');
 });
 
-test('Pending reservation with no matching claim -> remain safely pending / do not blindly create duplicate until timeout', async () => {
+test('Pending reservation older than 10 minutes with no matching session -> remain pending; no replacement dispatch', async () => {
+  const oldDate = new Date(Date.now() - 30 * 60 * 1000).toISOString(); // 30 minutes old
   const pendingState = {
     activeSession: {
       name: 'pending',
-      claimId: 'claim_target_recent',
+      claimId: 'claim_old_123',
       task: '**Task 1**',
       title: 'Task 1',
       taskId: 'task-1',
-      startedAt: new Date().toISOString(), // recent (0 minutes old)
+      startedAt: oldDate,
     },
   };
   const roadmapText = `## Now\n### Ready\n- [ ] **Task 1**\n`;
@@ -525,9 +526,39 @@ test('Pending reservation with no matching claim -> remain safely pending / do n
     julesFetch: async (path, options) => {
       if (options?.method === 'POST') postCount++;
       if (path === 'sessions') {
+        return { sessions: [] };
+      }
+      return {};
+    },
+  });
+
+  assert.equal(postCount, 0, 'Should NOT create a replacement session even if pending reservation is old');
+  assert.equal(result.state.activeSession.name, 'pending', 'State must remain pending conservatively');
+});
+
+test('Pending reservation without claimId -> must not recover by title and must not dispatch replacement', async () => {
+  const legacyPendingState = {
+    activeSession: {
+      name: 'pending',
+      // claimId missing
+      task: '**Task 1**',
+      title: 'Task 1',
+      taskId: 'task-1',
+      startedAt: new Date().toISOString(),
+    },
+  };
+  const roadmapText = `## Now\n### Ready\n- [ ] **Task 1**\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state: legacyPendingState,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') postCount++;
+      if (path === 'sessions') {
         return {
           sessions: [
-            { name: 'sessions/wrong-claim-456', title: 'Task 1 [claim:claim_other_456]', state: 'IN_PROGRESS' },
+            { name: 'sessions/same-title-no-claim', title: 'Task 1', state: 'IN_PROGRESS' },
           ],
         };
       }
@@ -535,9 +566,8 @@ test('Pending reservation with no matching claim -> remain safely pending / do n
     },
   });
 
-  assert.equal(postCount, 0, 'Should NOT create a duplicate POST while pending reservation is recent');
-  assert.equal(result.stateChanged, false, 'State should remain pending and unchanged while waiting');
-  assert.equal(result.state.activeSession.name, 'pending');
+  assert.equal(postCount, 0, 'Should NOT dispatch a replacement session');
+  assert.equal(result.state.activeSession.name, 'pending', 'Must not recover by title alone without claimId; state remains pending');
 });
 
 test('Never dispatch more than one Jules session from a single run', async () => {

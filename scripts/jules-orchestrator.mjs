@@ -39,7 +39,6 @@ import { fileURLToPath } from 'node:url';
 const STATE_PATH = '.github/jules-queue-state.json';
 const ROADMAP_PATH = process.env.ROADMAP_PATH || 'docs/roadmap.md';
 const STALE_HOURS = 48;
-const PENDING_TIMEOUT_MINUTES = 10;
 
 const HARD_LIMITS =
   'Hard limits for this repository: do NOT add or change any factual claim about a campaign, ' +
@@ -206,7 +205,7 @@ export async function orchestrate({
 
     // Handle pending reservation claim from a previous run where dispatch was initiated
     if (active.name === 'pending') {
-      log(`Found pending dispatch reservation (claim: ${active.claimId || 'legacy'}) for task: ${active.task.slice(0, 100)}`);
+      log(`Found pending dispatch reservation (claim: ${active.claimId || 'none'}) for task: ${active.task.slice(0, 100)}`);
       let listRes = null;
       try {
         listRes = await julesFetch('sessions');
@@ -215,34 +214,22 @@ export async function orchestrate({
       }
       const sessions = Array.isArray(listRes) ? listRes : (listRes?.sessions || []);
       const matched = sessions.find(s => {
-        if (active.claimId) {
-          const inTitle = s.title && s.title.includes(`[claim:${active.claimId}]`);
-          const inPrompt = s.prompt && s.prompt.includes(`[claim:${active.claimId}]`);
-          return Boolean(inTitle || inPrompt);
-        }
-        // Legacy fallback without claimId: exact match on title prefix
-        return s.title && s.title === active.title;
+        if (!active.claimId) return false;
+        const inTitle = s.title && s.title.includes(`[claim:${active.claimId}]`);
+        const inPrompt = s.prompt && s.prompt.includes(`[claim:${active.claimId}]`);
+        return Boolean(inTitle || inPrompt);
       });
 
       if (matched) {
-        log(`Recovered orphaned session ${matched.name} for claim ${active.claimId || 'legacy'}.`);
+        log(`Recovered orphaned session ${matched.name} for claim ${active.claimId}.`);
         active.name = matched.name;
         stateChanged = true;
         if (saveStateAndPush) {
           saveStateAndPush(state);
         }
       } else {
-        const ageMinutes = active.startedAt ? (Date.now() - new Date(active.startedAt).getTime()) / 60000 : 0;
-        if (ageMinutes < PENDING_TIMEOUT_MINUTES) {
-          log(`Pending reservation claim ${active.claimId || 'legacy'} has no matching session in Jules yet (${Math.round(ageMinutes)}m old). Keeping pending reservation and waiting conservatively.`);
-          return { stateChanged, state };
-        }
-        log(`Pending reservation claim ${active.claimId || 'legacy'} timed out after ${Math.round(ageMinutes)}m without appearing in Jules sessions list. Clearing reservation to retry.`);
-        state.activeSession = null;
-        stateChanged = true;
-        if (saveStateAndPush) {
-          saveStateAndPush(state);
-        }
+        log(`Pending reservation claim ${active.claimId || 'none'} has no exact matching session in Jules yet. Keeping pending reservation and waiting conservatively.`);
+        return { stateChanged, state };
       }
     }
 
