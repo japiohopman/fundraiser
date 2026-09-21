@@ -6,7 +6,7 @@
 
 ### Ready
 
-- [ ] **Frontend Visual Refinement Audit** (Issue #49)
+- [x] **Frontend Visual Refinement Audit** (Issue #49)
   - **Problem:** The current frontend is functional and responsive, but the remaining visual issues need a disciplined audit before implementation: hierarchy, density, warning prominence, share UI, galleries, long-page navigation, motion, performance and edge states.
   - **Goal:** Produce an evidence-based frontend refinement plan without prematurely rewriting the visual system.
   - **Scope:** Current frontend implementation across NL/EN and approximately 320, 375, 480, 768, 1024, 1440 and 1920px.
