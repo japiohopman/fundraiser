@@ -45,6 +45,12 @@ export function trapModalFocus(e, modal) {
   const firstEl = visibleFocusables[0];
   const lastEl = visibleFocusables[visibleFocusables.length - 1];
 
+  if (!modal.contains(document.activeElement)) {
+    e.preventDefault();
+    firstEl?.focus();
+    return;
+  }
+
   if (e.shiftKey) {
     if (document.activeElement === firstEl) {
       e.preventDefault();

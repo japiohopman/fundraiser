@@ -38,7 +38,7 @@
   - **Acceptance:** Prioritized audit findings are addressed, NL/EN remain coherent, mobile and desktop layouts remain stable, and the site's visual hierarchy is clearer without adding decorative card density.
   - **Verification:** Run the existing test suite and browser/visual checks, including the audit viewport set, keyboard focus, reduced motion, modal/gallery behavior and language switching.
 
-- [ ] **Accessibility Refinement** (Issue #53)
+- [x] **Accessibility Refinement** (Issue #53)
   - **Problem:** Final accessibility verification should happen after the visual refinement work, not be assumed from automated checks alone.
   - **Goal:** Perform the final accessibility pass and document any remaining manual verification.
   - **Scope:** Landmarks, heading hierarchy, keyboard/focus, dialogs/galleries, screen-reader semantics, language switching, contrast, touch targets, reduced motion and error/control states.
@@ -102,7 +102,7 @@
 - [x] Complete visual design polish and brand color harmony (Issues #49, #50, #51 and #52)
 - [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing
-- [ ] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
+- [x] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
 
 ## Phase 2 — Static website deployment & delivery
 
