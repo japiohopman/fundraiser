@@ -14,7 +14,7 @@
   - **Acceptance:** Audit findings identify affected components/files, priority, recommended change and acceptance criteria. Existing design tokens/components are considered before proposing new ones.
   - **Verification:** Browser/visual checks at the defined viewport set, including mobile, reduced motion, keyboard interaction, share/navigation collisions, image behavior, print and broken-state experience. Document exactly what was checked.
 
-- [ ] **Brand Identity, Favicon & Metadata** (Issue #50)
+- [x] **Brand Identity, Favicon & Metadata** (Issue #50)
   - **Problem:** The site still needs a coherent neutral browser identity and complete sharing metadata.
   - **Goal:** Add a neutral independent-site mark and robust browser/social metadata without making the site look like a personal project.
   - **Scope:** Favicon/SVG mark, relevant browser metadata, theme color, Open Graph/Twitter metadata, and language-aware title/description where supported.

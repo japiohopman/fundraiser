@@ -53,6 +53,9 @@ jobs:
       - name: Run ParkNest Context Tests
         run: node --test scripts/parknest-context.test.mjs
 
+      - name: Run Metadata Tests
+        run: node --test scripts/metadata.test.mjs
+
       - name: Run Content Guard
         if: github.event_name == 'pull_request'
         env:
