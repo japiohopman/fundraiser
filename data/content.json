@@ -316,8 +316,39 @@
           "en": "Jim Gijbels — Tram Paintings"
         },
         "text": {
-          "nl": "Jim Gijbels schildert trams en zijn schilderijen werden geëxposeerd in ParkNest, waar ze bij de brand verloren gingen. Zijn persoonlijke inzameling op WhyDonate heeft het streefbedrag van € 300 bereikt (opgehaald: € 330 volgens de bron-momentopname van 19 september 2026). De actie blijft open-ended op het platform.",
-          "en": "Jim Gijbels paints trams, and his paintings were exhibited at ParkNest and lost in the fire. His personal fundraiser on WhyDonate has reached its €300 target (raised: €330 according to the 19 September 2026 source snapshot). The campaign remains open-ended on the platform."
+          "nl": "Jim Gijbels schildert trams en zijn schilderijen werden geëxposeerd in ParkNest, waar ze bij de brand verloren gingen (bevestigd in het officiële ParkNest-bericht). Onderstaande afbeeldingen zijn afkomstig van Beeldend Gesproken en dienen als visuele voorbeelden van zijn werk (géén bewijs van de exact verloren gegane doeken). Zijn Online Gallery biedt aanvullende kunstenaarscontext. Zijn persoonlijke inzameling op WhyDonate heeft het streefbedrag van € 300 bereikt (opgehaald: € 330 volgens de bron-momentopname van 19 september 2026) en blijft open-ended op het platform.",
+          "en": "Jim Gijbels paints trams, and his paintings were exhibited at ParkNest and lost in the fire (confirmed in ParkNest's official statement). The artwork images below are sourced from Beeldend Gesproken as visual examples of his work (not proof of the exact canvases lost). His Online Gallery provides artist profile context. His personal fundraiser on WhyDonate has reached its €300 target (raised: €330 according to the 19 September 2026 source snapshot) and remains open-ended on the platform."
+        },
+        "images": {
+          "header": "public/assets/jim-gallery/header.jpg",
+          "headerAlt": {
+            "nl": "Schilderij 'De Overtoom' van Jim Gijbels (Beeldend Gesproken)",
+            "en": "Painting 'De Overtoom' by Jim Gijbels (Beeldend Gesproken)"
+          },
+          "gallery": [
+            "public/assets/jim-gallery/postjesweg.jpg",
+            "public/assets/jim-gallery/stadionplein.jpg",
+            "public/assets/jim-gallery/volle-maan-cs.jpg",
+            "public/assets/jim-gallery/avondsfeer-2.jpg"
+          ],
+          "galleryAlts": [
+            {
+              "nl": "Schilderij 'Postjesweg' van Jim Gijbels (Beeldend Gesproken)",
+              "en": "Painting 'Postjesweg' by Jim Gijbels (Beeldend Gesproken)"
+            },
+            {
+              "nl": "Schilderij 'Stadionplein' van Jim Gijbels (Beeldend Gesproken)",
+              "en": "Painting 'Stadionplein' by Jim Gijbels (Beeldend Gesproken)"
+            },
+            {
+              "nl": "Schilderij 'Volle maan CS' van Jim Gijbels (Beeldend Gesproken)",
+              "en": "Painting 'Volle maan CS' by Jim Gijbels (Beeldend Gesproken)"
+            },
+            {
+              "nl": "Schilderij 'Avondsfeer' van Jim Gijbels (Beeldend Gesproken)",
+              "en": "Painting 'Avondsfeer' by Jim Gijbels (Beeldend Gesproken)"
+            }
+          ]
         },
         "link": {
           "url": "https://onlinegallery.art/en/artist/jim-gijbels/",
