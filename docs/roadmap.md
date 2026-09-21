@@ -25,7 +25,26 @@
   - **Acceptance:** One level less of nested borders and backgrounds around each campaign. Meta text is at least 14px. Goal and total amounts are clearly stronger than their labels. On print: navigation, share buttons and the QR modal are hidden; campaign-type labels and the separation warning remain visible; a campaign card is not split across pages. Checked at 375px and 1440px, and in a print preview.
   - **Verification:** Screenshots before and after at 375px and 1440px, plus a print-preview check (for example a headless browser PDF), described in the pull request.
 
-- [ ] **Technical foundation: validation, share metadata and repo hygiene**
+- [x] **Technical foundation: validation, share metadata and repo hygiene** (merged in PR #28)
+
+- [ ] **Manon T-shirt gallery: reconnect verified local assets** (Issue #39)
+  - **Problem:** The Manon fundraiser Details overlay has existing local T-shirt assets in the repository, but the active content data no longer references them, so the gallery does not render the verified local images.
+  - **Goal:** Reconnect the existing local Manon images to the generic Details/gallery renderer without restoring any WhyDonate CDN dependency.
+  - **Scope:** Only the Manon campaign context image data in `data/content.json`, plus minimal verification/documentation changes required by the task.
+  - **Constraints:** This is an intentional content-data change. The PR must carry the `content-approved` label. Do not download/create duplicate assets, modify the hero/cards, or add Manon-specific renderer code.
+  - **Acceptance:** Existing local Manon images render in the Details overlay in NL and EN, at mobile and desktop widths; every image loads successfully; image URLs are project-local; no `whydonate.com` image dependency remains.
+  - **Verification:** Use Playwright to open Manon Details, verify every gallery image has `naturalWidth > 0`, verify local `/fundraiser/` paths, test NL/EN and mobile/desktop, confirm no image 404s, and run Foundation Check.
+  - **Content approval:** Required — apply `content-approved` to the implementation PR.
+
+- [ ] **Jim Gijbels context: source-based details and target-reached status** (Issue #40)
+  - **Problem:** Jim's Details content needs a factual public-source explanation and a clear target-reached status without inventing a personal story or treating gallery asking prices as replacement valuation.
+  - **Goal:** Add the documented Jim context and Online Gallery link while preserving the verified financial snapshot and explicit editorial boundaries.
+  - **Scope:** Only the Jim campaign context block in `data/content.json`, plus minimal roadmap/metadata changes required by the content workflow.
+  - **Constraints:** This is an intentional content-data change. The PR must carry the `content-approved` label. Do not modify cards, hero, avatars, Manon media, QR/share code, donor wall, or other campaign facts.
+  - **Acceptance:** NL and EN Details show only the documented facts, the Online Gallery link works, the €300 target / €330 raised snapshot is explicitly dated 19 September 2026, and the open-ended status is preserved.
+  - **Verification:** Run the normal static-site checks; verify the Details overlay in NL/EN on mobile/desktop; verify the Online Gallery link and exact displayed amount/date; include source URLs in the PR description.
+  - **Content approval:** Required — apply `content-approved` to the implementation PR.
+
   - **Problem:** CI only checks that a few documents exist. Nothing validates `data/fundraisers.json` against its schema, or that `data/content.json` and `index.html` are well formed. `index.html` has no Open Graph or Twitter tags, so shared links show a bare preview. `styles.css` has hardcoded `#ffffff` values and a duplicate colour token, and an unused, byte-identical `jaaphopman_avatar.webp` sits in the repository root.
   - **Goal:** Let CI catch data and markup mistakes before merge, make shared links preview properly, and remove the small inconsistencies.
   - **Scope:** `.github/workflows/foundation-check.yml` (or a new workflow), a validation script under `scripts/`, the `<head>` of `index.html`, colour tokens in `styles.css`, and the root avatar file.
