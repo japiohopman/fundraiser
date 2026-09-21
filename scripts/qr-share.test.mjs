@@ -6,7 +6,7 @@ import { QRCodeGen } from '../src/ui/qr-code.js';
 import { decodeQR } from '../src/vendor/qr-decode.js';
 import { buildWhatsAppUrl, buildEmailUrl } from '../src/ui/share-actions.js';
 import { createShareSectionHTML } from '../src/features/fundraisers/share.js';
-import { SITE_SHARE_URL } from '../src/ui/site-share.js';
+import { SITE_SHARE_URL, toggleSiteSharePanel } from '../src/ui/site-share.js';
 import { createFundraiserCard } from '../src/features/fundraisers/card.js';
 
 const contentData = JSON.parse(readFileSync(new URL('../data/content.json', import.meta.url), 'utf8'));
@@ -299,6 +299,58 @@ test('Compact Donate CTA rendering and accessibility in fundraiser cards (NL and
       const expectedPrefix = lang === 'en' ? 'Donate to' : 'Doneer aan';
       assert.ok(ariaLabel.startsWith(expectedPrefix), `aria-label '${ariaLabel}' must start with '${expectedPrefix}' for ${item.id} (${lang})`);
     }
+  }
+});
+
+test('Share panel focus lifecycle: immediate close prevents focus leaking into hidden panel', async () => {
+  let focusedElement = null;
+  const toggleBtn = {
+    id: 'site-share-btn',
+    setAttribute: () => {},
+    focus: () => { focusedElement = toggleBtn; }
+  };
+  const firstAction = {
+    className: 'site-share-action-btn',
+    focus: () => { focusedElement = firstAction; }
+  };
+  const panel = {
+    id: 'site-share-panel',
+    hidden: true,
+    classList: { toggle: () => {} },
+    querySelector: (selector) => selector === '.site-share-action-btn' ? firstAction : null
+  };
+
+  const originalDoc = globalThis.document;
+  globalThis.document = {
+    getElementById: (id) => {
+      if (id === 'site-share-btn') return toggleBtn;
+      if (id === 'site-share-panel') return panel;
+      return null;
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {}
+  };
+
+  try {
+    const state = { isSiteShareOpen: false };
+
+    // 1. Open share panel
+    toggleSiteSharePanel(state, true);
+    assert.equal(state.isSiteShareOpen, true);
+    assert.equal(panel.hidden, false);
+
+    // 2. Immediately close share panel before timer fires
+    toggleSiteSharePanel(state, false);
+    assert.equal(state.isSiteShareOpen, false);
+    assert.equal(panel.hidden, true);
+
+    // 3. Wait for timer to elapse
+    await new Promise((resolve) => setTimeout(resolve, 80));
+
+    // 4. Verify focus did NOT move to firstAction in hidden panel
+    assert.notEqual(focusedElement, firstAction, 'Focus must NOT leak to firstAction inside hidden panel after immediate close');
+  } finally {
+    globalThis.document = originalDoc;
   }
 });
 

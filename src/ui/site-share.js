@@ -8,6 +8,8 @@ import {
 
 export const SITE_SHARE_URL = 'https://japiohopman.github.io/fundraiser';
 
+let siteShareFocusTimeout = null;
+
 /**
  * Initializes listeners for the fixed site-wide share button and popover panel.
  * @param {Object} state
@@ -94,10 +96,20 @@ export function toggleSiteSharePanel(state, forceState) {
   panel.hidden = !state.isSiteShareOpen;
   panel.classList.toggle('open', state.isSiteShareOpen);
 
+  if (siteShareFocusTimeout) {
+    clearTimeout(siteShareFocusTimeout);
+    siteShareFocusTimeout = null;
+  }
+
   if (state.isSiteShareOpen) {
     const firstAction = panel.querySelector('.site-share-action-btn');
     if (firstAction) {
-      setTimeout(() => firstAction.focus(), 50);
+      siteShareFocusTimeout = setTimeout(() => {
+        siteShareFocusTimeout = null;
+        if (state.isSiteShareOpen && !panel.hidden) {
+          firstAction.focus();
+        }
+      }, 50);
     }
   }
 }
