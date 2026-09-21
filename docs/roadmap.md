@@ -6,51 +6,45 @@
 
 ### Ready
 
-- [x] **Keyboard navigation and focus visibility** (merged in PR #18)
-- [x] **Contrast audit and fixes** (merged in PR #19)
+- [ ] **Frontend Visual Refinement Audit** (Issue #49)
+  - **Problem:** The current frontend is functional and responsive, but the remaining visual issues need a disciplined audit before implementation: hierarchy, density, warning prominence, share UI, galleries, long-page navigation, motion, performance and edge states.
+  - **Goal:** Produce an evidence-based frontend refinement plan without prematurely rewriting the visual system.
+  - **Scope:** Current frontend implementation across NL/EN and approximately 320, 375, 480, 768, 1024, 1440 and 1920px.
+  - **Constraints:** Audit first; do not perform a broad visual rewrite. Preserve the independent/editorial character. Separate objective defects from subjective recommendations. Do not introduce a new UI framework.
+  - **Acceptance:** Audit findings identify affected components/files, priority, recommended change and acceptance criteria. Existing design tokens/components are considered before proposing new ones.
+  - **Verification:** Browser/visual checks at the defined viewport set, including mobile, reduced motion, keyboard interaction, share/navigation collisions, image behavior, print and broken-state experience. Document exactly what was checked.
 
-- [x] **Page shell: header, typography, reading layout and responsive behaviour**
-  - **Problem:** At 375px the header (title, subtitle, language switcher, menu button) takes about 225px of the first screen and the subtitle is squeezed beside the buttons. On desktop the prose is capped near 68ch but sits in cards about 1000px wide, leaving a large empty area on the right. Hero and section titles use fixed sizes. Only two breakpoints exist (768px and 900px) and there is no wide-screen tuning.
-  - **Goal:** One coherent, mobile-first pass over the page shell: a compact header on small screens, fluid typography, a comfortable reading column on wide screens, and responsive behaviour that holds from 320px to 1440px.
-  - **Scope:** `styles.css`. `index.html` and `app.js` only for markup or class hooks the styling needs.
-  - **Constraints:** Presentation only. No visible text changes and no new user-visible strings. Keep the keyboard focus rings and the WCAG AA colour tokens from the earlier accessibility work. Do not change the fundraiser cards beyond what the shell needs (they get their own task).
-  - **Acceptance:** At 320, 375, 768, 1024 and 1440px there is no horizontal scrolling and no clipped or overlapping control. At 375px the header takes no more than about 120px, with title, language switcher and menu button all reachable. Hero and section titles scale fluidly (`clamp()`). On wide screens the prose column is narrowed so it no longer leaves a large empty area beside it. Every interactive element still shows a visible focus ring when tabbing.
-  - **Verification:** Serve the site statically, take before and after screenshots at the widths above, tab through the page once, and describe exactly what you checked in the pull request. Tick the Phase 1B item "Responsive design refinement across mobile, tablet, and desktop breakpoints" only if this task fully completes it.
+- [ ] **Brand Identity, Favicon & Metadata** (Issue #50)
+  - **Problem:** The site still needs a coherent neutral browser identity and complete sharing metadata.
+  - **Goal:** Add a neutral independent-site mark and robust browser/social metadata without making the site look like a personal project.
+  - **Scope:** Favicon/SVG mark, relevant browser metadata, theme color, Open Graph/Twitter metadata, and language-aware title/description where supported.
+  - **Constraints:** Do not use Jaap's avatar as the favicon. Do not rewrite fundraiser content. Avoid unnecessary manifest/branding complexity.
+  - **Acceptance:** NL/EN rendered HTML has valid metadata and all referenced assets resolve. The favicon represents the independent site rather than a person.
+  - **Verification:** Inspect rendered HTML in both languages and verify asset paths and share metadata.
 
-- [x] **Fundraiser cards: hierarchy, readability and print**
-  - **Problem:** Each campaign is shown inside three nested boxes (section card, group box, campaign card). The small meta text (organiser, legal entity, last verified) is hard to read, and the goal and total amounts are visually weaker than their labels. There is no print styling, and the page is about 13,600px long on mobile.
-  - **Goal:** Make each campaign card easier to scan and read while keeping the collective versus personal distinction unmistakable, and add a print stylesheet so the page prints as a usable document.
-  - **Scope:** `styles.css`. `index.html` and `app.js` only for markup or class hooks the styling needs (for example to flatten a wrapper).
-  - **Constraints:** Presentation only. No visible text changes, no new strings, no change to any number or wording. The green (collective) and indigo (personal) distinction, the campaign-type labels and the yellow separation warning must stay at least as prominent as they are now. Do not touch `data/`.
-  - **Acceptance:** One level less of nested borders and backgrounds around each campaign. Meta text is at least 14px. Goal and total amounts are clearly stronger than their labels. On print: navigation, share buttons and the QR modal are hidden; campaign-type labels and the separation warning remain visible; a campaign card is not split across pages. Checked at 375px and 1440px, and in a print preview.
-  - **Verification:** Screenshots before and after at 375px and 1440px, plus a print-preview check (for example a headless browser PDF), described in the pull request.
+- [ ] **Warning Block: Content & Visual Hierarchy** (Issue #51)
+  - **Problem:** The warning must make the distinction between the general ParkNest fundraiser and separate personal fundraisers immediately understandable.
+  - **Goal:** Create clear, factual NL/EN warning copy and a strong but restrained visual hierarchy.
+  - **Scope:** Existing prominent warning content and its presentation.
+  - **Constraints:** Use an exclamation-mark heading such as "Let op!" / an equivalent English warning. Use Kathinka van Velzen as the concrete example where needed. Do not mention Jaap in the warning. Do not add unsupported campaign claims.
+  - **Acceptance:** Visitors can understand that ParkNest's general fundraiser and personal fundraisers have different purposes, and that donating to a personal fundraiser is not automatically donating to ParkNest.
+  - **Verification:** Check NL/EN at mobile and desktop widths and confirm the warning does not rely on color alone.
 
-- [x] **Technical foundation: validation, share metadata and repo hygiene** (merged in PR #28)
+- [ ] **Frontend Refinement Implementation** (Issue #52)
+  - **Problem:** The audit findings need to be translated into focused frontend improvements rather than an uncontrolled redesign.
+  - **Goal:** Implement the prioritized visual/interaction refinements from Issue #49 while preserving architecture and editorial identity.
+  - **Scope:** Only the components and styles identified by the audit, plus the finalized warning presentation from Issue #51.
+  - **Constraints:** Presentation/interaction focused. Preserve existing components/tokens, responsive behavior and accessibility states. No duplicate state, new UI framework, or unrelated content changes.
+  - **Acceptance:** Prioritized audit findings are addressed, NL/EN remain coherent, mobile and desktop layouts remain stable, and the site's visual hierarchy is clearer without adding decorative card density.
+  - **Verification:** Run the existing test suite and browser/visual checks, including the audit viewport set, keyboard focus, reduced motion, modal/gallery behavior and language switching.
 
-- [x] **Manon T-shirt gallery: reconnect verified local assets** (Issue #39)
-  - **Problem:** The Manon fundraiser Details overlay has existing local T-shirt assets in the repository, but the active content data no longer references them, so the gallery does not render the verified local images.
-  - **Goal:** Reconnect the existing local Manon images to the generic Details/gallery renderer without restoring any WhyDonate CDN dependency.
-  - **Scope:** Only the Manon campaign context image data in `data/content.json`, plus minimal verification/documentation changes required by the task.
-  - **Constraints:** This is an intentional content-data change. The PR must carry the `content-approved` label. Do not download/create duplicate assets, modify the hero/cards, or add Manon-specific renderer code.
-  - **Acceptance:** Existing local Manon images render in the Details overlay in NL and EN, at mobile and desktop widths; every image loads successfully; image URLs are project-local; no `whydonate.com` image dependency remains.
-  - **Verification:** Use Playwright to open Manon Details, verify every gallery image has `naturalWidth > 0`, verify local `/fundraiser/` paths, test NL/EN and mobile/desktop, confirm no image 404s, and run Foundation Check.
-  - **Content approval:** Required — apply `content-approved` to the implementation PR.
-
-- [x] **Jim Gijbels context: source-based details and target-reached status** (Issue #40)
-  - **Problem:** Jim's Details content needs a factual public-source explanation and a clear target-reached status without inventing a personal story or treating gallery asking prices as replacement valuation.
-  - **Goal:** Add the documented Jim context and Online Gallery link while preserving the verified financial snapshot and explicit editorial boundaries.
-  - **Scope:** Only the Jim campaign context block in `data/content.json`, plus minimal roadmap/metadata changes required by the content workflow.
-  - **Constraints:** This is an intentional content-data change. The PR must carry the `content-approved` label. Do not modify cards, hero, avatars, Manon media, QR/share code, donor wall, or other campaign facts.
-  - **Acceptance:** NL and EN Details show only the documented facts, the Online Gallery link works, the €300 target / €330 raised snapshot is explicitly dated 19 September 2026, and the open-ended status is preserved.
-  - **Verification:** Run the normal static-site checks; verify the Details overlay in NL/EN on mobile/desktop; verify the Online Gallery link and exact displayed amount/date; include source URLs in the PR description.
-  - **Content approval:** Required — apply `content-approved` to the implementation PR.
-
-  - **Problem:** CI only checks that a few documents exist. Nothing validates `data/fundraisers.json` against its schema, or that `data/content.json` and `index.html` are well formed. `index.html` has no Open Graph or Twitter tags, so shared links show a bare preview. `styles.css` has hardcoded `#ffffff` values and a duplicate colour token, and an unused, byte-identical `jaaphopman_avatar.webp` sits in the repository root.
-  - **Goal:** Let CI catch data and markup mistakes before merge, make shared links preview properly, and remove the small inconsistencies.
-  - **Scope:** `.github/workflows/foundation-check.yml` (or a new workflow), a validation script under `scripts/`, the `<head>` of `index.html`, colour tokens in `styles.css`, and the root avatar file.
-  - **Constraints:** Do not edit anything under `data/`. No `package.json` or runtime dependency for the site itself; CI tools run via `npx` with pinned versions inside the workflow only. Validation must pass on current `main`; report genuine findings in the pull request instead of editing content to satisfy a tool. Meta tags may reuse the existing Dutch title and description text verbatim and nothing else; no og:url, og:image or canonical (the domain is undecided). If you cannot modify workflow files, put the validation in a script under `scripts/` and describe the one-line workflow change needed.
-  - **Acceptance:** CI validates `data/fundraisers.json` against `data/fundraisers.schema.json`, checks that `data/content.json` parses, and validates the HTML. A deliberately broken JSON file (tested locally, not committed) makes it fail. `index.html` has og:type, og:locale (nl_NL), og:title, og:description and twitter:card. The hardcoded `#ffffff` values use a token, the duplicate token is resolved with an identical visual result, and the root avatar is removed after a search confirms nothing references it.
-  - **Verification:** Run the validation locally, show the failing example, and confirm the site looks identical before and after. Tick the Phase 2 items "GitHub Actions CI workflow for build and lint validation" and "Automated HTML / JSON schema validation step" only if this task fully completes them.
+- [ ] **Accessibility Refinement** (Issue #53)
+  - **Problem:** Final accessibility verification should happen after the visual refinement work, not be assumed from automated checks alone.
+  - **Goal:** Perform the final accessibility pass and document any remaining manual verification.
+  - **Scope:** Landmarks, heading hierarchy, keyboard/focus, dialogs/galleries, screen-reader semantics, language switching, contrast, touch targets, reduced motion and error/control states.
+  - **Constraints:** Do not redesign the visual system. Preserve NL/EN parity and existing architecture.
+  - **Acceptance:** Identified accessibility defects are fixed or explicitly recorded as manual follow-up items; no automated check is presented as proof of real screen-reader verification.
+  - **Verification:** Run supported automated accessibility checks plus targeted manual keyboard/screen-reader verification where feasible.
 
 ### Blocked
 
@@ -61,14 +55,10 @@
 ### Human Review
 
 - [ ] Refine Dutch-first copy and English translation review (wording about real people and money; a human reads every change first)
-- [ ] Visual design polish and brand colour harmony (subjective; decide the direction before an agent touches it)
-- [ ] Screen-reader accessibility audit (needs manual testing with a real screen reader)
-- [ ] Test that generated QR codes scan on real phones and decide what happens with URLs too long for Version 5-L (the QR generator in `app.js` is hand-written)
-- [ ] Decide the favicon: personal avatar or a neutral mark (the site presents itself as independent)
-- [ ] The mobile page is about 13,600px long: decide on a back-to-top link and/or collapsible timeline and sources (adds interface text in nl and en)
-- [x] Decide whether goal versus total should be shown as a progress bar (implemented with compact progress indicators on all fundraiser cards)
-- [ ] Decide which lines of the yellow warning box carry bold emphasis (currently every line is bold, which weakens the key line)
+- [ ] Screen-reader accessibility audit / manual verification (Issue #53 implementation must record any remaining manual checks)
+- [ ] Test that generated QR codes scan on real phones and decide what happens with URLs too long for Version 5-L
 - [ ] Decide whether a dark colour scheme is wanted
+- [ ] Decide on back-to-top and/or collapsible timeline/sources if the frontend audit identifies this as useful
 
 ## Phase 0 — Evidence and content foundation
 
@@ -108,10 +98,10 @@
 - [ ] Refine Dutch-first copy and English translation review
 - [x] Add personal first-person story ("Mijn verhaal") for Rooie Jaap with explicit provenance labeling, freelance chef context, equipment loss explanation, and connection to replacement reference list
 - [x] Restructure fundraiser page flow (Hero -> Purpose -> Fundraisers -> Equipment -> Timeline -> Sources -> Thank You -> Footer) and introduce compact human context overlays
-- [ ] Add visual design polish and brand color harmony
+- [ ] Complete visual design polish and brand color harmony (Issues #49, #50, #51 and #52)
 - [x] Responsive design refinement across mobile, tablet, and desktop breakpoints
 - [x] Keyboard navigation and focus ring visibility testing
-- [ ] Contrast ratio and screen-reader accessibility audit
+- [ ] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
 
 ## Phase 2 — Static website deployment & delivery
 
