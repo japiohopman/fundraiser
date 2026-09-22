@@ -236,23 +236,25 @@ export function renderCampaignStats(container, fundraisers, content, lang = 'nl'
           <div class="donut-legend-container">
             <ul class="donut-legend-list" role="list">
               ${campaigns.map(c => `
-                <li class="donut-legend-item" data-campaign-id="${c.id}" tabindex="0" role="listitem">
-                  <div class="legend-avatar-badge-wrapper" style="--symbol-color: ${c.color}">
-                    ${c.avatarName ? `
-                      <picture class="legend-avatar-wrapper">
-                        <source srcset="public/assets/${c.avatarName}.webp" type="image/webp">
-                        <img src="public/assets/${c.avatarName}.webp" alt="" class="legend-avatar-img" width="32" height="32" loading="lazy" decoding="async">
-                      </picture>
-                    ` : ''}
-                    <span class="legend-symbol-badge" aria-hidden="true">${c.symbolSVG}</span>
-                  </div>
-                  <div class="legend-text">
-                    <span class="legend-name">${c.name}</span>
-                    <span class="legend-details">
-                      <strong class="legend-amount">${c.formattedAmount}</strong>
-                      <span class="legend-percentage">(${c.formattedPercentage})</span>
-                    </span>
-                  </div>
+                <li class="donut-legend-item" data-campaign-id="${c.id}" role="listitem">
+                  <a href="#fundraiser-${c.id}" class="legend-item-link">
+                    <div class="legend-avatar-badge-wrapper" style="--symbol-color: ${c.color}">
+                      ${c.avatarName ? `
+                        <picture class="legend-avatar-wrapper">
+                          <source srcset="public/assets/${c.avatarName}.webp" type="image/webp">
+                          <img src="public/assets/${c.avatarName}.webp" alt="" class="legend-avatar-img" width="32" height="32" loading="lazy" decoding="async">
+                        </picture>
+                      ` : ''}
+                      <span class="legend-symbol-badge" aria-hidden="true">${c.symbolSVG}</span>
+                    </div>
+                    <div class="legend-text">
+                      <span class="legend-name">${c.name}</span>
+                      <span class="legend-details">
+                        <strong class="legend-amount">${c.formattedAmount}</strong>
+                        <span class="legend-percentage">(${c.formattedPercentage})</span>
+                      </span>
+                    </div>
+                  </a>
                 </li>
               `).join('')}
             </ul>
@@ -264,10 +266,12 @@ export function renderCampaignStats(container, fundraisers, content, lang = 'nl'
         <h3 class="stats-counts-title">${donationCountsTitle}</h3>
         <div class="stats-grid">
           ${campaigns.map(c => `
-            <div class="stat-box" data-campaign-id="${c.id}">
-              <span class="stat-metric">${c.name}</span>
-              <span class="stat-number">${formatDonationCount(c.count, lang, content)}</span>
-            </div>
+            <a href="#fundraiser-${c.id}" class="stat-box-link">
+              <div class="stat-box" data-campaign-id="${c.id}">
+                <span class="stat-metric">${c.name}</span>
+                <span class="stat-number">${formatDonationCount(c.count, lang, content)}</span>
+              </div>
+            </a>
           `).join('')}
         </div>
       </div>
@@ -318,5 +322,11 @@ function attachInteractiveHighlighting(container) {
     const id = seg.dataset.campaignId;
     seg.addEventListener('mouseenter', () => highlight(id));
     seg.addEventListener('mouseleave', clearHighlight);
+    seg.addEventListener('click', () => {
+      window.location.hash = `fundraiser-${id}`;
+    });
+    if (seg.style) {
+      seg.style.cursor = 'pointer';
+    }
   });
 }

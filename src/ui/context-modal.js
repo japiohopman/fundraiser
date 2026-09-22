@@ -14,6 +14,7 @@ let contextModalFocusTimeout = null;
 export function setupContextModal(state) {
   const modal = document.getElementById('context-modal');
   const closeBtn = document.getElementById('context-modal-close-btn');
+  const bodyEl = document.getElementById('context-modal-body');
 
   if (!modal || !closeBtn) return;
 
@@ -24,6 +25,26 @@ export function setupContextModal(state) {
       closeContextModal(state);
     }
   });
+
+  if (bodyEl) {
+    bodyEl.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#fundraiser-"]');
+      if (link) {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        const targetId = href.substring(1);
+        closeContextModal(state);
+        window.location.hash = href;
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+          if (typeof targetEl.focus === 'function') {
+            targetEl.focus();
+          }
+        }
+      }
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.isContextModalOpen) {
