@@ -62,6 +62,7 @@
   - **Constraints:** Do not change canonical donation URLs or fundraiser facts. Preserve keyboard focus, Escape, reduced motion and mobile footer protection. Keep the static-site/no-runtime-dependency architecture. Content changes require the content-approved workflow.
   - **Acceptance:** Site Share opens directly to a clearly labelled site QR with Copy Link below it; WhatsApp/email are removed from the fixed site-share panel; campaign QR clearly identifies the specific fundraiser/donation page; site and campaign QR destinations are correct; NL/EN parity and accessibility are preserved.
   - **Verification:** Test 320, 375, 768, 1024 and 1440px in NL/EN, including QR generation, copy, focus, Escape, mobile collision checks and Jim donation QR destination. Run the full existing test suite.
+  - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
 
 - [ ] **Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language** (Issue #70)
   - **Problem:** The current combination of borders, badges, shadows, avatars, colored surfaces and strong actions gives the fundraiser cards a transactional/webshop/dashboard character.
