@@ -64,7 +64,7 @@
   - **Verification:** Test 320, 375, 768, 1024 and 1440px in NL/EN, including QR generation, copy, focus, Escape, mobile collision checks and Jim donation QR destination. Run the full existing test suite.
   - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
 
-- [ ] **Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language** (Issue #70)
+- [x] **Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language** (Issue #70)
   - **Problem:** The current combination of borders, badges, shadows, avatars, colored surfaces and strong actions gives the fundraiser cards a transactional/webshop/dashboard character.
   - **Goal:** Rework card presentation into a calm, professional editorial information surface while retaining clear campaign identity and collective/personal distinction.
   - **Scope:** Card presentation, surfaces, typography, spacing, shadows, borders, progress/statistic treatment and action presentation.
@@ -152,7 +152,7 @@
 **Status: Planned**
 
 - [ ] Issue #69 — Share experience: direct QR + copy link with clear destination context
-- [ ] Issue #70 — Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language
+- [x] Issue #70 — Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language
 - [ ] Issue #71 — Context modal: redesign desktop layout for editorial reading and media
 - [ ] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
 
