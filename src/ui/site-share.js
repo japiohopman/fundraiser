@@ -1,14 +1,23 @@
-import {
-  buildWhatsAppUrl,
-  buildEmailUrl,
-  triggerNativeShare,
-  copyToClipboard,
-  triggerQRModal
-} from './share-actions.js';
+import { copyToClipboard } from './share-actions.js';
+import { QRCodeGen } from './qr-code.js';
 
 export const SITE_SHARE_URL = 'https://japiohopman.github.io/fundraiser';
 
 let siteShareFocusTimeout = null;
+
+/**
+ * Generates and renders the SVG QR code for the site-wide URL.
+ */
+export function renderSiteQR() {
+  const container = document.getElementById('site-qr-code-svg-container');
+  if (!container) return;
+  try {
+    container.innerHTML = QRCodeGen.createSVG(SITE_SHARE_URL);
+  } catch (err) {
+    console.error('Failed to generate Site QR Code:', err);
+    container.textContent = SITE_SHARE_URL;
+  }
+}
 
 /**
  * Initializes listeners for the fixed site-wide share button and popover panel.
@@ -17,11 +26,11 @@ let siteShareFocusTimeout = null;
 export function setupSiteShare(state) {
   const toggleBtn = document.getElementById('site-share-btn');
   const panel = document.getElementById('site-share-panel');
-  const nativeBtn = document.getElementById('site-native-share-btn');
   const copyBtn = document.getElementById('site-copy-link-btn');
-  const qrBtn = document.getElementById('site-qr-code-btn');
 
   if (!toggleBtn || !panel) return;
+
+  renderSiteQR();
 
   toggleBtn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -45,37 +54,12 @@ export function setupSiteShare(state) {
     }
   });
 
-  if (nativeBtn) {
-    nativeBtn.addEventListener('click', () => {
-      const content = state.contentData;
-      const lang = state.currentLang;
-      const title = content?.meta?.title?.[lang];
-      const template = content?.share?.siteShareMessage?.[lang] || '{url}';
-      const text = template.replace('{url}', SITE_SHARE_URL);
-
-      triggerNativeShare({
-        title,
-        text,
-        url: SITE_SHARE_URL
-      });
-    });
-  }
-
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       const content = state.contentData;
       const lang = state.currentLang;
       const feedbackText = content?.share?.linkCopied?.[lang];
       copyToClipboard(SITE_SHARE_URL, copyBtn, feedbackText);
-    });
-  }
-
-  if (qrBtn) {
-    qrBtn.addEventListener('click', (e) => {
-      const content = state.contentData;
-      const lang = state.currentLang;
-      const title = content?.meta?.title?.[lang];
-      triggerQRModal(state, title, SITE_SHARE_URL, e.currentTarget);
     });
   }
 }
@@ -102,6 +86,7 @@ export function toggleSiteSharePanel(state, forceState) {
   }
 
   if (state.isSiteShareOpen) {
+    renderSiteQR();
     const firstAction = panel.querySelector('.site-share-action-btn');
     if (firstAction) {
       siteShareFocusTimeout = setTimeout(() => {
@@ -120,32 +105,9 @@ export function toggleSiteSharePanel(state, forceState) {
  * @param {Object} content
  */
 export function updateSiteShareUI(state, content) {
-  const lang = state.currentLang;
-
-  const waBtn = document.getElementById('site-wa-share-btn');
-  const emailBtn = document.getElementById('site-email-share-btn');
-  const nativeBtn = document.getElementById('site-native-share-btn');
-
-  const waTemplate = content?.share?.siteShareMessage?.[lang] || '{url}';
-  const emailSubject = content?.share?.siteShareEmailSubject?.[lang] || '';
-  const emailBodyTemplate = content?.share?.siteShareEmailBody?.[lang] || '{url}';
-
-  const waText = waTemplate.replace('{url}', SITE_SHARE_URL);
-  const emailBody = emailBodyTemplate.replace('{url}', SITE_SHARE_URL);
-
-  if (waBtn) {
-    waBtn.href = buildWhatsAppUrl(waText);
-  }
-
-  if (emailBtn) {
-    emailBtn.href = buildEmailUrl(emailSubject, emailBody);
-  }
-
-  if (nativeBtn) {
-    if (navigator.share) {
-      nativeBtn.style.display = 'inline-flex';
-    } else {
-      nativeBtn.style.display = 'none';
-    }
+  renderSiteQR();
+  const urlText = document.getElementById('site-share-url-text');
+  if (urlText) {
+    urlText.textContent = SITE_SHARE_URL;
   }
 }
