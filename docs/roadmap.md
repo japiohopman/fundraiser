@@ -46,6 +46,14 @@
   - **Acceptance:** Identified accessibility defects are fixed or explicitly recorded as manual follow-up items; no automated check is presented as proof of real screen-reader verification.
   - **Verification:** Run supported automated accessibility checks plus targeted manual keyboard/screen-reader verification where feasible.
 
+- [ ] **Campaign statistics: donation distribution donut chart** (Issue #65)
+  - **Problem:** The campaign statistics area shows aggregate figures, but does not yet provide a clear visual representation of how the registered donation total is distributed across the fundraiser campaigns.
+  - **Goal:** Add a responsive, accessible donut chart showing how 100% of the registered donation amount is distributed across the fundraiser campaigns.
+  - **Scope:** One segment per fundraiser; calculate percentages from the existing `data/fundraisers.json` financial totals; show campaign name, amount and percentage in an accessible textual legend/equivalent; show the overall registered donation total in the donut center; keep `onlineDonationCount` as a separate numeric statistic.
+  - **Constraints:** Existing fundraiser data remains the single source of truth. Do not manually store percentages or modify factual campaign/source/financial data. Prefer native SVG/CSS and introduce no charting dependency unless clearly required by the existing architecture. Preserve static-site/GitHub Pages compatibility, NL/EN localization, responsive behavior and understanding without color alone. No unrelated redesign.
+  - **Acceptance:** Segment percentages are calculated from underlying data; percentages sum to 100% within the expected rounding tolerance; displayed total matches the underlying campaign totals; `onlineDonationCount` remains distinct from unique donor count; existing statistics continue to work; new tests cover the calculation/rendering contract; no new runtime dependency; no horizontal overflow or clipped chart/legend content on mobile.
+  - **Verification:** Check approximately 320px, 375px, 768px, 1024px and 1440px widths in NL and EN; perform keyboard/accessibility checks; report automated and visual verification separately.
+
 ### Blocked
 
 - [ ] GitHub Pages deployment from `main` (needs your decision on repository settings and domain)
