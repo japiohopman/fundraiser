@@ -1,14 +1,12 @@
 import {
-  buildWhatsAppUrl,
-  buildEmailUrl,
   triggerNativeShare,
   copyToClipboard,
   triggerQRModal
 } from '../../ui/share-actions.js';
 
 /**
- * Handles sharing-specific markup and logic:
- * Web Share API, WhatsApp URL/text, email share, copy link, and QR code modal trigger.
+ * Handles sharing-specific markup and logic for individual fundraiser cards:
+ * Web Share API (native share), Copy Link, and QR code modal trigger.
  */
 
 /**
@@ -21,21 +19,6 @@ import {
  * @returns {string}
  */
 export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText, itemId = '') {
-  const waText = lang === 'en'
-    ? `Check out this specific fundraiser for ${titleText} (${purposeText}): ${shareUrl}`
-    : `Bekijk deze specifieke inzamelingsactie voor ${titleText} (${purposeText}): ${shareUrl}`;
-
-  const emailSubject = lang === 'en'
-    ? `Fundraiser: ${titleText}`
-    : `Inzamelingsactie: ${titleText}`;
-
-  const emailBody = lang === 'en'
-    ? `Check out this specific fundraiser for ${titleText}.\n\nPurpose: ${purposeText}\n\nLink: ${shareUrl}`
-    : `Bekijk deze specifieke inzamelingsactie voor ${titleText}.\n\nDoel: ${purposeText}\n\nLink: ${shareUrl}`;
-
-  const waHref = buildWhatsAppUrl(waText);
-  const emailHref = buildEmailUrl(emailSubject, emailBody);
-
   const containerId = itemId ? `share-container-${itemId}` : '';
   const controlsAttr = containerId ? `aria-controls="${containerId}"` : '';
 
@@ -52,12 +35,6 @@ export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, 
             ${shareContent?.webShare?.[lang] || 'Delen...'}
           </button>
         ` : ''}
-        <a href="${waHref}" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp-btn">
-          ${shareContent?.whatsapp?.[lang] || 'WhatsApp'}
-        </a>
-        <a href="${emailHref}" class="share-btn email-btn">
-          ${shareContent?.email?.[lang] || 'E-mail'}
-        </a>
         <button type="button" class="share-btn copy-link-btn">
           ${shareContent?.copyLink?.[lang] || 'Kopieer link'}
         </button>
@@ -78,8 +55,9 @@ export function createShareSectionHTML(shareContent, lang, shareUrl, titleText, 
  * @param {string} shareUrl
  * @param {string} titleText
  * @param {string} purposeText
+ * @param {string} [qrUrl] - Specific URL to encode in QR modal (defaults to shareUrl if omitted)
  */
-export function attachShareListeners(card, state, shareContent, lang, shareUrl, titleText, purposeText) {
+export function attachShareListeners(card, state, shareContent, lang, shareUrl, titleText, purposeText, qrUrl = '') {
   const shareToggleBtn = card.querySelector('.share-toggle-btn');
   const shareContainer = card.querySelector('.card-share-container');
   const nativeShareBtn = card.querySelector('.native-share-btn');
@@ -113,7 +91,8 @@ export function attachShareListeners(card, state, shareContent, lang, shareUrl, 
 
   if (qrCodeBtn) {
     qrCodeBtn.addEventListener('click', (e) => {
-      triggerQRModal(state, titleText, shareUrl, e.currentTarget);
+      const targetQrUrl = qrUrl || shareUrl;
+      triggerQRModal(state, titleText, targetQrUrl, e.currentTarget);
     });
   }
 }

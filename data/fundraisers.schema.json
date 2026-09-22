@@ -20,6 +20,7 @@
           "parentCampaignId",
           "slug",
           "url",
+          "donateUrl",
           "category",
           "title",
           "organiser",
@@ -38,6 +39,7 @@
           "parentCampaignId": { "type": ["integer", "null"] },
           "slug": { "type": "string" },
           "url": { "type": "string", "format": "uri" },
+          "donateUrl": { "type": "string", "format": "uri" },
           "officialEntryPoint": { "type": ["string", "null"], "format": "uri" },
           "category": { "type": "string", "enum": ["collective", "personal", "other"] },
           "title": {
