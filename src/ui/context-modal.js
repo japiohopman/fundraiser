@@ -1,5 +1,6 @@
 import { trapModalFocus } from './qr-modal.js';
 import { createRooieJaapEquipmentHTML } from '../features/rooie-jaap/equipment.js';
+import { getDonateUrl } from '../features/fundraisers/donate-url.js';
 
 /**
  * Handles context overlay modal setup, opening, closing, focus restoration, focus trapping, and Escape key.
@@ -169,7 +170,7 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
     `;
   }
 
-  const donateUrl = item?.donateUrl || contextData?.donateUrl;
+  const donateUrl = getDonateUrl(item) || contextData?.donateUrl;
   const contextDonateBtnLabel = state.contentData?.fundraisersSection?.labels?.contextDonateBtn?.[lang] ||
     (lang === 'en' ? 'Donate on WhyDonate' : 'Doneer op WhyDonate');
 

@@ -9,6 +9,7 @@ import { createShareSectionHTML } from '../src/features/fundraisers/share.js';
 import { SITE_SHARE_URL, toggleSiteSharePanel } from '../src/ui/site-share.js';
 import { createFundraiserCard } from '../src/features/fundraisers/card.js';
 import { openContextModal } from '../src/ui/context-modal.js';
+import { getDonateUrl } from '../src/features/fundraisers/donate-url.js';
 
 const contentData = JSON.parse(readFileSync(new URL('../data/content.json', import.meta.url), 'utf8'));
 const fundraisersData = JSON.parse(readFileSync(new URL('../data/fundraisers.json', import.meta.url), 'utf8'));
@@ -137,7 +138,7 @@ function parseSvgPathToMatrix(svgStr) {
 test('QR Code Generation and Real Decode Verification for Donate URLs', () => {
   const testUrls = [
     'https://japiohopman.github.io/fundraiser',
-    ...fundraisersData.fundraisers.map(f => f.donateUrl)
+    ...fundraisersData.fundraisers.map(f => getDonateUrl(f))
   ];
 
   for (const url of testUrls) {
@@ -264,13 +265,14 @@ test('Compact Donate CTA rendering and accessibility in fundraiser cards uses /n
   }
 
   for (const item of fundraisersData.fundraisers) {
-    // Check data consistency: url must be /fundraising/, donateUrl must be /donate/
+    const donateUrl = getDonateUrl(item);
+    // Check data consistency: url must be /fundraising/, getDonateUrl must be /donate/
     assert.ok(item.url.includes('/nl/fundraising/'), `Source URL must be /nl/fundraising/ for ${item.id}`);
-    assert.ok(item.donateUrl.includes('/nl/donate/'), `Donate URL must be /nl/donate/ for ${item.id}`);
+    assert.ok(donateUrl.includes('/nl/donate/'), `Donate URL must be /nl/donate/ for ${item.id}`);
 
     // Verify Jaap Hopman's exact donation URL
     if (item.id === 'rooie-jaap-knives') {
-      assert.equal(item.donateUrl, 'https://whydonate.com/nl/donate/koksmessen-voor-rooie-jaap');
+      assert.equal(donateUrl, 'https://whydonate.com/nl/donate/koksmessen-voor-rooie-jaap');
     }
 
     for (const lang of ['nl', 'en']) {
@@ -285,7 +287,7 @@ test('Compact Donate CTA rendering and accessibility in fundraiser cards uses /n
 
       const fullAnchorTag = donateMatch[0];
 
-      assert.ok(fullAnchorTag.includes(`href="${item.donateUrl}"`), `Donate URL must equal item.donateUrl (${item.donateUrl}) for ${item.id}`);
+      assert.ok(fullAnchorTag.includes(`href="${donateUrl}"`), `Donate URL must equal getDonateUrl (${donateUrl}) for ${item.id}`);
 
       // Extract visible text inside <span>
       const spanMatch = fullAnchorTag.match(/<span>([^<]+)<\/span>/i);
@@ -337,9 +339,10 @@ test('Context Modal renders generic Donate button using donateUrl with localized
       for (const lang of ['nl', 'en']) {
         openContextModal(state, campaignContextData, lang, null, item);
 
+        const donateUrl = getDonateUrl(item);
         const renderedHTML = bodyEl.innerHTML;
         assert.ok(renderedHTML.includes('context-modal-donate-btn'), `Context modal must contain context-modal-donate-btn for ${item.id} (${lang})`);
-        assert.ok(renderedHTML.includes(`href="${item.donateUrl}"`), `Context modal Donate button must use item.donateUrl (${item.donateUrl}) for ${item.id} (${lang})`);
+        assert.ok(renderedHTML.includes(`href="${donateUrl}"`), `Context modal Donate button must use getDonateUrl (${donateUrl}) for ${item.id} (${lang})`);
 
         const expectedLabel = lang === 'en' ? 'Donate on WhyDonate' : 'Doneer op WhyDonate';
         assert.ok(renderedHTML.includes(`<span>${expectedLabel}</span>`), `Context modal Donate button label must be '${expectedLabel}' for ${item.id} (${lang})`);
