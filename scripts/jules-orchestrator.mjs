@@ -242,7 +242,19 @@ export async function orchestrate({
         log(`Active task "${active.task.slice(0, 100)}" was not found under "## Now" in roadmap.`);
       }
 
-      let session = null;
+      // A checked roadmap task is already complete. Its Jules session must never
+      // block the next Ready task, even when Jules left the session PAUSED.
+      // This is the recovery path for stale queue state after a merged/completed task.
+      if (entry && entry.checked) {
+        log(`Active task is already checked in the roadmap; clearing stale session ${active.name}.`);
+        state.activeSession = null;
+        stateChanged = true;
+      }
+
+      if (!state.activeSession) {
+        // Fall through to dispatch the next unchecked Ready task.
+      } else {
+        let session = null;
       let sessionNotFound = false;
       try {
         session = await julesFetch(active.name);
@@ -350,6 +362,7 @@ export async function orchestrate({
               : 'No PR yet. Nothing to do this run.');
             return { stateChanged, state };
           }
+        }
         }
       }
     }
