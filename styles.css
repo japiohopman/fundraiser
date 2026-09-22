@@ -2701,6 +2701,45 @@ body {
     page-break-inside: avoid;
   }
 
+  /* Thank You & Donor Wall Print Layout */
+  .thank-you-section {
+    background: transparent !important;
+    border: 1px solid #666666 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .donor-wall {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .donor-zone-start,
+  .donor-zone-end {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6pt !important;
+  }
+
+  .thank-you-heart-svg {
+    color: #fff1f2 !important;
+    filter: none !important;
+  }
+
+  .donor-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    color: #000000 !important;
+  }
+
+  .donor-item.donor-gesture {
+    color: #444444 !important;
+  }
+
   /* Links display destination in print */
   a[href^="http"]:not(.site-title-link)::after {
     content: " (" attr(href) ")";

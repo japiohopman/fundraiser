@@ -45,6 +45,9 @@ test('Thank You: styles.css display typography, self-hosted font faces, grid lay
 
   // Reduced motion support
   assert.match(cssContent, /@media\s*\([^)]*prefers-reduced-motion:\s*reduce[^)]*\)[\s\S]*?\.donor-item\s*\{[^}]*animation:\s*none\s*!important/i, 'Reduced motion query must disable animations on .donor-item');
+
+  // Print stylesheet visibility rules for donor items
+  assert.match(cssContent, /@media\s+print[\s\S]*?\.donor-item\s*\{[^}]*opacity:\s*1\s*!important/i, 'Print media stylesheet must reset .donor-item opacity to 1 !important');
 });
 
 test('Thank You: renderThankYou renders split donor zones, gestures, and timing variables', () => {

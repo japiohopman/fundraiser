@@ -15,12 +15,12 @@ export function renderThankYou(donorsData, content, lang) {
   let zoneStart = container.querySelector('.donor-zone-start');
   let zoneEnd = container.querySelector('.donor-zone-end');
 
-  // Fallback structural recovery if innerHTML was overwritten
+  // Structural recovery if innerHTML was overwritten
   if (!heartEl) {
     heartEl = document.createElement('div');
     heartEl.className = 'thank-you-heart-container';
-    const titleText = content?.thankYou?.title?.[lang] || 'Dankjewel aan iedereen die helpt.';
-    const msgText = content?.thankYou?.message?.[lang] || 'Onze oprechte dank gaat uit naar iedereen die een bijdrage heeft geleverd.';
+    const titleText = content?.thankYou?.title?.[lang] || '';
+    const msgText = content?.thankYou?.message?.[lang] || '';
     heartEl.innerHTML = `
       <svg class="thank-you-heart-svg" viewBox="0 0 512 512" width="480" height="480" aria-hidden="true" focusable="false">
         <path fill="currentColor" d="M480.25 156.355c0 161.24-224.25 324.43-224.25 324.43S31.75 317.595 31.75 156.355c0-91.41 70.63-125.13 107.77-125.13 77.65 0 116.48 65.72 116.48 65.72s38.83-65.73 116.48-65.73c37.14.01 107.77 33.72 107.77 125.14z"/>
@@ -54,11 +54,10 @@ export function renderThankYou(donorsData, content, lang) {
   const donors = (donorsData && Array.isArray(donorsData.donors)) ? donorsData.donors : [];
 
   if (donors.length === 0) {
-    const fallbackText = content?.thankYou?.fallbackMessage?.[lang] ||
-      (lang === 'en'
-        ? 'Thanks to all friends, supporters, and neighbors who care about ParkNest.'
-        : 'Dank aan alle vrienden, supporters en buurtbewoners die ParkNest een warm hart toe dragen.');
-    zoneEnd.innerHTML = `<p class="donor-fallback-message">${fallbackText}</p>`;
+    const fallbackText = content?.thankYou?.fallbackMessage?.[lang] || '';
+    if (fallbackText) {
+      zoneEnd.innerHTML = `<p class="donor-fallback-message">${fallbackText}</p>`;
+    }
     return;
   }
 
