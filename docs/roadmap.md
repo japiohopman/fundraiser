@@ -55,7 +55,7 @@
   - **Verification:** Check approximately 320px, 375px, 768px, 1024px and 1440px widths in NL and EN; perform keyboard/accessibility checks; report automated and visual verification separately.
 
 
-- [ ] **Share experience: direct QR + copy link with clear destination context** (Issue #69)
+- [x] **Share experience: direct QR + copy link with clear destination context** (Issue #69)
   - **Problem:** The fixed site-wide share control currently adds an extra interaction layer with native share, WhatsApp, email, copy link and a separate QR modal. The QR destination also needs clearer distinction between sharing this transparency site and sharing a specific fundraiser donation page.
   - **Goal:** Make sharing immediate and understandable: fixed Share opens directly to site QR + Copy Link, while campaign QR views clearly identify the donation-page destination.
   - **Scope:** Fixed site-share markup/logic, shared QR presentation/labels, and campaign-share destination semantics.
@@ -80,7 +80,7 @@
   - **Acceptance:** Image-heavy contexts can use a balanced text/media composition; long text remains readable; text-only contexts remain comfortable; the modal feels focused rather than dashboard-like; mobile remains single-column and uncluttered.
   - **Verification:** Test 375, 768, 1024, 1440 and 1920px in NL/EN with Jaap, Jim, Manon and ParkNest contexts, including keyboard, galleries and internal navigation.
 
-- [x] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)
+- [ ] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)
   - **Problem:** The current heart is a prominent animated graphic behind donor credits rather than the visual carrier of the gratitude message itself, and its treatment can feel more promotional than editorial.
   - **Goal:** Make the heart a deliberate closing gesture by placing a concise gratitude message inside it and using refined display typography.
   - **Scope:** Heart composition, message placement, typography and related donor-wall presentation.
@@ -88,6 +88,7 @@
   - **Acceptance:** The heart contains the gratitude message; NL/EN are balanced; text is legible at mobile and desktop sizes; the treatment feels warm/editorial rather than commercial; reduced-motion remains calm and static.
   - **Verification:** Test 320, 375, 768, 1024, 1440 and 1920px in NL/EN, including donor wall visibility, print and font-loading behavior.
   - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
+  - **Follow-up review adjustments:** Continue from the merged Issue #72 implementation. On desktop, place donor names to the left and right of the heart rather than in a separate block below it. On mobile, distribute donor names into upper and lower zones around/within the heart silhouette while keeping the gratitude message clear and unobstructed. Replace the current donor-name pill treatment with a more refined editorial type treatment using the existing self-hosted Cormorant Garamond; remove the hard 1.5px donor-name border/background/shadow treatment. Preserve donor order/data, gesture sequence, NL/EN, accessibility, reduced motion, print behavior, and static-site/no-CDN constraints.
 
 ### Blocked
 
@@ -151,10 +152,10 @@
 
 **Status: Planned**
 
-- [ ] Issue #69 — Share experience: direct QR + copy link with clear destination context
+- [x] Issue #69 — Share experience: direct QR + copy link with clear destination context
 - [x] Issue #70 — Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language
 - [x] Issue #71 — Context modal: redesign desktop layout for editorial reading and media
-- [x] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
+- [ ] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
 
 ### Phase 2 success criteria
 
