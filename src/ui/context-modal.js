@@ -87,7 +87,8 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
 
   if (contextData.provenanceNote) {
     const noteText = contextData.provenanceNote[lang] || contextData.provenanceNote.nl;
-    html += `<p class="provenance-note">${noteText}</p>`;
+    const formattedNote = formatInternalModalLinks(noteText, item?.id);
+    html += `<p class="provenance-note">${formattedNote}</p>`;
   }
 
   if (contextData.images && contextData.images.header) {
@@ -119,13 +120,15 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
 
   if (contextData.text) {
     const mainText = contextData.text[lang] || contextData.text.nl;
-    html += `<p class="context-modal-text">${mainText}</p>`;
+    const formattedMainText = formatInternalModalLinks(mainText, item?.id);
+    html += `<p class="context-modal-text">${formattedMainText}</p>`;
   }
 
   if (contextData.paragraphs && Array.isArray(contextData.paragraphs)) {
     contextData.paragraphs.forEach(pObj => {
       const pText = pObj[lang] || pObj.nl;
-      html += `<p class="context-modal-text">${pText}</p>`;
+      const formattedPText = formatInternalModalLinks(pText, item?.id);
+      html += `<p class="context-modal-text">${formattedPText}</p>`;
     });
   }
 
@@ -250,6 +253,34 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
       }
     }, 50);
   }
+}
+
+/**
+ * Helper to dynamically convert mentions of other campaigns into internal modal links.
+ * @param {string} text
+ * @param {string} [currentItemId]
+ * @returns {string}
+ */
+function formatInternalModalLinks(text, currentItemId) {
+  if (!text) return '';
+
+  let formatted = text;
+
+  const CROSS_REFS = [
+    { pattern: /Suzy Creamcheese/g, targetId: 'suzy-creamcheese-kitchenware', label: 'Suzy Creamcheese' },
+    { pattern: /Jaap Hopman/g, targetId: 'rooie-jaap-knives', label: 'Jaap Hopman' }
+  ];
+
+  CROSS_REFS.forEach(({ pattern, targetId, label }) => {
+    if (currentItemId !== targetId && pattern.test(formatted)) {
+      formatted = formatted.replace(
+        pattern,
+        `<a href="#fundraiser-${targetId}" class="modal-internal-link">${label}</a>`
+      );
+    }
+  });
+
+  return formatted;
 }
 
 /**
