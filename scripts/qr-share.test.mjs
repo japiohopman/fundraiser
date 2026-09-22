@@ -198,40 +198,51 @@ test('Independent QR Finder Pattern Structural Correctness Check', () => {
   }
 });
 
-test('WhatsApp and Email buttons removed from fundraiser cards, site-wide share retained', () => {
-  // 1. Site-wide share WhatsApp URL
-  for (const lang of ['nl', 'en']) {
-    const template = contentData.share.siteShareMessage[lang];
-    assert.ok(template.includes('{url}'), `Site share message template for ${lang} must include {url} placeholder`);
+test('Fixed site-wide share panel contains direct site QR + Copy Link without WhatsApp or Email buttons', () => {
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 
-    const messageText = template.replace('{url}', SITE_SHARE_URL);
-    const waUrl = buildWhatsAppUrl(messageText);
+  // Verify site share panel direct elements
+  assert.ok(html.includes('id="site-share-panel"'), 'index.html must contain #site-share-panel');
+  assert.ok(html.includes('id="site-qr-code-svg-container"'), '#site-share-panel must contain #site-qr-code-svg-container for direct QR display');
+  assert.ok(html.includes('id="site-share-url-text"'), '#site-share-panel must contain #site-share-url-text for visible site URL');
+  assert.ok(html.includes('id="site-copy-link-btn"'), '#site-share-panel must contain #site-copy-link-btn');
 
-    assert.ok(waUrl.startsWith('https://wa.me/?text='), `WhatsApp URL must start with wa.me/?text= for ${lang}`);
+  // Verify WhatsApp and Email buttons are removed from fixed site share panel
+  assert.ok(!html.includes('id="site-wa-share-btn"'), 'WhatsApp button must be removed from fixed site-share panel');
+  assert.ok(!html.includes('id="site-email-share-btn"'), 'Email button must be removed from fixed site-share panel');
+  assert.ok(!html.includes('id="site-native-share-btn"'), 'Native share button must be removed from fixed site-share panel');
+  assert.ok(!html.includes('id="site-qr-code-btn"'), 'Separate QR button must be removed from fixed site-share panel as QR is rendered directly');
 
-    const encodedTextParam = waUrl.replace('https://wa.me/?text=', '');
-    const decodedTextParam = decodeURIComponent(encodedTextParam);
-
-    assert.equal(decodedTextParam, messageText, `Decoded WhatsApp message for site share in ${lang} does not match`);
-    assert.ok(decodedTextParam.includes(SITE_SHARE_URL), `WhatsApp message in ${lang} must contain exact site URL`);
-  }
-
-  // 2. Verify Fundraiser card share section HTML has NO whatsapp or email buttons, but HAS copy link and qr code buttons
+  // Verify Fundraiser card share section HTML has NO whatsapp or email buttons, but HAS copy link and qr code buttons
   for (const item of fundraisersData.fundraisers) {
     for (const lang of ['nl', 'en']) {
       const shareUrl = `${SITE_SHARE_URL}#fundraiser-${item.id}`;
       const titleText = item.title[lang] || item.title.nl;
       const purposeText = item.purpose[lang] || item.purpose.nl;
 
-      const html = createShareSectionHTML(contentData.share, lang, shareUrl, titleText, purposeText, item.id);
+      const cardShareHtml = createShareSectionHTML(contentData.share, lang, shareUrl, titleText, purposeText, item.id);
 
-      assert.ok(!html.includes('whatsapp-btn'), `WhatsApp button must NOT be present in card share HTML for ${item.id}`);
-      assert.ok(!html.includes('email-btn'), `Email button must NOT be present in card share HTML for ${item.id}`);
-      assert.ok(html.includes('copy-link-btn'), `Copy Link button must be present in card share HTML for ${item.id}`);
-      assert.ok(html.includes('qr-code-btn'), `QR Code button must be present in card share HTML for ${item.id}`);
-      assert.ok(html.includes('share-toggle-btn'), `Main Share toggle button must be present in card share HTML for ${item.id}`);
+      assert.ok(!cardShareHtml.includes('whatsapp-btn'), `WhatsApp button must NOT be present in card share HTML for ${item.id}`);
+      assert.ok(!cardShareHtml.includes('email-btn'), `Email button must NOT be present in card share HTML for ${item.id}`);
+      assert.ok(cardShareHtml.includes('copy-link-btn'), `Copy Link button must be present in card share HTML for ${item.id}`);
+      assert.ok(cardShareHtml.includes('qr-code-btn'), `QR Code button must be present in card share HTML for ${item.id}`);
+      assert.ok(cardShareHtml.includes('share-toggle-btn'), `Main Share toggle button must be present in card share HTML for ${item.id}`);
     }
   }
+});
+
+test('Site share and campaign QR content strings and destination context in content.json', () => {
+  assert.ok(contentData.share.siteShareTitle.nl, 'Deel deze website');
+  assert.ok(contentData.share.siteShareTitle.en, 'Share this website');
+
+  assert.ok(contentData.share.siteShareDesc.nl.includes('transparantiesite'), 'siteShareDesc in NL must mention transparantiesite');
+  assert.ok(contentData.share.siteShareDesc.en.includes('transparency site'), 'siteShareDesc in EN must mention transparency site');
+
+  assert.equal(contentData.share.qrModalTitle.nl, 'QR-code voor donatiepagina');
+  assert.equal(contentData.share.qrModalTitle.en, 'QR Code for donation page');
+
+  assert.ok(contentData.share.qrModalDesc.nl.includes('WhyDonate-donatiepagina'), 'qrModalDesc in NL must explicitly identify WhyDonate-donatiepagina');
+  assert.ok(contentData.share.qrModalDesc.en.includes('WhyDonate donation page'), 'qrModalDesc in EN must explicitly identify WhyDonate donation page');
 });
 
 test('Clipboard Share URL and Feedback Strings (NL and EN)', () => {

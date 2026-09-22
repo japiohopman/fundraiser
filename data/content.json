@@ -745,6 +745,10 @@
       "nl": "Deel deze website",
       "en": "Share this website"
     },
+    "siteShareDesc": {
+      "nl": "Scan deze QR-code of kopieer de link om deze transparantiesite te delen:",
+      "en": "Scan this QR code or copy the link to share this transparency site:"
+    },
     "siteShareMessage": {
       "nl": "Bekijk het overzicht van inzamelingsacties voor ParkNest: {url}",
       "en": "Check out the overview of fundraising actions for ParkNest: {url}"
@@ -782,12 +786,12 @@
       "en": "QR Code"
     },
     "qrModalTitle": {
-      "nl": "QR-code voor inzamelingsactie",
-      "en": "QR Code for campaign"
+      "nl": "QR-code voor donatiepagina",
+      "en": "QR Code for donation page"
     },
     "qrModalDesc": {
-      "nl": "Scan deze QR-code met een telefooncamera om direct naar de gekozen actie op deze transparantiesite te navigeren.",
-      "en": "Scan this QR code with a phone camera to navigate directly to this specific campaign on this transparency site."
+      "nl": "Scan deze QR-code om direct naar de officiële WhyDonate-donatiepagina voor deze actie te gaan:",
+      "en": "Scan this QR code to go directly to the official WhyDonate donation page for this campaign:"
     },
     "closeModal": {
       "nl": "Sluiten",

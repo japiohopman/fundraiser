@@ -1484,7 +1484,7 @@ body {
   position: absolute;
   bottom: calc(100% + var(--space-3));
   left: 0;
-  width: 260px;
+  width: 270px;
   max-width: calc(100vw - 32px);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -1499,7 +1499,7 @@ body {
 }
 
 .site-share-panel-header {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border-subtle);
 }
@@ -1510,6 +1510,42 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--color-text-subtle);
+}
+
+.site-share-panel-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-normal);
+}
+
+.site-qr-svg-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-3);
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+}
+
+.site-qr-svg-wrapper svg {
+  display: block;
+  width: 180px;
+  height: 180px;
+  max-width: 100%;
+}
+
+.site-share-url-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  word-break: break-all;
+  text-align: center;
+  background-color: var(--color-surface-subtle);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
 }
 
 .site-share-actions {
@@ -1619,11 +1655,19 @@ body {
   color: var(--color-text-main);
 }
 
+.qr-campaign-name,
 .modal-campaign-name {
   font-size: var(--font-size-sm);
   font-weight: 700;
   color: var(--color-text-main);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
+  text-align: center;
+}
+
+.qr-modal-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-3);
   text-align: center;
 }
 
@@ -1644,6 +1688,7 @@ body {
   height: auto;
 }
 
+.qr-modal-url,
 .modal-url-text {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
