@@ -181,8 +181,6 @@ The site should feel like a calm, independent editorial information resource rat
 
 ## Open questions & evidence limits
 
-## Open questions & evidence limits
-
 These remain explicitly documented to prevent unverified claims:
 
 1. **Exact values & goals (Snapshot verified 17 Sept 2026):**
