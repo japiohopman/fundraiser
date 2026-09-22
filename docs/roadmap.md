@@ -55,7 +55,7 @@
   - **Verification:** Check approximately 320px, 375px, 768px, 1024px and 1440px widths in NL and EN; perform keyboard/accessibility checks; report automated and visual verification separately.
 
 
-- [x] **Share experience: direct QR + copy link with clear destination context** (Issue #69)
+- [ ] **Share experience: direct QR + copy link with clear destination context** (Issue #69)
   - **Problem:** The fixed site-wide share control currently adds an extra interaction layer with native share, WhatsApp, email, copy link and a separate QR modal. The QR destination also needs clearer distinction between sharing this transparency site and sharing a specific fundraiser donation page.
   - **Goal:** Make sharing immediate and understandable: fixed Share opens directly to site QR + Copy Link, while campaign QR views clearly identify the donation-page destination.
   - **Scope:** Fixed site-share markup/logic, shared QR presentation/labels, and campaign-share destination semantics.
