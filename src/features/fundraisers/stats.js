@@ -1,16 +1,47 @@
 import { formatCurrency } from '../../utils/currency.js';
 
+const STATS_I18N = {
+  title: {
+    nl: 'Inzamelingsstatistieken',
+    en: 'Campaign Statistics'
+  },
+  totalCampaigns: {
+    nl: 'Inzamelingsacties',
+    en: 'Fundraising campaigns'
+  },
+  totalDonations: {
+    nl: 'Online donaties',
+    en: 'Online donations'
+  },
+  totalRaised: {
+    nl: 'Totaal opgehaald',
+    en: 'Total raised'
+  },
+  donationSingular: {
+    nl: 'donatie',
+    en: 'donation'
+  },
+  donationPlural: {
+    nl: 'donaties',
+    en: 'donations'
+  },
+  snapshotNote: {
+    nl: 'Momentopname geverifieerd op {date}',
+    en: 'Snapshot verified on {date}'
+  }
+};
+
 /**
  * Formats a donation count string with proper singular/plural wording.
  * e.g., "1 donatie" or "3 donaties" / "1 donation" or "3 donations"
  * @param {number} count
- * @param {Object} statsContent
- * @param {string} lang
+ * @param {Object} [statsContent]
+ * @param {string} [lang]
  * @returns {string}
  */
-export function formatDonationCount(count, statsContent, lang) {
-  const singular = statsContent.donationSingular?.[lang] || (lang === 'en' ? 'donation' : 'donatie');
-  const plural = statsContent.donationPlural?.[lang] || (lang === 'en' ? 'donations' : 'donaties');
+export function formatDonationCount(count, statsContent = {}, lang = 'nl') {
+  const singular = statsContent?.donationSingular?.[lang] || STATS_I18N.donationSingular[lang] || STATS_I18N.donationSingular.nl;
+  const plural = statsContent?.donationPlural?.[lang] || STATS_I18N.donationPlural[lang] || STATS_I18N.donationPlural.nl;
   const word = count === 1 ? singular : plural;
   return `${count} ${word}`;
 }
@@ -54,20 +85,26 @@ export function calculateCampaignStats(fundraisers, lastVerifiedAtFallback = '20
 export function renderCampaignStats(container, fundraisers, content, lang) {
   if (!container) return;
 
-  const statsContent = content.fundraisersSection?.stats || {};
+  const statsContent = content?.fundraisersSection?.stats || {};
   const { totalCampaigns, totalOnlineDonations, totalRaised, latestVerifiedAt } = calculateCampaignStats(fundraisers);
 
-  const totalCampaignsLabel = statsContent.totalCampaigns?.[lang] || (lang === 'en' ? 'Fundraising campaigns' : 'Inzamelingsacties');
-  const totalDonationsLabel = statsContent.totalDonations?.[lang] || (lang === 'en' ? 'Online donations' : 'Online donaties');
-  const totalRaisedLabel = statsContent.totalRaised?.[lang] || (lang === 'en' ? 'Total raised' : 'Totaal opgehaald');
+  const regionTitle = statsContent.title?.[lang] || STATS_I18N.title[lang] || STATS_I18N.title.nl;
+  const totalCampaignsLabel = statsContent.totalCampaigns?.[lang] || STATS_I18N.totalCampaigns[lang] || STATS_I18N.totalCampaigns.nl;
+
+  const donationWord = totalOnlineDonations === 1
+    ? (statsContent.donationSingular?.[lang] || STATS_I18N.donationSingular[lang] || STATS_I18N.donationSingular.nl)
+    : (statsContent.donationPlural?.[lang] || STATS_I18N.donationPlural[lang] || STATS_I18N.donationPlural.nl);
+
+  const totalDonationsLabel = lang === 'en' ? `Online ${donationWord}` : `Online ${donationWord}`;
+  const totalRaisedLabel = statsContent.totalRaised?.[lang] || STATS_I18N.totalRaised[lang] || STATS_I18N.totalRaised.nl;
 
   const formattedTotalRaised = formatCurrency(totalRaised, lang);
 
-  const snapshotNoteTemplate = statsContent.snapshotNote?.[lang] || (lang === 'en' ? 'Snapshot verified on {date}' : 'Momentopname geverifieerd op {date}');
+  const snapshotNoteTemplate = statsContent.snapshotNote?.[lang] || STATS_I18N.snapshotNote[lang] || STATS_I18N.snapshotNote.nl;
   const snapshotNoteText = snapshotNoteTemplate.replace('{date}', latestVerifiedAt);
 
   container.innerHTML = `
-    <div class="stats-strip-card" role="region" aria-label="${statsContent.title?.[lang] || 'Inzamelingsstatistieken'}">
+    <div class="stats-strip-card" role="region" aria-label="${regionTitle}">
       <div class="stats-grid">
         <div class="stat-box">
           <span class="stat-number">${totalCampaigns}</span>
