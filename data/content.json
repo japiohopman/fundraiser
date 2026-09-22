@@ -248,6 +248,10 @@
       "contextModalTitle": {
         "nl": "Achtergrond & Context",
         "en": "Background & Context"
+      },
+      "contextDonateBtn": {
+        "nl": "Doneer op WhyDonate",
+        "en": "Donate on WhyDonate"
       }
     },
     "campaignContext": {

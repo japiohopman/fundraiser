@@ -8,6 +8,7 @@ import { buildWhatsAppUrl, buildEmailUrl } from '../src/ui/share-actions.js';
 import { createShareSectionHTML } from '../src/features/fundraisers/share.js';
 import { SITE_SHARE_URL, toggleSiteSharePanel } from '../src/ui/site-share.js';
 import { createFundraiserCard } from '../src/features/fundraisers/card.js';
+import { openContextModal } from '../src/ui/context-modal.js';
 
 const contentData = JSON.parse(readFileSync(new URL('../data/content.json', import.meta.url), 'utf8'));
 const fundraisersData = JSON.parse(readFileSync(new URL('../data/fundraisers.json', import.meta.url), 'utf8'));
@@ -133,14 +134,17 @@ function parseSvgPathToMatrix(svgStr) {
   return { matrix, viewSize };
 }
 
-test('QR Code Generation and Real Decode Verification at rendered size 220x220', () => {
+test('QR Code Generation and Real Decode Verification for Donate URLs', () => {
   const testUrls = [
     'https://japiohopman.github.io/fundraiser',
-    'https://japiohopman.github.io/fundraiser#fundraiser-manon-kinkt-shirts',
-    ...fundraisersData.fundraisers.map(f => `${SITE_SHARE_URL}#fundraiser-${f.id}`)
+    ...fundraisersData.fundraisers.map(f => f.donateUrl)
   ];
 
   for (const url of testUrls) {
+    assert.ok(url.startsWith('https://whydonate.com/nl/donate/') || url === SITE_SHARE_URL, `QR test URL must be a /donate/ URL or site-wide share URL: ${url}`);
+    assert.ok(!url.includes('/fundraising/'), `QR URL must not contain /fundraising/: ${url}`);
+    assert.ok(!url.includes('#fundraiser-'), `QR URL must not contain internal anchor: ${url}`);
+
     const svg = QRCodeGen.createSVG(url);
     assert.ok(svg.includes('<svg'), `SVG output missing <svg tag for ${url}`);
     assert.ok(svg.includes('width="220"'), `SVG output must explicitly declare width="220" for production contract`);
@@ -194,7 +198,7 @@ test('Independent QR Finder Pattern Structural Correctness Check', () => {
   }
 });
 
-test('WhatsApp URL Generation for site-wide and fundraiser cards (NL and EN)', () => {
+test('WhatsApp and Email buttons removed from fundraiser cards, site-wide share retained', () => {
   // 1. Site-wide share WhatsApp URL
   for (const lang of ['nl', 'en']) {
     const template = contentData.share.siteShareMessage[lang];
@@ -212,28 +216,20 @@ test('WhatsApp URL Generation for site-wide and fundraiser cards (NL and EN)', (
     assert.ok(decodedTextParam.includes(SITE_SHARE_URL), `WhatsApp message in ${lang} must contain exact site URL`);
   }
 
-  // 2. Fundraiser card WhatsApp URLs
+  // 2. Verify Fundraiser card share section HTML has NO whatsapp or email buttons, but HAS copy link and qr code buttons
   for (const item of fundraisersData.fundraisers) {
     for (const lang of ['nl', 'en']) {
       const shareUrl = `${SITE_SHARE_URL}#fundraiser-${item.id}`;
       const titleText = item.title[lang] || item.title.nl;
       const purposeText = item.purpose[lang] || item.purpose.nl;
 
-      const html = createShareSectionHTML(contentData.share, lang, shareUrl, titleText, purposeText);
+      const html = createShareSectionHTML(contentData.share, lang, shareUrl, titleText, purposeText, item.id);
 
-      // Extract href attribute from whatsapp button
-      const hrefMatch = html.match(/<a\s+href=\"([^\"]*wa\.me[^\"]*)\"[^>]*class=\"[^\"]*whatsapp-btn[^\"]*\"/i) ||
-                        html.match(/<a\s+[^>]*class=\"[^\"]*whatsapp-btn[^\"]*\"[^>]*href=\"([^\"]+)\"/i);
-      assert.ok(hrefMatch, `WhatsApp button href missing in card HTML for ${item.id} (${lang})`);
-
-      const href = hrefMatch[1];
-      assert.ok(href.startsWith('https://wa.me/?text='), `Card WhatsApp URL must start with wa.me/?text= for ${item.id} (${lang})`);
-
-      const encodedMsg = href.replace('https://wa.me/?text=', '');
-      const decodedMsg = decodeURIComponent(encodedMsg);
-
-      assert.ok(decodedMsg.includes(shareUrl), `WhatsApp message must contain exact fundraiser URL with anchor for ${item.id} (${lang})`);
-      assert.ok(decodedMsg.includes(`#fundraiser-${item.id}`), `WhatsApp message must preserve anchor #fundraiser-${item.id} (${lang})`);
+      assert.ok(!html.includes('whatsapp-btn'), `WhatsApp button must NOT be present in card share HTML for ${item.id}`);
+      assert.ok(!html.includes('email-btn'), `Email button must NOT be present in card share HTML for ${item.id}`);
+      assert.ok(html.includes('copy-link-btn'), `Copy Link button must be present in card share HTML for ${item.id}`);
+      assert.ok(html.includes('qr-code-btn'), `QR Code button must be present in card share HTML for ${item.id}`);
+      assert.ok(html.includes('share-toggle-btn'), `Main Share toggle button must be present in card share HTML for ${item.id}`);
     }
   }
 });
@@ -251,7 +247,7 @@ test('Clipboard Share URL and Feedback Strings (NL and EN)', () => {
   }
 });
 
-test('Compact Donate CTA rendering and accessibility in fundraiser cards (NL and EN)', () => {
+test('Compact Donate CTA rendering and accessibility in fundraiser cards uses /nl/donate/ destination (NL and EN)', () => {
   if (typeof globalThis.window === 'undefined') {
     globalThis.window = { location: { href: SITE_SHARE_URL } };
   }
@@ -268,6 +264,15 @@ test('Compact Donate CTA rendering and accessibility in fundraiser cards (NL and
   }
 
   for (const item of fundraisersData.fundraisers) {
+    // Check data consistency: url must be /fundraising/, donateUrl must be /donate/
+    assert.ok(item.url.includes('/nl/fundraising/'), `Source URL must be /nl/fundraising/ for ${item.id}`);
+    assert.ok(item.donateUrl.includes('/nl/donate/'), `Donate URL must be /nl/donate/ for ${item.id}`);
+
+    // Verify Jaap Hopman's exact donation URL
+    if (item.id === 'rooie-jaap-knives') {
+      assert.equal(item.donateUrl, 'https://whydonate.com/nl/donate/koksmessen-voor-rooie-jaap');
+    }
+
     for (const lang of ['nl', 'en']) {
       const card = createFundraiserCard(item, contentData.fundraisersSection.labels, contentData.share, lang, contentData, {});
       const innerHTML = card.innerHTML;
@@ -280,7 +285,7 @@ test('Compact Donate CTA rendering and accessibility in fundraiser cards (NL and
 
       const fullAnchorTag = donateMatch[0];
 
-      assert.ok(fullAnchorTag.includes(`href="${item.url}"`), `Donate URL must equal item.url for ${item.id}`);
+      assert.ok(fullAnchorTag.includes(`href="${item.donateUrl}"`), `Donate URL must equal item.donateUrl (${item.donateUrl}) for ${item.id}`);
 
       // Extract visible text inside <span>
       const spanMatch = fullAnchorTag.match(/<span>([^<]+)<\/span>/i);
@@ -299,6 +304,55 @@ test('Compact Donate CTA rendering and accessibility in fundraiser cards (NL and
       const expectedPrefix = lang === 'en' ? 'Donate to' : 'Doneer aan';
       assert.ok(ariaLabel.startsWith(expectedPrefix), `aria-label '${ariaLabel}' must start with '${expectedPrefix}' for ${item.id} (${lang})`);
     }
+  }
+});
+
+test('Context Modal renders generic Donate button using donateUrl with localized labels', () => {
+  const bodyEl = { innerHTML: '' };
+  const modalEl = {
+    classList: { add: () => {} },
+    removeAttribute: () => {}
+  };
+  const titleEl = { textContent: '' };
+
+  const originalDoc = globalThis.document;
+  globalThis.document = {
+    getElementById: (id) => {
+      if (id === 'context-modal') return modalEl;
+      if (id === 'context-modal-title') return titleEl;
+      if (id === 'context-modal-body') return bodyEl;
+      return null;
+    }
+  };
+
+  try {
+    for (const item of fundraisersData.fundraisers) {
+      const campaignContextData = contentData.fundraisersSection.campaignContext[item.id] || {};
+      const state = {
+        isContextModalOpen: false,
+        contentData,
+        fundraisersData
+      };
+
+      for (const lang of ['nl', 'en']) {
+        openContextModal(state, campaignContextData, lang, null, item);
+
+        const renderedHTML = bodyEl.innerHTML;
+        assert.ok(renderedHTML.includes('context-modal-donate-btn'), `Context modal must contain context-modal-donate-btn for ${item.id} (${lang})`);
+        assert.ok(renderedHTML.includes(`href="${item.donateUrl}"`), `Context modal Donate button must use item.donateUrl (${item.donateUrl}) for ${item.id} (${lang})`);
+
+        const expectedLabel = lang === 'en' ? 'Donate on WhyDonate' : 'Doneer op WhyDonate';
+        assert.ok(renderedHTML.includes(`<span>${expectedLabel}</span>`), `Context modal Donate button label must be '${expectedLabel}' for ${item.id} (${lang})`);
+
+        // Check that artist/source link remains separate where applicable (e.g., Jim Gijbels or Jaap Hopman)
+        if (campaignContextData.link && campaignContextData.link.url) {
+          assert.ok(renderedHTML.includes(`href="${campaignContextData.link.url}"`), `Context modal must preserve external context link ${campaignContextData.link.url} for ${item.id}`);
+          assert.ok(renderedHTML.includes('context-modal-link'), `Context modal external link must use class context-modal-link for ${item.id}`);
+        }
+      }
+    }
+  } finally {
+    globalThis.document = originalDoc;
   }
 });
 

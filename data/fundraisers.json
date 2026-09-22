@@ -10,6 +10,7 @@
       "parentCampaignId": null,
       "slug": "houd-parknest-open-in-de-winter",
       "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter",
+      "donateUrl": "https://whydonate.com/nl/donate/houd-parknest-open-in-de-winter",
       "officialEntryPoint": "https://fundraiser.parknest.nl/",
       "category": "collective",
       "title": {
@@ -71,6 +72,7 @@
       "parentCampaignId": 101918,
       "slug": "kathinka",
       "url": "https://whydonate.com/nl/fundraising/kathinka",
+      "donateUrl": "https://whydonate.com/nl/donate/kathinka",
       "officialEntryPoint": null,
       "category": "personal",
       "title": {
@@ -132,6 +134,7 @@
       "parentCampaignId": 101918,
       "slug": "jimgijbels",
       "url": "https://whydonate.com/nl/fundraising/jimgijbels",
+      "donateUrl": "https://whydonate.com/nl/donate/jimgijbels",
       "officialEntryPoint": null,
       "category": "personal",
       "title": {
@@ -193,6 +196,7 @@
       "parentCampaignId": 101918,
       "slug": "koksmessen-voor-rooie-jaap",
       "url": "https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap",
+      "donateUrl": "https://whydonate.com/nl/donate/koksmessen-voor-rooie-jaap",
       "officialEntryPoint": null,
       "category": "personal",
       "title": {
@@ -306,6 +310,7 @@
       "parentCampaignId": 101918,
       "slug": "vervang-keukegerei-van-kok-suzy-creamcheese",
       "url": "https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese",
+      "donateUrl": "https://whydonate.com/nl/donate/vervang-keukegerei-van-kok-suzy-creamcheese",
       "officialEntryPoint": null,
       "category": "personal",
       "title": {
@@ -361,6 +366,7 @@
       "parentCampaignId": 101918,
       "slug": "vervang-de-kinkt-shirts-van-manon",
       "url": "https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon",
+      "donateUrl": "https://whydonate.com/nl/donate/vervang-de-kinkt-shirts-van-manon",
       "officialEntryPoint": null,
       "category": "personal",
       "title": {
