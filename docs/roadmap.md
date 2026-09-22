@@ -72,7 +72,7 @@
   - **Acceptance:** The fundraiser area reads as a documented set of campaigns rather than a shop; six cards share one coherent visual language; collective/personal remains understandable without relying on color alone; actions remain clear without dominating like ecommerce CTAs.
   - **Verification:** Inspect 320, 375, 480, 768, 1024, 1440 and 1920px in NL/EN plus focus, reduced-motion and print checks.
 
-- [ ] **Context modal: redesign desktop layout for editorial reading and media** (Issue #71)
+- [x] **Context modal: redesign desktop layout for editorial reading and media** (Issue #71)
   - **Problem:** The context modal is primarily a narrow single-column surface even when desktop width and media-rich content would benefit from a more deliberate editorial composition.
   - **Goal:** Use desktop space more effectively for text, provenance and media while keeping mobile simple and readable.
   - **Scope:** Responsive context-modal layout and presentation only; no route/page rewrite.
@@ -153,7 +153,7 @@
 
 - [ ] Issue #69 — Share experience: direct QR + copy link with clear destination context
 - [x] Issue #70 — Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language
-- [ ] Issue #71 — Context modal: redesign desktop layout for editorial reading and media
+- [x] Issue #71 — Context modal: redesign desktop layout for editorial reading and media
 - [ ] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
 
 ### Phase 2 success criteria
