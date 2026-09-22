@@ -54,6 +54,41 @@
   - **Acceptance:** Segment percentages are calculated from underlying data; percentages sum to 100% within the expected rounding tolerance; displayed total matches the underlying campaign totals; `onlineDonationCount` remains distinct from unique donor count; existing statistics continue to work; new tests cover the calculation/rendering contract; no new runtime dependency; no horizontal overflow or clipped chart/legend content on mobile.
   - **Verification:** Check approximately 320px, 375px, 768px, 1024px and 1440px widths in NL and EN; perform keyboard/accessibility checks; report automated and visual verification separately.
 
+
+- [ ] **Share experience: direct QR + copy link with clear destination context** (Issue #69)
+  - **Problem:** The fixed site-wide share control currently adds an extra interaction layer with native share, WhatsApp, email, copy link and a separate QR modal. The QR destination also needs clearer distinction between sharing this transparency site and sharing a specific fundraiser donation page.
+  - **Goal:** Make sharing immediate and understandable: fixed Share opens directly to site QR + Copy Link, while campaign QR views clearly identify the donation-page destination.
+  - **Scope:** Fixed site-share markup/logic, shared QR presentation/labels, and campaign-share destination semantics.
+  - **Constraints:** Do not change canonical donation URLs or fundraiser facts. Preserve keyboard focus, Escape, reduced motion and mobile footer protection. Keep the static-site/no-runtime-dependency architecture. Content changes require the content-approved workflow.
+  - **Acceptance:** Site Share opens directly to a clearly labelled site QR with Copy Link below it; WhatsApp/email are removed from the fixed site-share panel; campaign QR clearly identifies the specific fundraiser/donation page; site and campaign QR destinations are correct; NL/EN parity and accessibility are preserved.
+  - **Verification:** Test 320, 375, 768, 1024 and 1440px in NL/EN, including QR generation, copy, focus, Escape, mobile collision checks and Jim donation QR destination. Run the full existing test suite.
+  - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
+
+- [ ] **Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language** (Issue #70)
+  - **Problem:** The current combination of borders, badges, shadows, avatars, colored surfaces and strong actions gives the fundraiser cards a transactional/webshop/dashboard character.
+  - **Goal:** Rework card presentation into a calm, professional editorial information surface while retaining clear campaign identity and collective/personal distinction.
+  - **Scope:** Card presentation, surfaces, typography, spacing, shadows, borders, progress/statistic treatment and action presentation.
+  - **Constraints:** Preserve all facts, anchors, internal links, progress bars, avatars, context/share actions, NL/EN and accessibility. Prefer existing tokens. Subtle gradients may be evaluated but must remain restrained and purposeful. Do not redesign into product/pricing tiles or add decorative density.
+  - **Acceptance:** The fundraiser area reads as a documented set of campaigns rather than a shop; six cards share one coherent visual language; collective/personal remains understandable without relying on color alone; actions remain clear without dominating like ecommerce CTAs.
+  - **Verification:** Inspect 320, 375, 480, 768, 1024, 1440 and 1920px in NL/EN plus focus, reduced-motion and print checks.
+
+- [ ] **Context modal: redesign desktop layout for editorial reading and media** (Issue #71)
+  - **Problem:** The context modal is primarily a narrow single-column surface even when desktop width and media-rich content would benefit from a more deliberate editorial composition.
+  - **Goal:** Use desktop space more effectively for text, provenance and media while keeping mobile simple and readable.
+  - **Scope:** Responsive context-modal layout and presentation only; no route/page rewrite.
+  - **Constraints:** Preserve focus trap, Escape, focus restoration, internal campaign links, galleries, image fallbacks, source links, NL/EN and reduced motion. Do not change factual content.
+  - **Acceptance:** Image-heavy contexts can use a balanced text/media composition; long text remains readable; text-only contexts remain comfortable; the modal feels focused rather than dashboard-like; mobile remains single-column and uncluttered.
+  - **Verification:** Test 375, 768, 1024, 1440 and 1920px in NL/EN with Jaap, Jim, Manon and ParkNest contexts, including keyboard, galleries and internal navigation.
+
+- [ ] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)
+  - **Problem:** The current heart is a prominent animated graphic behind donor credits rather than the visual carrier of the gratitude message itself, and its treatment can feel more promotional than editorial.
+  - **Goal:** Make the heart a deliberate closing gesture by placing a concise gratitude message inside it and using refined display typography.
+  - **Scope:** Heart composition, message placement, typography and related donor-wall presentation.
+  - **Constraints:** Preserve donor data and reduced-motion behavior. Prefer a Google Fonts family but self-host the required font assets locally rather than introducing a runtime CDN dependency. Keep the new display font isolated to the gratitude treatment unless a broader change is justified. Content changes require the content-approved workflow.
+  - **Acceptance:** The heart contains the gratitude message; NL/EN are balanced; text is legible at mobile and desktop sizes; the treatment feels warm/editorial rather than commercial; reduced-motion remains calm and static.
+  - **Verification:** Test 320, 375, 768, 1024, 1440 and 1920px in NL/EN, including donor wall visibility, print and font-loading behavior.
+  - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
+
 ### Blocked
 
 - [ ] GitHub Pages deployment from `main` (needs your decision on repository settings and domain)
@@ -112,7 +147,20 @@
 - [x] Keyboard navigation and focus ring visibility testing
 - [ ] Complete contrast ratio and screen-reader accessibility audit (Issue #53)
 
-## Phase 2 — Static website deployment & delivery
+## Phase 2 — Editorial UX & visual refinement
+
+**Status: Planned**
+
+- [ ] Issue #69 — Share experience: direct QR + copy link with clear destination context
+- [ ] Issue #70 — Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language
+- [ ] Issue #71 — Context modal: redesign desktop layout for editorial reading and media
+- [ ] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
+
+### Phase 2 success criteria
+
+The site should feel like a calm, independent editorial information resource rather than a donation dashboard or webshop. Sharing should be immediate and destination-aware, fundraiser cards should communicate information rather than products, context should read well on desktop and mobile, and the final thank-you gesture should feel human and intentional.
+
+## Phase 3 — Static website deployment & delivery
 
 **Status: Planned**
 
