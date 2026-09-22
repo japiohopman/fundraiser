@@ -758,8 +758,8 @@ body {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
   text-align: center;
 }
 
@@ -767,6 +767,13 @@ body {
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-4);
+  }
+}
+
+@media (min-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-3);
   }
 }
 
