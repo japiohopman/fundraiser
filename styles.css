@@ -742,6 +742,73 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   7b. Campaign Statistics Strip
+   -------------------------------------------------------------------------- */
+.campaign-stats-container {
+  margin-bottom: var(--space-8);
+}
+
+.stats-strip-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-4);
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+}
+
+.stat-number {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: var(--line-height-tight);
+}
+
+.stat-metric {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.stats-footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--color-border-subtle);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
    8. Fundraisers Grid & Cards
    -------------------------------------------------------------------------- */
 .fundraisers-grid {

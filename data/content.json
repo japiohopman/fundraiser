@@ -102,6 +102,36 @@
       "nl": "Overzicht Inzamelingsacties",
       "en": "Fundraisers Overview"
     },
+    "stats": {
+      "title": {
+        "nl": "Inzamelingsstatistieken",
+        "en": "Campaign Statistics"
+      },
+      "totalCampaigns": {
+        "nl": "Inzamelingsacties",
+        "en": "Fundraising campaigns"
+      },
+      "totalDonations": {
+        "nl": "Online donaties",
+        "en": "Online donations"
+      },
+      "totalRaised": {
+        "nl": "Totaal opgehaald",
+        "en": "Total raised"
+      },
+      "donationSingular": {
+        "nl": "donatie",
+        "en": "donation"
+      },
+      "donationPlural": {
+        "nl": "donaties",
+        "en": "donations"
+      },
+      "snapshotNote": {
+        "nl": "Momentopname geverifieerd op {date}",
+        "en": "Snapshot verified on {date}"
+      }
+    },
     "intro": {
       "nl": "Hieronder staan de op WhyDonate geregistreerde acties. De gegevens zijn gebaseerd op een directe momentopname van het platform. Bekijk altijd de originele pagina voor de meest actuele stand.",
       "en": "Below are the fundraising actions registered on WhyDonate. Figures are based on a direct platform snapshot. Always check the original page for the latest status."

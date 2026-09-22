@@ -48,6 +48,10 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
     contentData?.fundraisersSection?.cardBadges?.[item.id]?.nl ||
     titleText;
 
+  const categoryBadgeText = item.category === 'collective'
+    ? (contentData?.fundraisersSection?.collectiveBadge?.[lang] || 'Collectiefonds')
+    : (contentData?.fundraisersSection?.personalBadge?.[lang] || 'Persoonlijk herstel');
+
   const avatarMap = {
     'parknest-collective': 'parknest-avatar',
     'kathinka-dog-collars': 'kathinka-avatar',
@@ -116,6 +120,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
     <div class="fundraiser-card-header ${avatarName ? 'has-avatar' : ''}">
       ${avatarHTML}
       <div class="header-title-wrapper">
+        <span class="category-badge ${item.category}-badge card-type-badge">${categoryBadgeText}</span>
         <div class="fundraiser-identity-name">${identityName}</div>
         <h4 class="fundraiser-card-title">${titleText}</h4>
       </div>
