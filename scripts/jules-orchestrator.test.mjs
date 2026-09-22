@@ -592,3 +592,67 @@ test('Never dispatch more than one Jules session from a single run', async () =>
   assert.equal(result.state.activeSession.name, 'sessions/dispatch-1');
   assert.ok(result.state.activeSession.task.includes('Task 1'));
 });
+
+
+test('Completed active task with PAUSED Jules session -> clear stale state and dispatch next Ready task', async () => {
+  const state = {
+    activeSession: {
+      name: 'sessions/old-69',
+      task: '**Share experience: direct QR + copy link with clear destination context** (Issue #69)',
+      taskId: 'Issue#69',
+      title: 'Share experience: direct QR + copy link with clear destination context',
+      startedAt: '2026-09-22T17:03:46.009Z',
+    },
+  };
+  const roadmapText = `## Now\n### Ready\n- [x] **Share experience: direct QR + copy link with clear destination context** (Issue #69)\n- [ ] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') {
+        postCount++;
+        const body = JSON.parse(options.body);
+        assert.match(body.title, /Thank-you section/);
+        assert.match(body.prompt, /Issue #72/);
+        return { name: 'sessions/72' };
+      }
+      throw new Error(`stale completed session should not be queried: ${path}`);
+    },
+    githubFetch: async () => assert.fail('No GitHub PR lookup should be needed for an already-checked task'),
+  });
+
+  assert.equal(result.stateChanged, true);
+  assert.equal(postCount, 1);
+  assert.equal(result.state.activeSession.name, 'sessions/72');
+});
+
+test('Current active PAUSED task remains blocked from duplicate dispatch', async () => {
+  const state = {
+    activeSession: {
+      name: 'sessions/current-72',
+      task: '**Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)',
+      taskId: 'Issue#72',
+      title: 'Thank-you section: place gratitude message inside heart and introduce editorial display typography',
+      startedAt: new Date().toISOString(),
+    },
+  };
+  const roadmapText = `## Now\n### Ready\n- [x] **Share experience: direct QR + copy link with clear destination context** (Issue #69)\n- [ ] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)\n`;
+
+  let postCount = 0;
+  const result = await orchestrate({
+    state,
+    roadmapText,
+    julesFetch: async (path, options) => {
+      if (options?.method === 'POST') postCount++;
+      assert.equal(path, 'sessions/current-72');
+      return { state: 'PAUSED', outputs: [] };
+    },
+    githubFetch: async () => assert.fail('No GitHub lookup expected for current PAUSED session'),
+  });
+
+  assert.equal(result.stateChanged, false);
+  assert.equal(postCount, 0);
+  assert.equal(result.state.activeSession.name, 'sessions/current-72');
+});
