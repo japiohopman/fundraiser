@@ -16,6 +16,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
   const card = document.createElement('article');
   card.className = `fundraiser-card category-${item.category}`;
   card.id = `fundraiser-${item.id}`;
+  card.tabIndex = -1;
 
   const titleText = item.title[lang] || item.title.nl;
   const purposeText = item.purpose[lang] || item.purpose.nl;

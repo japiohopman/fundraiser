@@ -575,6 +575,23 @@ body {
   line-height: var(--line-height-tight);
 }
 
+.purpose-card-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: rgba(30, 58, 138, 0.4);
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.purpose-card-link:hover,
+.purpose-card-link:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
 .section-intro {
   font-size: var(--font-size-base);
   color: var(--color-text-muted);
@@ -884,6 +901,21 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+.legend-item-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.legend-item-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
 .legend-avatar-badge-wrapper {
   position: relative;
   display: inline-flex;
@@ -978,6 +1010,23 @@ body {
     grid-template-columns: repeat(6, 1fr);
     gap: var(--space-3);
   }
+}
+
+.stat-box-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stat-box-link:hover,
+.stat-box-link:focus-visible {
+  background-color: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .stat-box {
@@ -1826,6 +1875,24 @@ body {
   color: var(--color-text-muted);
   line-height: var(--line-height-normal);
   margin-bottom: var(--space-3);
+}
+
+.modal-internal-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-underline-offset: 2px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.modal-internal-link:hover,
+.modal-internal-link:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
 }
 
 .equipment-table-wrapper {

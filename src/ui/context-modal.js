@@ -14,6 +14,7 @@ let contextModalFocusTimeout = null;
 export function setupContextModal(state) {
   const modal = document.getElementById('context-modal');
   const closeBtn = document.getElementById('context-modal-close-btn');
+  const bodyEl = document.getElementById('context-modal-body');
 
   if (!modal || !closeBtn) return;
 
@@ -24,6 +25,26 @@ export function setupContextModal(state) {
       closeContextModal(state);
     }
   });
+
+  if (bodyEl) {
+    bodyEl.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#fundraiser-"]');
+      if (link) {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        const targetId = href.substring(1);
+        closeContextModal(state);
+        window.location.hash = href;
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+          if (typeof targetEl.focus === 'function') {
+            targetEl.focus();
+          }
+        }
+      }
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.isContextModalOpen) {
@@ -66,7 +87,8 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
 
   if (contextData.provenanceNote) {
     const noteText = contextData.provenanceNote[lang] || contextData.provenanceNote.nl;
-    html += `<p class="provenance-note">${noteText}</p>`;
+    const formattedNote = formatInternalModalLinks(noteText, item?.id);
+    html += `<p class="provenance-note">${formattedNote}</p>`;
   }
 
   if (contextData.images && contextData.images.header) {
@@ -98,13 +120,15 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
 
   if (contextData.text) {
     const mainText = contextData.text[lang] || contextData.text.nl;
-    html += `<p class="context-modal-text">${mainText}</p>`;
+    const formattedMainText = formatInternalModalLinks(mainText, item?.id);
+    html += `<p class="context-modal-text">${formattedMainText}</p>`;
   }
 
   if (contextData.paragraphs && Array.isArray(contextData.paragraphs)) {
     contextData.paragraphs.forEach(pObj => {
       const pText = pObj[lang] || pObj.nl;
-      html += `<p class="context-modal-text">${pText}</p>`;
+      const formattedPText = formatInternalModalLinks(pText, item?.id);
+      html += `<p class="context-modal-text">${formattedPText}</p>`;
     });
   }
 
@@ -229,6 +253,47 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
       }
     }, 50);
   }
+}
+
+/**
+ * Scoped data-driven campaign cross-reference definitions.
+ */
+const CAMPAIGN_CROSS_REFERENCES = [
+  {
+    sourceCampaignId: 'rooie-jaap-knives',
+    targetCampaignId: 'suzy-creamcheese-kitchenware',
+    pattern: /Suzy Creamcheese/g,
+    label: 'Suzy Creamcheese'
+  },
+  {
+    sourceCampaignId: 'suzy-creamcheese-kitchenware',
+    targetCampaignId: 'rooie-jaap-knives',
+    pattern: /Jaap Hopman/g,
+    label: 'Jaap Hopman'
+  }
+];
+
+/**
+ * Helper to dynamically convert explicit campaign cross-references into internal modal links.
+ * @param {string} text
+ * @param {string} [sourceCampaignId]
+ * @returns {string}
+ */
+function formatInternalModalLinks(text, sourceCampaignId) {
+  if (!text || !sourceCampaignId) return text || '';
+
+  let formatted = text;
+
+  CAMPAIGN_CROSS_REFERENCES.forEach(({ sourceCampaignId: refSource, targetCampaignId, pattern, label }) => {
+    if (sourceCampaignId === refSource && pattern.test(formatted)) {
+      formatted = formatted.replace(
+        pattern,
+        `<a href="#fundraiser-${targetCampaignId}" class="modal-internal-link">${label}</a>`
+      );
+    }
+  });
+
+  return formatted;
 }
 
 /**
