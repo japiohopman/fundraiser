@@ -80,7 +80,7 @@
   - **Acceptance:** Image-heavy contexts can use a balanced text/media composition; long text remains readable; text-only contexts remain comfortable; the modal feels focused rather than dashboard-like; mobile remains single-column and uncluttered.
   - **Verification:** Test 375, 768, 1024, 1440 and 1920px in NL/EN with Jaap, Jim, Manon and ParkNest contexts, including keyboard, galleries and internal navigation.
 
-- [ ] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)
+- [x] **Thank-you section: place gratitude message inside heart and introduce editorial display typography** (Issue #72)
   - **Problem:** The current heart is a prominent animated graphic behind donor credits rather than the visual carrier of the gratitude message itself, and its treatment can feel more promotional than editorial.
   - **Goal:** Make the heart a deliberate closing gesture by placing a concise gratitude message inside it and using refined display typography.
   - **Scope:** Heart composition, message placement, typography and related donor-wall presentation.
@@ -154,7 +154,7 @@
 - [ ] Issue #69 — Share experience: direct QR + copy link with clear destination context
 - [x] Issue #70 — Fundraiser cards: replace dashboard/shop aesthetic with calm editorial visual language
 - [x] Issue #71 — Context modal: redesign desktop layout for editorial reading and media
-- [ ] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
+- [x] Issue #72 — Thank-you section: place gratitude message inside heart and introduce editorial display typography
 
 ### Phase 2 success criteria
 
