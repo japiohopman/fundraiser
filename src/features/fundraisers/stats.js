@@ -191,6 +191,8 @@ export function renderCampaignStats(container, fundraisers, content, lang = 'nl'
         stroke-width="16"
         stroke-dasharray="${dashLength.toFixed(4)} ${gapLength.toFixed(4)}"
         stroke-dashoffset="${strokeOffset.toFixed(4)}"
+        tabindex="0"
+        role="link"
         aria-label="${c.name}: ${c.formattedAmount} (${c.formattedPercentage})"
       >
         <title>${c.name}: ${c.formattedAmount} (${c.formattedPercentage})</title>
@@ -322,8 +324,16 @@ function attachInteractiveHighlighting(container) {
     const id = seg.dataset.campaignId;
     seg.addEventListener('mouseenter', () => highlight(id));
     seg.addEventListener('mouseleave', clearHighlight);
+    seg.addEventListener('focus', () => highlight(id));
+    seg.addEventListener('blur', clearHighlight);
     seg.addEventListener('click', () => {
       window.location.hash = `fundraiser-${id}`;
+    });
+    seg.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.hash = `fundraiser-${id}`;
+      }
     });
     if (seg.style) {
       seg.style.cursor = 'pointer';

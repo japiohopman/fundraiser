@@ -256,26 +256,39 @@ export function openContextModal(state, contextData, lang, triggerEl, item) {
 }
 
 /**
- * Helper to dynamically convert mentions of other campaigns into internal modal links.
+ * Scoped data-driven campaign cross-reference definitions.
+ */
+const CAMPAIGN_CROSS_REFERENCES = [
+  {
+    sourceCampaignId: 'rooie-jaap-knives',
+    targetCampaignId: 'suzy-creamcheese-kitchenware',
+    pattern: /Suzy Creamcheese/g,
+    label: 'Suzy Creamcheese'
+  },
+  {
+    sourceCampaignId: 'suzy-creamcheese-kitchenware',
+    targetCampaignId: 'rooie-jaap-knives',
+    pattern: /Jaap Hopman/g,
+    label: 'Jaap Hopman'
+  }
+];
+
+/**
+ * Helper to dynamically convert explicit campaign cross-references into internal modal links.
  * @param {string} text
- * @param {string} [currentItemId]
+ * @param {string} [sourceCampaignId]
  * @returns {string}
  */
-function formatInternalModalLinks(text, currentItemId) {
-  if (!text) return '';
+function formatInternalModalLinks(text, sourceCampaignId) {
+  if (!text || !sourceCampaignId) return text || '';
 
   let formatted = text;
 
-  const CROSS_REFS = [
-    { pattern: /Suzy Creamcheese/g, targetId: 'suzy-creamcheese-kitchenware', label: 'Suzy Creamcheese' },
-    { pattern: /Jaap Hopman/g, targetId: 'rooie-jaap-knives', label: 'Jaap Hopman' }
-  ];
-
-  CROSS_REFS.forEach(({ pattern, targetId, label }) => {
-    if (currentItemId !== targetId && pattern.test(formatted)) {
+  CAMPAIGN_CROSS_REFERENCES.forEach(({ sourceCampaignId: refSource, targetCampaignId, pattern, label }) => {
+    if (sourceCampaignId === refSource && pattern.test(formatted)) {
       formatted = formatted.replace(
         pattern,
-        `<a href="#fundraiser-${targetId}" class="modal-internal-link">${label}</a>`
+        `<a href="#fundraiser-${targetCampaignId}" class="modal-internal-link">${label}</a>`
       );
     }
   });
