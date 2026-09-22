@@ -2237,20 +2237,51 @@ body {
 }
 
 .thank-you-stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-8);
-  max-width: 920px;
+  width: 100%;
+  max-width: 1120px;
   margin: 0 auto;
+}
+
+/* Donor Wall Grid Layout */
+.donor-wall {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 440px) 1fr;
+  grid-template-areas: "start heart end";
+  align-items: center;
+  justify-items: center;
+  gap: var(--space-6);
+}
+
+.donor-zone-start {
+  grid-area: start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  width: 100%;
+}
+
+.donor-zone-end {
+  grid-area: end;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  width: 100%;
 }
 
 /* Gratitude Heart Vessel (Visual carrier of the gratitude message) */
 .thank-you-heart-container {
+  grid-area: heart;
   position: relative;
   width: 100%;
-  max-width: 460px;
-  min-height: 400px;
+  max-width: 440px;
+  min-height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2266,7 +2297,7 @@ body {
   width: 100%;
   height: 100%;
   max-width: 440px;
-  max-height: 420px;
+  max-height: 400px;
   color: #fff1f2; /* Soft Rose 50 background fill */
   filter: drop-shadow(0 4px 16px rgba(225, 29, 72, 0.08));
   z-index: 1;
@@ -2281,8 +2312,8 @@ body {
 .thank-you-gratitude-content {
   position: relative;
   z-index: 2;
-  padding: var(--space-8) var(--space-6) var(--space-4);
-  max-width: 320px;
+  padding: var(--space-6) var(--space-5) var(--space-4);
+  max-width: 300px;
   margin: 0 auto;
   text-align: center;
   display: flex;
@@ -2293,10 +2324,10 @@ body {
 
 .thank-you-display-title {
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
   font-weight: 600;
   font-style: italic;
-  line-height: 1.2;
+  line-height: 1.25;
   color: #881337; /* Deep Rose 900 */
   margin: 0 0 var(--space-2) 0;
   letter-spacing: -0.01em;
@@ -2304,61 +2335,27 @@ body {
 
 .thank-you-display-message {
   font-family: var(--font-sans);
-  font-size: clamp(0.8125rem, 1.8vw, 0.9375rem);
-  line-height: 1.5;
+  font-size: clamp(0.8125rem, 1.6vw, 0.925rem);
+  line-height: 1.48;
   color: #4c0519; /* Rose 950 for high contrast legibility */
   margin: 0;
   font-weight: 500;
 }
 
-/* Donor Wall Container */
-.donor-wall {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 860px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-}
-
-.donor-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4) var(--space-6);
-  width: 100%;
-}
-
-.donor-row-1 {
-  transform: translateY(-5px);
-}
-
-.donor-row-2 {
-  transform: translateY(0px);
-}
-
-.donor-row-3 {
-  transform: translateY(5px);
-}
-
+/* Donor Name Item - Editorial Type Treatment */
 .donor-item {
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1.1rem;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  border: 1.5px solid var(--color-primary-border);
-  border-radius: 9999px;
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 0.95rem + 0.4vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--color-primary);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0.2rem 0.4rem;
   animation: donorCreditSequence var(--total-duration, 60s) linear infinite;
   animation-delay: var(--item-delay, 0s);
   opacity: 0;
@@ -2368,25 +2365,26 @@ body {
 @keyframes donorCreditSequence {
   0% {
     opacity: 0;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 8px)) scale(0.96);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 6px)) scale(0.97);
   }
   2% {
     opacity: 1;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 2px)) scale(1);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) + 1px)) scale(1);
   }
   8% {
     opacity: 1;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 2px)) scale(1);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 1px)) scale(1);
   }
   10%, 100% {
     opacity: 0;
-    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 8px)) scale(0.96);
+    transform: translate(var(--x-shift, 0px), calc(var(--y-shift, 0px) - 6px)) scale(0.97);
   }
 }
 
 .donor-item.donor-gesture {
-  font-size: 1.25rem;
-  padding: 0.25rem 0.5rem;
+  font-size: 1.1rem;
+  padding: 0.2rem 0.3rem;
+  color: var(--color-text-muted);
 }
 
 .donor-fallback-message {
@@ -2400,10 +2398,23 @@ body {
   margin: 0 auto;
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 600px) {
+/* Responsive breakpoint for mobile layout (< 860px) */
+@media (max-width: 859px) {
   .thank-you-section {
     padding: var(--space-6) var(--space-3);
+  }
+
+  .donor-wall {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .donor-zone-start,
+  .donor-zone-end {
+    justify-content: center;
+    gap: var(--space-2) var(--space-3);
   }
 
   .thank-you-heart-container {
@@ -2417,7 +2428,7 @@ body {
   }
 
   .thank-you-display-title {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
   }
 
   .thank-you-display-message {
@@ -2425,22 +2436,13 @@ body {
     line-height: 1.45;
   }
 
-  .donor-wall {
-    gap: var(--space-3);
-  }
-
-  .donor-row {
-    gap: var(--space-2);
-  }
-
   .donor-item {
-    padding: 0.35rem 0.85rem;
-    font-size: var(--font-size-xs);
+    font-size: 1.05rem;
+    padding: 0.15rem 0.3rem;
   }
 
   .donor-item.donor-gesture {
-    font-size: 1rem;
-    padding: 0.25rem 0.6rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -2551,12 +2553,11 @@ body {
     max-width: 100% !important;
   }
 
-  .donor-row {
+  .donor-zone-start,
+  .donor-zone-end {
     animation: none !important;
     transform: none !important;
     flex-wrap: wrap !important;
-    justify-content: center !important;
-    white-space: normal !important;
   }
 
   .donor-item {
