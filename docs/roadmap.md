@@ -161,15 +161,25 @@
 
 The site should feel like a calm, independent editorial information resource rather than a donation dashboard or webshop. Sharing should be immediate and destination-aware, fundraiser cards should communicate information rather than products, context should read well on desktop and mobile, and the final thank-you gesture should feel human and intentional.
 
-## Phase 3 — Static website deployment & delivery
+## Phase 3 — Production Readiness & Launch
 
-**Status: Planned**
+**Status: In Progress**
 
-- [ ] GitHub Actions CI workflow for build and lint validation
-- [ ] Automated HTML / JSON schema validation step
-- [ ] Link integrity check for external campaign sources
-- [ ] GitHub Pages deployment configuration from `main`
-- [ ] Final launch review and pre-launch verification
+- [ ] **Production validation and regression gate** (Issue #81)
+  - **Problem:** The repository has several automated checks already, but the production-readiness gate needs one explicit, reliable path covering the checks that can be verified automatically.
+  - **Goal:** Formalize automated validation before deployment work begins.
+  - **Scope:** Existing test suite, static-site serve/build sanity where applicable, HTML validation where practical, JSON/schema validation, Content Guard, existing accessibility automation, and technically appropriate local/static link checks.
+  - **Constraints:** Preserve the static architecture. Do not change fundraiser facts/data. Do not weaken checks. Do not treat external rate-limit or anti-bot responses as proof that a source is broken. Automated checks are not proof of visual or screen-reader correctness.
+  - **Acceptance:** One clear CI validation path exists; HTML and JSON/schema validation are covered where appropriate; existing Content Guard/accessibility checks remain active; failures distinguish code/schema failures from external-access limitations; no unrelated UI/content work.
+  - **Verification:** Run the full automated suite and report automated checks separately from any manual/browser verification.
+
+- [ ] Accessibility and manual QA closure
+- [ ] Resilient external-link/source integrity policy and check
+- [ ] GitHub Pages deployment configuration and production verification
+- [ ] Final editorial/content verification
+- [ ] Launch review and handoff
+
+## Open questions & evidence limits
 
 ## Open questions & evidence limits
 
