@@ -1,3 +1,10 @@
 {
-  "activeSession": null
+  "activeSession": {
+    "name": "pending",
+    "claimId": "claim_1790083413598_71fry3",
+    "task": "**Share experience: direct QR + copy link with clear destination context** (Issue #69)",
+    "taskId": "Issue#69",
+    "title": "Share experience: direct QR + copy link with clear destination context",
+    "startedAt": "2026-09-22T13:23:33.599Z"
+  }
 }
