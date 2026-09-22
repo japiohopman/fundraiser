@@ -46,7 +46,7 @@
   - **Acceptance:** Identified accessibility defects are fixed or explicitly recorded as manual follow-up items; no automated check is presented as proof of real screen-reader verification.
   - **Verification:** Run supported automated accessibility checks plus targeted manual keyboard/screen-reader verification where feasible.
 
-- [ ] **Campaign statistics: donation distribution donut chart** (Issue #65)
+- [x] **Campaign statistics: donation distribution donut chart** (Issue #65)
   - **Problem:** The campaign statistics area shows aggregate figures, but does not yet provide a clear visual representation of how the registered donation total is distributed across the fundraiser campaigns.
   - **Goal:** Add a responsive, accessible donut chart showing how 100% of the registered donation amount is distributed across the fundraiser campaigns.
   - **Scope:** One segment per fundraiser; calculate percentages from the existing `data/fundraisers.json` financial totals; show campaign name, amount and percentage in an accessible textual legend/equivalent; show the overall registered donation total in the donut center; keep `onlineDonationCount` as a separate numeric statistic.
