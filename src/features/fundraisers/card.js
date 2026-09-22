@@ -1,7 +1,6 @@
 import { formatCurrency } from '../../utils/currency.js';
 import { createShareSectionHTML, attachShareListeners } from './share.js';
 import { openContextModal } from '../../ui/context-modal.js';
-import { getDonateUrl } from './donate-url.js';
 
 /**
  * Creates and returns the DOM element for a fundraiser card.
@@ -115,7 +114,7 @@ export function createFundraiserCard(item, labels, shareContent, lang, contentDa
   const baseUrl = window.location.href.split('#')[0];
   const shareUrl = `${baseUrl}#fundraiser-${item.id}`;
 
-  const donateUrl = getDonateUrl(item);
+  const donateUrl = item.donateUrl;
   const shareHTML = createShareSectionHTML(shareContent, lang, shareUrl, titleText, purposeText, item.id);
 
   card.innerHTML = `

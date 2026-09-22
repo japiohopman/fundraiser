@@ -1,14 +1,12 @@
 import {
-  buildWhatsAppUrl,
-  buildEmailUrl,
   triggerNativeShare,
   copyToClipboard,
   triggerQRModal
 } from '../../ui/share-actions.js';
 
 /**
- * Handles sharing-specific markup and logic:
- * Web Share API, WhatsApp URL/text, email share, copy link, and QR code modal trigger.
+ * Handles sharing-specific markup and logic for individual fundraiser cards:
+ * Web Share API (native share), Copy Link, and QR code modal trigger.
  */
 
 /**
