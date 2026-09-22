@@ -5,7 +5,8 @@ import { calculateCampaignStats, formatDonationCount, renderCampaignStats } from
 
 test('calculateCampaignStats returns 6 individual campaign donation counts and latest verifiedAt date', () => {
   const fundraisersData = JSON.parse(readFileSync('./data/fundraisers.json', 'utf8'));
-  const stats = calculateCampaignStats(fundraisersData.fundraisers);
+  const contentData = JSON.parse(readFileSync('./data/content.json', 'utf8'));
+  const stats = calculateCampaignStats(fundraisersData.fundraisers, '2026-09-20', contentData, 'nl');
 
   assert.equal(stats.campaigns.length, 6);
 
@@ -38,20 +39,23 @@ test('calculateCampaignStats returns 6 individual campaign donation counts and l
 });
 
 test('formatDonationCount correctly applies singular/plural wording in NL and EN', () => {
-  assert.equal(formatDonationCount(1, 'nl'), '1 donatie');
-  assert.equal(formatDonationCount(3, 'nl'), '3 donaties');
-  assert.equal(formatDonationCount(808, 'nl'), '808 donaties');
+  const contentData = JSON.parse(readFileSync('./data/content.json', 'utf8'));
 
-  assert.equal(formatDonationCount(1, 'en'), '1 donation');
-  assert.equal(formatDonationCount(3, 'en'), '3 donations');
-  assert.equal(formatDonationCount(808, 'en'), '808 donations');
+  assert.equal(formatDonationCount(1, 'nl', contentData), '1 donatie');
+  assert.equal(formatDonationCount(3, 'nl', contentData), '3 donaties');
+  assert.equal(formatDonationCount(808, 'nl', contentData), '808 donaties');
+
+  assert.equal(formatDonationCount(1, 'en', contentData), '1 donation');
+  assert.equal(formatDonationCount(3, 'en', contentData), '3 donations');
+  assert.equal(formatDonationCount(808, 'en', contentData), '808 donations');
 });
 
 test('renderCampaignStats renders 6 campaign boxes and avoids aggregate euro totals', () => {
   const fundraisersData = JSON.parse(readFileSync('./data/fundraisers.json', 'utf8'));
+  const contentData = JSON.parse(readFileSync('./data/content.json', 'utf8'));
   const container = { innerHTML: '' };
 
-  renderCampaignStats(container, fundraisersData.fundraisers, {}, 'nl');
+  renderCampaignStats(container, fundraisersData.fundraisers, contentData, 'nl');
 
   const text = container.innerHTML;
   assert.ok(text.includes('ParkNest'));
