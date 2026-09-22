@@ -1,10 +1,3 @@
 {
-  "activeSession": {
-    "name": "sessions/3070201818262725378",
-    "claimId": "claim_1790071448172_hlxt8p",
-    "task": "**Campaign statistics: donation distribution donut chart** (Issue #65)",
-    "taskId": "Issue#65",
-    "title": "Campaign statistics: donation distribution donut chart",
-    "startedAt": "2026-09-22T10:04:08.173Z"
-  }
+  "activeSession": null
 }
