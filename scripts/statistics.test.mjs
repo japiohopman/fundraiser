@@ -96,8 +96,11 @@ test('renderCampaignStats renders donut chart, center total, legend details, and
   assert.ok(text.includes('<title id="donut-chart-title-nl">'));
   assert.ok(text.includes('<desc id="donut-chart-desc-nl">'));
 
-  // Legend list details
+  // Legend list details & campaign avatars
   assert.ok(text.includes('class="donut-legend-list"'));
+  assert.ok(text.includes('class="legend-avatar-img"'));
+  assert.ok(text.includes('parknest-avatar.webp'));
+  assert.ok(text.includes('jaaphopman_avatar.webp'));
   assert.ok(text.includes('ParkNest'));
   assert.ok(text.includes('94,87%'));
   assert.ok(text.includes('€ 58.864'));

@@ -12,33 +12,42 @@ const DEFAULT_CAMPAIGN_SHORT_NAMES = {
   'manon-kinkt-shirts': 'Manon'
 };
 
+const CAMPAIGN_AVATAR_MAP = {
+  'parknest-collective': 'parknest-avatar',
+  'kathinka-dog-collars': 'kathinka-avatar',
+  'jim-gijbels-paintings': 'jim-avatar',
+  'rooie-jaap-knives': 'jaaphopman_avatar',
+  'suzy-creamcheese-kitchenware': 'suzy-avatar',
+  'manon-kinkt-shirts': 'manon-avatar'
+};
+
 /**
  * Visual styling palette for campaigns (colors and non-color geometric legend symbols).
  */
 const CAMPAIGN_PALETTE = {
   'parknest-collective': {
     color: '#166534',
-    symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/></svg>`
+    symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/></svg>`
   },
   'kathinka-dog-collars': {
     color: '#4338ca',
-    symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="2" fill="currentColor"/></svg>`
+    symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="2" fill="currentColor"/></svg>`
   },
   'jim-gijbels-paintings': {
     color: '#0284c7',
-    symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><polygon points="8,1 15,15 1,15" fill="currentColor"/></svg>`
+    symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="8,1 15,15 1,15" fill="currentColor"/></svg>`
   },
   'rooie-jaap-knives': {
     color: '#d97706',
-    symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><polygon points="8,1 15,8 8,15 1,8" fill="currentColor"/></svg>`
+    symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="8,1 15,8 8,15 1,8" fill="currentColor"/></svg>`
   },
   'suzy-creamcheese-kitchenware': {
     color: '#7c3aed',
-    symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><polygon points="8,1 15,5 15,11 8,15 1,11 1,5" fill="currentColor"/></svg>`
+    symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="8,1 15,5 15,11 8,15 1,11 1,5" fill="currentColor"/></svg>`
   },
   'manon-kinkt-shirts': {
     color: '#e11d48',
-    symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><polygon points="8,1 10,6 15,6 11,9 13,15 8,11 3,15 5,9 1,6 6,6" fill="currentColor"/></svg>`
+    symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="8,1 10,6 15,6 11,9 13,15 8,11 3,15 5,9 1,6 6,6" fill="currentColor"/></svg>`
   }
 };
 
@@ -92,12 +101,14 @@ export function calculateCampaignStats(fundraisers, lastVerifiedAtFallback = '20
     const percentage = totalAmount > 0 ? (amount / totalAmount) * 100 : 0;
     const palette = CAMPAIGN_PALETTE[item.id] || {
       color: '#475569',
-      symbolSVG: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/></svg>`
+      symbolSVG: `<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/></svg>`
     };
+    const avatarName = CAMPAIGN_AVATAR_MAP[item.id] || null;
 
     return {
       id: item.id,
       name,
+      avatarName,
       count,
       amount,
       formattedAmount: formatCurrency(amount, lang),
@@ -226,7 +237,15 @@ export function renderCampaignStats(container, fundraisers, content, lang = 'nl'
             <ul class="donut-legend-list" role="list">
               ${campaigns.map(c => `
                 <li class="donut-legend-item" data-campaign-id="${c.id}" tabindex="0" role="listitem">
-                  <span class="legend-symbol" style="--symbol-color: ${c.color}" aria-hidden="true">${c.symbolSVG}</span>
+                  <div class="legend-avatar-badge-wrapper" style="--symbol-color: ${c.color}">
+                    ${c.avatarName ? `
+                      <picture class="legend-avatar-wrapper">
+                        <source srcset="public/assets/${c.avatarName}.webp" type="image/webp">
+                        <img src="public/assets/${c.avatarName}.webp" alt="" class="legend-avatar-img" width="32" height="32" loading="lazy" decoding="async">
+                      </picture>
+                    ` : ''}
+                    <span class="legend-symbol-badge" aria-hidden="true">${c.symbolSVG}</span>
+                  </div>
                   <div class="legend-text">
                     <span class="legend-name">${c.name}</span>
                     <span class="legend-details">
