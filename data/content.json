@@ -102,50 +102,6 @@
       "nl": "Overzicht Inzamelingsacties",
       "en": "Fundraisers Overview"
     },
-    "statistics": {
-      "title": {
-        "nl": "Inzamelingsstatistieken",
-        "en": "Campaign Statistics"
-      },
-      "snapshotNote": {
-        "nl": "Momentopname geverifieerd op {date}",
-        "en": "Snapshot verified on {date}"
-      },
-      "donationSingular": {
-        "nl": "donatie",
-        "en": "donation"
-      },
-      "donationPlural": {
-        "nl": "donaties",
-        "en": "donations"
-      },
-      "campaignShortNames": {
-        "parknest-collective": {
-          "nl": "ParkNest",
-          "en": "ParkNest"
-        },
-        "kathinka-dog-collars": {
-          "nl": "Kathinka",
-          "en": "Kathinka"
-        },
-        "jim-gijbels-paintings": {
-          "nl": "Jim",
-          "en": "Jim"
-        },
-        "rooie-jaap-knives": {
-          "nl": "Jaap",
-          "en": "Jaap"
-        },
-        "suzy-creamcheese-kitchenware": {
-          "nl": "Suzy",
-          "en": "Suzy"
-        },
-        "manon-kinkt-shirts": {
-          "nl": "Manon",
-          "en": "Manon"
-        }
-      }
-    },
     "intro": {
       "nl": "Hieronder staan de op WhyDonate geregistreerde acties. De gegevens zijn gebaseerd op een directe momentopname van het platform. Bekijk altijd de originele pagina voor de meest actuele stand.",
       "en": "Below are the fundraising actions registered on WhyDonate. Figures are based on a direct platform snapshot. Always check the original page for the latest status."
