@@ -86,6 +86,7 @@
   - **Constraints:** Preserve donor data and reduced-motion behavior. Prefer a Google Fonts family but self-host the required font assets locally rather than introducing a runtime CDN dependency. Keep the new display font isolated to the gratitude treatment unless a broader change is justified. Content changes require the content-approved workflow.
   - **Acceptance:** The heart contains the gratitude message; NL/EN are balanced; text is legible at mobile and desktop sizes; the treatment feels warm/editorial rather than commercial; reduced-motion remains calm and static.
   - **Verification:** Test 320, 375, 768, 1024, 1440 and 1920px in NL/EN, including donor wall visibility, print and font-loading behavior.
+  - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
 
 ### Blocked
 
