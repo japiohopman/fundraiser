@@ -2,11 +2,19 @@
 
 ## Now
 
-> Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`), worked top to bottom. Only unchecked tasks under `### Ready
+> Dispatch order for the Jules orchestrator (`scripts/jules-orchestrator.mjs`): first unchecked tasks under `### Ready` are dispatched one at a time. When `### Ready` is exhausted, the orchestrator automatically continues with the first unchecked top-level task in `## Phase 3 — Production Readiness & Launch`. Jules ticks only the task it actually completed in the same pull request; you review and merge, and the merge automatically advances the loop. `### Blocked` and `### Human Review` are never dispatched. The roadmap remains the single canonical execution plan; GitHub Issues are intake for follow-up work, not a second queue.
 
 ### Ready
 
 - [x] **Production validation and regression gate** (Issue #81)
+
+- [ ] **Share UI: use shared QR overlay for campaign and site sharing** (Issue #89)
+  - **Problem:** The personal fundraiser share control still expands an in-card action area before reaching the shared QR overlay, while the fixed site-wide share control uses a separate panel and does not expose the same native share action.
+  - **Goal:** Provide one consistent QR/share overlay for campaign and site sharing.
+  - **Scope:** Reuse the existing shared QR modal/overlay, campaign and site share entry points, action-button placement, thank-you message, native Web Share availability, and NL/EN/accessibility/mobile verification.
+  - **Constraints:** Do not create a second modal implementation. Preserve the campaign-specific URL and canonical site URL. Do not change fundraiser facts or unrelated content.
+  - **Acceptance:** Campaign Share opens the shared QR overlay directly; site Share opens the same overlay with the canonical site URL; both show the thank-you message above QR and actions below QR; native share appears when supported; keyboard focus, Escape, NL/EN and mobile remain correct.
+  - **Verification:** Test campaign and site sharing at mobile and desktop widths, including QR destination correctness, copy link, native share availability, focus, Escape, and language switching. Run the full automated test suite.
   - **Problem:** The repository has several automated checks already, but the production-readiness gate needs one explicit, reliable path covering the checks that can be verified automatically.
   - **Goal:** Formalize automated validation before deployment work begins.
   - **Scope:** Existing test suite, static-site serve/build sanity where applicable, HTML validation where practical, JSON/schema validation, Content Guard, existing accessibility automation, and technically appropriate local/static link checks.
