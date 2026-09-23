@@ -1,10 +1,10 @@
 {
   "activeSession": {
-    "name": "sessions/7419406627815695929",
-    "claimId": "claim_1790194100441_rlcdg2",
-    "task": "Accessibility and manual QA closure",
-    "taskId": "accessibility-and-manual-qa-closure",
-    "title": "Accessibility and manual QA closure",
-    "startedAt": "2026-09-23T20:08:20.441Z"
+    "name": "pending",
+    "claimId": "claim_1790195951276_kkuxov",
+    "task": "Resilient external-link/source integrity policy and check",
+    "taskId": "resilient-external-link-source-integrity-policy-and-check",
+    "title": "Resilient external-link/source integrity policy and check",
+    "startedAt": "2026-09-23T20:39:11.277Z"
   }
 }
