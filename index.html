@@ -261,7 +261,7 @@
 
   <!-- Fixed Site-Wide Share Control -->
   <div class="site-share-widget">
-    <button type="button" id="site-share-btn" class="site-share-toggle-btn" aria-expanded="false" aria-controls="site-share-panel" aria-label="Delen" data-i18n-attr="aria-label:share.shareAction">
+    <button type="button" id="site-share-btn" class="site-share-toggle-btn" aria-haspopup="dialog" aria-label="Delen" data-i18n-attr="aria-label:share.shareAction">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="site-share-icon" aria-hidden="true">
         <circle cx="18" cy="5" r="3"></circle>
         <circle cx="6" cy="12" r="3"></circle>
@@ -271,21 +271,6 @@
       </svg>
       <span class="site-share-btn-label" data-i18n="share.shareAction">Delen</span>
     </button>
-
-    <div id="site-share-panel" class="site-share-panel" hidden aria-label="Deelopties" data-i18n-attr="aria-label:share.shareOptionsLabel">
-      <div class="site-share-panel-header">
-        <span class="site-share-panel-title" data-i18n="share.siteShareTitle">Deel deze website</span>
-      </div>
-      <p class="site-share-panel-desc" data-i18n="share.siteShareDesc">Scan deze QR-code of kopieer de link om deze transparantiesite te delen:</p>
-      <div id="site-qr-code-svg-container" class="site-qr-svg-wrapper"></div>
-      <p id="site-share-url-text" class="site-share-url-text">https://japiohopman.github.io/fundraiser</p>
-      <div class="site-share-actions">
-        <button type="button" id="site-copy-link-btn" class="site-share-action-btn copy-link-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-          <span data-i18n="share.copyLink">Kopieer link</span>
-        </button>
-      </div>
-    </div>
   </div>
 
   <!-- Context Modal Dialog -->
@@ -301,18 +286,29 @@
     </div>
   </div>
 
-  <!-- QR Code Modal Dialog -->
+  <!-- QR Code / Share Modal Dialog -->
   <div id="qr-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="qr-modal-title" aria-describedby="qr-modal-desc" hidden>
-    <div class="modal-card">
+    <div class="modal-card qr-modal-card">
       <div class="modal-header">
         <h3 id="qr-modal-title" class="modal-title" data-i18n="share.qrModalTitle">QR-code voor donatiepagina</h3>
         <button type="button" id="qr-modal-close-btn" class="modal-close-btn" aria-label="Sluiten" data-i18n-attr="aria-label:share.closeModal">&times;</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body qr-modal-body">
         <p id="qr-modal-campaign-name" class="qr-campaign-name"></p>
+        <p id="qr-modal-thank-you" class="qr-modal-thank-you" data-i18n="thankYou.message">Onze oprechte dank gaat uit naar iedereen die een bijdrage heeft geleverd, in welke vorm dan ook, om het herstel en de gemeenschap van ParkNest te ondersteunen.</p>
         <p id="qr-modal-desc" class="qr-modal-desc" data-i18n="share.qrModalDesc">Scan deze QR-code om direct naar de officiële WhyDonate-donatiepagina voor deze actie te gaan:</p>
         <div id="qr-code-svg-container" class="qr-svg-wrapper"></div>
         <p id="qr-modal-url-text" class="qr-modal-url"></p>
+        <div id="qr-modal-actions" class="qr-modal-actions">
+          <button type="button" id="qr-modal-native-share-btn" class="qr-action-btn native-share-btn" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            <span data-i18n="share.webShare">Delen via apparaat</span>
+          </button>
+          <button type="button" id="qr-modal-copy-link-btn" class="qr-action-btn copy-link-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span data-i18n="share.copyLink">Kopieer link</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

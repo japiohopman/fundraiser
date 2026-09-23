@@ -15,7 +15,7 @@
   - **Acceptance:** One clear CI validation path exists; HTML and JSON/schema validation are covered where appropriate; existing Content Guard/accessibility checks remain active; failures distinguish code/schema failures from external-access limitations; no unrelated UI/content work.
   - **Verification:** Run the full automated suite and report automated checks separately from any manual/browser verification.
 
-- [ ] **Share UI: use shared QR overlay for campaign and site sharing** (Issue #89)
+- [x] **Share UI: use shared QR overlay for campaign and site sharing** (Issue #89)
   - **Problem:** The personal fundraiser share control still expands an in-card action area before reaching the shared QR overlay, while the fixed site-wide share control uses a separate panel and does not expose the same native share action.
   - **Goal:** Provide one consistent QR/share overlay for campaign and site sharing.
   - **Scope:** Reuse the existing shared QR modal/overlay, campaign and site share entry points, action-button placement, thank-you message, native Web Share availability, and NL/EN/accessibility/mobile verification.

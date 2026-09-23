@@ -1,18 +1,24 @@
 import { QRCodeGen } from './qr-code.js';
+import { copyToClipboard, triggerNativeShare } from './share-actions.js';
 
 /**
- * Handles QR modal setup, opening, closing, focus restoration, focus trapping, and Escape key handling.
+ * Handles QR/Share modal setup, opening, closing, focus restoration, focus trapping, and Escape key handling.
  */
 
 let qrModalFocusTimeout = null;
+let currentShareTargetUrl = '';
+let currentTitleText = '';
+let currentShareText = '';
 
 /**
- * Initializes QR modal event listeners (close button, overlay click, escape, focus trapping).
+ * Initializes QR modal event listeners (close button, overlay click, escape, focus trapping, action buttons).
  * @param {Object} state
  */
 export function setupQRModal(state) {
   const modal = document.getElementById('qr-modal');
   const closeBtn = document.getElementById('qr-modal-close-btn');
+  const copyBtn = document.getElementById('qr-modal-copy-link-btn');
+  const nativeBtn = document.getElementById('qr-modal-native-share-btn');
 
   if (!modal || !closeBtn) return;
 
@@ -31,6 +37,25 @@ export function setupQRModal(state) {
       trapModalFocus(e, modal);
     }
   });
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const content = state.contentData;
+      const lang = state.currentLang;
+      const feedbackText = content?.share?.linkCopied?.[lang] || 'Link gekopieerd!';
+      copyToClipboard(currentShareTargetUrl, copyBtn, feedbackText);
+    });
+  }
+
+  if (nativeBtn) {
+    nativeBtn.addEventListener('click', () => {
+      triggerNativeShare({
+        title: currentTitleText,
+        text: currentShareText,
+        url: currentShareTargetUrl
+      });
+    });
+  }
 }
 
 /**
@@ -40,7 +65,7 @@ export function setupQRModal(state) {
  */
 export function trapModalFocus(e, modal) {
   const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  const visibleFocusables = Array.from(focusables).filter(el => el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement);
+  const visibleFocusables = Array.from(focusables).filter(el => !el.hidden && (el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement));
 
   if (visibleFocusables.length === 0) return;
 
@@ -67,31 +92,76 @@ export function trapModalFocus(e, modal) {
 }
 
 /**
- * Opens the QR code modal and renders the SVG QR code for the given share URL.
+ * Opens the QR code / share modal and renders the SVG QR code and action controls for the given share target.
  * @param {Object} state
  * @param {string} titleText
- * @param {string} shareUrl
+ * @param {string} qrUrl
  * @param {HTMLElement} [triggerEl]
+ * @param {Object} [options]
+ * @param {string} [options.shareUrl] - URL to copy or share via Web Share API
+ * @param {string} [options.modalTitle] - Title string for the modal header
+ * @param {string} [options.campaignName] - Subtitle / campaign name text
+ * @param {string} [options.thankYouText] - Custom thank-you message text
+ * @param {string} [options.descText] - Custom description text above QR
+ * @param {string} [options.shareText] - Purpose or summary text for Native Share API
  */
-export function openQRModal(state, titleText, shareUrl, triggerEl) {
+export function openQRModal(state, titleText, qrUrl, triggerEl, options = {}) {
   const modal = document.getElementById('qr-modal');
-  const titleEl = document.getElementById('qr-modal-campaign-name');
+  const modalTitleEl = document.getElementById('qr-modal-title');
+  const campaignNameEl = document.getElementById('qr-modal-campaign-name');
+  const thankYouEl = document.getElementById('qr-modal-thank-you');
+  const descEl = document.getElementById('qr-modal-desc');
   const svgContainer = document.getElementById('qr-code-svg-container');
   const urlEl = document.getElementById('qr-modal-url-text');
   const closeBtn = document.getElementById('qr-modal-close-btn');
+  const nativeBtn = document.getElementById('qr-modal-native-share-btn');
 
   if (!modal || !svgContainer) return;
 
+  const lang = state.currentLang || 'nl';
+  const content = state.contentData || {};
+
   state.lastFocusedElement = triggerEl || document.activeElement;
 
-  if (titleEl) titleEl.textContent = titleText;
-  if (urlEl) urlEl.textContent = shareUrl;
+  currentShareTargetUrl = options.shareUrl || qrUrl;
+  currentTitleText = titleText;
+  currentShareText = options.shareText || '';
+
+  if (modalTitleEl) {
+    modalTitleEl.textContent = options.modalTitle || content?.share?.qrModalTitle?.[lang] || 'QR-code voor donatiepagina';
+  }
+
+  if (campaignNameEl) {
+    campaignNameEl.textContent = options.campaignName !== undefined ? options.campaignName : titleText;
+    if (campaignNameEl.style) campaignNameEl.style.display = campaignNameEl.textContent ? 'block' : 'none';
+  }
+
+  if (thankYouEl) {
+    thankYouEl.textContent = options.thankYouText || content?.thankYou?.message?.[lang] || '';
+    if (thankYouEl.style) thankYouEl.style.display = thankYouEl.textContent ? 'block' : 'none';
+  }
+
+  if (descEl) {
+    descEl.textContent = options.descText || content?.share?.qrModalDesc?.[lang] || '';
+  }
+
+  if (urlEl) {
+    urlEl.textContent = qrUrl;
+  }
 
   try {
-    svgContainer.innerHTML = QRCodeGen.createSVG(shareUrl);
+    svgContainer.innerHTML = QRCodeGen.createSVG(qrUrl);
   } catch (err) {
     console.error('Failed to generate QR Code:', err);
-    svgContainer.textContent = shareUrl;
+    svgContainer.textContent = qrUrl;
+  }
+
+  if (nativeBtn) {
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      nativeBtn.removeAttribute('hidden');
+    } else {
+      nativeBtn.setAttribute('hidden', '');
+    }
   }
 
   modal.classList.add('open');
