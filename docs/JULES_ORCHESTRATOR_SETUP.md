@@ -1,12 +1,12 @@
-# Jules Queue Orchestrator — Setup (v5)
+# Jules Queue Orchestrator — Setup (v6)
 
-Jules works through the tasks under `### Ready` in the `## Now` section of `docs/roadmap.md`, one at a time, top to bottom. There is no separate `### Active` queue section. The currently running Jules session is tracked only in `.github/jules-queue-state.json`.
+Jules works through one dispatchable task at a time from the single canonical `docs/roadmap.md`: first the unchecked tasks under `### Ready` in `## Now`, then—once Ready is exhausted—the unchecked tasks in `## Phase 3 — Production Readiness & Launch`, in document order. There is no separate `### Active` queue section. The currently running Jules session is tracked only in `.github/jules-queue-state.json`.
 
 ## How the loop works
 
-1. The orchestrator has two entry points: a manual `workflow_dispatch` used to bootstrap a new work cycle or recover the queue, and an automatic trigger when a pull request into `main` is merged. The automatic trigger reads the first unchecked task under `### Ready`.
+1. The orchestrator has two entry points: a manual `workflow_dispatch` used to bootstrap a new work cycle or recover the queue, and an automatic trigger when a pull request into `main` is merged. The automatic trigger reads the next dispatchable task: first from `### Ready`, then from the Phase 3 section when Ready is exhausted.
 2. If no session is active, it starts one Jules session with the full task specification and records that session in `.github/jules-queue-state.json`.
-3. Jules implements and verifies the task, then opens a pull request into `main`. After verification, Jules changes only his own task line from `[ ]` to `[x]` in `### Ready`.
+3. Jules implements and verifies the task, then opens a pull request into `main`. After verification, Jules changes only his own task line from `[ ]` to `[x]` in the exact section from which it was dispatched (Ready or Phase 3).
 4. CI runs, including `Content Guard` on pull requests. You review and merge the PR.
 5. When the Jules PR is merged into `main`, the `pull_request.closed` event automatically invokes the orchestrator. The session is cleared only when the corresponding PR is merged and the roadmap task is checked; the orchestrator then starts the next unchecked Ready task.
 
@@ -14,7 +14,7 @@ If Jules could not fully verify a task, he must leave the task unchecked and exp
 
 ## Rules
 
-- Only unchecked tasks under `### Ready` are dispatched.
+- Only unchecked tasks under `### Ready` are dispatched first. When none remain, the first unchecked top-level task in the Phase 3 implementation section is dispatched.
 - `### Blocked` and `### Human Review` are never dispatched.
 - There is no `### Active` queue section. Do not create or maintain one.
 - `.github/jules-queue-state.json` is the single source of truth for the currently active Jules session.
