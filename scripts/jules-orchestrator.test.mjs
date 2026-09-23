@@ -8,6 +8,8 @@ import {
   findMatchingTask,
   orchestrate,
   fetchWithTimeout,
+  findTasksBeforeReady,
+  buildPrompt,
 } from './jules-orchestrator.mjs';
 
 test('parseNow and parser isolation', () => {
@@ -706,4 +708,55 @@ test('Issue numbers do not need to be consecutive for queue dispatch', async () 
   assert.equal(postCount, 1);
   assert.equal(result.state.activeSession.name, 'sessions/81');
   assert.match(prompt, /Issue #81/);
+});
+
+
+test('findTasksBeforeReady detects queue tasks accidentally placed before the Ready heading', () => {
+  const roadmap = [
+    '## Now',
+    '',
+    '- [ ] **Misplaced task** (Issue #999)',
+    '',
+    '### Ready',
+    '',
+    '- [ ] **Real Ready task** (Issue #81)',
+    '',
+    '### Blocked',
+    '- [ ] **Blocked task**',
+  ].join('\n');
+
+  assert.deepEqual(findTasksBeforeReady(roadmap), ['**Misplaced task** (Issue #999)']);
+});
+
+test('orchestrate fails closed instead of silently treating a misplaced task as an empty queue', async () => {
+  const roadmap = [
+    '## Now',
+    '',
+    '- [ ] **Misplaced task** (Issue #999)',
+    '',
+    '### Ready',
+    '',
+    '- [ ] **Real Ready task** (Issue #81)',
+  ].join('\n');
+
+  await assert.rejects(
+    () => orchestrate({
+      state: { activeSession: null },
+      roadmapText: roadmap,
+      julesFetch: async () => assert.fail('Jules must not be called for an invalid queue'),
+    }),
+    /Invalid Jules queue: task found before ### Ready/
+  );
+});
+
+test('buildPrompt routes out-of-scope findings to GitHub Issues instead of the current diff', () => {
+  const prompt = buildPrompt({
+    text: '**Task 1** (Issue #81)',
+    body: ['  - **Problem:** Test problem'],
+  });
+
+  assert.match(prompt, /do NOT implement it in this PR/i);
+  assert.match(prompt, /Search existing GitHub Issues first/i);
+  assert.match(prompt, /create a GitHub Issue/i);
+  assert.match(prompt, /Mention the issue in the PR description/i);
 });
