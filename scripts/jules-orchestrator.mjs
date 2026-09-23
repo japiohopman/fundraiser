@@ -248,13 +248,6 @@ export function buildPrompt(task) {
 
 /** Core orchestrator execution logic. */
 export async function orchestrate({
-  const queueProblems = findTasksBeforeReady(roadmapText);
-  if (queueProblems.length) {
-    throw new Error(
-      `Invalid Jules queue: task found before ### Ready: ${queueProblems.join('; ')}`,
-    );
-  }
-
   state,
   roadmapText,
   julesFetch = defaultJulesFetch,
@@ -263,6 +256,13 @@ export async function orchestrate({
   saveStateAndPush = null,
   log = console.log,
 }) {
+  const queueProblems = findTasksBeforeReady(roadmapText);
+  if (queueProblems.length) {
+    throw new Error(
+      `Invalid Jules queue: task found before ### Ready: ${queueProblems.join('; ')}`,
+    );
+  }
+
   const tasks = parseNow(roadmapText);
   let stateChanged = false;
 
