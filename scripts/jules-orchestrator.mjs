@@ -42,7 +42,7 @@ const STALE_HOURS = 48;
 const JULES_API_TIMEOUT_MS = Number(process.env.JULES_API_TIMEOUT_MS || 60_000);
 const GITHUB_API_TIMEOUT_MS = Number(process.env.GITHUB_API_TIMEOUT_MS || 30_000);
 
-async function fetchWithTimeout(url, options, timeoutMs, label) {
+export async function fetchWithTimeout(url, options, timeoutMs, label) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
