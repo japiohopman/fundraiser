@@ -6,7 +6,7 @@
 
 ### Ready
 
-- [ ] **Production validation and regression gate** (Issue #81)
+- [x] **Production validation and regression gate** (Issue #81)
   - **Problem:** The repository has several automated checks already, but the production-readiness gate needs one explicit, reliable path covering the checks that can be verified automatically.
   - **Goal:** Formalize automated validation before deployment work begins.
   - **Scope:** Existing test suite, static-site serve/build sanity where applicable, HTML validation where practical, JSON/schema validation, Content Guard, existing accessibility automation, and technically appropriate local/static link checks.
