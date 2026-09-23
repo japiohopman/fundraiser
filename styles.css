@@ -1885,11 +1885,12 @@ body {
   width: 100%;
   height: auto;
   max-height: 380px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border-subtle);
   display: block;
   box-shadow: var(--shadow-sm);
+  background-color: var(--color-surface-subtle);
 }
 
 .context-modal-image-caption,
@@ -1939,7 +1940,7 @@ body {
 .context-modal-gallery-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
