@@ -115,8 +115,14 @@ test('Thank You: renderThankYou renders split donor zones, gestures, and timing 
       assert.equal(item.attributes['aria-hidden'], 'true', 'Gesture elements must carry aria-hidden="true"');
     });
 
+    const donorNameSet = new Set(donorsData.donors.map(d => d.name));
+    const renderedNameItems = allRenderedItems.filter(item => !item.className.includes('donor-gesture'));
+    assert.equal(renderedNameItems.length, donorsData.donors.length, 'All donor names must be rendered');
+    renderedNameItems.forEach(item => {
+      assert.ok(donorNameSet.has(item.textContent), `Rendered item "${item.textContent}" must exist in donorsData`);
+    });
+
     const firstItem = zoneStart.children[0];
-    assert.equal(firstItem.textContent, donorsData.donors[0].name, 'First item must match first donor in donorsData');
     assert.ok(firstItem.style.getProperty('--item-delay'), 'Item must carry --item-delay custom property');
   } finally {
     globalThis.document = originalDoc;
