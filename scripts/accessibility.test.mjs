@@ -64,11 +64,9 @@ test('Accessibility: fundraiser card progressbar and share control attributes', 
   assert.match(innerHTML, /aria-valuetext="[^"]+"/i, 'Progressbar must carry aria-valuetext');
   assert.match(innerHTML, /aria-label="[^"]+"/i, 'Progressbar must carry aria-label');
 
-  // Card share toggle controls
-  assert.match(innerHTML, /class="share-toggle-btn"/i, 'Share toggle button must exist');
-  assert.match(innerHTML, /aria-expanded="false"/i, 'Share toggle button must start with aria-expanded="false"');
-  assert.match(innerHTML, new RegExp(`aria-controls="share-container-${sampleItem.id}"`, 'i'), 'Share toggle button must set aria-controls to unique share container ID');
-  assert.match(innerHTML, new RegExp(`id="share-container-${sampleItem.id}"`, 'i'), 'Share container must carry matching ID');
+  // Card share controls
+  assert.match(innerHTML, /class="[^"]*share-toggle-btn[^"]*"/i, 'Share button must exist');
+  assert.match(innerHTML, /aria-haspopup="dialog"/i, 'Share button must carry aria-haspopup="dialog" to trigger shared QR overlay');
 });
 
 test('Accessibility: styles.css contains focus-visible, touch target and reduced motion rules', () => {
@@ -104,6 +102,9 @@ test('Accessibility regression: QR modal focus lifecycle on rapid open/close', a
   };
 
   const titleEl = { textContent: '' };
+  const campaignNameEl = { textContent: '', style: {} };
+  const thankYouEl = { textContent: '', style: {} };
+  const descEl = { textContent: '' };
   const svgContainer = { innerHTML: '' };
   const urlEl = { textContent: '' };
 
@@ -111,7 +112,10 @@ test('Accessibility regression: QR modal focus lifecycle on rapid open/close', a
   globalThis.document = {
     getElementById: (id) => {
       if (id === 'qr-modal') return modal;
-      if (id === 'qr-modal-campaign-name') return titleEl;
+      if (id === 'qr-modal-title') return titleEl;
+      if (id === 'qr-modal-campaign-name') return campaignNameEl;
+      if (id === 'qr-modal-thank-you') return thankYouEl;
+      if (id === 'qr-modal-desc') return descEl;
       if (id === 'qr-code-svg-container') return svgContainer;
       if (id === 'qr-modal-url-text') return urlEl;
       if (id === 'qr-modal-close-btn') return closeBtn;
