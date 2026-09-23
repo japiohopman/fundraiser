@@ -63,7 +63,7 @@ jobs:
           if (next) {
             console.log('Next dispatchable task:', next.text);
           } else {
-            console.log('Next Ready task: NONE');
+            console.log('Next dispatchable task: NONE');
           }
           NODE
 
