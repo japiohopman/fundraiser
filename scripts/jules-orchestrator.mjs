@@ -155,6 +155,37 @@ export function parseNow(text) {
   return tasks;
 }
 
+/** Returns top-level checkbox lines found before the live ### Ready queue. */
+export function findTasksBeforeReady(text) {
+  const lines = text.split('\n');
+  const problems = [];
+  let inNow = false;
+  let seenReady = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (/^##\s+Now\b/i.test(line)) {
+      inNow = true;
+      continue;
+    }
+
+    if (inNow && /^##\s+[^#]/.test(line)) break;
+    if (!inNow) continue;
+
+    if (/^###\s+Ready\b/i.test(line)) {
+      seenReady = true;
+      continue;
+    }
+
+    if (!seenReady) {
+      const task = line.match(/^- \[( |x)\]\s*(.+?)\s*$/i);
+      if (task) problems.push(task[2]);
+    }
+  }
+
+  return problems;
+}
 export const isReady = t => /^Ready\b/i.test(t.section || '');
 
 function loadState() {
@@ -206,6 +237,7 @@ export function buildPrompt(task) {
     'Your task is the first unchecked task under "### Ready" in docs/roadmap.md. Full specification:',
     [`- [ ] ${task.text}`, ...task.body].join('\n'),
     HARD_LIMITS,
+    'Keep scope strictly limited to this task. If you notice useful work that is outside the task, do NOT implement it in this PR. Search existing GitHub Issues first; if the follow-up is not already tracked, create a GitHub Issue describing the problem, evidence/context, and a concise suggested next step. Mention the issue in the PR description. GitHub Issues are the intake for follow-up/out-of-scope work; they do not become part of the current diff unless the task explicitly includes them.',
     'Work through the whole task and verify the result as described under "Verification" in AGENT_RULES.md before you open the pull request. ' +
       'Take the time this needs: one thorough pull request is better than a quick partial one.',
     `When you are done AND have verified the result, edit docs/roadmap.md yourself in the same pull request: change this task's own checkbox line from "- [ ] ${task.text}" to "- [x] ${task.text}" in place (do not move it or change its bullets), and tick a Phase item lower in that file only if this pull request fully completes it. ` +
@@ -224,6 +256,13 @@ export async function orchestrate({
   saveStateAndPush = null,
   log = console.log,
 }) {
+  const queueProblems = findTasksBeforeReady(roadmapText);
+  if (queueProblems.length) {
+    throw new Error(
+      `Invalid Jules queue: task found before ### Ready: ${queueProblems.join('; ')}`,
+    );
+  }
+
   const tasks = parseNow(roadmapText);
   let stateChanged = false;
 

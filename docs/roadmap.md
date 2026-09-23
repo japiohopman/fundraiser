@@ -4,6 +4,8 @@
 
 > Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`), worked top to bottom. Only unchecked tasks under `### Ready
 
+### Ready
+
 - [ ] **Production validation and regression gate** (Issue #81)
   - **Problem:** The repository has several automated checks already, but the production-readiness gate needs one explicit, reliable path covering the checks that can be verified automatically.
   - **Goal:** Formalize automated validation before deployment work begins.
@@ -12,7 +14,6 @@
   - **Acceptance:** One clear CI validation path exists; HTML and JSON/schema validation are covered where appropriate; existing Content Guard/accessibility checks remain active; failures distinguish code/schema failures from external-access limitations; no unrelated UI/content work.
   - **Verification:** Run the full automated suite and report automated checks separately from any manual/browser verification.` are dispatched, one at a time. Jules ticks his own task in place (`[ ]` to `[x]`) in his pull request after verifying it; you review and merge, and the orchestrator then starts the next task. `### Blocked` and `### Human Review` are never dispatched. A task is a top-level checkbox line plus indented detail bullets (Problem, Goal, Scope, Constraints, Acceptance, Verification); keep the first line unchanged once a task is in progress. Finished tasks stay in place as `[x]`. The phase sections below are the long-term plan.
 
-### Ready
 
 - [x] **Frontend Visual Refinement Audit** (Issue #49)
   - **Problem:** The current frontend is functional and responsive, but the remaining visual issues need a disciplined audit before implementation: hierarchy, density, warning prominence, share UI, galleries, long-page navigation, motion, performance and edge states.
