@@ -2,9 +2,11 @@
 /**
  * Jules Queue Orchestrator (v3 — fundraiser)
  *
- * Runs on a schedule (see .github/workflows/jules-orchestrator.yml) and keeps ONE Jules
- * session busy at a time, working through the tasks under "### Ready" in the "## Now"
- * section of docs/roadmap.md, top to bottom.
+ * Runs from the event-driven workflow (see .github/workflows/jules-orchestrator.yml) and keeps ONE Jules
+ * session busy at a time. The dispatch order is:
+ *   1. first unchecked task under "### Ready" in "## Now";
+ *   2. when that queue is exhausted, first unchecked task in "## Phase 3 — Production Readiness & Launch".
+ * Both sources live in docs/roadmap.md, which remains the single canonical plan.
  *
  * A task is a top-level checkbox line plus its indented detail bullets:
  *
@@ -188,6 +190,55 @@ export function findTasksBeforeReady(text) {
 }
 export const isReady = t => /^Ready\b/i.test(t.section || '');
 
+export function parsePhase3(text) {
+  const lines = text.split('\n');
+  const tasks = [];
+  let inPhase3 = false;
+  let current = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (/^##\s+Phase 3\b/i.test(line)) {
+      inPhase3 = true;
+      current = null;
+      continue;
+    }
+
+    if (inPhase3 && /^##\s+/.test(line)) break;
+    if (!inPhase3) continue;
+
+    const task = line.match(/^- \[( |x)\]\s*(.+?)\s*$/i);
+    if (task) {
+      current = {
+        section: 'Phase 3 — Production Readiness & Launch',
+        line: i,
+        checked: task[1].toLowerCase() === 'x',
+        text: task[2],
+        body: [],
+      };
+      tasks.push(current);
+      continue;
+    }
+
+    if (current) {
+      if (/^\s+\S/.test(line) || line.trim() === '') current.body.push(line);
+      else current = null;
+    }
+  }
+
+  for (const t of tasks) {
+    while (t.body.length && t.body[t.body.length - 1].trim() === '') t.body.pop();
+  }
+  return tasks;
+}
+
+export function findNextDispatchableTask(readyTasks, phase3Tasks) {
+  const nextReady = readyTasks.filter(isReady).find(t => !t.checked);
+  if (nextReady) return nextReady;
+  return phase3Tasks.find(t => !t.checked) || null;
+}
+
 function loadState() {
   if (!existsSync(STATE_PATH)) return { activeSession: null };
   return JSON.parse(readFileSync(STATE_PATH, 'utf8'));
@@ -234,13 +285,13 @@ export const prNumberFrom = url => Number((url?.match(/\/pull\/(\d+)/) || [])[1]
 export function buildPrompt(task) {
   return [
     'Read AGENT_RULES.md, CONTRIBUTING.md, docs/editorial-policy.md and docs/roadmap.md before starting.',
-    'Your task is the first unchecked task under "### Ready" in docs/roadmap.md. Full specification:',
+    'Your task is the next dispatchable task in docs/roadmap.md. Dispatch order is first unchecked task under "### Ready"; when that queue is exhausted, use the first unchecked task under the "## Phase 3 — Production Readiness & Launch" section. Full specification:',
     [`- [ ] ${task.text}`, ...task.body].join('\n'),
     HARD_LIMITS,
     'Keep scope strictly limited to this task. If you notice useful work that is outside the task, do NOT implement it in this PR. Search existing GitHub Issues first; if the follow-up is not already tracked, create a GitHub Issue describing the problem, evidence/context, and a concise suggested next step. Mention the issue in the PR description. GitHub Issues are the intake for follow-up/out-of-scope work; they do not become part of the current diff unless the task explicitly includes them.',
     'Work through the whole task and verify the result as described under "Verification" in AGENT_RULES.md before you open the pull request. ' +
       'Take the time this needs: one thorough pull request is better than a quick partial one.',
-    `When you are done AND have verified the result, edit docs/roadmap.md yourself in the same pull request: change this task's own checkbox line from "- [ ] ${task.text}" to "- [x] ${task.text}" in place (do not move it or change its bullets), and tick a Phase item lower in that file only if this pull request fully completes it. ` +
+    `When you are done AND have verified the result, edit docs/roadmap.md yourself in the same pull request: change this task's own checkbox line from "- [ ] ${task.text}" to "- [x] ${task.text}" in place, in the exact section where this task was dispatched (either "### Ready" or the Phase 3 section). Do not move it or change its bullets. If this task is already represented in a Phase section, do not also create or tick a duplicate queue item. ` +
       'If you could not verify everything, leave the checkbox unchecked and say exactly why in the pull request description.',
     'Open a pull request; never push to main.',
   ].join('\n\n');
@@ -263,7 +314,9 @@ export async function orchestrate({
     );
   }
 
-  const tasks = parseNow(roadmapText);
+  const readyTasks = parseNow(roadmapText);
+  const phase3Tasks = parsePhase3(roadmapText);
+  const tasks = [...readyTasks, ...phase3Tasks];
   let stateChanged = false;
 
   if (state.activeSession) {
@@ -435,9 +488,9 @@ export async function orchestrate({
   }
 
   if (!state.activeSession) {
-    const next = tasks.filter(isReady).find(t => !t.checked);
+    const next = findNextDispatchableTask(readyTasks, phase3Tasks);
     if (!next) {
-      log('Nothing unchecked under ### Ready. Queue is empty (Blocked and Human Review are never dispatched).');
+      log('No dispatchable task remains in ### Ready or Phase 3. Blocked and Human Review are never dispatched.');
     } else {
       log(`Dispatching next task: ${next.text.slice(0, 100)}`);
 
