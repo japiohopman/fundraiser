@@ -26,7 +26,7 @@ An independent, static information site (`index.html`, `styles.css`, `app.js`, J
 - Do exactly the task you were given, completely. Extra issues you notice must not be implemented in the current diff. Search GitHub Issues first; if the work is not already tracked, create a concise GitHub Issue with the problem, relevant evidence/context, and suggested next step, then link it from the pull request description.
 - Keep this a static site: no backend, no new runtime dependencies, no scraping, no `package.json` for the site. CI tooling may use temporary tooling inside GitHub Actions when the task explicitly allows it.
 - No binary over 1 MB, no vendored third-party code. Keep the QR generator and other existing code unless the task says otherwise.
-- The Jules queue is defined by the `## Now` → `### Ready` tasks in `docs/roadmap.md`. Do not create or maintain a separate `### Active` queue section. GitHub Issues are the intake for follow-up/out-of-scope work, not a second dispatch queue.
+- The Jules dispatch order is defined entirely by `docs/roadmap.md`: first use the first unchecked top-level task under `## Now` → `### Ready`; when that queue is exhausted, automatically continue with the first unchecked top-level task under `## Phase 3 — Production Readiness & Launch`. Do not create or maintain a separate `### Active` queue section. GitHub Issues are the intake for follow-up/out-of-scope work, not a second dispatch queue.
 - Never edit `### Blocked` or `### Human Review` in `docs/roadmap.md`, or any task other than your own.
 
 ## 5. Verification (required before you open the pull request)
@@ -43,8 +43,8 @@ A task is done when you have seen it work, not when the code looks right.
 
 You are the one who ticks the box, in the same pull request, only after step 5:
 
-- In `docs/roadmap.md`, change your own task line under `### Ready` from `- [ ]` to `- [x]`, in place. Do not move it and do not change its bullets.
-- If your pull request fully completes an item in a Phase section lower in that file, tick that Phase item too. Never tick anything else.
+- In `docs/roadmap.md`, change your own task line from `- [ ]` to `- [x]`, in place, in the exact section from which the orchestrator dispatched it (`### Ready` or the Phase 3 section). Do not move it and do not change its bullets.
+- If the dispatched task is represented in a Phase section, tick that exact task and nothing else. Only when a Ready-dispatched task separately and fully completes a Phase item may you tick that Phase item as well. Never tick an unrelated task.
 - Do not add an `### Active` entry. The active Jules session is tracked only in `.github/jules-queue-state.json`.
 - If you could not fully verify the task, leave the box unchecked and explain exactly why in the pull request description. An honest unchecked box is worth more than a false checked box.
 

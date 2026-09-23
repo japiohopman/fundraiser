@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseNow,
+  parsePhase3,
+  findNextDispatchableTask,
   isReady,
   extractTitle,
   extractTaskId,
@@ -45,6 +47,52 @@ test('parseNow and parser isolation', () => {
   const readyUnchecked = readyTasks.filter(t => !t.checked);
   assert.equal(readyUnchecked.length, 1);
   assert.equal(readyUnchecked[0].text, '**Task 1**');
+});
+
+test('dispatch order falls back from an exhausted Ready queue to Phase 3', () => {
+  const roadmap = [
+    '# Roadmap',
+    '',
+    '## Now',
+    '',
+    '### Ready',
+    '',
+    '- [x] **Completed Ready Task**',
+    '',
+    '### Blocked',
+    '- [ ] **Do not dispatch this**',
+    '',
+    '### Human Review',
+    '- [ ] **Never dispatch this**',
+    '',
+    '## Phase 3 — Production Readiness & Launch',
+    '',
+    '**Status: In Progress**',
+    '',
+    '- [ ] **Accessibility and manual QA closure**',
+    '  - **Problem:** Manual verification remains.',
+    '- [ ] **External-link integrity**',
+  ].join('\n');
+
+  const readyTasks = parseNow(roadmap);
+  const phase3Tasks = parsePhase3(roadmap);
+  const next = findNextDispatchableTask(readyTasks, phase3Tasks);
+
+  assert.equal(next?.text, '**Accessibility and manual QA closure**');
+  assert.equal(next?.section, 'Phase 3 — Production Readiness & Launch');
+});
+
+test('Ready always has priority over Phase 3 fallback', () => {
+  const roadmap = [
+    '## Now',
+    '### Ready',
+    '- [ ] **Ready Task**',
+    '## Phase 3 — Production Readiness & Launch',
+    '- [ ] **Phase 3 Task**',
+  ].join('\n');
+
+  const next = findNextDispatchableTask(parseNow(roadmap), parsePhase3(roadmap));
+  assert.equal(next?.text, '**Ready Task**');
 });
 
 test('extractTitle, extractTaskId and findMatchingTask', () => {

@@ -43,7 +43,7 @@ jobs:
           set -euo pipefail
           node --input-type=module <<'NODE'
           import { readFileSync } from 'node:fs';
-          import { findTasksBeforeReady, isReady, parseNow } from './scripts/jules-orchestrator.mjs';
+          import { findTasksBeforeReady, findNextDispatchableTask, parseNow, parsePhase3 } from './scripts/jules-orchestrator.mjs';
 
           const roadmap = readFileSync('docs/roadmap.md', 'utf8');
           const queueProblems = findTasksBeforeReady(roadmap);
@@ -53,17 +53,17 @@ jobs:
             process.exit(1);
           }
 
-          const tasks = parseNow(roadmap);
-          const ready = tasks.filter(isReady);
-          const next = ready.find(task => !task.checked);
+          const readyTasks = parseNow(roadmap);
+          const phase3Tasks = parsePhase3(roadmap);
+          const next = findNextDispatchableTask(readyTasks, phase3Tasks);
           const queue = JSON.parse(readFileSync('.github/jules-queue-state.json', 'utf8'));
 
           console.log('Trigger:', process.env.GITHUB_EVENT_NAME);
           console.log('Queue state:', JSON.stringify(queue));
           if (next) {
-            console.log('Next Ready task:', next.text);
+            console.log('Next dispatchable task:', next.text);
           } else {
-            console.log('Next Ready task: NONE');
+            console.log('Next dispatchable task: NONE');
           }
           NODE
 
