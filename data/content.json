@@ -558,8 +558,65 @@
           {
             "nl": "Mijn hondencollectie is niet zomaar een collectie, hier zit een verhaal met passie achter. Ik koop mijn materialen, die antiek zijn van de Inheemse bevolking in Peru en betaal daar een goede prijs voor, fairtrade in z'n puurste vorm. De materialen zijn erg kleurrijk en van handgeweven alpacawol. Aangezien deze materialen moeilijk te vinden zijn, want antiek, doe ik er wel maanden over om 'n flinke voorraad bij elkaar te krijgen. Vervolgens neem ik dit mee naar Marokko, waar ik hoogwaardig leer inkoop en worden ze met de hand vervaardigd in mijn kleine atelier aldaar. Aangezien ParkNest zeer hondvriendelijk is vind ik het geweldig dat ik daar mijn collectie kan verkopen. Het is daarom met liefde dat ik 20 procent vd opbrengst aan ParkNest doneer ♥️.",
             "en": "My dog collection is not just any collection; there is a passionate story behind it. I buy my materials, which are antique, from the Indigenous population in Peru and pay a good price for them—fair trade in its purest form. The materials are very colorful and made of handwoven alpaca wool. Since these materials are hard to find because they are antique, it takes me months to gather a sizable stock. Then I take this to Morocco, where I purchase high-quality leather, and they are crafted by hand in my small workshop there. Since ParkNest is very dog-friendly, I think it is wonderful to sell my collection there. It is therefore with love that I donate 20 percent of the proceeds to ParkNest ♥️."
+          },
+          {
+            "nl": "Naast de hondencollectie draagt Kathinka kleding en accessoires uit haar eigen verzameling en van eigen ontwerp: op de profielfoto draagt zij een unieke Peruaanse poncho uit haar collectie, evenals handgemaakte laarzen en een rugzak van eigen ontwerp.",
+            "en": "In addition to the dog collection, Kathinka wears clothing and accessories from her personal collection and own designs: in her profile photo she wears a unique Peruvian poncho from her collection, along with handmade boots and a backpack of her own design."
           }
         ],
+        "images": {
+          "header": "public/assets/kathinka-gallery/kathinka-doek-peru.png",
+          "headerAlt": {
+            "nl": "Portret van Kathinka in een unieke Peruaanse poncho met handgemaakte laarzen en een rugzak van eigen ontwerp",
+            "en": "Portrait of Kathinka wearing a unique Peruvian poncho with handmade boots and a self-designed backpack"
+          },
+          "headerCaption": {
+            "nl": "Kathinka met haar unieke Peruaanse poncho uit haar collectie, handgemaakte laarzen en rugzak van eigen ontwerp",
+            "en": "Kathinka featuring her unique Peruvian poncho from her collection, handmade boots, and self-designed backpack"
+          },
+          "gallery": [
+            "public/assets/kathinka-gallery/hondenbandjer-rek2.webp",
+            "public/assets/kathinka-gallery/hondenbandjes-rek.png",
+            "public/assets/kathinka-gallery/hondband2.png",
+            "public/assets/kathinka-gallery/hondriem1.png"
+          ],
+          "galleryAlts": [
+            {
+              "nl": "Overzichtsfoto van het houten rek met kleurrijke handgemaakte hondenbandjes van PieceofMind",
+              "en": "Overview photograph of the wooden display rack filled with colorful handmade PieceofMind dog collars"
+            },
+            {
+              "nl": "Detailfoto van het houten hondenbandjesrek met de collectie geweven halsbanden",
+              "en": "Detailed photograph of the wooden dog collar rack displaying the woven collar collection"
+            },
+            {
+              "nl": "Hond die een handgemaakte kleurrijke PieceofMind-halsband draagt",
+              "en": "Dog wearing a colorful handmade PieceofMind collar"
+            },
+            {
+              "nl": "Hond die met een handgemaakte PieceofMind-riem en halsband wordt uitgelaten",
+              "en": "Dog wearing a handmade PieceofMind leash and collar"
+            }
+          ],
+          "galleryCaptions": [
+            {
+              "nl": "Het houten displayrek met de handgemaakte PieceofMind-hondenbandjes",
+              "en": "The wooden display rack with handmade PieceofMind dog collars"
+            },
+            {
+              "nl": "Detailoverzicht van de kleurrijke collectie hondenbandjes op het rek",
+              "en": "Detail overview of the colorful dog collar collection on the rack"
+            },
+            {
+              "nl": "Een hond met een handgemaakte PieceofMind-halsband in gebruik",
+              "en": "A dog wearing a handmade PieceofMind collar in use"
+            },
+            {
+              "nl": "Hondenriem en halsband uit de PieceofMind-collectie in de praktijk",
+              "en": "Dog leash and collar from the PieceofMind collection in practical use"
+            }
+          ]
+        },
         "link": {
           "url": "https://www.instagram.com/pieceofmind_ibiza/",
           "label": {
