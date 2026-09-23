@@ -7,6 +7,7 @@ import {
   extractTaskId,
   findMatchingTask,
   orchestrate,
+  fetchWithTimeout,
 } from './jules-orchestrator.mjs';
 
 test('parseNow and parser isolation', () => {
@@ -655,4 +656,54 @@ test('Current active PAUSED task remains blocked from duplicate dispatch', async
   assert.equal(result.stateChanged, false);
   assert.equal(postCount, 0);
   assert.equal(result.state.activeSession.name, 'sessions/current-72');
+});
+
+
+test('fetchWithTimeout aborts a hung request with a descriptive error', async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_url, options = {}) => {
+    assert.ok(options.signal instanceof AbortSignal);
+    await new Promise((_resolve, reject) => {
+      options.signal.addEventListener('abort', () => reject(Object.assign(new Error('aborted'), { name: 'AbortError' })), { once: true });
+    });
+  };
+
+  try {
+    await assert.rejects(
+      () => fetchWithTimeout('https://example.invalid', {}, 10, 'Jules API sessions'),
+      /Jules API sessions timed out after 10ms/
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('Issue numbers do not need to be consecutive for queue dispatch', async () => {
+  const state = { activeSession: null };
+  const roadmapText = `## Now
+### Ready
+- [ ] **Production validation and regression gate** (Issue #81)
+`;
+
+  let postCount = 0;
+  let prompt = '';
+  const result = await orchestrate({
+    state,
+    roadmapText,
+    julesFetch: async (path, options = {}) => {
+      if (options.method === 'POST') {
+        postCount++;
+        const body = JSON.parse(options.body);
+        prompt = body.prompt;
+        return { name: 'sessions/81' };
+      }
+      return {};
+    },
+    log: () => {},
+  });
+
+  assert.equal(result.stateChanged, true);
+  assert.equal(postCount, 1);
+  assert.equal(result.state.activeSession.name, 'sessions/81');
+  assert.match(prompt, /Issue #81/);
 });
