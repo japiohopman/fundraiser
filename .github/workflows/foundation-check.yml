@@ -44,26 +44,16 @@ jobs:
 
           echo "Foundation files present."
 
-      - name: Run Orchestrator Tests
-        run: node --test scripts/jules-orchestrator.test.mjs
+      - name: Validate JSON Schemas
+        run: |
+          npx --yes -p ajv-cli -p ajv-formats ajv validate -s data/fundraisers.schema.json -d data/fundraisers.json -c ajv-formats --spec=draft2020
+          npx --yes -p ajv-cli -p ajv-formats ajv validate -s data/donors.schema.json -d data/donors.json -c ajv-formats --spec=draft2020
 
-      - name: Run QR and Share Tests
-        run: node --test scripts/qr-share.test.mjs
+      - name: Validate HTML Markup
+        run: npx --yes html-validate index.html
 
-      - name: Run ParkNest Context Tests
-        run: node --test scripts/parknest-context.test.mjs
-
-      - name: Run Metadata Tests
-        run: node --test scripts/metadata.test.mjs
-
-      - name: Run Warning Block Tests
-        run: node --test scripts/warning-block.test.mjs
-
-      - name: Run Campaign Statistics Tests
-        run: node --test scripts/statistics.test.mjs
-
-      - name: Run Accessibility Tests
-        run: node --test scripts/accessibility.test.mjs
+      - name: Run Automated Test Suite
+        run: node --test scripts/*.test.mjs
 
       - name: Run Content Guard
         if: github.event_name == 'pull_request'
