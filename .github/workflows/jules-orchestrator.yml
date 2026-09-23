@@ -17,11 +17,12 @@ permissions:
 
 concurrency:
   group: jules-orchestrator
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   orchestrate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,9 +35,33 @@ jobs:
         with:
           node-version: 20
 
+      - name: Preflight queue state
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import { isReady, parseNow } from './scripts/jules-orchestrator.mjs';
+
+          const roadmap = readFileSync('docs/roadmap.md', 'utf8');
+          const tasks = parseNow(roadmap);
+          const ready = tasks.filter(isReady);
+          const next = ready.find(task => !task.checked);
+          const queue = JSON.parse(readFileSync('.github/jules-queue-state.json', 'utf8'));
+
+          console.log('Queue state:', JSON.stringify(queue));
+          if (next) {
+            console.log('Next Ready task:', next.text);
+          } else {
+            console.log('Next Ready task: NONE');
+          }
+          NODE
+
       - name: Run orchestrator
         env:
           JULES_API_KEY: ${{ secrets.JULES_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JULES_SOURCE: sources/github/japiohopman/fundraiser
+          JULES_API_TIMEOUT_MS: 60000
+          GITHUB_API_TIMEOUT_MS: 30000
         run: node scripts/jules-orchestrator.mjs
