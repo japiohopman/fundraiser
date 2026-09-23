@@ -1,14 +1,15 @@
 name: Jules Queue Orchestrator
 
-# The "heartbeat" — the schedule below starts OFF on purpose.
-# Run this manually from main and verify one full
-# Ready -> Jules -> PR -> your review -> merge -> next-task cycle
-# before enabling the cron.
+# Single Jules automation path:
+# - workflow_dispatch is the manual bootstrap/recovery entry point.
+# - merged PRs targeting main automatically advance the queue.
+# There is intentionally no second Jules workflow and no polling cron.
 
 on:
-  # schedule:
-  #   - cron: '*/30 * * * *'
   workflow_dispatch: {}
+  pull_request:
+    branches: [main]
+    types: [closed]
 
 permissions:
   contents: write
@@ -17,10 +18,11 @@ permissions:
 
 concurrency:
   group: jules-orchestrator
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   orchestrate:
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -33,7 +35,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Preflight queue state
         shell: bash
@@ -41,14 +43,22 @@ jobs:
           set -euo pipefail
           node --input-type=module <<'NODE'
           import { readFileSync } from 'node:fs';
-          import { isReady, parseNow } from './scripts/jules-orchestrator.mjs';
+          import { findTasksBeforeReady, isReady, parseNow } from './scripts/jules-orchestrator.mjs';
 
           const roadmap = readFileSync('docs/roadmap.md', 'utf8');
+          const queueProblems = findTasksBeforeReady(roadmap);
+          if (queueProblems.length) {
+            console.error('Invalid Jules queue: task found before ### Ready:');
+            for (const problem of queueProblems) console.error('- ' + problem);
+            process.exit(1);
+          }
+
           const tasks = parseNow(roadmap);
           const ready = tasks.filter(isReady);
           const next = ready.find(task => !task.checked);
           const queue = JSON.parse(readFileSync('.github/jules-queue-state.json', 'utf8'));
 
+          console.log('Trigger:', process.env.GITHUB_EVENT_NAME);
           console.log('Queue state:', JSON.stringify(queue));
           if (next) {
             console.log('Next Ready task:', next.text);
