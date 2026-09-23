@@ -21,7 +21,7 @@
   - **Scope:** Reuse the existing shared QR modal/overlay, campaign and site share entry points, action-button placement, thank-you message, native Web Share availability, and NL/EN/accessibility/mobile verification.
   - **Constraints:** Do not create a second modal implementation. Preserve the campaign-specific URL and canonical site URL. Do not change fundraiser facts or unrelated content.
   - **Acceptance:** Campaign Share opens the shared QR overlay directly; site Share opens the same overlay with the canonical site URL; both show the thank-you message above QR and actions below QR; native share appears when supported; keyboard focus, Escape, NL/EN and mobile remain correct.
-  - **Verification:** Test campaign and site sharing at mobile and desktop widths, including QR destination correctness, copy link, native share availability, focus, Escape, and language switching. Run the full automated test suite.` are dispatched, one at a time. Jules ticks his own task in place (`[ ]` to `[x]`) in his pull request after verifying it; you review and merge, and the orchestrator then starts the next task. `### Blocked` and `### Human Review` are never dispatched. A task is a top-level checkbox line plus indented detail bullets (Problem, Goal, Scope, Constraints, Acceptance, Verification); keep the first line unchanged once a task is in progress. Finished tasks stay in place as `[x]`. The phase sections below are the long-term plan.
+  - **Verification:** Test campaign and site sharing at mobile and desktop widths, including QR destination correctness, copy link, native share availability, focus, Escape, and language switching. Run the full automated test suite.
 
 
 - [x] **Frontend Visual Refinement Audit** (Issue #49)
