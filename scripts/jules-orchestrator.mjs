@@ -39,6 +39,23 @@ import { fileURLToPath } from 'node:url';
 const STATE_PATH = '.github/jules-queue-state.json';
 const ROADMAP_PATH = process.env.ROADMAP_PATH || 'docs/roadmap.md';
 const STALE_HOURS = 48;
+const JULES_API_TIMEOUT_MS = Number(process.env.JULES_API_TIMEOUT_MS || 60_000);
+const GITHUB_API_TIMEOUT_MS = Number(process.env.GITHUB_API_TIMEOUT_MS || 30_000);
+
+async function fetchWithTimeout(url, options, timeoutMs, label) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } catch (err) {
+    if (err?.name === 'AbortError') {
+      throw new Error(`${label} timed out after ${timeoutMs}ms`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 const HARD_LIMITS =
   'Hard limits for this repository: do NOT add or change any factual claim about a campaign, ' +
@@ -149,24 +166,34 @@ function saveState(state) {
 }
 
 async function defaultJulesFetch(path, options = {}) {
-  const res = await fetch(`https://jules.googleapis.com/v1alpha/${path}`, {
-    ...options,
-    headers: { 'X-Goog-Api-Key': process.env.JULES_API_KEY, 'Content-Type': 'application/json', ...(options.headers || {}) },
-  });
+  const res = await fetchWithTimeout(
+    `https://jules.googleapis.com/v1alpha/${path}`,
+    {
+      ...options,
+      headers: { 'X-Goog-Api-Key': process.env.JULES_API_KEY, 'Content-Type': 'application/json', ...(options.headers || {}) },
+    },
+    JULES_API_TIMEOUT_MS,
+    `Jules API ${path}`,
+  );
   if (!res.ok) throw new Error(`Jules API ${path} failed: ${res.status} ${await res.text()}`);
   return res.json();
 }
 
 async function defaultGithubRequest(path, options = {}) {
-  const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/${path}`, {
-    ...options,
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github+json',
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
+  const res = await fetchWithTimeout(
+    `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/${path}`,
+    {
+      ...options,
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json',
+        ...(options.headers || {}),
+      },
     },
-  });
+    GITHUB_API_TIMEOUT_MS,
+    `GitHub API ${path}`,
+  );
   if (!res.ok) throw new Error(`GitHub API ${path} failed: ${res.status} ${await res.text()}`);
   return res.status === 204 ? null : res.json();
 }
@@ -395,6 +422,7 @@ export async function orchestrate({
       const taskTitleWithClaim = `${next.text.replace(/[*`]/g, '').slice(0, 60)} [claim:${claimId}]`;
 
       // 2. Dispatch Jules session
+      log(`Creating Jules session for ${extractTaskId(next.text) || next.text.slice(0, 80)} (claim ${claimId}).`);
       const session = await julesFetch('sessions', {
         method: 'POST',
         body: JSON.stringify({
@@ -404,6 +432,7 @@ export async function orchestrate({
           title: taskTitleWithClaim,
         }),
       });
+      if (!session?.name) throw new Error('Jules API returned success without a session name.');
       log(`Started Jules session ${session.name}`);
 
       // 3. Update state with returned session name
