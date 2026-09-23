@@ -8,7 +8,7 @@ Jules works through one dispatchable task at a time from the single canonical `d
 2. If no session is active, it starts one Jules session with the full task specification and records that session in `.github/jules-queue-state.json`.
 3. Jules implements and verifies the task, then opens a pull request into `main`. After verification, Jules changes only his own task line from `[ ]` to `[x]` in the exact section from which it was dispatched (Ready or Phase 3).
 4. CI runs, including `Content Guard` on pull requests. You review and merge the PR.
-5. When the Jules PR is merged into `main`, the `pull_request.closed` event automatically invokes the orchestrator. The session is cleared only when the corresponding PR is merged and the roadmap task is checked; the orchestrator then starts the next unchecked Ready task.
+5. When the Jules PR is merged into `main`, the `pull_request.closed` event automatically invokes the orchestrator. The session is cleared only when the corresponding PR is merged and the roadmap task is checked; the orchestrator then starts the next dispatchable task.
 
 If Jules could not fully verify a task, he must leave the task unchecked and explain why in the PR. After you review the limitation, you may tick the task yourself; the next orchestrator run can then advance the queue.
 
