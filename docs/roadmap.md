@@ -183,7 +183,7 @@ The site should feel like a calm, independent editorial information resource rat
 
 **Status: In Progress**
 
-- [ ] Accessibility and manual QA closure
+- [x] Accessibility and manual QA closure
 - [ ] Resilient external-link/source integrity policy and check
 - [ ] GitHub Pages deployment configuration and production verification
 - [ ] Final editorial/content verification
