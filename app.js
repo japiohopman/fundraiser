@@ -7,7 +7,7 @@ import { state } from './src/core/state.js';
 import { loadAppData } from './src/core/data.js';
 import { updateI18nDOM, updateLangButtons } from './src/core/i18n.js';
 import { setupLanguageSwitcher, setupMobileNav, updateMenuToggleLabel } from './src/ui/navigation.js';
-import { setupQRModal } from './src/ui/qr-modal.js';
+import { setupQRModal, closeQRModal } from './src/ui/qr-modal.js';
 import { setupContextModal } from './src/ui/context-modal.js';
 import { setupSiteShare, updateSiteShareUI } from './src/ui/site-share.js';
 import { renderFundraisers } from './src/features/fundraisers/render.js';
@@ -39,8 +39,11 @@ async function initApp() {
   }
 }
 
-function setLanguage(lang) {
+export function setLanguage(lang) {
   if (lang === state.currentLang) return;
+  if (state.isQRModalOpen) {
+    closeQRModal(state);
+  }
   state.currentLang = lang;
   localStorage.setItem('parknest_lang', lang);
   renderApp();

@@ -44,10 +44,12 @@ export function attachShareListeners(card, state, shareContent, lang, shareUrl, 
 
   if (shareBtn) {
     shareBtn.addEventListener('click', (e) => {
+      const currentLang = state?.currentLang || lang;
+      const currentShareContent = state?.contentData?.share || shareContent;
       const targetQrUrl = qrUrl || shareUrl;
-      const modalTitle = shareContent?.shareTitle?.[lang] || 'Deel deze specifieke actie';
-      const descText = shareContent?.qrModalDesc?.[lang] || '';
-      const thankYouText = state?.contentData?.thankYou?.message?.[lang] || '';
+      const modalTitle = currentShareContent?.shareTitle?.[currentLang] || 'Deel deze specifieke actie';
+      const descText = currentShareContent?.qrModalDesc?.[currentLang] || '';
+      const thankYouText = state?.contentData?.thankYou?.message?.[currentLang] || '';
 
       openQRModal(state, titleText, targetQrUrl, e.currentTarget, {
         shareUrl,
