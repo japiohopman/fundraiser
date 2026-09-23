@@ -23,10 +23,10 @@ An independent, static information site (`index.html`, `styles.css`, `app.js`, J
 
 ## 4. Scope
 
-- Do exactly the task you were given, completely. Extra issues you notice go into the pull request description, not into the diff.
+- Do exactly the task you were given, completely. Extra issues you notice must not be implemented in the current diff. Search GitHub Issues first; if the work is not already tracked, create a concise GitHub Issue with the problem, relevant evidence/context, and suggested next step, then link it from the pull request description.
 - Keep this a static site: no backend, no new runtime dependencies, no scraping, no `package.json` for the site. CI tooling may use temporary tooling inside GitHub Actions when the task explicitly allows it.
 - No binary over 1 MB, no vendored third-party code. Keep the QR generator and other existing code unless the task says otherwise.
-- The Jules queue is defined by the `## Now` → `### Ready` tasks in `docs/roadmap.md`. Do not create or maintain a separate `### Active` queue section.
+- The Jules queue is defined by the `## Now` → `### Ready` tasks in `docs/roadmap.md`. Do not create or maintain a separate `### Active` queue section. GitHub Issues are the intake for follow-up/out-of-scope work, not a second dispatch queue.
 - Never edit `### Blocked` or `### Human Review` in `docs/roadmap.md`, or any task other than your own.
 
 ## 5. Verification (required before you open the pull request)
