@@ -2,7 +2,15 @@
 
 ## Now
 
-> Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`), worked top to bottom. Only unchecked tasks under `### Ready` are dispatched, one at a time. Jules ticks his own task in place (`[ ]` to `[x]`) in his pull request after verifying it; you review and merge, and the orchestrator then starts the next task. `### Blocked` and `### Human Review` are never dispatched. A task is a top-level checkbox line plus indented detail bullets (Problem, Goal, Scope, Constraints, Acceptance, Verification); keep the first line unchanged once a task is in progress. Finished tasks stay in place as `[x]`. The phase sections below are the long-term plan.
+> Dispatch queue for the Jules orchestrator (`scripts/jules-orchestrator.mjs`), worked top to bottom. Only unchecked tasks under `### Ready
+
+- [ ] **Production validation and regression gate** (Issue #81)
+  - **Problem:** The repository has several automated checks already, but the production-readiness gate needs one explicit, reliable path covering the checks that can be verified automatically.
+  - **Goal:** Formalize automated validation before deployment work begins.
+  - **Scope:** Existing test suite, static-site serve/build sanity where applicable, HTML validation where practical, JSON/schema validation, Content Guard, existing accessibility automation, and technically appropriate local/static link checks.
+  - **Constraints:** Preserve the static architecture. Do not change fundraiser facts/data. Do not weaken checks. Do not treat external rate-limit or anti-bot responses as proof that a source is broken. Automated checks are not proof of visual or screen-reader correctness.
+  - **Acceptance:** One clear CI validation path exists; HTML and JSON/schema validation are covered where appropriate; existing Content Guard/accessibility checks remain active; failures distinguish code/schema failures from external-access limitations; no unrelated UI/content work.
+  - **Verification:** Run the full automated suite and report automated checks separately from any manual/browser verification.` are dispatched, one at a time. Jules ticks his own task in place (`[ ]` to `[x]`) in his pull request after verifying it; you review and merge, and the orchestrator then starts the next task. `### Blocked` and `### Human Review` are never dispatched. A task is a top-level checkbox line plus indented detail bullets (Problem, Goal, Scope, Constraints, Acceptance, Verification); keep the first line unchanged once a task is in progress. Finished tasks stay in place as `[x]`. The phase sections below are the long-term plan.
 
 ### Ready
 
@@ -164,14 +172,6 @@ The site should feel like a calm, independent editorial information resource rat
 ## Phase 3 — Production Readiness & Launch
 
 **Status: In Progress**
-
-- [ ] **Production validation and regression gate** (Issue #81)
-  - **Problem:** The repository has several automated checks already, but the production-readiness gate needs one explicit, reliable path covering the checks that can be verified automatically.
-  - **Goal:** Formalize automated validation before deployment work begins.
-  - **Scope:** Existing test suite, static-site serve/build sanity where applicable, HTML validation where practical, JSON/schema validation, Content Guard, existing accessibility automation, and technically appropriate local/static link checks.
-  - **Constraints:** Preserve the static architecture. Do not change fundraiser facts/data. Do not weaken checks. Do not treat external rate-limit or anti-bot responses as proof that a source is broken. Automated checks are not proof of visual or screen-reader correctness.
-  - **Acceptance:** One clear CI validation path exists; HTML and JSON/schema validation are covered where appropriate; existing Content Guard/accessibility checks remain active; failures distinguish code/schema failures from external-access limitations; no unrelated UI/content work.
-  - **Verification:** Run the full automated suite and report automated checks separately from any manual/browser verification.
 
 - [ ] Accessibility and manual QA closure
 - [ ] Resilient external-link/source integrity policy and check
