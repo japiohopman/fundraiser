@@ -184,7 +184,7 @@ The site should feel like a calm, independent editorial information resource rat
 **Status: In Progress**
 
 - [x] Accessibility and manual QA closure
-- [ ] Resilient external-link/source integrity policy and check
+- [x] Resilient external-link/source integrity policy and check
 - [ ] GitHub Pages deployment configuration and production verification
 - [ ] Final editorial/content verification
 - [ ] Launch review and handoff
