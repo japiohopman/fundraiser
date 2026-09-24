@@ -19,7 +19,7 @@ const APPROVAL_LABEL = 'content-approved';
 const MAX_BYTES = 1_000_000;
 
 const PROTECTED = [
-  /^data\/(?!donors\.json)/,
+  /^data\//,
   /^docs\/fundraisers\.md$/,
   /^docs\/editorial-policy\.md$/,
   /^docs\/story\.md$/,
