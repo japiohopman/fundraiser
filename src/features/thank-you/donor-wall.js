@@ -51,7 +51,15 @@ export function renderThankYou(donorsData, content, lang) {
   zoneStart.innerHTML = '';
   zoneEnd.innerHTML = '';
 
-  const donors = (donorsData && Array.isArray(donorsData.donors)) ? donorsData.donors : [];
+  const donors = (donorsData && Array.isArray(donorsData.donors))
+    ? donorsData.donors.map(d => ({ ...d }))
+    : [];
+
+  // Randomize donor display order via unbiased Fisher-Yates shuffle on copied array
+  for (let i = donors.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [donors[i], donors[j]] = [donors[j], donors[i]];
+  }
 
   if (donors.length === 0) {
     const fallbackText = content?.thankYou?.fallbackMessage?.[lang] || '';
