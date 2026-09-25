@@ -108,12 +108,6 @@
   - **Content approval:** Required — apply `content-approved` to the implementation PR for intentional data/content.json changes.
   - **Follow-up review adjustments:** Continue from the merged Issue #72 implementation. On desktop, place donor names to the left and right of the heart rather than in a separate block below it. On mobile, distribute donor names into upper and lower zones around/within the heart silhouette while keeping the gratitude message clear and unobstructed. Replace the current donor-name pill treatment with a more refined editorial type treatment using the existing self-hosted Cormorant Garamond; remove the hard 1.5px donor-name border/background/shadow treatment. Preserve donor order/data, gesture sequence, NL/EN, accessibility, reduced motion, print behavior, and static-site/no-CDN constraints.
 
-- [ ] **Volunteer recognition line: understated living credits flow**
-  - **Problem:** The donor wall is strictly for financial donors, but ParkNest relies heavily on active volunteers keeping daily operations going.
-  - **Goal:** Add a separate, visually distinct volunteer recognition area communicating ongoing effort and presence rather than financial support.
-  - **Scope:** Living credits flow moving continuously from left to right (looping seamlessly without a visible jump, CSS animation, prefers-reduced-motion static fallback, clean screen-reader semantics without DOM clutter, bilingual NL/EN content dictionary key).
-  - **Constraints:** Do not mix volunteers into `data/donors.json`. Do not invent, infer or publish an incomplete volunteer list until all ~26 names are confirmed. Keep donor wall presentation, accessibility, gesture handling and rules intact.
-
 ### Blocked
 
 - [ ] GitHub Pages deployment from `main` (needs your decision on repository settings and domain)
