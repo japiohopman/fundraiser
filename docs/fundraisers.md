@@ -31,7 +31,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Named Legal Beneficiary:** Stichting Buurtbelang Parknest
 - **Direct Banking Alternative:** Stichting Buurtbelang ParkNest offers a direct bank contribution route referenced on ParkNest's official statement (https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/).
 - **Stated Purpose:** Continue ParkNest activities, procure temporary provisions/equipment, and work towards a new future after the building was destroyed by fire on 20–21 August 2026.
-- **Financial Accounting Snapshot (as of 20 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €150,000
   - **Online Amount Raised:** €33,074 (808 online donations)
   - **Offline Donations Recorded:** €25,790
@@ -62,7 +62,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing the dog collar display and personal collection of dog collars and dog leashes belonging to Kathinka van Velzen, which was lost in the ParkNest fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €2,300
   - **Online Amount Raised:** €300 (1 donation)
   - **Offline Donations Recorded:** €0
@@ -159,7 +159,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Contextual Information & Provenance:**
   - Additional context supplied by Jaap Hopman indicates Suzy Creamcheese was the regular Friday cook at ParkNest preparing weekly meals for over 50 people, and lost both her cooking equipment and her regular Friday cooking work due to the destruction of the venue.
   - This contextual statement is attributed to Jaap Hopman with clear provenance metadata in the modal details, distinguishing contextual input from platform source payloads without claiming calculated income loss.
-- **Financial Accounting Snapshot (as of 21 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €2,350
   - **Online Amount Raised:** €2,050 (3 donations)
   - **Offline Donations Recorded:** €0
