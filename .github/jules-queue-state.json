@@ -1,10 +1,10 @@
 {
   "activeSession": {
-    "name": "sessions/2498564122947580817",
-    "claimId": "claim_1790187827342_zc2wj4",
-    "task": "**Share UI: use shared QR overlay for campaign and site sharing** (Issue #89)",
-    "taskId": "Issue#89",
-    "title": "Share UI: use shared QR overlay for campaign and site sharing",
-    "startedAt": "2026-09-23T18:23:47.342Z"
+    "name": "sessions/12669590038378030036",
+    "claimId": "claim_1790197065166_j72k5z",
+    "task": "GitHub Pages deployment configuration and production verification",
+    "taskId": "github-pages-deployment-configuration-and-production-verification",
+    "title": "GitHub Pages deployment configuration and production verification",
+    "startedAt": "2026-09-23T20:57:45.167Z"
   }
 }

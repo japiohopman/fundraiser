@@ -1711,6 +1711,19 @@ body {
   text-align: center;
 }
 
+.qr-modal-thank-you {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-border);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+  text-align: center;
+  line-height: var(--line-height-normal);
+  font-weight: 500;
+}
+
 .qr-modal-desc {
   font-size: var(--font-size-xs);
   color: var(--color-text-subtle);
@@ -1726,7 +1739,7 @@ body {
   background-color: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .qr-svg-wrapper svg {
@@ -1744,6 +1757,59 @@ body {
   background-color: var(--color-surface-subtle);
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+}
+
+.qr-modal-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+  width: 100%;
+}
+
+.qr-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  flex: 1 1 0;
+  padding: 0.4rem 0.65rem;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-main);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.qr-action-btn:hover,
+.qr-action-btn:focus-visible {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary-border);
+}
+
+.qr-action-btn.copied {
+  background-color: var(--color-collective-badge-bg);
+  color: var(--color-collective-text);
+  border-color: var(--color-collective-border);
+}
+
+.qr-action-btn[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 380px) {
+  .qr-modal-actions {
+    flex-direction: column;
+  }
 }
 
 /* Context Modal Styling & Responsive Composition */

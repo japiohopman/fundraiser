@@ -61,3 +61,6 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
           PR_LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
         run: node scripts/content-guard.mjs
+
+      - name: Run External Link Integrity Check
+        run: node scripts/link-check.mjs
