@@ -36,7 +36,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
   - **Online Amount Raised:** €37,055 (955 donors shown by WhyDonate)
   - **Offline Donations Recorded:** €26,748
   - **Displayed Total Raised on WhyDonate:** €63,803 (€37,055 online + €26,748 offline)
-  - *Snapshot Semantics:* Snapshot semantics: the €63,803 total reflects WhyDonate's displayed value at the 7 October 2026 verification snapshot. WhyDonate's public total updates dynamically as new contributions occur.
+  - *Snapshot Semantics:* The €63,803 total reflects WhyDonate's displayed value at the 7 October 2026 verification snapshot. WhyDonate's public total updates dynamically as new contributions occur.
 - **Creation & Historical Evidence Notes:**
   - **Created At:** 24 October 2025 (`2025-10-24T09:24:17.000000Z`)
   - **End Date:** 22 August 2027 (`2027-08-22`)
