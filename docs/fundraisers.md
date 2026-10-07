@@ -94,7 +94,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
   - **Target Amount:** €300
   - **Online Amount Raised:** €345 (4 donations)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €330
+  - **Displayed Total Raised:** €345
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T20:41:39.541756Z`)
   - **End Date:** Open-ended (`endDate: null`, `isOpenEnded: true`)
