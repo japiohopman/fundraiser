@@ -1,7 +1,7 @@
 {
   "$schema": "./fundraisers.schema.json",
   "version": "1.0.0",
-  "lastVerifiedAt": "2026-09-20",
+  "lastVerifiedAt": "2026-10-07",
   "fundraisers": [
     {
       "id": "parknest-collective",
@@ -31,17 +31,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 150000,
-        "onlineAmountRaised": 33074,
-        "offlineDonationAmount": 25790,
-        "displayedTotalRaised": 58864,
-        "onlineDonationCount": 808,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data. WhyDonate's displayed total is dynamic and updates as transactions occur."
+        "onlineAmountRaised": 37055,
+        "offlineDonationAmount": 26748,
+        "displayedTotalRaised": 63803,
+        "onlineDonationCount": 955,
+        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
       },
       "dates": {
         "createdAt": "2025-10-24T09:24:17.000000Z",
         "endDate": "2027-08-22",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-20",
+        "verifiedAt": "2026-10-07",
         "historicalNotes": "WhyDonate platform metadata records created_at as 24 October 2025 under slug 'houd-parknest-open-in-de-winter'. Whether the campaign title/description was modified after the August 2026 fire or existed with its current title previously is unverified due to platform evidence limits."
       },
       "sources": [
@@ -49,7 +49,7 @@
           "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, ID, amounts, donor count, and beneficiary name.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
@@ -92,18 +92,18 @@
       },
       "financials": {
         "currency": "EUR",
-        "targetAmount": 2300,
+        "targetAmount": 2800,
         "onlineAmountRaised": 300,
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 300,
         "onlineDonationCount": 1,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data."
+        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
       },
       "dates": {
         "createdAt": "2026-08-30T20:11:26.757971Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-20",
+        "verifiedAt": "2026-10-07",
         "historicalNotes": null
       },
       "sources": [
@@ -111,7 +111,7 @@
           "url": "https://whydonate.com/nl/fundraising/kathinka",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
@@ -155,17 +155,17 @@
       "financials": {
         "currency": "EUR",
         "targetAmount": 300,
-        "onlineAmountRaised": 330,
+        "onlineAmountRaised": 345,
         "offlineDonationAmount": 0,
-        "displayedTotalRaised": 330,
-        "onlineDonationCount": 3,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data."
+        "displayedTotalRaised": 345,
+        "onlineDonationCount": 4,
+        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
       },
       "dates": {
         "createdAt": "2026-08-30T20:41:39.541756Z",
         "endDate": null,
         "isOpenEnded": true,
-        "verifiedAt": "2026-09-20",
+        "verifiedAt": "2026-10-07",
         "historicalNotes": null
       },
       "sources": [
@@ -173,7 +173,7 @@
           "url": "https://whydonate.com/nl/fundraising/jimgijbels",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and open-ended status.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
@@ -221,13 +221,13 @@
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 395,
         "onlineDonationCount": 4,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data."
+        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
       },
       "dates": {
         "createdAt": "2026-08-30T18:50:21.447740Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-20",
+        "verifiedAt": "2026-10-07",
         "historicalNotes": null
       },
       "sources": [
@@ -235,7 +235,7 @@
           "url": "https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -335,13 +335,13 @@
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 2050,
         "onlineDonationCount": 3,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-21 from WhyDonate live data."
+        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
       },
       "dates": {
         "createdAt": "2026-08-30T20:19:54.546998Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-21",
+        "verifiedAt": "2026-10-07",
         "historicalNotes": null
       },
       "sources": [
@@ -349,7 +349,7 @@
           "url": "https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-21"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -391,13 +391,13 @@
         "offlineDonationAmount": 0,
         "displayedTotalRaised": 111,
         "onlineDonationCount": 2,
-        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data."
+        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
       },
       "dates": {
         "createdAt": "2026-08-30T20:32:59.520025Z",
         "endDate": "2028-01-01",
         "isOpenEnded": false,
-        "verifiedAt": "2026-09-20",
+        "verifiedAt": "2026-10-07",
         "historicalNotes": null
       },
       "sources": [
@@ -405,7 +405,7 @@
           "url": "https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
