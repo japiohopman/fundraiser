@@ -11,9 +11,17 @@ export function renderThankYou(donorsData, content, lang) {
   const container = document.getElementById('donor-wall');
   if (!container) return;
 
+  let bgWrapper = container.querySelector('.donor-wall-bg-wrapper');
   let heartEl = container.querySelector('.thank-you-heart-container');
   let zoneStart = container.querySelector('.donor-zone-start');
   let zoneEnd = container.querySelector('.donor-zone-end');
+
+  if (!bgWrapper) {
+    bgWrapper = document.createElement('div');
+    bgWrapper.className = 'donor-wall-bg-wrapper';
+    bgWrapper.setAttribute('aria-hidden', 'true');
+    bgWrapper.innerHTML = `<img src="public/assets/flevopark.webp" alt="" class="donor-wall-bg-image" width="1918" height="670" loading="lazy">`;
+  }
 
   // Structural recovery if innerHTML was overwritten
   if (!heartEl) {
@@ -42,8 +50,9 @@ export function renderThankYou(donorsData, content, lang) {
     zoneEnd.className = 'donor-zone donor-zone-end';
   }
 
-  // Ensure correct DOM order inside container: zoneStart -> heartEl -> zoneEnd
+  // Ensure correct DOM order inside container: bgWrapper -> zoneStart -> heartEl -> zoneEnd
   container.innerHTML = '';
+  container.appendChild(bgWrapper);
   container.appendChild(zoneStart);
   container.appendChild(heartEl);
   container.appendChild(zoneEnd);
@@ -51,7 +60,15 @@ export function renderThankYou(donorsData, content, lang) {
   zoneStart.innerHTML = '';
   zoneEnd.innerHTML = '';
 
-  const donors = (donorsData && Array.isArray(donorsData.donors)) ? donorsData.donors : [];
+  const donors = (donorsData && Array.isArray(donorsData.donors))
+    ? donorsData.donors.map(d => ({ ...d }))
+    : [];
+
+  // Randomize donor display order via unbiased Fisher-Yates shuffle on copied array
+  for (let i = donors.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [donors[i], donors[j]] = [donors[j], donors[i]];
+  }
 
   if (donors.length === 0) {
     const fallbackText = content?.thankYou?.fallbackMessage?.[lang] || '';
