@@ -35,7 +35,7 @@
         "offlineDonationAmount": 26748,
         "displayedTotalRaised": 63803,
         "onlineDonationCount": 955,
-        "snapshotNote": "Financial amounts represent a live-data snapshot verified on 2026-10-07 from the WhyDonate campaign page. WhyDonate displayed totals can change as new contributions are recorded."
+        "snapshotNote": "Financial amounts represent a snapshot recorded at 2026-09-20 from WhyDonate live data. WhyDonate's displayed total is dynamic and updates as transactions occur."
       },
       "dates": {
         "createdAt": "2025-10-24T09:24:17.000000Z",
@@ -55,7 +55,7 @@
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
           "type": "official_website",
           "description": "Official ParkNest website article confirming the fire, fundraising goals, direct bank alternative, and official fundraiser redirect.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -117,7 +117,7 @@
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
           "type": "official_website",
           "description": "Official ParkNest article acknowledging Kathinka van Velzen's dog collar collection as lost in the fire.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -179,7 +179,7 @@
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
           "type": "official_website",
           "description": "Official ParkNest article acknowledging Jim Gijbels' tram paintings as destroyed in the fire.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -256,35 +256,35 @@
               "nl": "Global G-6667 messenmap",
               "en": "Global G-6667 knife case"
             },
-            "price": 135
+            "price": 135.00
           },
           {
             "name": {
               "nl": "Misono UX10 Gyutou 712",
               "en": "Misono UX10 Gyutou 712"
             },
-            "price": 289
+            "price": 289.00
           },
           {
             "name": {
               "nl": "Sabatier Integra officemes",
               "en": "Sabatier Integra officemes"
             },
-            "price": 25.5
+            "price": 25.50
           },
           {
             "name": {
               "nl": "Sabatier Integra broodmes",
               "en": "Sabatier Integra bread knife"
             },
-            "price": 40.5
+            "price": 40.50
           },
           {
             "name": {
               "nl": "Sabatier Integra koksmes 23 cm",
               "en": "Sabatier Integra chef's knife 23 cm"
             },
-            "price": 50.5
+            "price": 50.50
           },
           {
             "name": {
@@ -298,7 +298,7 @@
               "nl": "Koksbuis",
               "en": "Chef's coat"
             },
-            "price": 25
+            "price": 25.00
           }
         ]
       }
