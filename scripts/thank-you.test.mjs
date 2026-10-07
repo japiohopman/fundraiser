@@ -47,6 +47,7 @@ test('Thank You: styles.css display typography, self-hosted font faces, grid lay
 
   // Full-wall atmospheric background vignette wrapper styling
   assert.match(cssContent, /\.donor-wall-bg-wrapper\s*\{[^}]*mask-image:\s*radial-gradient\(ellipse/i, 'styles.css must configure elliptical vignette mask on .donor-wall-bg-wrapper');
+  assert.match(cssContent, /\.donor-wall-bg-image\s*\{[^}]*object-fit:\s*contain/i, 'styles.css must enforce object-fit: contain on .donor-wall-bg-image to preserve panoramic landscape orientation');
 
   // Reduced motion support
   assert.match(cssContent, /@media\s*\([^)]*prefers-reduced-motion:\s*reduce[^)]*\)[\s\S]*?\.donor-item\s*\{[^}]*animation:\s*none\s*!important/i, 'Reduced motion query must disable animations on .donor-item');
