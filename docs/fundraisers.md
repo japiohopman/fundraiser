@@ -33,9 +33,9 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Stated Purpose:** Continue ParkNest activities, procure temporary provisions/equipment, and work towards a new future after the building was destroyed by fire on 20–21 August 2026.
 - **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €150,000
-  - **Online Amount Raised:** €33,074 (808 online donations)
-  - **Offline Donations Recorded:** €25,790
-  - **Displayed Total Raised on WhyDonate:** €58,864 (€33,074 online + €25,790 offline)
+  - **Online Amount Raised:** €37,055 (955 donors shown by WhyDonate)
+  - **Offline Donations Recorded:** €26,748
+  - **Displayed Total Raised on WhyDonate:** €63,803 (€37,055 online + €26,748 offline)
   - *Snapshot Semantics:* The €58,864 total reflects WhyDonate's displayed value at the recorded verification snapshot (20 September 2026). WhyDonate's public total updates dynamically as new contributions occur.
 - **Creation & Historical Evidence Notes:**
   - **Created At:** 24 October 2025 (`2025-10-24T09:24:17.000000Z`)
@@ -63,7 +63,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing the dog collar display and personal collection of dog collars and dog leashes belonging to Kathinka van Velzen, which was lost in the ParkNest fire.
 - **Financial Accounting Snapshot (as of 7 October 2026):**
-  - **Target Amount:** €2,300
+  - **Target Amount:** €2,800
   - **Online Amount Raised:** €300 (1 donation)
   - **Offline Donations Recorded:** €0
   - **Displayed Total Raised:** €300
@@ -92,7 +92,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Stated Purpose:** Rebuilding the painting collection of Jim Gijbels (tram paintings), which was on display at ParkNest and destroyed in the fire.
 - **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €300
-  - **Online Amount Raised:** €330 (3 donations)
+  - **Online Amount Raised:** €345 (4 donations)
   - **Offline Donations Recorded:** €0
   - **Displayed Total Raised:** €330
 - **Creation & Dates:**
