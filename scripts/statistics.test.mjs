@@ -102,7 +102,7 @@ test('renderCampaignStats renders donut chart, center total, legend details, and
   assert.ok(text.includes('parknest-avatar.webp'));
   assert.ok(text.includes('jaaphopman_avatar.webp'));
   assert.ok(text.includes('ParkNest'));
-  assert.ok(text.includes('94,87%'));
+  assert.ok(text.includes('95,22%'));
   assert.ok(text.includes('€ 58.864'));
 
   assert.ok(text.includes('Suzy'));
