@@ -90,7 +90,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Rebuilding the painting collection of Jim Gijbels (tram paintings), which was on display at ParkNest and destroyed in the fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €300
   - **Online Amount Raised:** €330 (3 donations)
   - **Offline Donations Recorded:** €0
@@ -129,7 +129,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **First-Person Account & Provenance:**
   - Includes Jaap Hopman's first-person personal testimony ("Mijn verhaal") stating he works as a freelance chef, lost essential kitchen equipment in the ParkNest fire, currently cannot work as a chef in the normal way, and aims to replace his equipment to return to work.
   - Formally distinguished as personal account/testimony, preserving the distinction between independently verified facts and first-person statements.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €577
   - **Online Amount Raised:** €395 (4 donations)
   - **Offline Donations Recorded:** €0
@@ -186,7 +186,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing Kinkt! T-shirts belonging to Manon, lost in the ParkNest fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €128
   - **Online Amount Raised:** €111 (2 donations)
   - **Offline Donations Recorded:** €0
