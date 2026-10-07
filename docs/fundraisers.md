@@ -31,12 +31,12 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Named Legal Beneficiary:** Stichting Buurtbelang Parknest
 - **Direct Banking Alternative:** Stichting Buurtbelang ParkNest offers a direct bank contribution route referenced on ParkNest's official statement (https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/).
 - **Stated Purpose:** Continue ParkNest activities, procure temporary provisions/equipment, and work towards a new future after the building was destroyed by fire on 20–21 August 2026.
-- **Financial Accounting Snapshot (as of 20 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €150,000
-  - **Online Amount Raised:** €33,074 (808 online donations)
-  - **Offline Donations Recorded:** €25,790
-  - **Displayed Total Raised on WhyDonate:** €58,864 (€33,074 online + €25,790 offline)
-  - *Snapshot Semantics:* The €58,864 total reflects WhyDonate's displayed value at the recorded verification snapshot (20 September 2026). WhyDonate's public total updates dynamically as new contributions occur.
+  - **Online Amount Raised:** €37,055 (955 donors shown by WhyDonate)
+  - **Offline Donations Recorded:** €26,748
+  - **Displayed Total Raised on WhyDonate:** €63,803 (€37,055 online + €26,748 offline)
+  - *Snapshot Semantics:* Snapshot semantics: the €63,803 total reflects WhyDonate's displayed value at the 7 October 2026 verification snapshot. WhyDonate's public total updates dynamically as new contributions occur.
 - **Creation & Historical Evidence Notes:**
   - **Created At:** 24 October 2025 (`2025-10-24T09:24:17.000000Z`)
   - **End Date:** 22 August 2027 (`2027-08-22`)
@@ -62,8 +62,8 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing the dog collar display and personal collection of dog collars and dog leashes belonging to Kathinka van Velzen, which was lost in the ParkNest fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
-  - **Target Amount:** €2,300
+- **Financial Accounting Snapshot (as of 7 October 2026):**
+  - **Target Amount:** €2,800
   - **Online Amount Raised:** €300 (1 donation)
   - **Offline Donations Recorded:** €0
   - **Displayed Total Raised:** €300
@@ -90,11 +90,11 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Rebuilding the painting collection of Jim Gijbels (tram paintings), which was on display at ParkNest and destroyed in the fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €300
-  - **Online Amount Raised:** €330 (3 donations)
+  - **Online Amount Raised:** €345 (4 donations)
   - **Offline Donations Recorded:** €0
-  - **Displayed Total Raised:** €330
+  - **Displayed Total Raised:** €345
 - **Creation & Dates:**
   - **Created At:** 30 August 2026 (`2026-08-30T20:41:39.541756Z`)
   - **End Date:** Open-ended (`endDate: null`, `isOpenEnded: true`)
@@ -129,7 +129,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **First-Person Account & Provenance:**
   - Includes Jaap Hopman's first-person personal testimony ("Mijn verhaal") stating he works as a freelance chef, lost essential kitchen equipment in the ParkNest fire, currently cannot work as a chef in the normal way, and aims to replace his equipment to return to work.
   - Formally distinguished as personal account/testimony, preserving the distinction between independently verified facts and first-person statements.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €577
   - **Online Amount Raised:** €395 (4 donations)
   - **Offline Donations Recorded:** €0
@@ -159,7 +159,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Contextual Information & Provenance:**
   - Additional context supplied by Jaap Hopman indicates Suzy Creamcheese was the regular Friday cook at ParkNest preparing weekly meals for over 50 people, and lost both her cooking equipment and her regular Friday cooking work due to the destruction of the venue.
   - This contextual statement is attributed to Jaap Hopman with clear provenance metadata in the modal details, distinguishing contextual input from platform source payloads without claiming calculated income loss.
-- **Financial Accounting Snapshot (as of 21 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €2,350
   - **Online Amount Raised:** €2,050 (3 donations)
   - **Offline Donations Recorded:** €0
@@ -186,7 +186,7 @@ It intentionally distinguishes **verified facts**, **source links**, **verificat
 - **Organiser Name:** Dirk Zaal
 - **Named Legal Beneficiary:** Undisclosed (`null` on WhyDonate page/data)
 - **Stated Purpose:** Replacing Kinkt! T-shirts belonging to Manon, lost in the ParkNest fire.
-- **Financial Accounting Snapshot (as of 19 September 2026):**
+- **Financial Accounting Snapshot (as of 7 October 2026):**
   - **Target Amount:** €128
   - **Online Amount Raised:** €111 (2 donations)
   - **Offline Donations Recorded:** €0
