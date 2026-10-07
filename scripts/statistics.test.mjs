@@ -6,12 +6,12 @@ import { calculateCampaignStats, formatDonationCount, renderCampaignStats } from
 test('calculateCampaignStats calculates financial totals, distribution percentages, and formatted strings', () => {
   const fundraisersData = JSON.parse(readFileSync('./data/fundraisers.json', 'utf8'));
   const contentData = JSON.parse(readFileSync('./data/content.json', 'utf8'));
-  const statsNL = calculateCampaignStats(fundraisersData.fundraisers, '2026-09-20', contentData, 'nl');
+  const statsNL = calculateCampaignStats(fundraisersData.fundraisers, '2026-10-07', contentData, 'nl');
 
   assert.equal(statsNL.campaigns.length, 6);
-  assert.equal(statsNL.totalAmount, 62050);
-  assert.equal(statsNL.formattedTotalAmount.replace(/\s/g, ' '), '€ 62.050');
-  assert.equal(statsNL.latestVerifiedAt, '2026-09-21');
+  assert.equal(statsNL.totalAmount, 67004);
+  assert.equal(statsNL.formattedTotalAmount.replace(/\s/g, ' '), '€ 67.004');
+  assert.equal(statsNL.latestVerifiedAt, '2026-10-07');
 
   const parknest = statsNL.campaigns.find(c => c.id === 'parknest-collective');
   const suzy = statsNL.campaigns.find(c => c.id === 'suzy-creamcheese-kitchenware');
@@ -20,35 +20,35 @@ test('calculateCampaignStats calculates financial totals, distribution percentag
   const kathinka = statsNL.campaigns.find(c => c.id === 'kathinka-dog-collars');
   const manon = statsNL.campaigns.find(c => c.id === 'manon-kinkt-shirts');
 
-  assert.equal(parknest.amount, 58864);
-  assert.equal(parknest.count, 808);
-  assert.ok(parknest.percentage > 94.8 && parknest.percentage < 94.9);
-  assert.equal(parknest.formattedPercentage, '94,87%');
+  assert.equal(parknest.amount, 63803);
+  assert.equal(parknest.count, 955);
+  assert.ok(parknest.percentage > 95.2 && parknest.percentage < 95.3);
+  assert.equal(parknest.formattedPercentage, '95,22%');
 
   assert.equal(suzy.amount, 2050);
-  assert.equal(suzy.formattedPercentage, '3,30%');
+  assert.equal(suzy.formattedPercentage, '3,06%');
 
   assert.equal(jaap.amount, 395);
-  assert.equal(jaap.formattedPercentage, '0,64%');
+  assert.equal(jaap.formattedPercentage, '0,59%');
 
-  assert.equal(jim.amount, 330);
-  assert.equal(jim.formattedPercentage, '0,53%');
+  assert.equal(jim.amount, 345);
+  assert.equal(jim.formattedPercentage, '0,51%');
 
   assert.equal(kathinka.amount, 300);
-  assert.equal(kathinka.formattedPercentage, '0,48%');
+  assert.equal(kathinka.formattedPercentage, '0,45%');
 
   assert.equal(manon.amount, 111);
-  assert.equal(manon.formattedPercentage, '0,18%');
+  assert.equal(manon.formattedPercentage, '0,17%');
 
   // Verify percentages sum to 100% within tolerance
   const sumPercentages = statsNL.campaigns.reduce((acc, c) => acc + c.percentage, 0);
   assert.ok(Math.abs(sumPercentages - 100) < 0.001);
 
   // EN contract
-  const statsEN = calculateCampaignStats(fundraisersData.fundraisers, '2026-09-20', contentData, 'en');
-  assert.equal(statsEN.formattedTotalAmount.replace(/\s/g, ' '), '€62,050');
+  const statsEN = calculateCampaignStats(fundraisersData.fundraisers, '2026-10-07', contentData, 'en');
+  assert.equal(statsEN.formattedTotalAmount.replace(/\s/g, ' '), '€67,004');
   const parknestEN = statsEN.campaigns.find(c => c.id === 'parknest-collective');
-  assert.equal(parknestEN.formattedPercentage, '94.87%');
+  assert.equal(parknestEN.formattedPercentage, '95.22%');
 });
 
 test('formatDonationCount correctly applies singular/plural wording in NL and EN', () => {
@@ -88,7 +88,7 @@ test('renderCampaignStats renders donut chart, center total, legend details, and
   // Donut chart title & center total
   assert.ok(text.includes('Verdeling Geregistreerd Donatiebedrag'));
   assert.ok(text.includes('Totaal geregistreerd'));
-  assert.ok(text.includes('€ 62.050'));
+  assert.ok(text.includes('€ 67.004'));
 
   // SVG structure and accessibility tags
   assert.ok(text.includes('class="donut-svg"'));
@@ -102,23 +102,23 @@ test('renderCampaignStats renders donut chart, center total, legend details, and
   assert.ok(text.includes('parknest-avatar.webp'));
   assert.ok(text.includes('jaaphopman_avatar.webp'));
   assert.ok(text.includes('ParkNest'));
-  assert.ok(text.includes('94,87%'));
-  assert.ok(text.includes('€ 58.864'));
+  assert.ok(text.includes('95,22%'));
+  assert.ok(text.includes('€ 63.803'));
 
   assert.ok(text.includes('Suzy'));
-  assert.ok(text.includes('3,30%'));
+  assert.ok(text.includes('3,06%'));
   assert.ok(text.includes('€ 2.050'));
 
   assert.ok(text.includes('Jaap'));
-  assert.ok(text.includes('0,64%'));
+  assert.ok(text.includes('0,59%'));
   assert.ok(text.includes('€ 395'));
 
   // Separate donation counts section
   assert.ok(text.includes('Aantal Online Donaties per Actie'));
-  assert.ok(text.includes('808 donaties'));
+  assert.ok(text.includes('955 donaties'));
   assert.ok(text.includes('1 donatie'));
   assert.ok(text.includes('4 donaties'));
-  assert.ok(text.includes('Momentopname geverifieerd op 2026-09-21'));
+  assert.ok(text.includes('Momentopname geverifieerd op 2026-10-07'));
 });
 
 test('index.html contains unified fundraisers grid container and campaign stats strip container', () => {
