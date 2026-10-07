@@ -11,9 +11,17 @@ export function renderThankYou(donorsData, content, lang) {
   const container = document.getElementById('donor-wall');
   if (!container) return;
 
+  let bgWrapper = container.querySelector('.donor-wall-bg-wrapper');
   let heartEl = container.querySelector('.thank-you-heart-container');
   let zoneStart = container.querySelector('.donor-zone-start');
   let zoneEnd = container.querySelector('.donor-zone-end');
+
+  if (!bgWrapper) {
+    bgWrapper = document.createElement('div');
+    bgWrapper.className = 'donor-wall-bg-wrapper';
+    bgWrapper.setAttribute('aria-hidden', 'true');
+    bgWrapper.innerHTML = `<img src="public/assets/flevopark.webp" alt="" class="donor-wall-bg-image" width="1918" height="670" loading="lazy">`;
+  }
 
   // Structural recovery if innerHTML was overwritten
   if (!heartEl) {
@@ -22,9 +30,6 @@ export function renderThankYou(donorsData, content, lang) {
     const titleText = content?.thankYou?.title?.[lang] || '';
     const msgText = content?.thankYou?.message?.[lang] || '';
     heartEl.innerHTML = `
-      <div class="thank-you-heart-bg-wrapper" aria-hidden="true">
-        <img src="public/assets/flevopark.webp" alt="" class="thank-you-heart-bg-image" width="480" height="480" loading="lazy">
-      </div>
       <svg class="thank-you-heart-svg" viewBox="0 0 512 512" width="480" height="480" aria-hidden="true" focusable="false">
         <path fill="currentColor" d="M480.25 156.355c0 161.24-224.25 324.43-224.25 324.43S31.75 317.595 31.75 156.355c0-91.41 70.63-125.13 107.77-125.13 77.65 0 116.48 65.72 116.48 65.72s38.83-65.73 116.48-65.73c37.14.01 107.77 33.72 107.77 125.14z"/>
       </svg>
@@ -45,8 +50,9 @@ export function renderThankYou(donorsData, content, lang) {
     zoneEnd.className = 'donor-zone donor-zone-end';
   }
 
-  // Ensure correct DOM order inside container: zoneStart -> heartEl -> zoneEnd
+  // Ensure correct DOM order inside container: bgWrapper -> zoneStart -> heartEl -> zoneEnd
   container.innerHTML = '';
+  container.appendChild(bgWrapper);
   container.appendChild(zoneStart);
   container.appendChild(heartEl);
   container.appendChild(zoneEnd);
