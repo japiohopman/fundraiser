@@ -49,7 +49,7 @@
           "url": "https://whydonate.com/nl/fundraising/houd-parknest-open-in-de-winter",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, ID, amounts, donor count, and beneficiary name.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
@@ -111,7 +111,7 @@
           "url": "https://whydonate.com/nl/fundraising/kathinka",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
@@ -173,7 +173,7 @@
           "url": "https://whydonate.com/nl/fundraising/jimgijbels",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and open-ended status.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         },
         {
           "url": "https://parknest.nl/ons-gebouw-is-verwoest-maar-parknest-gaat-door/",
@@ -235,7 +235,7 @@
           "url": "https://whydonate.com/nl/fundraising/koksmessen-voor-rooie-jaap",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -349,7 +349,7 @@
           "url": "https://whydonate.com/nl/fundraising/vervang-keukegerei-van-kok-suzy-creamcheese",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-21"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
@@ -405,7 +405,7 @@
           "url": "https://whydonate.com/nl/fundraising/vervang-de-kinkt-shirts-van-manon",
           "type": "campaign_page",
           "description": "Primary WhyDonate campaign page payload providing title, parent ID 101918, amounts, and dates.",
-          "verifiedAt": "2026-09-20"
+          "verifiedAt": "2026-10-07"
         }
       ],
       "status": {
