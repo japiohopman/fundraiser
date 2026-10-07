@@ -22,6 +22,8 @@ test('Thank You: index.html structure, heart container and accessibility attribu
   assert.match(htmlContent, /class="donor-zone donor-zone-end"/i, '.donor-zone-end must exist inside #donor-wall');
 
   assert.match(htmlContent, /class="thank-you-heart-container"/i, '.thank-you-heart-container must exist inside #donor-wall');
+  assert.match(htmlContent, /class="thank-you-heart-bg-wrapper"\s+aria-hidden="true"/i, 'Heart background image wrapper must exist with aria-hidden="true"');
+  assert.match(htmlContent, /src="public\/assets\/flevopark\.webp"/i, 'Heart background image must reference public/assets/flevopark.webp');
   assert.match(htmlContent, /class="thank-you-heart-svg"/i, 'Heart SVG must exist inside heart container');
   assert.match(htmlContent, /id="thank-you-title"\s+class="thank-you-display-title"\s+data-i18n="thankYou\.title"/i, 'Gratitude title must exist inside heart container');
   assert.match(htmlContent, /class="thank-you-display-message"\s+data-i18n="thankYou\.message"/i, 'Gratitude message must exist inside heart container');
@@ -42,6 +44,9 @@ test('Thank You: styles.css display typography, self-hosted font faces, grid lay
   assert.match(cssContent, /\.donor-item\s*\{[^}]*background:\s*transparent/i, '.donor-item must have transparent background');
   assert.match(cssContent, /\.donor-item\s*\{[^}]*border:\s*none/i, '.donor-item must have border: none');
   assert.match(cssContent, /\.donor-item\s*\{[^}]*box-shadow:\s*none/i, '.donor-item must have box-shadow: none');
+
+  // Heart atmospheric background vignette wrapper styling
+  assert.match(cssContent, /\.thank-you-heart-bg-wrapper\s*\{[^}]*mask-image:\s*radial-gradient/i, 'styles.css must configure radial vignette mask on .thank-you-heart-bg-wrapper');
 
   // Reduced motion support
   assert.match(cssContent, /@media\s*\([^)]*prefers-reduced-motion:\s*reduce[^)]*\)[\s\S]*?\.donor-item\s*\{[^}]*animation:\s*none\s*!important/i, 'Reduced motion query must disable animations on .donor-item');
