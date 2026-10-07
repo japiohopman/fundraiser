@@ -2309,7 +2309,7 @@ body {
   margin: 0 auto;
 }
 
-/* Donor Wall Grid Layout */
+/* Donor Wall Grid Layout & Full-Wall Background */
 .donor-wall {
   position: relative;
   z-index: 2;
@@ -2320,10 +2320,40 @@ body {
   align-items: center;
   justify-items: center;
   gap: var(--space-6);
+  padding: var(--space-4) 0;
+}
+
+.donor-wall-bg-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  opacity: 0.38;
+  filter: saturate(0.9) contrast(0.95);
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.4) 65%, transparent 92%);
+  transition: opacity 0.3s ease;
+}
+
+.donor-wall-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
 }
 
 .donor-zone-start {
   grid-area: start;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -2334,6 +2364,8 @@ body {
 
 .donor-zone-end {
   grid-area: end;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -2346,6 +2378,7 @@ body {
 .thank-you-heart-container {
   grid-area: heart;
   position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 440px;
   min-height: 380px;
@@ -2482,6 +2515,12 @@ body {
   .donor-zone-end {
     justify-content: center;
     gap: var(--space-2) var(--space-3);
+  }
+
+  .donor-wall-bg-wrapper {
+    opacity: 0.22;
+    mask-image: radial-gradient(ellipse 90% 85% at 50% 50%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0.35) 70%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 50%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0.35) 70%, transparent 95%);
   }
 
   .thank-you-heart-container {
@@ -2789,6 +2828,10 @@ body {
     flex-wrap: wrap !important;
     justify-content: center !important;
     gap: 6pt !important;
+  }
+
+  .donor-wall-bg-wrapper {
+    display: none !important;
   }
 
   .thank-you-heart-svg {

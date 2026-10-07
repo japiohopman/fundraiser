@@ -22,6 +22,8 @@ test('Thank You: index.html structure, heart container and accessibility attribu
   assert.match(htmlContent, /class="donor-zone donor-zone-end"/i, '.donor-zone-end must exist inside #donor-wall');
 
   assert.match(htmlContent, /class="thank-you-heart-container"/i, '.thank-you-heart-container must exist inside #donor-wall');
+  assert.match(htmlContent, /class="donor-wall-bg-wrapper"\s+aria-hidden="true"/i, 'Donor wall background image wrapper must exist with aria-hidden="true"');
+  assert.match(htmlContent, /src="public\/assets\/flevopark\.webp"/i, 'Donor wall background image must reference public/assets/flevopark.webp');
   assert.match(htmlContent, /class="thank-you-heart-svg"/i, 'Heart SVG must exist inside heart container');
   assert.match(htmlContent, /id="thank-you-title"\s+class="thank-you-display-title"\s+data-i18n="thankYou\.title"/i, 'Gratitude title must exist inside heart container');
   assert.match(htmlContent, /class="thank-you-display-message"\s+data-i18n="thankYou\.message"/i, 'Gratitude message must exist inside heart container');
@@ -42,6 +44,9 @@ test('Thank You: styles.css display typography, self-hosted font faces, grid lay
   assert.match(cssContent, /\.donor-item\s*\{[^}]*background:\s*transparent/i, '.donor-item must have transparent background');
   assert.match(cssContent, /\.donor-item\s*\{[^}]*border:\s*none/i, '.donor-item must have border: none');
   assert.match(cssContent, /\.donor-item\s*\{[^}]*box-shadow:\s*none/i, '.donor-item must have box-shadow: none');
+
+  // Full-wall atmospheric background vignette wrapper styling
+  assert.match(cssContent, /\.donor-wall-bg-wrapper\s*\{[^}]*mask-image:\s*radial-gradient\(ellipse/i, 'styles.css must configure elliptical vignette mask on .donor-wall-bg-wrapper');
 
   // Reduced motion support
   assert.match(cssContent, /@media\s*\([^)]*prefers-reduced-motion:\s*reduce[^)]*\)[\s\S]*?\.donor-item\s*\{[^}]*animation:\s*none\s*!important/i, 'Reduced motion query must disable animations on .donor-item');
@@ -101,7 +106,13 @@ test('Thank You: renderThankYou renders split donor zones, gestures, and timing 
   };
 
   try {
+    // Save original donors array snapshot to confirm renderThankYou does not mutate donorsData in place
+    const originalDonorsCopy = JSON.parse(JSON.stringify(donorsData.donors));
+
     renderThankYou(donorsData, contentData, 'nl');
+
+    // Verify donorsData.donors was not mutated in place
+    assert.deepEqual(donorsData.donors, originalDonorsCopy, 'donorsData.donors array must not be mutated by rendering');
 
     assert.ok(zoneStart.children.length > 0, '.donor-zone-start must receive donor items');
     assert.ok(zoneEnd.children.length > 0, '.donor-zone-end must receive donor items');
@@ -115,10 +126,92 @@ test('Thank You: renderThankYou renders split donor zones, gestures, and timing 
       assert.equal(item.attributes['aria-hidden'], 'true', 'Gesture elements must carry aria-hidden="true"');
     });
 
+    const renderedNameItems = allRenderedItems.filter(item => !item.className.includes('donor-gesture'));
+    assert.equal(renderedNameItems.length, donorsData.donors.length, 'Every donor in data/donors.json must be rendered exactly once');
+
+    // Verify set equality: no missing donors, no unexpected extra donors
+    const sourceDonorSet = new Set(donorsData.donors.map(d => d.name));
+    const renderedDonorSet = new Set(renderedNameItems.map(item => item.textContent));
+
+    assert.equal(renderedDonorSet.size, sourceDonorSet.size, 'Set size of rendered donors must equal set size of source donors');
+    sourceDonorSet.forEach(name => {
+      assert.ok(renderedDonorSet.has(name), `Source donor "${name}" must be present in rendered donor set`);
+    });
+
     const firstItem = zoneStart.children[0];
-    assert.equal(firstItem.textContent, donorsData.donors[0].name, 'First item must match first donor in donorsData');
     assert.ok(firstItem.style.getProperty('--item-delay'), 'Item must carry --item-delay custom property');
   } finally {
+    globalThis.document = originalDoc;
+  }
+});
+
+test('Thank You: renderThankYou performs deterministic non-mutating shuffle when Math.random is mocked', () => {
+  const createDummyElem = () => {
+    const children = [];
+    const styleProps = {};
+    const elem = {
+      innerHTML: '',
+      style: { setProperty: (p, v) => { styleProps[p] = v; } },
+      appendChild: (child) => { children.push(child); },
+      querySelector: (sel) => sel === '.donor-zone-start' ? elem.zoneStart : sel === '.donor-zone-end' ? elem.zoneEnd : elem.heartContainer,
+      querySelectorAll: () => [],
+      get children() { return children; }
+    };
+    return elem;
+  };
+
+  const zoneStart = createDummyElem();
+  const zoneEnd = createDummyElem();
+  const heartContainer = createDummyElem();
+  const donorWallContainer = createDummyElem();
+  donorWallContainer.hasHeart = true;
+  donorWallContainer.heartContainer = heartContainer;
+  donorWallContainer.zoneStart = zoneStart;
+  donorWallContainer.zoneEnd = zoneEnd;
+
+  const sampleDonorsData = {
+    donors: [
+      { name: 'Alpha' },
+      { name: 'Beta' },
+      { name: 'Gamma' },
+      { name: 'Delta' }
+    ]
+  };
+
+  const sampleDonorsCopy = JSON.parse(JSON.stringify(sampleDonorsData.donors));
+
+  const originalDoc = globalThis.document;
+  const originalMathRandom = Math.random;
+
+  // Mock Math.random to force a deterministic Fisher-Yates swap sequence
+  let callCount = 0;
+  Math.random = () => {
+    callCount++;
+    return 0; // Fisher-Yates with random=0 reverses or shifts deterministically
+  };
+
+  globalThis.document = {
+    getElementById: (id) => id === 'donor-wall' ? donorWallContainer : null,
+    createElement: () => ({ setAttribute: () => {}, style: { setProperty: () => {} } })
+  };
+
+  try {
+    renderThankYou(sampleDonorsData, contentData, 'nl');
+
+    assert.deepEqual(sampleDonorsData.donors, sampleDonorsCopy, 'Sample donors array must not be mutated in place');
+
+    const allRenderedItems = [...zoneStart.children, ...zoneEnd.children];
+    const renderedNameItems = allRenderedItems.filter(item => !item.className?.includes?.('donor-gesture'));
+
+    assert.equal(renderedNameItems.length, 4, 'All 4 sample donors must be rendered');
+    const renderedNames = renderedNameItems.map(i => i.textContent);
+
+    // Verify all names are present regardless of shuffle order
+    ['Alpha', 'Beta', 'Gamma', 'Delta'].forEach(name => {
+      assert.ok(renderedNames.includes(name), `Rendered shuffled set must include "${name}"`);
+    });
+  } finally {
+    Math.random = originalMathRandom;
     globalThis.document = originalDoc;
   }
 });
